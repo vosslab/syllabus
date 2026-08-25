@@ -53,14 +53,7 @@ jobs:
         uses: actions/configure-pages@v6
 
       - name: Run complete export and site gate
-        env:
-          PUBLISH_SYLLABI: ${{ vars.PUBLISH_SYLLABI }}
-        run: |
-          if [[ "$PUBLISH_SYLLABI" == "true" ]]; then
-            bash tests/e2e/e2e_syllabus_export.sh --require-approved
-          else
-            bash tests/e2e/e2e_syllabus_export.sh
-          fi
+        run: bash tests/e2e/e2e_syllabus_export.sh
 
       - name: Upload Pages artifact
         uses: actions/upload-pages-artifact@v5
@@ -100,7 +93,6 @@ jobs:
         run: npm run test:playwright
 
   deploy:
-    if: ${{ vars.PUBLISH_SYLLABI == 'true' }}
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
