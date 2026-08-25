@@ -32,7 +32,7 @@
 
 @page {
 	size: letter;
-	margin: 0.7in 0.75in 0.78in;
+	margin: 0.8in;
 
 	@bottom-center {
 		content: counter(page);
@@ -84,21 +84,39 @@ h1 {
 	margin-block: 1.35rem 0.6rem;
 }
 
+#syllabus-content > h2 {
+	break-before: page;
+}
+
 h2 {
-	font-size: 16pt;
-	margin-block: 1.2rem 0.5rem;
+	border-bottom: 1px solid #9aa7b1;
+	color: #17365d;
+	font-size: 17pt;
+	margin-block: 1.35rem 0.55rem;
+	padding-bottom: 0.18rem;
 }
 
 h3 {
-	font-size: 13.5pt;
-	margin-block: 1rem 0.4rem;
+	color: #17365d;
+	font-size: 14pt;
+	margin-block: 1.1rem 0.45rem;
 }
 
-h4,
-h5,
-h6 {
+h4 {
+	font-size: 12.5pt;
+	margin-block: 0.9rem 0.35rem;
+}
+
+h5 {
+	color: #17365d;
 	font-size: 11.5pt;
 	margin-block: 0.8rem 0.3rem;
+}
+
+h6 {
+	font-size: 11.5pt;
+	font-style: italic;
+	margin-block: 0.7rem 0.25rem;
 }
 
 p,

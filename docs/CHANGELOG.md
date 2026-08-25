@@ -78,6 +78,10 @@
   higher-contrast footer color.
 - Replaced Material's 12.8-pixel table and notice text with a consistent student-facing type scale:
   at least 17-pixel course content and 16-pixel navigation at standard browser zoom.
+- Strengthened the complete PDF heading hierarchy so each linked-page section starts on a new page,
+  major headings use a restrained rule and color, and nested headings remain visibly distinct from
+  bold paragraph lead-ins.
+- Standardized complete PDF page margins at `0.8in` on all four sides.
 - Located the project-specific palette report under `docs/active_plans/audits/` because it records
   current implementation evidence rather than permanent repository guidance.
 - Removed bytecode caches created by an unnecessary explicit `py_compile` check; normal validation
