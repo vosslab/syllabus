@@ -23,7 +23,7 @@ jobs:
         uses: actions/checkout@v7
 
       - name: Set up Python 3.12
-        uses: actions/setup-python@v6
+        uses: actions/setup-python@v7
         with:
           python-version: "3.12"
           cache: pip
@@ -75,7 +75,7 @@ jobs:
         uses: actions/checkout@v7
 
       - name: Set up Python 3.12
-        uses: actions/setup-python@v6
+        uses: actions/setup-python@v7
         with:
           python-version: "3.12"
           cache: pip
@@ -91,7 +91,7 @@ jobs:
         run: |
           python3 -m pip install -r pip_requirements.txt
           npm ci
-          npx playwright install --with-deps chromium
+          npx playwright install --with-deps --only-shell chromium
 
       - name: Build the site for browser review
         run: python3 -m mkdocs build --strict
