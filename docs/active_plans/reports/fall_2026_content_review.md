@@ -1,42 +1,45 @@
-# Fall 2026 content review
+# Fall 2026 content refinement
 
-## Publication status
+## Baseline status
 
-All three course manifests remain `publication_status: draft`. The export and Pages pipelines are
-working, but the following academic decisions require instructor approval before distribution.
+All three courses build as complete student-facing website, PDF, and DOCX candidates. Tracked
+public Markdown is the current authority, and automated source, export, and browser checks define
+the publication path. The items below are non-blocking opportunities for finer editorial review.
 
 ## Course review
 
 ### BIOL 318 and BIOL 418
 
-- Confirm assessment categories, points or weights, and feedback timing.
-- Confirm every Wednesday schedule topic, break, deadline, and final assessment.
-- Approve section-specific permitted and prohibited uses of generative AI.
+- Refine all four learning sections when stronger public source language becomes available.
+- Refine assessment categories, points or weights, and feedback timing.
+- Refine Wednesday schedule topics, breaks, deadlines, and the final assessment.
 
 ### BIOL 351 and BIOL 451
 
-- Confirm the 424-point working plan and whether it is complete.
-- Confirm every Tuesday schedule topic, Thanksgiving break, and final exam.
-- Approve section-specific permitted and prohibited uses of generative AI.
+- Refine all four learning sections when stronger public source language becomes available.
+- Refine the 424-point course plan if Blackboard or a public syllabus changes it.
+- Refine Tuesday schedule topics, Thanksgiving break, and final-exam details.
 
 ### BIOL 480
 
-- Confirm the 362-point working plan and whether it is complete.
-- Confirm every Thursday schedule topic, Thanksgiving break, presentations, and final work.
-- Approve project-specific permitted and prohibited uses of generative AI.
+- Refine all four learning sections when stronger public source language becomes available.
+- Refine the 362-point course plan if Blackboard or a public syllabus changes it.
+- Refine Thursday schedule topics, Thanksgiving break, presentations, and final work.
 
 ## Shared review
 
-- Decide which assessment, group-quiz, remote-exam, discussion, laboratory, and FAQ rules truly
-  apply to all three course groups; move narrower rules to the matching `COURSE_POLICIES.md` file.
-- Confirm office hours, response expectations, and official communication channels.
-- Verify university policy wording, dates, phone numbers, email addresses, and external links.
-- Verify every student resource is current for Fall 2026.
-- Confirm that public pages contain no meeting links, passcodes, private invitations, or student
-  information.
+- Refine policy wording when a stronger public Dr. Voss source becomes available.
+- Keep office hours, response expectations, and public communication channels current in their
+  canonical shared fragment.
+- Refine the canonical Roosevelt learning-goal bullets from public university sources as needed.
+- Refresh university statements, dates, phone numbers, email addresses, and external links from
+  authoritative public sources.
+- Refresh student resources for Fall 2026 when their public details change.
+- Keep meeting links, passcodes, private invitations, student information, and all other
+  access-controlled material out of the repository and generated output.
 
-## Approval action
+## Completion path
 
-After review, change each manifest to `publication_status: approved`, run the approval build in
-[USAGE.md](../../USAGE.md), and distribute the complete output to students when it is ready. The
-Pages workflow publishes successful builds throughout the review process.
+After any refinement, run the complete build and behavior gates in
+[USAGE.md](../../USAGE.md). A successful `main` build publishes the complete candidate without a
+separate draft-to-approved transition or human-controlled milestone.

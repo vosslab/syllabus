@@ -29,6 +29,21 @@ SECRET_PATTERNS = (
 	re.compile(r"\b(?:passcode|password)\s*[:=]", re.IGNORECASE),
 	re.compile(r"discord(?:\.gg|\.com/invite)/", re.IGNORECASE),
 )
+PROHIBITED_CONTROL_PATTERN = re.compile(r"[\x00-\x08\x0b\x0c\x0e-\x1f\x7f]")
+MARKDOWN_TABLE_SEPARATOR_PATTERN = re.compile(r":?-{3,}:?")
+INCLUDE_LINE_PATTERN = re.compile(r'^--8<--[ \t]+"([^"\r\n]+)"[ \t]*$', re.MULTILINE)
+SAFE_INCLUDE_PATH_PATTERN = re.compile(r"[A-Za-z0-9][A-Za-z0-9_./-]*\.md")
+MANAGED_DOWNLOAD_SUFFIXES = {".docx", ".pdf"}
+REQUIRED_LEARNING_TITLE = "# Learning Objectives, Outcomes, and Goals"
+REQUIRED_LEARNING_MARKERS = (
+	"## Roosevelt learning goals",
+	"## Learning Objectives",
+	"Students completing this course will have achieved:",
+	"## Course Learning Outcomes",
+	"Students completing this course will be able to:",
+	"## Learning Goals",
+	"Overall, this course aims to accomplish:",
+)
 
 
 @dataclasses.dataclass(frozen=True)
@@ -36,13 +51,12 @@ class SyllabusManifest:
 	"""Validated paths and metadata for one complete syllabus."""
 
 	path: pathlib.Path
+	docs_root: pathlib.Path
 	title: str
 	course_code: str
 	term: str
 	author: str
 	language: str
-	status: str
-	publication_status: str
 	download_basename: str
 	sections: tuple[pathlib.Path, ...]
 	shared_sections: tuple[pathlib.Path, ...]
@@ -107,26 +121,20 @@ def load_manifest(manifest_path: pathlib.Path, docs_root: pathlib.Path) -> Sylla
 	term = require_text(loaded, "term", manifest_path)
 	author = require_text(loaded, "author", manifest_path)
 	language = require_text(loaded, "language", manifest_path)
-	status = require_text(loaded, "status", manifest_path)
-	publication_status = require_text(loaded, "publication_status", manifest_path)
 	download_basename = require_text(loaded, "download_basename", manifest_path)
-	if status not in {"current", "archived"}:
-		raise ValueError(f"{manifest_path}: status must be current or archived")
-	if publication_status not in {"draft", "approved"}:
-		raise ValueError(f"{manifest_path}: publication_status must be draft or approved")
 	if re.fullmatch(r"[A-Z0-9_]+", download_basename) is None:
 		raise ValueError(f"{manifest_path}: download_basename must use A-Z, 0-9, and underscores")
 	sections = resolve_sources(loaded, "sections", manifest_path, docs_root)
 	shared_sections = resolve_sources(loaded, "shared_sections", manifest_path, docs_root)
+	validate_course_learning_framework(sections, docs_root)
 	manifest = SyllabusManifest(
 		path=manifest_path,
+		docs_root=docs_root.resolve(),
 		title=title,
 		course_code=course_code,
 		term=term,
 		author=author,
 		language=language,
-		status=status,
-		publication_status=publication_status,
 		download_basename=download_basename,
 		sections=sections,
 		shared_sections=shared_sections,
@@ -145,6 +153,86 @@ def scan_text_for_secrets(text_value: str, source_label: str) -> None:
 
 
 #============================================
+def scan_text_for_prohibited_controls(text_value: str, source_label: str) -> None:
+	"""Reject control characters that can change Markdown line structure."""
+	match = PROHIBITED_CONTROL_PATTERN.search(text_value)
+	if match is not None:
+		codepoint = ord(match.group(0))
+		raise ValueError(f"{source_label}: prohibited control character: U+{codepoint:04X}")
+	return None
+
+
+#============================================
+def split_markdown_table_row(line: str) -> tuple[str, ...]:
+	"""Return cells from one leading-and-trailing-pipe Markdown row."""
+	stripped = line.strip()
+	if not stripped.startswith("|") or not stripped.endswith("|"):
+		raise ValueError("Markdown table rows must start and end with a pipe")
+	cell_text = stripped[1:-1]
+	cells = tuple(cell.strip() for cell in re.split(r"(?<!\\)\|", cell_text))
+	return cells
+
+
+#============================================
+def count_markdown_tables(markdown_text: str) -> int:
+	"""Count pipe tables by their header separator rows."""
+	lines = markdown_text.split("\n")
+	table_count = 0
+	for line_index in range(1, len(lines)):
+		current = lines[line_index].strip()
+		previous = lines[line_index - 1].strip()
+		if not current.startswith("|") or not current.endswith("|"):
+			continue
+		if not previous.startswith("|") or not previous.endswith("|"):
+			continue
+		separator_cells = split_markdown_table_row(current)
+		if separator_cells and all(
+			MARKDOWN_TABLE_SEPARATOR_PATTERN.fullmatch(cell) is not None
+			for cell in separator_cells
+		):
+			table_count += 1
+	return table_count
+
+
+#============================================
+def validate_markdown_tables(markdown_text: str, source_label: str) -> None:
+	"""Require simple, rectangular Markdown tables with named header cells."""
+	lines = markdown_text.split("\n")
+	line_index = 0
+	while line_index < len(lines):
+		line = lines[line_index].strip()
+		if not line.startswith("|") or not line.endswith("|"):
+			line_index += 1
+			continue
+		block_start = line_index
+		block_lines = []
+		while line_index < len(lines):
+			candidate = lines[line_index].strip()
+			if not candidate.startswith("|") or not candidate.endswith("|"):
+				break
+			block_lines.append(lines[line_index])
+			line_index += 1
+		if len(block_lines) < 2:
+			raise ValueError(f"{source_label}:{block_start + 1}: incomplete Markdown table")
+		header_cells = split_markdown_table_row(block_lines[0])
+		separator_cells = split_markdown_table_row(block_lines[1])
+		if len(header_cells) < 2 or any(not cell for cell in header_cells):
+			raise ValueError(f"{source_label}:{block_start + 1}: table headers must be named")
+		if len(separator_cells) != len(header_cells) or any(
+			MARKDOWN_TABLE_SEPARATOR_PATTERN.fullmatch(cell) is None
+			for cell in separator_cells
+		):
+			raise ValueError(f"{source_label}:{block_start + 2}: invalid table separator row")
+		for row_offset, row_line in enumerate(block_lines[2:], start=3):
+			row_cells = split_markdown_table_row(row_line)
+			if len(row_cells) != len(header_cells):
+				raise ValueError(
+					f"{source_label}:{block_start + row_offset}: inconsistent table columns"
+				)
+	return None
+
+
+#============================================
 def scan_public_sources(docs_root: pathlib.Path) -> None:
 	"""Scan tracked-shape public text sources before generating downloads."""
 	for suffix in ("*.md", "*.yml", "*.yaml"):
@@ -152,7 +240,89 @@ def scan_public_sources(docs_root: pathlib.Path) -> None:
 			if "downloads" in source_path.parts:
 				continue
 			content = source_path.read_text(encoding="utf-8")
+			scan_text_for_prohibited_controls(content, str(source_path))
 			scan_text_for_secrets(content, str(source_path))
+			if source_path.suffix == ".md":
+				validate_markdown_tables(content, str(source_path))
+	return None
+
+
+#============================================
+def require_public_only_repository(repo_root: pathlib.Path) -> None:
+	"""Reject a private or ambiguous raw-content tree inside the repository."""
+	raw_path = repo_root / "raw"
+	if raw_path.exists():
+		raise RuntimeError(
+			f"{raw_path}: only public-safe canonical content belongs in this repository"
+		)
+	return None
+
+
+#============================================
+def expand_shared_includes(
+	markdown_text: str,
+	source_path: pathlib.Path,
+	docs_root: pathlib.Path,
+) -> str:
+	"""Expand one level of restricted Markdown includes below site_docs."""
+	resolved_docs_root = docs_root.resolve()
+	resolved_source_path = source_path.resolve()
+	if not resolved_source_path.is_relative_to(resolved_docs_root):
+		raise ValueError(f"{source_path}: include source escapes site_docs")
+
+	# ASVS 2.2.1 and 5.3.2: allow only simple Markdown paths below site_docs.
+	def replace_include(match: re.Match[str]) -> str:
+		include_name = match.group(1)
+		include_parts = pathlib.PurePosixPath(include_name).parts
+		if SAFE_INCLUDE_PATH_PATTERN.fullmatch(include_name) is None or ".." in include_parts:
+			raise ValueError(f"{source_path}: unsafe Markdown include: {include_name}")
+		include_path = (resolved_docs_root / include_name).resolve()
+		if not include_path.is_relative_to(resolved_docs_root):
+			raise ValueError(f"{source_path}: include escapes site_docs: {include_name}")
+		if not include_path.is_file():
+			raise FileNotFoundError(f"{source_path}: missing Markdown include: {include_name}")
+		include_markdown = include_path.read_text(encoding="utf-8")
+		if not include_markdown.strip():
+			raise ValueError(f"{include_path}: Markdown include must not be empty")
+		if INCLUDE_LINE_PATTERN.search(include_markdown) is not None:
+			raise ValueError(f"{include_path}: nested Markdown includes are not supported")
+		return include_markdown.strip()
+
+	expanded = INCLUDE_LINE_PATTERN.sub(replace_include, markdown_text)
+	return expanded
+
+
+#============================================
+def validate_course_learning_framework(
+	sections: tuple[pathlib.Path, ...],
+	docs_root: pathlib.Path,
+) -> None:
+	"""Require the four ordered learning sections and Roosevelt goal bullets."""
+	framework_paths = tuple(
+		path for path in sections if path.name == "COURSE_LEARNING_FRAMEWORK.md"
+	)
+	if len(framework_paths) != 1:
+		raise ValueError("sections must contain exactly one COURSE_LEARNING_FRAMEWORK.md")
+	framework_path = framework_paths[0]
+	markdown = framework_path.read_text(encoding="utf-8")
+	markdown = expand_shared_includes(markdown, framework_path, docs_root)
+	if not markdown.startswith(REQUIRED_LEARNING_TITLE + "\n"):
+		raise ValueError(
+			f"{framework_path}: title must be {REQUIRED_LEARNING_TITLE.removeprefix('# ')}"
+		)
+	marker_positions = []
+	for marker in REQUIRED_LEARNING_MARKERS:
+		position = markdown.find(marker)
+		if position < 0:
+			raise ValueError(f"{framework_path}: missing required learning marker: {marker}")
+		marker_positions.append(position)
+	if marker_positions != sorted(marker_positions):
+		raise ValueError(f"{framework_path}: required learning sections are out of order")
+	roosevelt_start = marker_positions[0] + len(REQUIRED_LEARNING_MARKERS[0])
+	roosevelt_end = marker_positions[1]
+	roosevelt_markdown = markdown[roosevelt_start:roosevelt_end]
+	if re.search(r"^[-*+]\s+\S", roosevelt_markdown, re.MULTILINE) is None:
+		raise ValueError(f"{framework_path}: Roosevelt learning goals must be bullet points")
 	return None
 
 
@@ -184,6 +354,25 @@ def normalize_admonitions(markdown: str) -> str:
 
 
 #============================================
+def remove_heading_sections(markdown_text: str, heading_names: tuple[str, ...]) -> str:
+	"""Remove level-two web-navigation sections from composed documents."""
+	heading_options = "|".join(re.escape(name) for name in heading_names)
+	pattern = rf"^## (?:{heading_options})\s*$.*?(?=^## |\Z)"
+	without_sections = re.sub(pattern, "", markdown_text, flags=re.MULTILINE | re.DOTALL)
+	return without_sections
+
+
+#============================================
+def rewrite_document_links(markdown_text: str) -> str:
+	"""Point shared-page links at their embedded complete-document sections."""
+	rewritten = markdown_text.replace(
+		"(INSTRUCTOR_INFORMATION.md)",
+		"(#instructor-information)",
+	)
+	return rewritten
+
+
+#============================================
 def prepare_section(markdown: str, is_overview: bool, anchor: str) -> str:
 	"""Remove web-only controls and demote headings for the merged document."""
 	without_downloads = re.sub(
@@ -193,12 +382,9 @@ def prepare_section(markdown: str, is_overview: bool, anchor: str) -> str:
 		flags=re.DOTALL,
 	)
 	if is_overview:
-		without_navigation = re.sub(
-			r"^## (?:Course pages|Find what you need)\s*$.*?(?=^## |\Z)",
-			"",
+		without_navigation = remove_heading_sections(
 			without_downloads,
-			count=1,
-			flags=re.MULTILINE | re.DOTALL,
+			("Course pages", "Find what you need"),
 		)
 	else:
 		without_navigation = without_downloads
@@ -304,26 +490,22 @@ def compose_markdown(manifest: SyllabusManifest) -> str:
 	contents = ["# Contents", ""]
 	for index, section_path in enumerate(manifest.sections):
 		markdown = section_path.read_text(encoding="utf-8")
+		markdown = expand_shared_includes(markdown, section_path, manifest.docs_root)
 		anchor = "course-overview" if index == 0 else section_path.stem.lower().replace("_", "-")
 		title = "Course overview" if index == 0 else get_section_title(markdown, section_path)
 		contents.append(f"- [{title}](#{anchor})")
 		parts.append(prepare_section(markdown, is_overview=index == 0, anchor=anchor))
 	for section_path in manifest.shared_sections:
 		markdown = section_path.read_text(encoding="utf-8")
+		markdown = expand_shared_includes(markdown, section_path, manifest.docs_root)
+		markdown = rewrite_document_links(markdown)
+		if section_path.name == "POLICIES.md":
+			markdown = remove_heading_sections(markdown, ("Policy topics", "Student support"))
 		anchor = section_path.stem.lower().replace("_", "-")
 		title = get_section_title(markdown, section_path)
 		contents.append(f"- [{title}](#{anchor})")
 		parts.append(prepare_section(markdown, is_overview=False, anchor=anchor))
 	contents.append("")
-	if manifest.publication_status == "draft":
-		contents.extend(
-			[
-				"**DRAFT - NOT APPROVED FOR DISTRIBUTION**",
-				"",
-				"Dates, grading, assignment details, and course-specific policies require review.",
-				"",
-			]
-		)
 	combined = "\n".join(contents) + "\n" + "\n\n".join(parts)
 	scan_text_for_secrets(combined, str(manifest.path))
 	return combined
@@ -434,6 +616,13 @@ def verify_docx_output(docx_path: pathlib.Path, manifest: SyllabusManifest) -> N
 	document = docx.Document(docx_path)
 	paragraph_text = "\n".join(paragraph.text for paragraph in document.paragraphs)
 	verify_required_section_titles(paragraph_text, manifest, docx_path)
+	combined_markdown = compose_markdown(manifest)
+	validate_markdown_tables(combined_markdown, str(manifest.path))
+	expected_table_count = count_markdown_tables(combined_markdown)
+	if len(document.tables) != expected_table_count:
+		raise RuntimeError(
+			f"{docx_path}: expected {expected_table_count} tables, found {len(document.tables)}"
+		)
 	return None
 
 
@@ -471,12 +660,19 @@ def run_markdown_html(
 	extension_configs: dict[str, dict[object, object]],
 ) -> None:
 	"""Render semantic standalone HTML with the site's Markdown extension stack."""
+	validate_markdown_tables(markdown_text, str(manifest.path))
 	converter = markdown.Markdown(
 		extensions=list(extensions),
 		extension_configs=extension_configs,
 		output_format="html5",
 	)
 	body_html = converter.convert(markdown_text)
+	expected_table_count = count_markdown_tables(markdown_text)
+	rendered_table_count = body_html.count("<table>")
+	if rendered_table_count != expected_table_count:
+		raise RuntimeError(
+			f"{html_path}: expected {expected_table_count} tables, found {rendered_table_count}"
+		)
 	document_title = f"{manifest.course_code}: {manifest.title} - {manifest.term}"
 	escaped_title = html.escape(document_title)
 	escaped_course_title = html.escape(f"{manifest.course_code}: {manifest.title}")
@@ -590,11 +786,34 @@ def check_tools() -> None:
 
 
 #============================================
-def reset_downloads(downloads_dir: pathlib.Path) -> None:
-	"""Remove generated document artifacts before rebuilding the managed directory."""
+def publish_downloads(
+	staged_downloads_dir: pathlib.Path,
+	downloads_dir: pathlib.Path,
+	expected_names: set[str],
+) -> None:
+	"""Publish one completely validated managed download set."""
+	staged_paths = tuple(
+		path
+		for path in sorted(staged_downloads_dir.iterdir())
+		if path.is_file() and path.suffix.lower() in MANAGED_DOWNLOAD_SUFFIXES
+	)
+	staged_names = {path.name for path in staged_paths}
+	if staged_names != expected_names:
+		raise RuntimeError(
+			f"Staged downloads do not match the manifest set: {sorted(staged_names)}"
+		)
 	downloads_dir.mkdir(parents=True, exist_ok=True)
+	# ASVS 2.3.3: validate the complete staged set before replacing published files.
+	# ASVS 5.3.2: output names come only from validated manifest download basenames.
+	for staged_path in staged_paths:
+		final_path = downloads_dir / staged_path.name
+		os.replace(staged_path, final_path)
 	for artifact_path in downloads_dir.iterdir():
-		if artifact_path.is_file() and artifact_path.suffix.lower() in {".docx", ".pdf"}:
+		if (
+			artifact_path.is_file()
+			and artifact_path.suffix.lower() in MANAGED_DOWNLOAD_SUFFIXES
+			and artifact_path.name not in expected_names
+		):
 			artifact_path.unlink()
 	return None
 
@@ -610,7 +829,6 @@ def build_one_syllabus(
 	temporary_dir: pathlib.Path,
 ) -> tuple[pathlib.Path, pathlib.Path]:
 	"""Build sibling DOCX and PDF outputs from one composed Markdown source."""
-	verify_download_links(manifest, downloads_dir)
 	combined_markdown = compose_markdown(manifest)
 	docx_markdown_path = temporary_dir / f"{manifest.download_basename}_docx.md"
 	docx_markdown_path.write_text(normalize_admonitions(combined_markdown), encoding="utf-8")
@@ -656,17 +874,12 @@ def archive_outputs(
 
 #============================================
 def parse_args() -> argparse.Namespace:
-	"""Parse archive and deployment-readiness switches."""
+	"""Parse the optional archive switch."""
 	parser = argparse.ArgumentParser(description=__doc__)
 	parser.add_argument(
 		"--archive",
 		action="store_true",
 		help="also create one ZIP archive per term under output/archive",
-	)
-	parser.add_argument(
-		"--require-approved",
-		action="store_true",
-		help="fail unless every manifest is approved for public deployment",
 	)
 	args = parser.parse_args()
 	return args
@@ -691,7 +904,9 @@ def main() -> None:
 	if not mkdocs_config_path.is_file():
 		raise FileNotFoundError(f"Missing MkDocs configuration: {mkdocs_config_path}")
 	check_tools()
+	require_public_only_repository(repo_root)
 	scan_public_sources(docs_root)
+	scan_public_sources(repo_root / "templates")
 	markdown_extensions, markdown_extension_configs = load_markdown_configuration(
 		mkdocs_config_path
 	)
@@ -699,23 +914,25 @@ def main() -> None:
 	if not manifest_paths:
 		raise RuntimeError("No syllabus.yml manifests found under site_docs")
 	manifests = [load_manifest(manifest_path, docs_root) for manifest_path in manifest_paths]
-	reset_downloads(downloads_dir)
-	if args.require_approved:
-		draft_paths = [
-			manifest.path
-			for manifest in manifests
-			if manifest.publication_status != "approved"
-		]
-		if draft_paths:
-			draft_list = ", ".join(str(path.relative_to(repo_root)) for path in draft_paths)
-			raise RuntimeError(f"Publication blocked by draft manifests: {draft_list}")
+	for manifest in manifests:
+		verify_download_links(manifest, downloads_dir)
+	expected_names = {
+		f"{manifest.download_basename}{suffix}"
+		for manifest in manifests
+		for suffix in MANAGED_DOWNLOAD_SUFFIXES
+	}
 	outputs_by_term: dict[str, list[pathlib.Path]] = {}
-	with tempfile.TemporaryDirectory(prefix="syllabus_build_") as temporary_name:
+	with tempfile.TemporaryDirectory(
+		prefix=".syllabus_build_",
+		dir=docs_root,
+	) as temporary_name:
 		temporary_dir = pathlib.Path(temporary_name)
+		staged_downloads_dir = temporary_dir / "downloads"
+		staged_downloads_dir.mkdir()
 		for manifest in manifests:
 			outputs = build_one_syllabus(
 				manifest,
-				downloads_dir,
+				staged_downloads_dir,
 				reference_path,
 				pdf_stylesheet_path,
 				markdown_extensions,
@@ -724,7 +941,9 @@ def main() -> None:
 			)
 			if manifest.term not in outputs_by_term:
 				outputs_by_term[manifest.term] = []
-			outputs_by_term[manifest.term].extend(outputs)
+			final_outputs = [downloads_dir / output.name for output in outputs]
+			outputs_by_term[manifest.term].extend(final_outputs)
+		publish_downloads(staged_downloads_dir, downloads_dir, expected_names)
 	if args.archive:
 		archive_outputs(outputs_by_term, repo_root / "output" / "archive")
 	return None

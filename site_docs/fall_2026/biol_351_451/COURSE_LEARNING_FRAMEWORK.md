@@ -1,13 +1,19 @@
-# What you will learn
+# Learning Objectives, Outcomes, and Goals
 
 ## Roosevelt learning goals
 
-This course supports effective communication, knowledge of discipline-focused content, and
-awareness of social justice and civic engagement.
+--8<-- "fall_2026/shared/ROOSEVELT_LEARNING_GOALS.md"
 
-## Course outcomes
+## Learning Objectives
 
-Students who complete the course will be able to:
+Students completing this course will have achieved:
+
+- Evidence-based problem solving, quantitative reasoning, collaboration, and clear scientific
+  communication rather than isolated factual recall.
+
+## Course Learning Outcomes
+
+Students completing this course will be able to:
 
 1. Distinguish mutation types and analyze their effects on genetic disorders.
 2. Explain DNA structure and base pairing to a non-specialist audience.
@@ -27,7 +33,9 @@ Students who complete the course will be able to:
 16. Use chi-square tests to evaluate genetic hypotheses.
 17. Compare natural selection, genetic drift, and gene flow as mechanisms of evolution.
 
-## Course emphasis
+## Learning Goals
 
-Assignments emphasize evidence-based problem solving, quantitative reasoning, collaboration, and
-clear scientific communication rather than isolated factual recall.
+Overall, this course aims to accomplish:
+
+- Examination of inheritance through classical and molecular genetics, with an emphasis on problem
+  solving, experimental evidence, gene interactions, chromosome behavior, and genetic mapping.

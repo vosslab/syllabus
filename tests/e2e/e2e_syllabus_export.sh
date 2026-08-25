@@ -20,9 +20,18 @@ fi
 
 python3 -m mkdocs build --strict
 
+pdf_text_dir="$(mktemp -d)"
+trap 'rm -rf "$pdf_text_dir"' EXIT
+
 for syllabus_pdf in site_docs/downloads/*.pdf; do
 	if ! pdfinfo "$syllabus_pdf" | rg '^Tagged:[[:space:]]+yes$' >/dev/null; then
 		printf 'Accessibility advisory: PDF is not tagged: %s\n' "$syllabus_pdf" >&2
+	fi
+	pdf_text_path="$pdf_text_dir/$(basename "$syllabus_pdf").txt"
+	pdftotext -layout "$syllabus_pdf" "$pdf_text_path"
+	if rg -n '^[[:space:]]*\|.*\|[[:space:]]*$' "$pdf_text_path"; then
+		printf 'ERROR: unrendered Markdown table found in PDF: %s\n' "$syllabus_pdf" >&2
+		exit 1
 	fi
 done
 
@@ -32,6 +41,15 @@ if rg -n -i \
 	'zoom\.us/j/|\bpwd=|\b(passcode|password)[[:space:]]*[:=]|discord\.(gg|com/invite)/' \
 	site; then
 	echo "ERROR: prohibited credential pattern found in built site" >&2
+	exit 1
+fi
+
+if rg -n -i \
+	--glob '*.html' \
+	--glob 'search_index.json' \
+	'content review required|draft schedule|to be confirmed|not approved for distribution' \
+	site; then
+	echo "ERROR: unfinished editorial marker found in built site" >&2
 	exit 1
 fi
 

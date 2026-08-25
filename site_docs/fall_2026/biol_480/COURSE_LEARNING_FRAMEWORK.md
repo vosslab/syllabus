@@ -1,13 +1,19 @@
-# What you will learn
+# Learning Objectives, Outcomes, and Goals
 
 ## Roosevelt learning goals
 
-This course supports effective communication, knowledge of discipline-focused content, and
-awareness of social justice and civic engagement.
+--8<-- "fall_2026/shared/ROOSEVELT_LEARNING_GOALS.md"
 
-## Course outcomes
+## Learning Objectives
 
-Students who complete the course will be able to:
+Students completing this course will have achieved:
+
+- Experience using discussion, presentations, current literature, and project work to connect
+  scientific discovery with biotechnology practice and innovation.
+
+## Course Learning Outcomes
+
+Students completing this course will be able to:
 
 1. Explain major concepts, methods, and tools used in biotechnology.
 2. Discuss current biotechnology developments and evaluate their scientific basis.
@@ -18,7 +24,9 @@ Students who complete the course will be able to:
 7. Apply biotechnology knowledge to research, product-development, or policy problems.
 8. Work collaboratively to develop and defend a biotechnology proposal.
 
-## Course emphasis
+## Learning Goals
 
-This applications course uses discussion, presentations, current literature, and project work to
-connect scientific discovery with biotechnology practice and innovation.
+Overall, this course aims to accomplish:
+
+- Examination of research, medical, environmental, and industrial uses of biotechnology through
+  current literature, discussion, presentations, and applied projects.

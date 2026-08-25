@@ -13,7 +13,8 @@ The Fall 2026 session runs from August 31 through December 19, 2026.
 
 ## Shared information
 
-- [University policies](POLICIES.md)
+- [Dr. Voss course policies](POLICIES.md)
 - [Help and student services](STUDENT_RESOURCES.md)
 
-Each complete course download appends both shared pages to the course-specific content.
+Each complete course download includes Dr. Voss's shared policy topics and student resources with
+the course content.

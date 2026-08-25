@@ -2,6 +2,7 @@
 mkdocs  # static documentation site generator
 mkdocs-material  # Material theme for MkDocs
 Markdown  # shared MkDocs-compatible parser for print HTML
+pymdown-extensions  # restricted shared Markdown includes for canonical course content
 python-docx  # accessible DOCX post-processing and reference document generation
 pypdf  # PDF metadata and bookmark verification
 PyYAML  # syllabus manifest parsing

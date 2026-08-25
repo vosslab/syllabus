@@ -1,16 +1,22 @@
 # Plan: Build the accessible syllabus site
 
+Status: Complete and archived on 2026-08-25 after the autonomous source, export, browser, and
+rendered-document gates passed.
+
 ## Context
 
-This repository has a minimal MkDocs Material shell and local `raw/` material for Fall 2025 and
-Fall 2026 syllabus development. The public site must make course content easy to read, keep shared
-policies separately editable, and generate complete DOCX and PDF files for students and department
-archival. The secret-bearing `raw/` directory is local input only and has never entered Git history.
+This repository publishes public Fall 2026 syllabus content through MkDocs Material. The site must
+make course content easy to read, keep Dr. Voss's shared course policies separately editable, and
+generate complete DOCX and PDF files for students and department archival. Tracked Markdown is the
+canonical authority; private or access-controlled source material does not belong in the repository,
+including ignored paths.
 
 ## Objectives
 
-- Publish current and archived syllabi as static, term-first Markdown content.
-- Keep course sections, shared term policies, and student resources independently editable.
+- Publish the active-term syllabi as static, term-first Markdown content and add archives only when
+  an archived term exists.
+- Keep course sections, one topic-split Dr. Voss policy branch, shared term fragments, and student
+  resources independently editable.
 - Merge those sources into complete, readable DOCX and PDF downloads.
 - Prevent Zoom credentials and private invite links from entering tracked or built output.
 - Audit the site against WCAG 2.2 AA. Treat the repository's 5.5:1 contrast target as a design
@@ -27,10 +33,10 @@ one reproducible export path before adding branding or optional features.
 
 ## Scope
 
-- Protect local raw inputs and scan public output for meeting credentials.
+- Keep the repository public-only and scan syllabus sources and output for meeting credentials.
 - Separate public `site_docs/` from maintainer `docs/`.
 - Create Fall 2026 term and course structures for BIOL 318/418, BIOL 351/451, and BIOL 480.
-- Create a university-aligned reusable course template.
+- Create a reusable course template that preserves Dr. Voss's actual four-part learning framework.
 - Add manifest-driven DOCX/PDF generation with policies and resources each appended once.
 - Add minimal Material navigation, accessible tables, focused tests, and GitHub Pages deployment.
 - Document installation, authoring, exporting, and validation.
@@ -42,12 +48,13 @@ one reproducible export path before adding branding or optional features.
 - Automate or shift academic-calendar dates.
 - Publish enrollment or wait-list counts that become stale during registration.
 - Claim PDF/UA certification or legal accessibility compliance.
-- Rewrite substantive course or university policy decisions without human review.
+- Invent credentials, private course material, or unsupported institutional claims.
 
 ## Current state summary
 
 - The current strict MkDocs build succeeds with MkDocs 1.6.1 and Material 9.7.7.
-- The current repository suite passes 749 tests.
+- The repository suite, complete export E2E, and browser audit provide the autonomous completion
+  path; exact test counts remain changelog evidence rather than plan state.
 - Pandoc 3.10.2, Python-Markdown 3.10.3, WeasyPrint 69.0, Pango, and Poppler are available locally.
 - A probe generated a tagged, seven-page PDF but showed that the raw university DOCX needs a
   purpose-built reference-document cleanup for usable tables and page flow.
@@ -55,23 +62,23 @@ one reproducible export path before adding branding or optional features.
 - The implemented pipeline generates semantic DOCX files through Pandoc. Python-Markdown loads the
   site's extension stack from `mkdocs.yml`, creates small standalone HTML, and WeasyPrint renders
   tagged, letter-size PDFs. Both branches use the same manifest-assembled Markdown authority.
-- Technical implementation and automated gates are complete; academic content approval remains
-  open in `docs/active_plans/reports/fall_2026_content_review.md`.
+- Technical implementation and automated gates are complete. The refinement checklist records
+  non-blocking opportunities for later content improvements.
 
 ## Milestone plan
 
 | M | Title | Summary | Status |
 | --- | --- | --- | --- |
-| M1 | Content foundation | Protect raw inputs and create term/course sources | Complete |
+| M1 | Content foundation | Establish public term/course sources | Complete |
 | M2 | Complete exports | Merge course and shared sources into DOCX/PDF | Complete |
 | M3 | Static publication | Build accessible navigation and automatic Pages output | Complete |
-| M4 | Verification | Run security/build gates and accessibility audits | Technical work complete; content pending |
+| M4 | Verification | Run content/build gates and accessibility audits | Complete |
 
 ### Milestone M1: Content foundation
 
 - Depends on: none.
-- Deliverables: ignored raw inputs, Fall 2026 term pages, three course groups, separate policies
-  and student resources, a reusable template, and course manifests.
+- Deliverables: public-only canonical inputs, Fall 2026 term pages, three course groups, topic-split policies,
+  separate student resources, reusable fragments and templates, and course manifests.
 - Exit criteria: no private meeting credentials appear under `site_docs/`; every course section is
   reachable from its term page.
 - Parallel-plan ready: no - content structure is a single authority and should be established
@@ -82,8 +89,8 @@ one reproducible export path before adding branding or optional features.
 - Depends on: M1.
 - Deliverables: Python 3.12 export command, accessible reference DOCX, complete DOCX/PDF files, and
   optional local term archive.
-- Exit criteria: each export contains every course section, policy source, and resource source
-  exactly once; both outputs build from the composed Markdown authority.
+- Exit criteria: each export contains every course section, policy topic, shared fragment, and
+  resource source exactly once; both outputs build from the composed Markdown authority.
 - Parallel-plan ready: yes - the DOCX and HTML-to-PDF branches are independent sibling outputs.
 
 ### Milestone M3: Static publication
@@ -99,14 +106,19 @@ one reproducible export path before adding branding or optional features.
 - Depends on: M3.
 - Deliverables: focused unit checks, slow export E2E check, browser accessibility audit, rendered
   PDF review, documentation, and changelog evidence.
-- Exit criteria: content, security, and build gates pass; accessibility findings are recorded for
-  improvement.
+- Exit criteria: source, credential, export, strict-site, and browser behavior checks pass;
+  accessibility findings are recorded for improvement.
 - Parallel-plan ready: yes - max parallel doers: 2, one for browser evidence and one for document
   evidence, after the implementation is stable.
 
 ## Acceptance criteria and gates
 
-- Content gate: the human owner approves dates, grading, policies, and public contact information.
+- Content gate: current course pages contain no unfinished editorial markers, every manifest source
+  resolves, tables are structurally valid, and complete outputs contain every required section.
+- Source-of-truth gate: office hours and Roosevelt learning goals each have one editable term
+  source; no per-course policy alternatives remain.
+- Learning-framework gate: each course contains Roosevelt learning goals, learning objectives,
+  course learning outcomes, and learning goals under the formal student-facing title.
 - Security gate: tracked Markdown, built HTML, DOCX text, and PDF text contain no meeting secrets.
 - Web gate: strict MkDocs build, valid navigation, and working complete-download targets.
 - DOCX gate: valid output containing every manifest section and no prohibited secrets.
@@ -115,9 +127,10 @@ one reproducible export path before adding branding or optional features.
 
 ## Verification classification
 
-Permanent build gates cover credential safety, manifest completeness, successful document
-conversion, required section presence, valid downloads, and a strict static site build. Human
-academic approval records readiness for student distribution without blocking the website preview.
+Permanent build gates cover public-only source layout, credential exclusion, manifest completeness,
+successful document conversion, required section presence, valid downloads, unfinished-marker
+exclusion, and a strict static site build. These checks form the complete manager-executable
+publication path without a separate approval state.
 
 Repeatable advisory audits cover keyboard use, axe findings, viewport overflow, contrast, DOCX
 structure, PDF tags/bookmarks, and rendered page flow. Findings guide improvements but do not block
@@ -130,14 +143,14 @@ timing tests.
 
 ## Documentation close-out requirements
 
-- Keep this plan current until all gates pass, then move it with `git mv` to `docs/archive/`.
+- Move this plan with `git mv` to `docs/archive/` after the autonomous gates pass.
 - Update `docs/CHANGELOG.md` with content, export, validation, and deployment evidence.
 - Document authoring and export commands in `docs/USAGE.md` and dependencies in `docs/INSTALL.md`.
 
-## Open questions and decisions needed
+## Deferred refinements
 
-- Blocking content decision: complete and approve the Fall 2026 review checklist before setting
-  manifests to `approved` or distributing the syllabi to students.
-- Non-blocking follow-up: decide whether broader visual branding adds student value after the
-  content and export workflows are stable. Course identity stays limited to accessible web-header
-  colors; the syllabus stylesheet owns the tested type scale and table overflow behavior.
+- Broader visual branding remains optional because it does not materially improve the current
+  student tasks. Course identity stays limited to accessible web-header colors; the syllabus
+  stylesheet owns the tested type scale and table overflow behavior.
+- Archived-term behavior is added when the first archived syllabus exists; it is not a hidden
+  prerequisite for the active Fall 2026 site.

@@ -12,14 +12,9 @@
 | Format | Instructional format |
 | Session | Start date-end date |
 
-## Instructor
+## Instructor information
 
-| Field | Information |
-| --- | --- |
-| Instructor | Instructor name |
-| Office | Building and room |
-| Email | Institutional email address |
-| Office hours | Public office hours; place private meeting links in the LMS |
+--8<-- "TERM/shared/INSTRUCTOR_INFORMATION.md"
 
 ## Course description
 

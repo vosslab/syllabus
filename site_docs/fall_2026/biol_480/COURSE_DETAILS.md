@@ -20,13 +20,4 @@ faculty and industrial researchers address current and future trends in the fiel
 
 ## Instructor information
 
-| Field | Information |
-| --- | --- |
-| Instructor | Dr. Neil R. Voss, Associate Professor of Biology |
-| Office | SCH 600E, Schaumburg campus |
-| Email | [nvoss@roosevelt.edu](mailto:nvoss@roosevelt.edu) |
-| Response time | A response is normally sent within two business days |
-| Office hours | Current times and the secure Zoom link are published in Blackboard |
-| Course site | [Roosevelt Blackboard](https://blackboard.roosevelt.edu/) |
-
-Private meeting credentials and course invitations are available only through Blackboard.
+--8<-- "fall_2026/shared/INSTRUCTOR_INFORMATION.md"

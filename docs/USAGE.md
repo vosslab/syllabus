@@ -5,22 +5,42 @@
 Public course content lives under `site_docs/<term>/<course>/`. Each course contains:
 
 - `index.md` for the short overview, task links, course summary, and secondary download links.
-- `COURSE_DETAILS.md` for registration, instructor, and catalog information.
-- `LEARNING_OUTCOMES.md` for assessable outcomes.
+- `COURSE_DETAILS.md` for registration, meeting, catalog, and embedded shared instructor
+  information.
+- `COURSE_LEARNING_FRAMEWORK.md` for Roosevelt learning goals, learning objectives, course
+  learning outcomes, and overall learning goals. Its student-facing title is **Learning
+  Objectives, Outcomes, and Goals**.
 - `ASSIGNMENTS_AND_GRADING.md` for assessment and grade calculations.
 - `SCHEDULE.md` for literal meeting dates and topics.
-- `COURSE_POLICIES.md` for rules unique to the course.
 - `syllabus.yml` for export order, metadata, and publication state.
 
-Each term keeps `POLICIES.md` and `STUDENT_RESOURCES.md` separate. The manifest appends both files
-once to every complete syllabus. Local source material under `raw/` is ignored and must never be
-linked from public content.
+Each term keeps a short `POLICIES.md` topic index, canonical topic files under `policies/`, and one
+`STUDENT_RESOURCES.md` file for support information. Every course links to the shared policy and
+resource branches. Its manifest adds the policy overview as a section heading, then appends each
+policy topic and the student-resource source once to the complete syllabus. The overview's web-only
+topic links are omitted from document exports.
+
+Term-wide fragments under `shared/` hold facts that students need in more than one context but the
+instructor should edit once. The current fragments provide instructor information, including
+office hours, Roosevelt learning-goal bullets, and the letter-grade scale. Course pages embed them
+with the restricted syntax:
+
+```markdown
+--8<-- "fall_2026/shared/INSTRUCTOR_INFORMATION.md"
+```
+
+Includes must be non-empty `.md` files below `site_docs/`; absolute paths, parent traversal, remote
+URLs, and nested includes are rejected. Shared fragments are excluded from direct website routes.
+Only public-safe canonical content belongs in this repository. Do not create an ignored `raw/`
+tree for private syllabi, credentials, meeting links, student information, or access-controlled
+material; transfer only public facts into the tracked Markdown sources.
 
 ## Start a course
 
-Copy `templates/course/` to a new term/course folder. Copy `templates/POLICIES.md` and
-`templates/STUDENT_RESOURCES.md` when starting a new term. Replace every placeholder, then add the
-new pages to `mkdocs.yml` navigation.
+Copy `templates/course/` to a new term/course folder. When starting a new term, copy
+`templates/POLICIES.md`, `templates/policies/`, `templates/shared/`, and
+`templates/STUDENT_RESOURCES.md`. Replace every placeholder, including `TERM` in shared-include
+paths, then add the new pages to `mkdocs.yml` navigation.
 
 Add a `.meta.yml` file to the course folder to give every page in that folder the same web-header
 color:
@@ -33,9 +53,12 @@ Choose a dark color that gives white header text and controls at least 5.5:1 con
 metadata affects the Material website only; complete PDF and DOCX exports keep their neutral
 document styling.
 
-Use descriptive links and real Markdown heading levels. Keep tables simple: one header row, one
-idea per cell, and no merged cells. Store private meeting links, passwords, invitations, grades,
-and assignment submissions only in Blackboard.
+Use descriptive links and real Markdown heading levels. Keep tables simple: use a named header for
+every column, one idea per cell, the same number of cells in every row, and no merged cells. Align
+long text left, numbers right, and short categories such as letter grades in the center. Do not use
+blank table cells for visual layout. The build rejects malformed tables and hidden control
+characters that can change Markdown line structure. Store private meeting links, passwords,
+invitations, grades, and assignment submissions only in Blackboard.
 
 The PDF branch mirrors the `markdown_extensions` entries in `mkdocs.yml`. MkDocs plugins, macros,
 theme hooks, and JavaScript-dependent Material interactions do not transfer automatically. Before
@@ -82,30 +105,31 @@ source source_me.sh
 python3 pipeline/build_syllabi.py --archive
 ```
 
-Generated student downloads live in ignored `site_docs/downloads/`. They are rebuilt before the
-site so download links cannot point to stale tracked binaries. Both formats use the same
-manifest-assembled Markdown authority. Pandoc creates the DOCX after flattening web-only constructs
-such as admonitions. Python-Markdown uses the extension stack from `mkdocs.yml` to create small
-semantic HTML, and WeasyPrint renders that HTML directly to PDF.
+Generated student downloads live in ignored `site_docs/downloads/`. The pipeline stages and
+validates the complete set before replacing current downloads, then builds the site so links cannot
+point to stale or partial output. Both formats use the same manifest-assembled Markdown authority.
+Pandoc creates the DOCX after flattening web-only constructs such as admonitions. Python-Markdown
+uses the extension stack from `mkdocs.yml` to create small semantic HTML, and WeasyPrint renders
+that HTML directly to PDF.
 
-## Review course content
+## Refine course content
 
-New manifests begin with `publication_status: draft`. Draft exports display a distribution warning,
-while approved exports omit that warning. The Pages workflow publishes the latest successful build
-from `main` regardless of this review status.
+Tracked public Markdown is the working authority. Managers and agents produce a complete,
+student-facing candidate from repository evidence rather than exposing draft-state warnings or
+waiting for an approval transition. Record narrow evidence limitations in the refinement report,
+not in the student syllabus.
 
-Before changing a manifest to `publication_status: approved`, confirm:
+Use the refinement checklist to improve:
 
 - section numbers, CRNs, meeting places, and session dates;
 - grading categories, totals, rounding, and late-work rules;
 - assignment and exam dates, breaks, and final-exam details;
-- course-specific artificial-intelligence language;
-- current university policy and student-resource language;
-- public contact information and the absence of meeting credentials;
+- Dr. Voss's shared course-policy language, including artificial-intelligence rules;
+- current university-source statements and student-resource language;
+- public contact information and the absence of meeting credentials.
 
-Pushes to `main` always deploy the verified Pages artifact. Change each manifest to
-`publication_status: approved` after completing the content review; this records readiness for
-student distribution without controlling website deployment.
+Every successful push to `main` deploys the verified Pages artifact. A failed source, export, or
+site check blocks delivery without requiring a separate human-controlled manifest state.
 
 ## Validate
 
@@ -127,12 +151,12 @@ Use `./run_playwright_tests.sh --build` to rebuild first.
 Accessibility audits promote continuous improvement but do not block publication. Review reported
 findings, prioritize barriers affecting students, and record deliberate follow-up work.
 
-Run the production-readiness gate without publishing:
+Run the complete production-readiness gate without publishing:
 
 ```bash
-bash tests/e2e/e2e_syllabus_export.sh --require-approved
+bash tests/e2e/e2e_syllabus_export.sh
 ```
 
 The exporter rejects common Zoom meeting URLs, embedded passwords or passcodes, and Discord invite
-links in public source or downloadable text. A passing security scan is not a substitute for human
-review of each public page.
+links in syllabus source or downloadable text. Private or access-controlled content does not belong
+anywhere in this repository, including ignored paths.

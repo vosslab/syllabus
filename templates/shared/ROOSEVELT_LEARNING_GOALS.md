@@ -1,0 +1,3 @@
+- Effective communication.
+- Knowledge of discipline-focused content.
+- Awareness of social justice and engagement in civic life.

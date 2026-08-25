@@ -1,12 +1,15 @@
-# University policies
+# Dr. Voss course policies
 
-Maintain shared term-level course and university policy language in this file. Course manifests
-append it once to each complete DOCX and PDF.
+Maintain the shared policy set once per term. Every course links to this overview, and every course
+manifest appends each topic file once to its complete DOCX and PDF.
 
-## Accessibility and accommodations
+## Policy topics
 
-Use the current approved university language and contact route.
-
-## Academic integrity
-
-Use the current approved university language.
+- [Instructor information](policies/INSTRUCTOR_INFORMATION.md)
+- [Overview](policies/OVERVIEW.md)
+- [Assessment guidelines](policies/ASSESSMENT.md)
+- [Grading policies](policies/GRADING.md)
+- [Accommodation policies](policies/ACCOMMODATIONS.md)
+- [Conduct and behavioral policies](policies/CONDUCT_AND_BEHAVIORAL_POLICIES.md)
+- [Expectations](policies/EXPECTATIONS.md)
+- [Frequently asked questions](policies/FAQ.md)

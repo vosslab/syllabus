@@ -6,7 +6,7 @@
 | --- | --- | --- |
 | Student | Find current course expectations quickly | Short pages with clear local navigation |
 | Student using assistive technology | Read tables, headings, and links | Semantic structure and keyboard access |
-| Instructor | Update one fact without duplicating policy text | Section files plus ordered manifests |
+| Instructor | Update one shared fact without finding copies | Canonical topic files and embedded fragments |
 | Department archivist | Preserve the complete syllabus | One complete DOCX/PDF pair per course |
 
 The site supports lookup first and continuous reading second. A student should not need to scroll a
@@ -15,9 +15,18 @@ offline reading and archival use.
 
 ## Interaction decisions
 
+- Make the active semester and its three course choices the homepage's dominant content. A student
+  reaches a course in one click without first opening a term overview.
+- Show archive navigation only after an archived syllabus actually exists.
+- Explain Blackboard in terms of the private materials students should expect to find there,
+  rather than using an unexplained security-oriented heading.
 - Organize navigation by term, course, and task-oriented section.
-- Label visible routes with student questions and tasks while keeping technical filenames internal.
-- Keep policies and student resources on separate pages and append both to complete exports.
+- Use conventional syllabus labels that tell students exactly what each route contains while
+  keeping technical filenames internal.
+- Keep policies and student resources as separate top-level branches. Split Dr. Voss's long policy
+  document into recognizable topic pages without creating course-specific alternatives.
+- Embed instructor information, Roosevelt learning goals, and the letter-grade scale from
+  canonical term-level fragments where students need that context.
 - Place task-oriented course links immediately after the introduction.
 - Place secondary complete PDF and DOCX links after the course summary and label them as complete
   course-syllabus downloads.
@@ -26,9 +35,63 @@ offline reading and archival use.
 - Use at least 17-pixel course text and 16-pixel navigation text at the standard browser zoom.
 - Render tables and notices at the full course-text size, with horizontal scrolling for wide tables
   on narrow screens.
-- Use literal schedule dates so a human reviews every academic-calendar exception.
+- Use literal schedule dates so every academic-calendar exception remains explicit and reviewable.
 - Keep private meeting links and credentials in Blackboard.
-- Block automatic deployment while any course manifest remains a draft.
+- Present complete student-facing candidates; keep editorial uncertainty outside published pages.
+
+## Task models
+
+### Instructor: update a shared fact
+
+1. Open the topic named for the fact: for example, instructor information or grading policies.
+2. Edit the fact once in that canonical source.
+3. Build the site and complete syllabi.
+4. Confirm that each course view and export reflects the edit.
+
+The normal path never asks the instructor to find or reconcile course-specific copies. Office
+hours, Roosevelt learning goals, and the letter-grade scale use embedded Markdown fragments because
+students benefit from seeing them in course context even though the instructor should maintain
+them once.
+
+### Student: find authoritative course information
+
+1. Enter the course landing page.
+2. Choose a literal, conventional label such as **Learning Objectives, Outcomes, and Goals**,
+   **Dr. Voss course policies**, or **Help and student services**.
+3. Use the policy topic list when a narrower question remains.
+
+The student should encounter one policy authority, not decide whether a generic per-course page or
+Dr. Voss's shared policy branch controls.
+
+## Source-of-truth acceptance criteria
+
+| Need | Acceptance criterion |
+| --- | --- |
+| Edit office hours once | Exact office-hour times occur only in the term instructor-information fragment |
+| Preserve Roosevelt goals | Every course renders the bullets from one term learning-goals fragment |
+| Maintain one grade scale | Every course and the grading-policy page render one term grade-scale fragment |
+| Find learning statements | Every course exposes all four required sections under the formal page label |
+| Find a policy | Navigation uses the original policy topic vocabulary and contains no competing course policy page |
+| Preserve complete syllabi | Each shared policy topic and student-resource source appears once in every export |
+
+## Homepage UX delta
+
+The primary homepage task is **open the syllabus for my current course**. The old path required two
+links: homepage to term, then term to course. The revised path requires one direct course link and
+removes two placeholder sections that did not help a Fall 2026 student.
+
+| Nielsen heuristic | Before | After | Evidence |
+| --- | ---: | ---: | --- |
+| Visibility of system status | 2 | 4 | The page title and opening sentence identify Fall 2026 as active |
+| Match with the real world | 2 | 4 | Students see their course codes and titles instead of site-lifecycle labels |
+| User control and freedom | 3 | 4 | Every current course is directly selectable from the homepage |
+| Consistency and standards | 4 | 4 | Course names match the term page and navigation |
+| Error prevention | 3 | 4 | Blackboard content is described before students search the public site for it |
+| Recognition rather than recall | 2 | 4 | All current course choices are visible together |
+| Flexibility and efficiency | 2 | 4 | Course entry drops from two links to one |
+| Aesthetic and minimalist design | 2 | 4 | Future archive copy and the ambiguous access section are removed |
+| Error recovery | 3 | 3 | The static landing page has no transactional error state |
+| Help and documentation | 2 | 4 | Policies, student services, and Blackboard each have explicit context |
 
 ## Accessibility baseline
 
@@ -41,7 +104,7 @@ offline reading and archival use.
 
 ## Evaluation priorities
 
-1. Verify the correctness and completeness of course content with the instructor.
+1. Verify course-content completeness against tracked sources and current authoritative references.
 2. Complete the site and export workflows using keyboard-only navigation.
 3. Inspect mobile tables and download controls at narrow viewport widths.
 4. Check headings, tables, links, and reading order with a screen reader.

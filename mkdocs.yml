@@ -3,6 +3,8 @@ site_description: Accessible course syllabi for classes taught by Dr. Neil R. Vo
 site_url: https://vosslab.github.io/syllabus/
 docs_dir: site_docs
 site_dir: site
+exclude_docs: |
+  */shared/*
 
 theme:
   name: material
@@ -26,6 +28,12 @@ markdown_extensions:
   - tables
   - toc:
       permalink: true
+  - pymdownx.snippets:
+      base_path:
+        - site_docs
+      check_paths: true
+      restrict_base_path: true
+      url_download: false
 
 extra_css:
   - assets/stylesheets/site.css
@@ -42,23 +50,29 @@ nav:
       - BIOL 318/418 - Biostatistics:
           - Start here: fall_2026/biol_318_418/index.md
           - Meetings and instructor: fall_2026/biol_318_418/COURSE_DETAILS.md
-          - What you will learn: fall_2026/biol_318_418/LEARNING_OUTCOMES.md
+          - Learning Objectives, Outcomes, and Goals: fall_2026/biol_318_418/COURSE_LEARNING_FRAMEWORK.md
           - Coursework and grades: fall_2026/biol_318_418/ASSIGNMENTS_AND_GRADING.md
           - Dates and topics: fall_2026/biol_318_418/SCHEDULE.md
-          - Class expectations: fall_2026/biol_318_418/COURSE_POLICIES.md
       - BIOL 351/451 - General Genetics:
           - Start here: fall_2026/biol_351_451/index.md
           - Meetings and instructor: fall_2026/biol_351_451/COURSE_DETAILS.md
-          - What you will learn: fall_2026/biol_351_451/LEARNING_OUTCOMES.md
+          - Learning Objectives, Outcomes, and Goals: fall_2026/biol_351_451/COURSE_LEARNING_FRAMEWORK.md
           - Coursework and grades: fall_2026/biol_351_451/ASSIGNMENTS_AND_GRADING.md
           - Dates and topics: fall_2026/biol_351_451/SCHEDULE.md
-          - Class expectations: fall_2026/biol_351_451/COURSE_POLICIES.md
       - BIOL 480 - Applications of Biotechnology:
           - Start here: fall_2026/biol_480/index.md
           - Meetings and instructor: fall_2026/biol_480/COURSE_DETAILS.md
-          - What you will learn: fall_2026/biol_480/LEARNING_OUTCOMES.md
+          - Learning Objectives, Outcomes, and Goals: fall_2026/biol_480/COURSE_LEARNING_FRAMEWORK.md
           - Coursework and grades: fall_2026/biol_480/ASSIGNMENTS_AND_GRADING.md
           - Dates and topics: fall_2026/biol_480/SCHEDULE.md
-          - Class expectations: fall_2026/biol_480/COURSE_POLICIES.md
-      - University policies: fall_2026/POLICIES.md
+      - Dr. Voss course policies:
+          - Policy overview: fall_2026/POLICIES.md
+          - Instructor information: fall_2026/policies/INSTRUCTOR_INFORMATION.md
+          - Overview: fall_2026/policies/OVERVIEW.md
+          - Assessment guidelines: fall_2026/policies/ASSESSMENT.md
+          - Grading policies: fall_2026/policies/GRADING.md
+          - Accommodation policies: fall_2026/policies/ACCOMMODATIONS.md
+          - Conduct and behavioral policies: fall_2026/policies/CONDUCT_AND_BEHAVIORAL_POLICIES.md
+          - Expectations: fall_2026/policies/EXPECTATIONS.md
+          - Frequently asked questions: fall_2026/policies/FAQ.md
       - Help and student services: fall_2026/STUDENT_RESOURCES.md

@@ -24,6 +24,14 @@
   advisory accessibility audits, and permanent-test restraint.
 - Added recursive per-course metadata and a small Material theme extension for course-colored web
   headers.
+- Added restricted Markdown fragment embedding so instructor information and Roosevelt learning
+  goals can appear in course context while remaining editable once per term.
+- Added a canonical term-level letter-grade scale so every course and the grading-policy page use
+  the same editable table.
+- Added staged download publication so every PDF/DOCX pair is built and validated before current
+  managed downloads are replaced.
+- Added behavior checks that reject incomplete staged download sets, private `raw/` trees, and
+  unfinished editorial markers in the built student site.
 
 ### Behavior or Interface Changes
 
@@ -33,10 +41,10 @@
   coursework and grades, dates and topics, class expectations, and help.
 - Kept schedule dates as literal Markdown for human review rather than applying automatic date
   shifting.
-- Marked all Fall 2026 manifests as drafts so complete exports identify content that still needs
-  instructor review.
-- Changed Pages deployment to run after every successful `main` build; manifest approval remains a
-  record of readiness for student distribution rather than a deployment switch.
+- Made every successful Fall 2026 build produce a complete student-facing candidate; incomplete
+  content is rejected by the automated publication gates rather than labeled as a draft.
+- Changed Pages deployment to run after every successful `main` build; automated publication gates
+  define readiness without a separate manifest-approval state.
 - Excluded transient enrollment and wait-list totals from public course content.
 - Changed the website's proportional text family to Atkinson Hyperlegible Next while retaining
   Material's system monospace stack for code.
@@ -49,9 +57,34 @@
   accessibility-oriented markup, PDF tags/outlines, responsive checks, and audit commands.
 - Applied dark lime, blue, and brick red web-header identities to the current courses while keeping
   shared pages and complete PDF/DOCX downloads neutral; recorded purple for future BCHM 355 pages.
+- Replaced the generic per-course policy pages with one shared **Dr. Voss course policies** branch,
+  split into instructor information, overview, assessment, grading, accommodations, conduct and
+  behavior, expectations, and frequently asked questions.
+- Preserved the **Dr. Voss course policies** branch heading in complete documents while omitting
+  the landing page's web-only topic and student-support link lists.
+- Renamed each learning source to `COURSE_LEARNING_FRAMEWORK.md` and changed its student-facing
+  title to **Learning Objectives, Outcomes, and Goals**.
+- Restored all four distinct learning sections in every current course and the reusable template:
+  Roosevelt learning goals, learning objectives, course learning outcomes, and learning goals.
+- Enforced the exact expected learning-section labels and lead-ins, including title-case
+  **Learning Objectives**, **Course Learning Outcomes**, and **Learning Goals**.
+- Reoriented the homepage around the active Fall 2026 semester and linked BIOL 318/418, BIOL
+  351/451, and BIOL 480 directly instead of requiring students to enter a term page first.
+- Replaced the unexplained **Secure course access** section with contextual **Blackboard and private
+  course materials** guidance.
+- Standardized source tables around named columns and simple rectangular rows, with consistent
+  full-width grid styling in the website and complete PDF outputs.
+- Removed manifest `status` and `publication_status` fields, distribution-warning banners, and the
+  separate approval command; every successful build now produces one complete reviewable candidate.
+- Replaced draft schedule labels and generic confirmation placeholders with complete student-facing
+  schedules; BIOL 318/418 uses **Blackboard assignment** where no more specific public deliverable
+  is supported by repository evidence.
 
 ### Fixes and Maintenance
 
+- Expanded `HUMAN_GUIDANCE.md` with the owner's durable session requirements for syllabus
+  authority, shared policies, edit-once content, the four-part learning framework, student-facing
+  active-term navigation, contextual Blackboard guidance, and consistent cross-format tables.
 - Wired the complete export E2E into the Pages workflow so shared-resource, credential-scan, and
   strict-build checks are enforced before artifact upload while PDF tag findings remain advisory.
 - Separated the optional Playwright accessibility audit into a non-blocking workflow job so the
@@ -62,10 +95,10 @@
   one course's download paths in the browser audit.
 - Declared Ripgrep in the macOS and CI system dependencies because the enforced export E2E uses it
   for PDF and built-site checks.
-- Cleared managed PDF/DOCX downloads before each rebuild and added an E2E regression
-  check so obsolete generated syllabi cannot remain in the published site.
-- Corrected the active plan to require approval of every course manifest, documented Playwright's
-  selector contract, and made the local preview helper open the browser and stop after five minutes.
+- Staged and validated the complete managed PDF/DOCX set before replacing current downloads, then
+  removed obsolete generated syllabi after successful publication.
+- Corrected the active plan to use autonomous publication gates, documented Playwright's selector
+  contract, and made the local preview helper open the browser and stop after five minutes.
 - Removed repository-level MkDocs version ceilings so dependency installation follows the latest
   mutually compatible stable releases; Material retains its own MkDocs compatibility constraint.
 - Completed the interrupted website reset by removing the remaining template-only paths.
@@ -101,8 +134,29 @@
 - Updated both CI jobs to `setup-python@v7` and limited the advisory Playwright installation to
   Chromium's headless shell, reducing browser download weight without changing test behavior.
 - Replaced the thin repository README with a content-first landing page that explains the
-  one-source website/DOCX/PDF workflow, exposes draft publication status, provides a verified first
-  build, demonstrates course organization, and routes newcomers to maintained documentation.
+  one-source website/DOCX/PDF workflow, provides a verified first build, demonstrates course
+  organization, and routes newcomers to maintained documentation.
+- Consolidated exact office hours, contact details, and Roosevelt learning-goal bullets into
+  term-level fragments; course pages and the policy branch now render those sources instead of
+  maintaining copies.
+- Added export validation for the required four-part learning framework and safe include-path
+  handling, including rejection of traversal, remote, empty, missing, and nested includes.
+- Removed the empty **Archived terms** homepage placeholder until an archived syllabus actually
+  exists, and removed generic current/future-term scaffolding from the primary student path.
+- Fixed the missed-lab table in complete PDFs by removing an invisible vertical-tab character that
+  split its final header cell and caused the pipe-table source to print as literal text.
+- Added source validation for hidden line-breaking controls and malformed Markdown tables, output
+  table-count checks for PDF HTML and DOCX, browser assertions for the policy tables, and an export
+  regression that rejects unrendered pipe rows in PDFs.
+- Preserved blank-line boundaries after embedded Markdown fragments so following policy prose
+  cannot be interpreted as another table row.
+- Reworked the implementation plan and content-refinement report so every milestone has a complete
+  manager-and-subagent path through canonical sources and automated behavior checks, without a
+  hidden human approval transition.
+- Made the repository public-only: private raw syllabi, credentials, meeting links, invitations,
+  student information, and access-controlled content are prohibited even in ignored paths.
+- Archived the completed MkDocs syllabus-site implementation plan after its autonomous source,
+  export, browser, and rendered-document gates passed.
 
 ### Removals and Deprecations
 
@@ -110,12 +164,15 @@
   GitHub Actions system packages.
 - Removed Playwright Chromium from the document-generation path; it remains optional browser audit
   infrastructure.
+- Removed the three generic `COURSE_POLICIES.md` pages and their template because they competed
+  with the canonical shared Dr. Voss policy branch.
 
 ### Decisions and Failures
 
-- Kept `raw/` as ignored local input and made tracked Markdown the only public source authority.
-- Kept the implementation plan active because grading, schedules, artificial-intelligence rules,
-  and the applicability of shared assessment policies still require instructor approval.
+- Removed the `raw/` local-input concept and made tracked public Markdown the only repository
+  content authority.
+- Kept the implementation plan active through autonomous grading, schedule, policy, export, and
+  delivery validation; later editorial refinements do not block plan completion.
 - Limited the accessibility claim to WCAG 2.2 AA-oriented behavior and tested tagged documents;
   this project does not claim PDF/UA certification or legal compliance.
 - Kept accessibility as an actively audited quality goal while reserving blocking build checks for
@@ -130,10 +187,10 @@
 - Kept Pandoc as the native DOCX generator and limited Material-specific normalization to that
   branch; routing Python-Markdown HTML through Pandoc would add an intermediate format without
   improving Word structure.
-- Classified academic approval as a student-distribution review and credential safety, complete
-  valid outputs, and the strict site build as durable build gates; kept accessibility heuristics
-  repeatable but advisory and recorded exact page counts, package versions, and rendered
-  comparisons as implementation evidence.
+- Replaced an early academic-approval state with durable gates for credential safety, complete
+  valid outputs, and the strict site build; kept accessibility heuristics repeatable but advisory
+  and recorded exact page counts, package versions, and rendered comparisons as implementation
+  evidence.
 - Removed fixed minimum-pixel and exact-font-face-count browser assertions, exact download paths,
   and a table-of-contents-dependent heading count because they constrained implementation details
   rather than stable student-visible behavior.
@@ -142,11 +199,21 @@
   pass their focused checks.
 - Replaced the proposed BIOL 318/418 lime after measurement showed 4.10:1 contrast with white; the
   darker hue-preserving value reaches 5.53:1.
-- The independent audit identified non-atomic replacement of generated downloads as an unresolved
-  failure-mode risk; a durable fix must stage and validate all outputs before replacing the current
-  download set.
-- The independent audit found that manifest `status` accepts `current` or `archived` but does not
-  yet change behavior; removal or real archive semantics remains an explicit design decision.
+- The independent audit identified non-atomic replacement of generated downloads as a failure-mode
+  risk; staged validation and per-file replacement now preserve the current set when generation
+  fails before publication.
+- The independent audit found that manifest `status` did not change behavior, so the unused status
+  and publication-state fields were removed rather than preserved as misleading metadata.
+- Private original syllabus sources are not present in the checkout or Git history, so the restored
+  four-part learning structure uses the strongest available tracked evidence and remains open to
+  later public-source refinement.
+- Treated tracked public Markdown as the autonomous content authority. Missing private source
+  material does not block plan completion; agents make the most defensible complete proposal and
+  record narrow evidence limitations for later editorial refinement.
+- Kept security work proportional to a static public site while retaining the owner's absolute
+  boundary that credentials and non-public content never enter the repository or generated output.
+- Kept the complete shared policy set in every current course because the owner defined one common
+  policy authority; later wording refinements continue to edit those canonical topic files once.
 
 ### Developer Tests and Notes
 
@@ -168,3 +235,27 @@
   or unreadable text.
 - Measured authored text pairs range from 5.53:1 to 12.19:1, meeting or exceeding the 5.5:1
   house target.
+- `source source_me.sh && python3 -m pytest tests/` passed: 855 tests, including restricted shared
+  includes and the four-part learning-framework contract.
+- `bash tests/e2e/e2e_syllabus_export.sh` rebuilt all three PDF/DOCX pairs, passed credential and
+  completeness checks, and completed a strict MkDocs build.
+- `npm run test:playwright` passed the final desktop/mobile accessibility and navigation audit,
+  including direct homepage access to all three current courses and removal of future-term stubs.
+- Extracted text from all three final PDFs contains the exact office-hours value and each required
+  learning-section heading once per syllabus; web-only policy-route lists are absent.
+- `source source_me.sh && python3 -m pytest tests/` passed: 867 tests, including hidden-control,
+  table-structure, table-render-count, shared-fragment-boundary, and PDF-export regressions.
+- `bash tests/e2e/e2e_syllabus_export.sh` rebuilt all three PDF/DOCX pairs, rejected raw Markdown
+  pipe rows in PDFs, and completed the strict site build.
+- `npm run test:playwright` passed desktop/mobile accessibility and overflow checks on both policy
+  table pages and verified their semantic column headers.
+- Rendered inspection of the final grading-policy and missed-lab PDF pages found consistent grids,
+  intact table boundaries, readable headers, and no clipping or unrendered Markdown.
+- `source source_me.sh && python3 -m pytest tests/` passed: 870 tests, including staged-download
+  publication, incomplete-stage preservation, and public-only repository regressions.
+- `bash tests/e2e/e2e_syllabus_export.sh` rebuilt all three PDF/DOCX pairs, rejected credentials and
+  unfinished editorial markers, and completed the strict site build.
+- `npm run test:playwright` passed the final desktop/mobile accessibility, navigation, table, and
+  course-identity behavior checks.
+- Rendered inspection of the finalized BIOL 351/451 grading and schedule pages found fitted tables,
+  complete headings, readable text, and no draft or review banners.

@@ -4,16 +4,12 @@ An accessibility-focused publishing system that turns separately maintained cour
 policies, and resources into a navigable student website plus complete PDF and DOCX syllabi for
 departmental archives.
 
-> **Status:** The technical pipeline is working, but all Fall 2026 syllabi remain drafts pending
-> instructor review. The website publishes the current drafts; use the
-> [content review](docs/active_plans/reports/fall_2026_content_review.md) before distributing them
-> to students.
-
 ## One source, three student-ready forms
 
 Students should not need to navigate a 30-page document to find one deadline or policy. This
 project keeps web pages short and task-oriented while preserving a complete downloadable syllabus.
-Shared policies and resources stay independently editable and are appended once during each build.
+Shared policy topics and resources stay independently editable and are assembled once during each
+build. Repeated context such as office hours is embedded from one canonical Markdown fragment.
 
 ```text
 course Markdown + shared policies + student resources
@@ -22,11 +18,11 @@ course Markdown + shared policies + student resources
   `-- Python-Markdown + WeasyPrint -------> complete tagged PDF
 ```
 
-- Course schedules, grading, outcomes, and policies remain ordinary Markdown.
+- Course schedules, grading, learning frameworks, and policies remain ordinary Markdown.
 - Course-specific header colors provide a restrained web identity; downloads remain neutral.
 - Atkinson Hyperlegible Next is self-hosted for predictable, readable website typography.
 - Credential scanning rejects common meeting links, passcodes, and private invitations.
-- Each export records whether its course manifest is still a draft or has instructor approval.
+- Every successful build produces complete student-facing candidates without draft-state banners.
 
 <!-- screenshots:begin (managed by screenshot-docs) -->
 <!-- screenshots:end -->
@@ -63,20 +59,27 @@ defines the complete-document order; term-level policies and resources remain sh
 site_docs/fall_2026/
 |-- POLICIES.md
 |-- STUDENT_RESOURCES.md
+|-- policies/
+|   |-- ASSESSMENT.md
+|   |-- GRADING.md
+|   `-- ...
+|-- shared/
+|   |-- INSTRUCTOR_INFORMATION.md
+|   |-- LETTER_GRADE_SCALE.md
+|   `-- ROOSEVELT_LEARNING_GOALS.md
 `-- biol_318_418/
     |-- index.md
     |-- COURSE_DETAILS.md
-    |-- LEARNING_OUTCOMES.md
+    |-- COURSE_LEARNING_FRAMEWORK.md
     |-- ASSIGNMENTS_AND_GRADING.md
     |-- SCHEDULE.md
-    |-- COURSE_POLICIES.md
     `-- syllabus.yml
 ```
 
 Copy `templates/course/` when starting a course, replace every placeholder, and add the new pages
-to `mkdocs.yml`. Dates remain literal Markdown so academic-calendar exceptions receive human
-review rather than automatic shifting. See [docs/USAGE.md](docs/USAGE.md) for the complete
-authoring, export, archival, approval, and validation workflow.
+to `mkdocs.yml`. Dates remain literal Markdown so calendar exceptions are explicit rather than
+hidden behind automatic shifting. See [docs/USAGE.md](docs/USAGE.md) for the complete authoring,
+export, archival, and validation workflow.
 
 ## Verification
 
@@ -95,16 +98,15 @@ python3 -m pytest tests/
 ./run_playwright_tests.sh
 ```
 
-Accessibility findings guide improvement but do not replace instructor review or claim legal or
-PDF/UA compliance.
+Accessibility findings guide improvement but do not claim legal or PDF/UA compliance.
 
 ## Documentation
 
 - [docs/INSTALL.md](docs/INSTALL.md) - system tools, Python dependencies, fonts, and audit setup.
-- [docs/USAGE.md](docs/USAGE.md) - course authoring, builds, archives, approval, and validation.
+- [docs/USAGE.md](docs/USAGE.md) - course authoring, builds, archives, and validation.
 - [docs/HCI_BRIEF.md](docs/HCI_BRIEF.md) - student navigation and accessibility design rationale.
 - [docs/active_plans/reports/fall_2026_content_review.md](docs/active_plans/reports/fall_2026_content_review.md)
-  - instructor decisions required before publication.
+  - non-blocking editorial refinement checklist.
 - [docs/CHANGELOG.md](docs/CHANGELOG.md) - implementation decisions, failures, and verification
   evidence.
 

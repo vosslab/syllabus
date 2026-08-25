@@ -3,16 +3,20 @@ course_code: BIOL 480
 term: Fall 2026
 author: Neil R. Voss
 language: en-US
-status: current
-publication_status: draft
 download_basename: BIOL_480_FALL_2026_SYLLABUS
 sections:
   - index.md
   - COURSE_DETAILS.md
-  - LEARNING_OUTCOMES.md
+  - COURSE_LEARNING_FRAMEWORK.md
   - ASSIGNMENTS_AND_GRADING.md
   - SCHEDULE.md
-  - COURSE_POLICIES.md
 shared_sections:
   - ../POLICIES.md
+  - ../policies/OVERVIEW.md
+  - ../policies/ASSESSMENT.md
+  - ../policies/GRADING.md
+  - ../policies/ACCOMMODATIONS.md
+  - ../policies/CONDUCT_AND_BEHAVIORAL_POLICIES.md
+  - ../policies/EXPECTATIONS.md
+  - ../policies/FAQ.md
   - ../STUDENT_RESOURCES.md

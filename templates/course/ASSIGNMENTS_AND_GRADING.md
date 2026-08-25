@@ -10,9 +10,7 @@ State how the final grade is calculated, including rounding and dropped work.
 
 ## Letter-grade scale
 
-| Percentage | Grade |
-| --- | --- |
-| Add complete ranges | Add grade |
+--8<-- "TERM/shared/LETTER_GRADE_SCALE.md"
 
 ## Feedback
 

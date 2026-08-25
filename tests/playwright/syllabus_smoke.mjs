@@ -1,5 +1,6 @@
 // Selector contract:
 // - Material route and navigation markup come from mkdocs.yml:7 and mkdocs.yml:36.
+// - Current-course links and Blackboard context come from site_docs/index.md:1.
 // - Main headings, prose, tables, course-page links, and download links come from
 //   site_docs/fall_2026/biol_351_451/index.md:1.
 // - Typography and focus-visible behavior come from site_docs/assets/stylesheets/site.css:17.
@@ -22,6 +23,8 @@ const ROUTES = [
 	"/fall_2026/biol_351_451/",
 	"/fall_2026/biol_480/",
 	"/fall_2026/POLICIES/",
+	"/fall_2026/policies/ACCOMMODATIONS/",
+	"/fall_2026/policies/GRADING/",
 	"/fall_2026/STUDENT_RESOURCES/",
 ];
 
@@ -143,11 +146,67 @@ try {
 		await context.close();
 	}
 
+	const homePage = await browser.newPage();
+	await homePage.goto(`${staticServer.baseUrl}/`);
+	const homeMain = homePage.getByRole("article");
+	const currentCourses = [
+		{
+			name: "BIOL 318 and BIOL 418 - Biostatistics",
+			pathname: "/fall_2026/biol_318_418/",
+		},
+		{
+			name: "BIOL 351 and BIOL 451 - General Genetics",
+			pathname: "/fall_2026/biol_351_451/",
+		},
+		{
+			name: "BIOL 480 - Applications of Biotechnology",
+			pathname: "/fall_2026/biol_480/",
+		},
+	];
+	for (const course of currentCourses) {
+		const courseLink = homeMain.getByRole("link", { name: course.name, exact: true });
+		await courseLink.waitFor();
+		const courseUrl = new URL(await courseLink.getAttribute("href"), homePage.url());
+		assert.equal(courseUrl.pathname, course.pathname);
+	}
+	await homeMain
+		.getByRole("heading", { name: "Blackboard and private course materials" })
+		.waitFor();
+	assert.equal(await homeMain.getByRole("heading", { name: "Archived terms" }).count(), 0);
+	assert.equal(await homeMain.getByRole("heading", { name: "Secure course access" }).count(), 0);
+	await homePage.close();
+
+	const accommodationPage = await browser.newPage();
+	await accommodationPage.goto(`${staticServer.baseUrl}/fall_2026/policies/ACCOMMODATIONS/`);
+	const absenceTable = accommodationPage.getByRole("table").filter({
+		hasText: "First communicated",
+	});
+	await absenceTable.waitFor();
+	assert.deepEqual(await absenceTable.getByRole("columnheader").allTextContents(), [
+		"Absence type",
+		"Score",
+		"Included in total points",
+	]);
+	await accommodationPage.close();
+
+	const gradingPage = await browser.newPage();
+	await gradingPage.goto(`${staticServer.baseUrl}/fall_2026/policies/GRADING/`);
+	const gradeTable = gradingPage.getByRole("table").filter({ hasText: "92.0% and above" });
+	await gradeTable.waitFor();
+	assert.deepEqual(await gradeTable.getByRole("columnheader").allTextContents(), [
+		"Percentage",
+		"Grade",
+	]);
+	await gradingPage.close();
+
 	const coursePage = await browser.newPage();
 	await coursePage.goto(`${staticServer.baseUrl}/fall_2026/biol_351_451/`);
 	const courseMain = coursePage.getByRole("article");
 	await courseMain.getByRole("link", { name: "Meetings and instructor" }).waitFor();
-	await courseMain.getByRole("link", { name: "University policies" }).waitFor();
+	await courseMain
+		.getByRole("link", { name: "Learning Objectives, Outcomes, and Goals" })
+		.waitFor();
+	await courseMain.getByRole("link", { name: "Dr. Voss course policies" }).waitFor();
 	await courseMain.getByRole("link", { name: "Help and student services" }).waitFor();
 	const layoutOrder = await coursePage.evaluate(() => {
 		const pageLinks = document.querySelector(".course-page-links");

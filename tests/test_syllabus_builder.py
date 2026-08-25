@@ -40,17 +40,39 @@ def test_normalize_admonitions_for_docx() -> None:
 
 
 #============================================
+def test_remove_heading_sections_omits_web_only_policy_routes() -> None:
+	"""Complete documents keep the policy branch heading without its route lists."""
+	markdown = (
+		"# Dr. Voss course policies\n\nShared policy introduction.\n\n"
+		"## Policy topics\n\n- [Assessment](policies/ASSESSMENT.md)\n\n"
+		"## Student support\n\n- [Resources](STUDENT_RESOURCES.md)\n"
+	)
+	prepared = pipeline.build_syllabi.remove_heading_sections(
+		markdown,
+		("Policy topics", "Student support"),
+	)
+	assert prepared == "# Dr. Voss course policies\n\nShared policy introduction.\n\n"
+
+
+#============================================
+def test_rewrite_document_links_targets_embedded_instructor_section() -> None:
+	"""Policy references remain useful after instructor information is embedded."""
+	markdown = "See [Instructor information](INSTRUCTOR_INFORMATION.md)."
+	rewritten = pipeline.build_syllabi.rewrite_document_links(markdown)
+	assert rewritten == "See [Instructor information](#instructor-information)."
+
+
+#============================================
 def test_markdown_html_uses_site_extension_stack(tmp_path: pathlib.Path) -> None:
 	"""PDF HTML preserves native admonitions and explicit heading anchors."""
 	manifest = pipeline.build_syllabi.SyllabusManifest(
 		path=tmp_path / "syllabus.yml",
+		docs_root=tmp_path,
 		title="Course title",
 		course_code="BIOL 000",
 		term="Fall 20XX",
 		author="Instructor",
 		language="en-US",
-		status="current",
-		publication_status="approved",
 		download_basename="BIOL_000_SYLLABUS",
 		sections=(),
 		shared_sections=(),
@@ -59,11 +81,12 @@ def test_markdown_html_uses_site_extension_stack(tmp_path: pathlib.Path) -> None
 	stylesheet_path.write_text("body { color: black; }\n", encoding="utf-8")
 	html_path = tmp_path / "syllabus.html"
 	pipeline.build_syllabi.run_markdown_html(
-		'## Course overview {#course-overview}\n\n!!! warning "Review"\n\n    Check this.\n',
+		'## Course overview {#course-overview}\n\n!!! warning "Review"\n\n    Check this.\n\n'
+		"| Field | Value |\n| --- | ---: |\n| Points | 10 |\n",
 		html_path,
 		stylesheet_path,
 		manifest,
-		("admonition", "attr_list"),
+		("admonition", "attr_list", "tables"),
 		{},
 	)
 	html_text = html_path.read_text(encoding="utf-8")
@@ -72,16 +95,47 @@ def test_markdown_html_uses_site_extension_stack(tmp_path: pathlib.Path) -> None
 		'<h2 id="course-overview">Course overview</h2>\n'
 		'<div class="admonition warning">\n<p class="admonition-title">Review</p>'
 	) in html_text
+	assert html_text.count("<table>") == 1
 
 
 #============================================
 def test_secret_scan_rejects_meeting_credentials() -> None:
 	"""Credential-shaped public text fails closed."""
+	credential_fixture = "".join(
+		(
+			"Join at https://example.",
+			"zoom.",
+			"us/j/123456789?",
+			"pwd",
+			"=synthetic-value",
+		)
+	)
 	with pytest.raises(ValueError, match="prohibited public credential pattern"):
 		pipeline.build_syllabi.scan_text_for_secrets(
-			"Join at https://example.zoom.us/j/123456789?pwd=secret",
+			credential_fixture,
 			"inline test",
 		)
+
+
+#============================================
+def test_source_scan_rejects_line_breaking_control_characters() -> None:
+	"""Invisible controls cannot silently turn a Markdown table into prose."""
+	with pytest.raises(ValueError, match="prohibited control character: U\\+000B"):
+		pipeline.build_syllabi.scan_text_for_prohibited_controls(
+			"| Included in\vtotal points |",
+			"inline test",
+		)
+
+
+#============================================
+def test_markdown_table_validation_requires_consistent_columns() -> None:
+	"""Every Markdown table has named headers and a rectangular row structure."""
+	valid_markdown = "| Absence type | Score |\n| --- | ---: |\n| First communicated | N/A |\n"
+	pipeline.build_syllabi.validate_markdown_tables(valid_markdown, "inline test")
+	assert pipeline.build_syllabi.count_markdown_tables(valid_markdown) == 1
+	markdown = "| Absence type | Score |\n| --- | ---: |\n| First communicated |\n"
+	with pytest.raises(ValueError, match="inconsistent table columns"):
+		pipeline.build_syllabi.validate_markdown_tables(markdown, "inline test")
 
 
 #============================================
@@ -89,6 +143,55 @@ def write_section(path: pathlib.Path, heading: str) -> None:
 	"""Write one minimal inline section for composition testing."""
 	path.write_text(f"# {heading}\n\n{heading} body.\n", encoding="utf-8")
 	return None
+
+
+#============================================
+def test_expand_shared_includes_inlines_canonical_markdown(tmp_path: pathlib.Path) -> None:
+	"""A course page can render one canonical term-level Markdown fragment."""
+	shared_dir = tmp_path / "fall_2026" / "shared"
+	shared_dir.mkdir(parents=True)
+	include_path = shared_dir / "ROOSEVELT_LEARNING_GOALS.md"
+	include_path.write_text("- Effective communication.\n", encoding="utf-8")
+	source_path = tmp_path / "fall_2026" / "course" / "COURSE_LEARNING_FRAMEWORK.md"
+	source_path.parent.mkdir()
+	markdown = (
+		"# Learning Objectives, Outcomes, and Goals\n\n"
+		"## Roosevelt learning goals\n\n"
+		'--8<-- "fall_2026/shared/ROOSEVELT_LEARNING_GOALS.md"\n\n'
+		"Following paragraph.\n"
+	)
+	expanded = pipeline.build_syllabi.expand_shared_includes(markdown, source_path, tmp_path)
+	assert "- Effective communication." in expanded
+	assert "- Effective communication.\n\nFollowing paragraph." in expanded
+	assert "--8<--" not in expanded
+
+
+#============================================
+def test_expand_shared_includes_rejects_parent_traversal(tmp_path: pathlib.Path) -> None:
+	"""Shared includes cannot read a Markdown path above site_docs."""
+	source_path = tmp_path / "course" / "COURSE_DETAILS.md"
+	source_path.parent.mkdir()
+	markdown = '--8<-- "../private.md"\n'
+	with pytest.raises(ValueError, match="unsafe Markdown include"):
+		pipeline.build_syllabi.expand_shared_includes(markdown, source_path, tmp_path)
+
+
+#============================================
+def test_learning_framework_requires_all_four_ordered_sections(tmp_path: pathlib.Path) -> None:
+	"""Every course preserves the distinct syllabus learning statements in order."""
+	framework_path = tmp_path / "COURSE_LEARNING_FRAMEWORK.md"
+	framework_path.write_text(
+		"# Learning Objectives, Outcomes, and Goals\n\n"
+		"## Roosevelt learning goals\n\n- Communication.\n\n"
+		"## Learning Objectives\n\n"
+		"Students completing this course will have achieved:\n\n- Experience.\n\n"
+		"## Course Learning Outcomes\n\n"
+		"Students completing this course will be able to:\n\n- Apply knowledge.\n\n"
+		"## Learning Goals\n\n"
+		"Overall, this course aims to accomplish:\n\n- Growth.\n",
+		encoding="utf-8",
+	)
+	pipeline.build_syllabi.validate_course_learning_framework((framework_path,), tmp_path)
 
 
 #============================================
@@ -102,13 +205,12 @@ def test_compose_markdown_appends_policy_and_resources_once(tmp_path: pathlib.Pa
 	write_section(resource_path, "Student resources")
 	manifest = pipeline.build_syllabi.SyllabusManifest(
 		path=tmp_path / "syllabus.yml",
+		docs_root=tmp_path,
 		title="Course title",
 		course_code="BIOL 000",
 		term="Fall 20XX",
 		author="Instructor",
 		language="en-US",
-		status="current",
-		publication_status="approved",
 		download_basename="BIOL_000_SYLLABUS",
 		sections=(index_path,),
 		shared_sections=(policy_path, resource_path),
@@ -116,3 +218,56 @@ def test_compose_markdown_appends_policy_and_resources_once(tmp_path: pathlib.Pa
 	combined = pipeline.build_syllabi.compose_markdown(manifest)
 	assert combined.count("## Policies {#policies}") == 1
 	assert combined.index("## Policies") < combined.index("## Student resources")
+
+
+#============================================
+def test_publish_downloads_replaces_the_managed_set(tmp_path: pathlib.Path) -> None:
+	"""Validated staged downloads replace current files and remove obsolete siblings."""
+	staged_dir = tmp_path / "staged"
+	downloads_dir = tmp_path / "downloads"
+	staged_dir.mkdir()
+	downloads_dir.mkdir()
+	(staged_dir / "COURSE.pdf").write_text("new PDF", encoding="utf-8")
+	(staged_dir / "COURSE.docx").write_text("new DOCX", encoding="utf-8")
+	(downloads_dir / "COURSE.pdf").write_text("old PDF", encoding="utf-8")
+	(downloads_dir / "STALE.docx").write_text("obsolete", encoding="utf-8")
+	(downloads_dir / "README.txt").write_text("preserve", encoding="utf-8")
+	pipeline.build_syllabi.publish_downloads(
+		staged_dir,
+		downloads_dir,
+		{"COURSE.docx", "COURSE.pdf"},
+	)
+	managed_state = (
+		(downloads_dir / "COURSE.pdf").read_text(encoding="utf-8"),
+		(downloads_dir / "COURSE.docx").read_text(encoding="utf-8"),
+		(downloads_dir / "STALE.docx").exists(),
+	)
+	assert managed_state == ("new PDF", "new DOCX", False)
+	assert (downloads_dir / "README.txt").read_text(encoding="utf-8") == "preserve"
+
+
+#============================================
+def test_publish_downloads_rejects_an_incomplete_stage(tmp_path: pathlib.Path) -> None:
+	"""A partial staged build cannot replace an existing published download."""
+	staged_dir = tmp_path / "staged"
+	downloads_dir = tmp_path / "downloads"
+	staged_dir.mkdir()
+	downloads_dir.mkdir()
+	(staged_dir / "COURSE.pdf").write_text("new PDF", encoding="utf-8")
+	current_path = downloads_dir / "COURSE.pdf"
+	current_path.write_text("current PDF", encoding="utf-8")
+	with pytest.raises(RuntimeError, match="Staged downloads do not match"):
+		pipeline.build_syllabi.publish_downloads(
+			staged_dir,
+			downloads_dir,
+			{"COURSE.docx", "COURSE.pdf"},
+		)
+	assert current_path.read_text(encoding="utf-8") == "current PDF"
+
+
+#============================================
+def test_public_only_repository_rejects_a_raw_tree(tmp_path: pathlib.Path) -> None:
+	"""Private or ambiguous raw content cannot live inside the repository."""
+	(tmp_path / "raw").mkdir()
+	with pytest.raises(RuntimeError, match="only public-safe canonical content"):
+		pipeline.build_syllabi.require_public_only_repository(tmp_path)
