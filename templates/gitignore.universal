@@ -1,0 +1,22 @@
+# macOS desktop
+.DS_Store
+
+# pytest reports
+/report_*.txt
+
+# Generated release/build outputs
+/output*/
+/generated/
+
+# Generated Graphify code maps
+/graphify-out/
+
+# AI agent temp scripts
+_temp*.?*
+/temp/
+
+# Sibling repos checked out for local cross-repo work
+/OTHER_REPOS/
+
+# Local-only scratch, never committed
+/LOCAL_ONLY/

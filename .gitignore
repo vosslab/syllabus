@@ -1,0 +1,16 @@
+# === UNIVERSAL ===
+.DS_Store
+report_*.txt
+_temp*.?*
+/graphify-out/
+# === LOCAL ===
+# Template-only ignores.
+/OTHER_REPOS/
+/LOCAL_ONLY/
+# === PYTHON ===
+build/
+dist/
+sdist/
+*.egg
+*.egg-info/
+site/
