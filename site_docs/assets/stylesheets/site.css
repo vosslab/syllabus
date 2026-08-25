@@ -1,0 +1,113 @@
+@font-face {
+	font-family: "Atkinson Hyperlegible Next";
+	font-style: normal;
+	font-weight: 200 800;
+	font-display: swap;
+	src: url("../fonts/atkinson_hyperlegible_next.woff2") format("woff2");
+}
+
+@font-face {
+	font-family: "Atkinson Hyperlegible Next";
+	font-style: italic;
+	font-weight: 200 800;
+	font-display: swap;
+	src: url("../fonts/atkinson_hyperlegible_next_italic.woff2") format("woff2");
+}
+
+:root {
+	--md-text-font: "Atkinson Hyperlegible Next";
+	--syllabus-content-font-size: 0.85rem;
+	--syllabus-navigation-font-size: 0.8rem;
+}
+
+/* Course metadata changes only the web header; document exports stay neutral. */
+.md-header {
+	background-color: var(--course-header-color, var(--md-primary-fg-color));
+}
+
+/* Keep student-facing text readable and consistent across Material components. */
+.md-typeset {
+	font-size: var(--syllabus-content-font-size);
+}
+
+.md-nav {
+	font-size: var(--syllabus-navigation-font-size);
+}
+
+/* Keep wide course tables usable without shrinking text or clipping content. */
+.md-typeset__table {
+	display: block;
+	max-width: 100%;
+	overflow-x: auto;
+}
+
+.md-typeset table:not([class]) {
+	display: table;
+	font-size: 1em;
+	width: 100%;
+}
+
+.md-typeset .admonition,
+.md-typeset details {
+	font-size: 1em;
+}
+
+.md-typeset table:not([class]) td,
+.md-typeset table:not([class]) th {
+	vertical-align: top;
+	white-space: normal;
+}
+
+.course-page-links li {
+	margin-block: 0.65rem;
+}
+
+.syllabus-downloads {
+	border-top: 1px solid var(--md-default-fg-color--lightest);
+	margin-block-start: 2.5rem;
+	padding-block-start: 1rem;
+}
+
+.syllabus-downloads h2 {
+	margin-block-start: 0;
+}
+
+.syllabus-downloads ul {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 0.5rem 1.25rem;
+	list-style: none;
+	margin: 0;
+	padding: 0;
+}
+
+.syllabus-downloads a {
+	display: inline-flex;
+	align-items: center;
+	min-height: 2.75rem;
+}
+
+.md-typeset :focus-visible {
+	outline: 3px solid currentColor;
+	outline-offset: 3px;
+}
+
+.md-typeset :where(a:not(.md-button):not(.headerlink)) {
+	text-decoration: underline;
+	text-decoration-thickness: 0.08em;
+	text-underline-offset: 0.15em;
+}
+
+/* Material's default footer gray misses AA by a small margin on its dark background. */
+.md-footer-meta .md-copyright {
+	color: #999;
+}
+
+@media print {
+	.md-header,
+	.md-sidebar,
+	.md-footer,
+	.syllabus-downloads {
+		display: none;
+	}
+}

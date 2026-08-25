@@ -1,0 +1,181 @@
+@font-face {
+	font-family: "Atkinson Hyperlegible Next";
+	font-style: normal;
+	font-weight: 400;
+	font-display: swap;
+	src: url("../fonts/atkinson_hyperlegible_next.woff2") format("woff2");
+}
+
+@font-face {
+	font-family: "Atkinson Hyperlegible Next";
+	font-style: normal;
+	font-weight: 700;
+	font-display: swap;
+	src: url("../fonts/atkinson_hyperlegible_next.woff2") format("woff2");
+}
+
+@font-face {
+	font-family: "Atkinson Hyperlegible Next";
+	font-style: italic;
+	font-weight: 400;
+	font-display: swap;
+	src: url("../fonts/atkinson_hyperlegible_next_italic.woff2") format("woff2");
+}
+
+@font-face {
+	font-family: "Atkinson Hyperlegible Next";
+	font-style: italic;
+	font-weight: 700;
+	font-display: swap;
+	src: url("../fonts/atkinson_hyperlegible_next_italic.woff2") format("woff2");
+}
+
+@page {
+	size: letter;
+	margin: 0.7in 0.75in 0.78in;
+
+	@bottom-center {
+		content: counter(page);
+		font-size: 9pt;
+	}
+}
+
+:root {
+	color: #111;
+	font-family: "Atkinson Hyperlegible Next", sans-serif;
+	font-size: 11.5pt;
+	line-height: 1.38;
+}
+
+body {
+	margin: 0;
+}
+
+#title-block-header {
+	border-bottom: 2px solid #17365d;
+	margin-bottom: 1.25rem;
+	padding-bottom: 0.75rem;
+}
+
+#title-block-header h1,
+#title-block-header p {
+	margin-block: 0.15rem;
+}
+
+#title-block-header .subtitle {
+	font-size: 14pt;
+	font-weight: 700;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+	break-after: avoid;
+	color: #111;
+	line-height: 1.15;
+}
+
+h1 {
+	color: #17365d;
+	font-size: 20pt;
+	margin-block: 1.35rem 0.6rem;
+}
+
+h2 {
+	font-size: 16pt;
+	margin-block: 1.2rem 0.5rem;
+}
+
+h3 {
+	font-size: 13.5pt;
+	margin-block: 1rem 0.4rem;
+}
+
+h4,
+h5,
+h6 {
+	font-size: 11.5pt;
+	margin-block: 0.8rem 0.3rem;
+}
+
+p,
+ul,
+ol,
+table,
+blockquote {
+	margin-block: 0.45rem 0.75rem;
+}
+
+li {
+	margin-block: 0.18rem;
+}
+
+a {
+	color: #004a83;
+	text-decoration: underline;
+	text-decoration-thickness: 0.08em;
+	text-underline-offset: 0.12em;
+}
+
+.headerlink {
+	display: none;
+}
+
+.admonition {
+	border: 1px solid #777;
+	border-left-width: 0.25rem;
+	break-inside: avoid;
+	margin-block: 0.75rem;
+	padding: 0.55rem 0.7rem;
+}
+
+.admonition-title {
+	font-weight: 700;
+	margin-top: 0;
+}
+
+table {
+	border-collapse: collapse;
+	font-size: 1rem;
+	width: 100%;
+}
+
+thead {
+	display: table-header-group;
+}
+
+tr {
+	break-inside: avoid;
+}
+
+th,
+td {
+	border: 1px solid #777;
+	padding: 0.3rem 0.4rem;
+	text-align: left;
+	vertical-align: top;
+}
+
+th {
+	background: #e6e6e6;
+	font-weight: 700;
+}
+
+blockquote {
+	border-left: 0.2rem solid #777;
+	margin-inline: 0;
+	padding-inline-start: 0.75rem;
+}
+
+pre,
+code {
+	font-family: ui-monospace, "SFMono-Regular", Consolas, monospace;
+}
+
+pre {
+	break-inside: avoid;
+	white-space: pre-wrap;
+}

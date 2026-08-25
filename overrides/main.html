@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+
+{% block extrahead %}
+  {{ super() }}
+  {% if page and page.meta and page.meta.course_color %}
+    <style>
+      :root {
+        --course-header-color: {{ page.meta.course_color | e }};
+      }
+    </style>
+  {% endif %}
+{% endblock %}

@@ -1,0 +1,235 @@
+// Selector contract:
+// - Material route and navigation markup come from mkdocs.yml:7 and mkdocs.yml:36.
+// - Main headings, prose, tables, course-page links, and download links come from
+//   site_docs/fall_2026/biol_351_451/index.md:1.
+// - Typography and focus-visible behavior come from site_docs/assets/stylesheets/site.css:17.
+// - Course-header metadata comes from each course .meta.yml, overrides/main.html:5, and
+//   site_docs/assets/stylesheets/site.css:23.
+
+import assert from "node:assert/strict";
+import fs from "node:fs";
+import path from "node:path";
+
+import AxeBuilder from "@axe-core/playwright";
+import { chromium } from "playwright";
+
+import { REPO_ROOT } from "./repo_root.mjs";
+import { startStaticServer } from "./helper_server.mjs";
+
+const ROUTES = [
+	"/",
+	"/fall_2026/biol_318_418/",
+	"/fall_2026/biol_351_451/",
+	"/fall_2026/biol_480/",
+	"/fall_2026/POLICIES/",
+	"/fall_2026/STUDENT_RESOURCES/",
+];
+
+const VIEWPORTS = [
+	{ name: "desktop", width: 1280, height: 900 },
+	{ name: "mobile", width: 390, height: 844 },
+];
+
+async function getCourseTypography(page) {
+	return page.evaluate(async () => {
+		const fontSize = (selector) => {
+			const element = document.querySelector(selector);
+			if (!element) {
+				throw new Error(`Missing typography test element: ${selector}`);
+			}
+			return Number.parseFloat(window.getComputedStyle(element).fontSize);
+		};
+		const body = document.querySelector("main p");
+		if (!body) {
+			throw new Error("Missing course body text for typography test");
+		}
+		const normalFaces = await document.fonts.load(
+			'400 1em "Atkinson Hyperlegible Next"',
+			"Il1O0",
+		);
+		const boldFaces = await document.fonts.load(
+			'700 1em "Atkinson Hyperlegible Next"',
+			"Il1O0",
+		);
+		const italicFaces = await document.fonts.load(
+			'italic 400 1em "Atkinson Hyperlegible Next"',
+			"Il1O0",
+		);
+		return {
+			boldFaces: boldFaces.length,
+			body: fontSize("main p"),
+			bodyFamily: window.getComputedStyle(body).fontFamily,
+			italicFaces: italicFaces.length,
+			normalFaces: normalFaces.length,
+			table: fontSize("main table td"),
+		};
+	});
+}
+
+function checkCourseTypography(typography, viewportName) {
+	assert.ok(typography.bodyFamily.includes("Atkinson Hyperlegible Next"));
+	assert.ok(typography.normalFaces > 0, `${viewportName} regular font did not load`);
+	assert.ok(typography.boldFaces > 0, `${viewportName} bold font did not load`);
+	assert.ok(typography.italicFaces > 0, `${viewportName} italic font did not load`);
+	assert.ok(
+		typography.table >= typography.body,
+		`${viewportName} table text ${typography.table}px is smaller than course text ${typography.body}px`,
+	);
+}
+
+async function getHeaderColor(page, baseUrl, route) {
+	const response = await page.goto(`${baseUrl}${route}`, {
+		waitUntil: "domcontentloaded",
+	});
+	assert.equal(response?.status(), 200, `${route} did not load for header-color review`);
+	const header = page.locator(".md-header");
+	await header.waitFor({ state: "visible" });
+	return header.evaluate((element) => window.getComputedStyle(element).backgroundColor);
+}
+
+const siteRoot = path.join(REPO_ROOT, "site");
+assert.ok(fs.existsSync(siteRoot), "site/ is missing; run python3 pipeline/build_site.py first");
+
+const staticServer = await startStaticServer(siteRoot);
+const siteOrigin = new URL(staticServer.baseUrl).origin;
+const browser = await chromium.launch();
+
+try {
+	for (const viewport of VIEWPORTS) {
+		const context = await browser.newContext({
+			viewport: { width: viewport.width, height: viewport.height },
+		});
+		for (const route of ROUTES) {
+			const page = await context.newPage();
+			const externalFontRequests = [];
+			const pageErrors = [];
+			page.on("pageerror", (error) => pageErrors.push(error.message));
+			page.on("request", (request) => {
+				if (request.resourceType() !== "font") {
+					return;
+				}
+				if (new URL(request.url()).origin !== siteOrigin) {
+					externalFontRequests.push(request.url());
+				}
+			});
+			const response = await page.goto(`${staticServer.baseUrl}${route}`, {
+				waitUntil: "domcontentloaded",
+			});
+			assert.equal(response?.status(), 200, `${route} did not load in ${viewport.name}`);
+			assert.equal(pageErrors.length, 0, `${route} raised browser errors: ${pageErrors.join("; ")}`);
+			await page.locator("main h1").waitFor({ state: "visible" });
+			const results = await new AxeBuilder({ page })
+				.withTags(["wcag2a", "wcag2aa", "wcag21aa", "wcag22aa"])
+				.analyze();
+			assert.deepEqual(
+				results.violations,
+				[],
+				`${route} ${viewport.name} accessibility violations:\n${JSON.stringify(results.violations, null, 2)}`,
+			);
+			const horizontalOverflow = await page.evaluate(() => {
+				return document.documentElement.scrollWidth > window.innerWidth + 1;
+			});
+			assert.equal(horizontalOverflow, false, `${route} overflows the ${viewport.name} viewport`);
+			if (route.includes("/fall_2026/biol_")) {
+				checkCourseTypography(await getCourseTypography(page), viewport.name);
+			}
+			assert.deepEqual(
+				externalFontRequests,
+				[],
+				`${route} ${viewport.name} requested external fonts`,
+			);
+			await page.close();
+		}
+		await context.close();
+	}
+
+	const coursePage = await browser.newPage();
+	await coursePage.goto(`${staticServer.baseUrl}/fall_2026/biol_351_451/`);
+	const courseMain = coursePage.getByRole("article");
+	await courseMain.getByRole("link", { name: "Meetings and instructor" }).waitFor();
+	await courseMain.getByRole("link", { name: "University policies" }).waitFor();
+	await courseMain.getByRole("link", { name: "Help and student services" }).waitFor();
+	const layoutOrder = await coursePage.evaluate(() => {
+		const pageLinks = document.querySelector(".course-page-links");
+		const courseTable = document.querySelector("main table");
+		const downloads = document.querySelector(".syllabus-downloads");
+		if (!pageLinks || !courseTable || !downloads) {
+			throw new Error("Course landing page is missing required content groups");
+		}
+		return {
+			linksBeforeTable: Boolean(
+				pageLinks.compareDocumentPosition(courseTable) & Node.DOCUMENT_POSITION_FOLLOWING,
+			),
+			tableBeforeDownloads: Boolean(
+				courseTable.compareDocumentPosition(downloads) & Node.DOCUMENT_POSITION_FOLLOWING,
+			),
+		};
+	});
+	assert.equal(layoutOrder.linksBeforeTable, true, "Course-page links must precede the summary");
+	assert.equal(
+		layoutOrder.tableBeforeDownloads,
+		true,
+		"Complete-syllabus downloads must follow the summary",
+	);
+	const pdfLink = courseMain.getByRole("link", {
+		name: "Download the complete course syllabus (PDF)",
+	});
+	const docxLink = courseMain.getByRole("link", {
+		name: "Download the complete course syllabus (DOCX)",
+	});
+	const pdfUrl = new URL(await pdfLink.getAttribute("href"), coursePage.url());
+	const docxUrl = new URL(await docxLink.getAttribute("href"), coursePage.url());
+	assert.equal(pdfUrl.origin, siteOrigin);
+	assert.equal(docxUrl.origin, siteOrigin);
+	assert.match(pdfUrl.pathname, /\.pdf$/);
+	assert.match(docxUrl.pathname, /\.docx$/);
+	await pdfLink.focus();
+	assert.equal(await pdfLink.evaluate((element) => element.matches(":focus-visible")), true);
+	await docxLink.focus();
+	assert.equal(await docxLink.evaluate((element) => element.matches(":focus-visible")), true);
+	await coursePage.close();
+
+	const headerPage = await browser.newPage();
+	const biostatisticsColor = await getHeaderColor(
+		headerPage,
+		staticServer.baseUrl,
+		"/fall_2026/biol_318_418/",
+	);
+	const biostatisticsDetailsColor = await getHeaderColor(
+		headerPage,
+		staticServer.baseUrl,
+		"/fall_2026/biol_318_418/COURSE_DETAILS/",
+	);
+	const geneticsColor = await getHeaderColor(
+		headerPage,
+		staticServer.baseUrl,
+		"/fall_2026/biol_351_451/",
+	);
+	const biotechnologyColor = await getHeaderColor(
+		headerPage,
+		staticServer.baseUrl,
+		"/fall_2026/biol_480/",
+	);
+	const sharedPageColor = await getHeaderColor(
+		headerPage,
+		staticServer.baseUrl,
+		"/fall_2026/POLICIES/",
+	);
+	assert.equal(
+		biostatisticsDetailsColor,
+		biostatisticsColor,
+		"Course subpages must inherit their course header color",
+	);
+	assert.notEqual(biostatisticsColor, geneticsColor);
+	assert.notEqual(biostatisticsColor, biotechnologyColor);
+	assert.notEqual(geneticsColor, biotechnologyColor);
+	assert.notEqual(sharedPageColor, biostatisticsColor);
+	assert.notEqual(sharedPageColor, geneticsColor);
+	assert.notEqual(sharedPageColor, biotechnologyColor);
+	await headerPage.close();
+} finally {
+	await browser.close();
+	await staticServer.close();
+}
+
+console.log("PASS: syllabus browser accessibility audit");

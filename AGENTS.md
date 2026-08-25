@@ -2,6 +2,7 @@
 See Python coding style in docs/PYTHON_STYLE.md.
 See Markdown style in docs/MARKDOWN_STYLE.md.
 See repo style in docs/REPO_STYLE.md.
+See durable human guidance in [docs/HUMAN_GUIDANCE.md](docs/HUMAN_GUIDANCE.md).
 When making edits, document them in docs/CHANGELOG.md.
 
 ## Python Environment

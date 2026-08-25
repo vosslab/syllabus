@@ -1,0 +1,12 @@
+{
+	"name": "syllabus-site-tests",
+	"private": true,
+	"type": "module",
+	"scripts": {
+		"test:playwright": "node tests/playwright/syllabus_smoke.mjs"
+	},
+	"devDependencies": {
+		"@axe-core/playwright": "4.13.0",
+		"playwright": "1.62.1"
+	}
+}

@@ -1,0 +1,18 @@
+title: Course title
+course_code: BIOL 000
+term: Fall 20XX
+author: Instructor name
+language: en-US
+status: current
+publication_status: draft
+download_basename: BIOL_000_FALL_20XX_SYLLABUS
+sections:
+  - index.md
+  - COURSE_DETAILS.md
+  - LEARNING_OUTCOMES.md
+  - ASSIGNMENTS_AND_GRADING.md
+  - SCHEDULE.md
+  - COURSE_POLICIES.md
+shared_sections:
+  - ../POLICIES.md
+  - ../STUDENT_RESOURCES.md

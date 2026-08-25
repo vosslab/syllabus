@@ -1,21 +1,64 @@
-site_name: Syllabus
-site_description: Course syllabus materials.
-docs_dir: docs
+site_name: Dr. Voss Course Syllabi
+site_description: Accessible course syllabi for classes taught by Dr. Neil R. Voss.
+site_url: https://vosslab.github.io/syllabus/
+docs_dir: site_docs
 site_dir: site
-
-exclude_docs: |
-  AUTHORS.md
-  CHANGELOG.md
-  CLAUDE_HOOK_USAGE_GUIDE.md
-  CODEX_SPARK_SUBAGENTS.md
-  COLOR_CONTRAST_ACCESSIBILITY.md
-  E2E_TESTS.md
-  MARKDOWN_STYLE.md
-  PLAYWRIGHT_TEST_STYLE.md
-  PLAYWRIGHT_USAGE.md
-  PYTEST_STYLE.md
-  PYTHON_STYLE.md
-  REPO_STYLE.md
 
 theme:
   name: material
+  custom_dir: overrides
+  font: false
+  features:
+    - content.footer
+    - navigation.indexes
+    - navigation.path
+    - navigation.top
+    - toc.follow
+
+plugins:
+  - search
+  - meta
+
+markdown_extensions:
+  - admonition
+  - attr_list
+  - md_in_html
+  - tables
+  - toc:
+      permalink: true
+
+extra_css:
+  - assets/stylesheets/site.css
+
+extra_javascript:
+  - assets/javascripts/accessibility.js
+
+copyright: Copyright &copy; 2026 Neil R. Voss. Course materials are licensed CC BY 4.0.
+
+nav:
+  - Home: index.md
+  - Fall 2026:
+      - Overview: fall_2026/index.md
+      - BIOL 318/418 - Biostatistics:
+          - Start here: fall_2026/biol_318_418/index.md
+          - Meetings and instructor: fall_2026/biol_318_418/COURSE_DETAILS.md
+          - What you will learn: fall_2026/biol_318_418/LEARNING_OUTCOMES.md
+          - Coursework and grades: fall_2026/biol_318_418/ASSIGNMENTS_AND_GRADING.md
+          - Dates and topics: fall_2026/biol_318_418/SCHEDULE.md
+          - Class expectations: fall_2026/biol_318_418/COURSE_POLICIES.md
+      - BIOL 351/451 - General Genetics:
+          - Start here: fall_2026/biol_351_451/index.md
+          - Meetings and instructor: fall_2026/biol_351_451/COURSE_DETAILS.md
+          - What you will learn: fall_2026/biol_351_451/LEARNING_OUTCOMES.md
+          - Coursework and grades: fall_2026/biol_351_451/ASSIGNMENTS_AND_GRADING.md
+          - Dates and topics: fall_2026/biol_351_451/SCHEDULE.md
+          - Class expectations: fall_2026/biol_351_451/COURSE_POLICIES.md
+      - BIOL 480 - Applications of Biotechnology:
+          - Start here: fall_2026/biol_480/index.md
+          - Meetings and instructor: fall_2026/biol_480/COURSE_DETAILS.md
+          - What you will learn: fall_2026/biol_480/LEARNING_OUTCOMES.md
+          - Coursework and grades: fall_2026/biol_480/ASSIGNMENTS_AND_GRADING.md
+          - Dates and topics: fall_2026/biol_480/SCHEDULE.md
+          - Class expectations: fall_2026/biol_480/COURSE_POLICIES.md
+      - University policies: fall_2026/POLICIES.md
+      - Help and student services: fall_2026/STUDENT_RESOURCES.md
