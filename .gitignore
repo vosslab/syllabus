@@ -1,12 +1,16 @@
 # === UNIVERSAL ===
 .DS_Store
-report_*.txt
-_temp*.?*
+/report_*.txt
+/output*/
+/generated/
 /graphify-out/
-# === LOCAL ===
-# Template-only ignores.
+_temp*.?*
+/temp/
 /OTHER_REPOS/
 /LOCAL_ONLY/
+
+# === LOCAL ===
+# Template-only ignores.
 # === PYTHON ===
 build/
 dist/
@@ -14,3 +18,4 @@ sdist/
 *.egg
 *.egg-info/
 site/
+
