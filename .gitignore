@@ -8,11 +8,7 @@ _temp*.?*
 /temp/
 /OTHER_REPOS/
 /LOCAL_ONLY/
-/raw/
-/site_docs/downloads/
 /node_modules/
-/playwright-report/
-/test-results/
 # === LOCAL ===
 # Template-only ignores.
 # === PYTHON ===
