@@ -90,6 +90,9 @@
 - Updated the Pages workflow to the current major releases of checkout, Python/Node setup,
   configure-pages, artifact upload, and deployment actions while retaining the syllabus-specific
   export, approval, and accessibility gates.
+- Replaced the thin repository README with a content-first landing page that explains the
+  one-source website/DOCX/PDF workflow, exposes draft publication status, provides a verified first
+  build, demonstrates course organization, and routes newcomers to maintained documentation.
 
 ### Removals and Deprecations
 
