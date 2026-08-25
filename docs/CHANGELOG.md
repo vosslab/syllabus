@@ -90,6 +90,8 @@
 - Updated the Pages workflow to the current major releases of checkout, Python/Node setup,
   configure-pages, artifact upload, and deployment actions while retaining the syllabus-specific
   export, approval, and accessibility gates.
+- Updated both CI jobs to `setup-python@v7` and limited the advisory Playwright installation to
+  Chromium's headless shell, reducing browser download weight without changing test behavior.
 - Replaced the thin repository README with a content-first landing page that explains the
   one-source website/DOCX/PDF workflow, exposes draft publication status, provides a verified first
   build, demonstrates course organization, and routes newcomers to maintained documentation.
