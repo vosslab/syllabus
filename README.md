@@ -5,8 +5,9 @@ policies, and resources into a navigable student website plus complete PDF and D
 departmental archives.
 
 > **Status:** The technical pipeline is working, but all Fall 2026 syllabi remain drafts pending
-> instructor review. Do not enable publication until the
-> [content review](docs/active_plans/reports/fall_2026_content_review.md) is complete.
+> instructor review. The website publishes the current drafts; use the
+> [content review](docs/active_plans/reports/fall_2026_content_review.md) before distributing them
+> to students.
 
 ## One source, three student-ready forms
 
@@ -25,7 +26,7 @@ course Markdown + shared policies + student resources
 - Course-specific header colors provide a restrained web identity; downloads remain neutral.
 - Atkinson Hyperlegible Next is self-hosted for predictable, readable website typography.
 - Credential scanning rejects common meeting links, passcodes, and private invitations.
-- Publication requires explicit instructor approval for every course manifest.
+- Each export records whether its course manifest is still a draft or has instructor approval.
 
 <!-- screenshots:begin (managed by screenshot-docs) -->
 <!-- screenshots:end -->

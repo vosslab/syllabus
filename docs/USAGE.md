@@ -88,10 +88,11 @@ manifest-assembled Markdown authority. Pandoc creates the DOCX after flattening 
 such as admonitions. Python-Markdown uses the extension stack from `mkdocs.yml` to create small
 semantic HTML, and WeasyPrint renders that HTML directly to PDF.
 
-## Approve publication
+## Review course content
 
 New manifests begin with `publication_status: draft`. Draft exports display a distribution warning,
-and the Pages workflow refuses to deploy them when publication is enabled.
+while approved exports omit that warning. The Pages workflow publishes the latest successful build
+from `main` regardless of this review status.
 
 Before changing a manifest to `publication_status: approved`, confirm:
 
@@ -102,9 +103,9 @@ Before changing a manifest to `publication_status: approved`, confirm:
 - current university policy and student-resource language;
 - public contact information and the absence of meeting credentials;
 
-After all manifests are approved, set the GitHub Actions repository variable `PUBLISH_SYLLABI` to
-`true`. Pushes to `main` then deploy the verified Pages artifact. Remove or unset that variable to
-keep building without deployment.
+Pushes to `main` always deploy the verified Pages artifact. Change each manifest to
+`publication_status: approved` after completing the content review; this records readiness for
+student distribution without controlling website deployment.
 
 ## Validate
 

@@ -10,7 +10,7 @@
 - Added a manifest-driven `pipeline/build_syllabi.py` exporter, accessible Pandoc reference DOCX,
   tagged PDF conversion, optional term ZIP archives, and the `pipeline/build_site.py` build front
   door.
-- Added a gated GitHub Pages workflow, focused exporter tests, a real export E2E gate, and a
+- Added a GitHub Pages workflow, focused exporter tests, a real export E2E gate, and a
   desktop/mobile Playwright and axe accessibility smoke.
 - Added installation, authoring, HCI, contrast-audit, implementation-plan, and Fall 2026 content
   review documentation.
@@ -33,8 +33,10 @@
   coursework and grades, dates and topics, class expectations, and help.
 - Kept schedule dates as literal Markdown for human review rather than applying automatic date
   shifting.
-- Marked all Fall 2026 manifests as drafts and made Pages deployment conditional on both approved
-  manifests and the `PUBLISH_SYLLABI` repository variable.
+- Marked all Fall 2026 manifests as drafts so complete exports identify content that still needs
+  instructor review.
+- Changed Pages deployment to run after every successful `main` build; manifest approval remains a
+  record of readiness for student distribution rather than a deployment switch.
 - Excluded transient enrollment and wait-list totals from public course content.
 - Changed the website's proportional text family to Atkinson Hyperlegible Next while retaining
   Material's system monospace stack for code.
@@ -89,7 +91,9 @@
   pixel values.
 - Updated the Pages workflow to the current major releases of checkout, Python/Node setup,
   configure-pages, artifact upload, and deployment actions while retaining the syllabus-specific
-  export, approval, and accessibility gates.
+  export and accessibility checks.
+- Removed the repository-variable deployment branch after it allowed successful build jobs to skip
+  deployment and leave the project URL at GitHub's Pages 404 response.
 - Updated both CI jobs to `setup-python@v7` and limited the advisory Playwright installation to
   Chromium's headless shell, reducing browser download weight without changing test behavior.
 - Replaced the thin repository README with a content-first landing page that explains the
@@ -110,8 +114,8 @@
   and the applicability of shared assessment policies still require instructor approval.
 - Limited the accessibility claim to WCAG 2.2 AA-oriented behavior and tested tagged documents;
   this project does not claim PDF/UA certification or legal compliance.
-- Kept accessibility as an actively audited quality goal while reserving publication gates for
-  content approval, credential safety, successful builds, and valid complete downloads.
+- Kept accessibility as an actively audited quality goal while reserving blocking build checks for
+  credential safety, successful builds, and valid complete downloads.
 - Did not adopt ad hoc Prettier output because this repository's tab-based authored style differs
   from Prettier defaults; the enforced whitespace, indentation, and JavaScript checks pass.
 - Rejected `mkdocs-print-site-plugin` for production PDF generation after a course-specific probe
@@ -122,9 +126,10 @@
 - Kept Pandoc as the native DOCX generator and limited Material-specific normalization to that
   branch; routing Python-Markdown HTML through Pandoc would add an intermediate format without
   improving Word structure.
-- Classified academic approval, credential safety, complete valid outputs, and the strict site
-  build as durable gates; kept accessibility heuristics repeatable but advisory and recorded exact
-  page counts, package versions, and rendered comparisons as implementation evidence.
+- Classified academic approval as a student-distribution review and credential safety, complete
+  valid outputs, and the strict site build as durable build gates; kept accessibility heuristics
+  repeatable but advisory and recorded exact page counts, package versions, and rendered
+  comparisons as implementation evidence.
 - Removed fixed minimum-pixel and exact-font-face-count browser assertions, exact download paths,
   and a table-of-contents-dependent heading count because they constrained implementation details
   rather than stable student-visible behavior.

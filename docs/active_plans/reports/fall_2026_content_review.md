@@ -38,5 +38,5 @@ working, but the following academic decisions require instructor approval before
 ## Approval action
 
 After review, change each manifest to `publication_status: approved`, run the approval build in
-[USAGE.md](../../USAGE.md), and set the GitHub Actions `PUBLISH_SYLLABI` variable to `true` only when
-the complete output is ready for students.
+[USAGE.md](../../USAGE.md), and distribute the complete output to students when it is ready. The
+Pages workflow publishes successful builds throughout the review process.

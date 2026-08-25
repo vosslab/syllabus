@@ -64,7 +64,7 @@ one reproducible export path before adding branding or optional features.
 | --- | --- | --- | --- |
 | M1 | Content foundation | Protect raw inputs and create term/course sources | Complete |
 | M2 | Complete exports | Merge course and shared sources into DOCX/PDF | Complete |
-| M3 | Static publication | Build accessible navigation and gated Pages output | Complete |
+| M3 | Static publication | Build accessible navigation and automatic Pages output | Complete |
 | M4 | Verification | Run security/build gates and accessibility audits | Technical work complete; content pending |
 
 ### Milestone M1: Content foundation
@@ -111,13 +111,13 @@ one reproducible export path before adding branding or optional features.
 - Web gate: strict MkDocs build, valid navigation, and working complete-download targets.
 - DOCX gate: valid output containing every manifest section and no prohibited secrets.
 - PDF gate: valid letter-size output, selectable text, complete content, and no prohibited secrets.
-- Delivery gate: GitHub Pages deploys only after every Fall 2026 course manifest is human-approved.
+- Delivery gate: every successful `main` build uploads and deploys a valid GitHub Pages artifact.
 
 ## Verification classification
 
-Permanent publication gates cover academic approval, credential safety, manifest completeness,
-successful document conversion, required section presence, valid downloads, and a strict static
-site build. These checks protect the content students and the department actually receive.
+Permanent build gates cover credential safety, manifest completeness, successful document
+conversion, required section presence, valid downloads, and a strict static site build. Human
+academic approval records readiness for student distribution without blocking the website preview.
 
 Repeatable advisory audits cover keyboard use, axe findings, viewport overflow, contrast, DOCX
 structure, PDF tags/bookmarks, and rendered page flow. Findings guide improvements but do not block
@@ -137,7 +137,7 @@ timing tests.
 ## Open questions and decisions needed
 
 - Blocking content decision: complete and approve the Fall 2026 review checklist before setting
-  manifests to `approved` or enabling Pages deployment.
+  manifests to `approved` or distributing the syllabi to students.
 - Non-blocking follow-up: decide whether broader visual branding adds student value after the
   content and export workflows are stable. Course identity stays limited to accessible web-header
   colors; the syllabus stylesheet owns the tested type scale and table overflow behavior.
