@@ -55,11 +55,63 @@ def test_remove_heading_sections_omits_web_only_policy_routes() -> None:
 
 
 #============================================
-def test_rewrite_document_links_targets_embedded_instructor_section() -> None:
-	"""Policy references remain useful after instructor information is embedded."""
-	markdown = "See [Instructor information](INSTRUCTOR_INFORMATION.md)."
-	rewritten = pipeline.build_syllabi.rewrite_document_links(markdown)
-	assert rewritten == "See [Instructor information](#instructor-information)."
+def test_rewrite_document_links_targets_included_section(tmp_path: pathlib.Path) -> None:
+	"""Source-page links become internal links when their target is included."""
+	source_path = tmp_path / "course" / "ASSIGNMENTS_AND_GRADING.md"
+	target_path = tmp_path / "policies" / "GRADING.md"
+	markdown = (
+		"See [grade thresholds](../policies/GRADING.md#grades), "
+		"[grading policies](../policies/GRADING.md), and "
+		"[other policies](../policies/OTHER.md)."
+	)
+	rewritten = pipeline.build_syllabi.rewrite_document_links(
+		markdown,
+		source_path,
+		{target_path.resolve(): "grading"},
+	)
+	assert rewritten == (
+		"See [grade thresholds](#grades), [grading policies](#grading), and "
+		"[other policies](../policies/OTHER.md)."
+	)
+
+
+#============================================
+def test_compose_markdown_links_to_embedded_instructor_section(tmp_path: pathlib.Path) -> None:
+	"""Policy routes target instructor information already embedded in course details."""
+	term_path = tmp_path / "fall_20xx"
+	course_path = term_path / "course"
+	policy_path = term_path / "policies"
+	course_path.mkdir(parents=True)
+	policy_path.mkdir()
+	index_path = course_path / "index.md"
+	details_path = course_path / "COURSE_DETAILS.md"
+	policies_path = term_path / "POLICIES.md"
+	instructor_route_path = policy_path / "INSTRUCTOR_INFORMATION.md"
+	write_section(index_path, "Course title")
+	details_path.write_text(
+		"# Meetings and instructor\n\n## Instructor information\n\nContact details.\n",
+		encoding="utf-8",
+	)
+	policies_path.write_text(
+		"# Policies\n\nSee [Instructor information](policies/INSTRUCTOR_INFORMATION.md).\n",
+		encoding="utf-8",
+	)
+	write_section(instructor_route_path, "Instructor information")
+	manifest = pipeline.build_syllabi.SyllabusManifest(
+		path=course_path / "syllabus.yml",
+		docs_root=tmp_path,
+		title="Course title",
+		course_code="BIOL 000",
+		term="Fall 20XX",
+		author="Instructor",
+		language="en-US",
+		download_basename="BIOL_000_SYLLABUS",
+		sections=(index_path, details_path),
+		shared_sections=(policies_path,),
+	)
+	combined = pipeline.build_syllabi.compose_markdown(manifest)
+	assert "[Instructor information](#instructor-information)" in combined
+	assert "(policies/INSTRUCTOR_INFORMATION.md)" not in combined
 
 
 #============================================
@@ -271,3 +323,13 @@ def test_public_only_repository_rejects_a_raw_tree(tmp_path: pathlib.Path) -> No
 	(tmp_path / "raw").mkdir()
 	with pytest.raises(RuntimeError, match="only public-safe canonical content"):
 		pipeline.build_syllabi.require_public_only_repository(tmp_path)
+
+
+#============================================
+def test_single_content_authority_rejects_markdown_templates(tmp_path: pathlib.Path) -> None:
+	"""Live syllabus content cannot compete with a parallel template tree."""
+	templates_path = tmp_path / "templates"
+	templates_path.mkdir()
+	(templates_path / "POLICIES.md").write_text("# Competing policies\n", encoding="utf-8")
+	with pytest.raises(RuntimeError, match="content belongs only under site_docs"):
+		pipeline.build_syllabi.require_single_content_authority(tmp_path)

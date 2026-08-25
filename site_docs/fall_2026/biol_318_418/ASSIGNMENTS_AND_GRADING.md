@@ -6,11 +6,8 @@ The course uses quizzes, data-analysis exercises, projects, and other assignment
 students to select methods, perform analyses, interpret results, and communicate conclusions.
 Current scores and the authoritative point total are maintained in Blackboard.
 
-## Letter-grade scale
-
---8<-- "fall_2026/shared/LETTER_GRADE_SCALE.md"
-
-Percentages are rounded to one decimal place when the final course grade is calculated.
+Final percentages, rounding, and letter-grade thresholds follow the shared
+[grading policies](../policies/GRADING.md#grades).
 
 ## Feedback
 

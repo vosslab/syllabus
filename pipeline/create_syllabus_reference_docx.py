@@ -146,9 +146,9 @@ def create_reference_docx(output_path: pathlib.Path) -> None:
 
 #============================================
 def main() -> None:
-	"""Write the tracked reference document under templates/."""
+	"""Write the tracked reference document beside the export pipeline."""
 	repo_root = get_repo_root()
-	output_path = repo_root / "templates" / "syllabus_reference.docx"
+	output_path = repo_root / "pipeline" / "syllabus_reference.docx"
 	create_reference_docx(output_path)
 	print(f"Created {output_path.relative_to(repo_root)}")
 	return None

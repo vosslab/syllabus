@@ -25,8 +25,8 @@ offline reading and archival use.
   keeping technical filenames internal.
 - Keep policies and student resources as separate top-level branches. Split Dr. Voss's long policy
   document into recognizable topic pages without creating course-specific alternatives.
-- Embed instructor information, Roosevelt learning goals, and the letter-grade scale from
-  canonical term-level fragments where students need that context.
+- Embed instructor information and Roosevelt learning goals from canonical term-level fragments.
+- Keep the letter-grade scale once in the shared grading policy; course grading pages link to it.
 - Place task-oriented course links immediately after the introduction.
 - Place secondary complete PDF and DOCX links after the course summary and label them as complete
   course-syllabus downloads.
@@ -49,9 +49,9 @@ offline reading and archival use.
 4. Confirm that each course view and export reflects the edit.
 
 The normal path never asks the instructor to find or reconcile course-specific copies. Office
-hours, Roosevelt learning goals, and the letter-grade scale use embedded Markdown fragments because
-students benefit from seeing them in course context even though the instructor should maintain
-them once.
+hours and Roosevelt learning goals use embedded Markdown fragments. The letter-grade scale lives
+directly in the grading policy because every website course page can link there and each complete
+syllabus already includes that policy once.
 
 ### Student: find authoritative course information
 
@@ -69,7 +69,7 @@ Dr. Voss's shared policy branch controls.
 | --- | --- |
 | Edit office hours once | Exact office-hour times occur only in the term instructor-information fragment |
 | Preserve Roosevelt goals | Every course renders the bullets from one term learning-goals fragment |
-| Maintain one grade scale | Every course and the grading-policy page render one term grade-scale fragment |
+| Maintain one grade scale | Only the grading-policy source contains thresholds; course pages link to it |
 | Find learning statements | Every course exposes all four required sections under the formal page label |
 | Find a policy | Navigation uses the original policy topic vocabulary and contains no competing course policy page |
 | Preserve complete syllabi | Each shared policy topic and student-resource source appears once in every export |

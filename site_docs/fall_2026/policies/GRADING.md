@@ -4,7 +4,20 @@
 
 Your final grade for this course will be determined by the total points you've earned, compared to the maximum possible points. Percentages will be rounded to a single decimal place. For example, if you earn 500 points out of 715, your percentage would be 69.9%, resulting in a grade of D+. With 501 points out of 715, your percentage would be 70.1%, or a grade of C-. The percentage scale for letter grades is as follows:
 
---8<-- "fall_2026/shared/LETTER_GRADE_SCALE.md"
+| Percentage | Grade |
+| --- | :---: |
+| 92.0% and above | A |
+| 90.0-91.9% | A- |
+| 88.0-89.9% | B+ |
+| 82.0-87.9% | B |
+| 80.0-81.9% | B- |
+| 78.0-79.9% | C+ |
+| 72.0-77.9% | C |
+| 70.0-71.9% | C- |
+| 68.0-69.9% | D+ |
+| 62.0-67.9% | D |
+| 60.0-61.9% | D- |
+| Below 60.0% | F |
 
 Please note that Roosevelt University enables instructors to send Progress Reports, offering you insights into your performance. These reports may prompt Academic Advisors to connect you with additional support and university resources.
 

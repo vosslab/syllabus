@@ -65,7 +65,6 @@ site_docs/fall_2026/
 |   `-- ...
 |-- shared/
 |   |-- INSTRUCTOR_INFORMATION.md
-|   |-- LETTER_GRADE_SCALE.md
 |   `-- ROOSEVELT_LEARNING_GOALS.md
 `-- biol_318_418/
     |-- index.md
@@ -76,10 +75,13 @@ site_docs/fall_2026/
     `-- syllabus.yml
 ```
 
-Copy `templates/course/` when starting a course, replace every placeholder, and add the new pages
-to `mkdocs.yml`. Dates remain literal Markdown so calendar exceptions are explicit rather than
-hidden behind automatic shifting. See [docs/USAGE.md](docs/USAGE.md) for the complete authoring,
-export, archival, and validation workflow.
+The active term folder is the only live content authority. Add new course pages directly there,
+using the listed file structure and a current course as a structural guide. Shared policies stay
+in the term's `policies/` branch rather than being copied into a course or a parallel template
+tree. Snapshot the completed term only when it closes, before starting the next live term. Dates
+remain literal Markdown so calendar exceptions are explicit rather than hidden behind automatic
+shifting. See [docs/USAGE.md](docs/USAGE.md) for the complete authoring, export, archival, and
+validation workflow.
 
 ## Verification
 

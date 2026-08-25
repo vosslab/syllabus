@@ -32,8 +32,8 @@ source source_me.sh
 python3 pipeline/create_syllabus_reference_docx.py
 ```
 
-The generated reference file is `templates/syllabus_reference.docx`. Routine course editing does
-not require regenerating it.
+The generated reference file is `pipeline/syllabus_reference.docx`. It is a DOCX renderer asset,
+not syllabus content, and routine course editing does not require regenerating it.
 
 To run the optional browser accessibility audit locally, install its dependency and Chromium once:
 

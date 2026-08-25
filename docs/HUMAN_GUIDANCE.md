@@ -13,6 +13,9 @@
   policies** only for material that is genuinely an institutional Roosevelt University policy.
 - Maintain one shared policy authority for all of Dr. Voss's courses. Do not create competing
   course-specific policy documents that ask students or maintainers to reconcile two versions.
+- Treat the active term under `site_docs/` as the only live content authority. Do not maintain a
+  parallel Markdown template tree or a future-term copy during the active term.
+- Snapshot a completed term only when the term closes, before creating the next live term.
 - Keep course-specific details, assignments, schedules, and learning statements in their course
   folders while drawing shared facts and policies from canonical term-level sources.
 
@@ -25,6 +28,8 @@
 - Maintain Dr. Voss's course policies once per term in `site_docs/<term>/policies/`; use
   `POLICIES.md` only as the student-facing topic index. Link every course to that shared branch and
   append each topic once to every complete syllabus.
+- Maintain the complete letter-grade scale only in `site_docs/<term>/policies/GRADING.md`; course
+  pages link to that policy and complete syllabi include it once.
 - Keep policies and student resources independently editable and merge both into each complete
   course syllabus during the build.
 
@@ -32,8 +37,8 @@
 
 - Follow an edit-once model. Store any fact shared by multiple courses in one canonical source and
   embed it wherever students need the context.
-- Maintain term-wide instructor information, office hours, Roosevelt learning-goal bullets, and
-  the letter-grade scale in `site_docs/<term>/shared/`.
+- Maintain term-wide instructor information, office hours, and Roosevelt learning-goal bullets in
+  `site_docs/<term>/shared/`.
 - Use Markdown embedding when it makes a course page or complete syllabus easier for a student to
   understand. Reusing a canonical fragment is preferable to omitting useful context.
 - Keep tables visually and structurally consistent across the website, PDF, and DOCX outputs. Use

@@ -259,6 +259,19 @@ def require_public_only_repository(repo_root: pathlib.Path) -> None:
 
 
 #============================================
+def require_single_content_authority(repo_root: pathlib.Path) -> None:
+	"""Reject a parallel Markdown or manifest tree below templates."""
+	templates_root = repo_root / "templates"
+	for suffix in ("*.md", "*.yml", "*.yaml"):
+		for source_path in sorted(templates_root.rglob(suffix)):
+			# ASVS 2.1.1: enforce the documented site_docs-only source boundary.
+			raise RuntimeError(
+				f"{source_path}: live syllabus content belongs only under site_docs"
+			)
+	return None
+
+
+#============================================
 def expand_shared_includes(
 	markdown_text: str,
 	source_path: pathlib.Path,
@@ -363,12 +376,29 @@ def remove_heading_sections(markdown_text: str, heading_names: tuple[str, ...]) 
 
 
 #============================================
-def rewrite_document_links(markdown_text: str) -> str:
-	"""Point shared-page links at their embedded complete-document sections."""
-	rewritten = markdown_text.replace(
-		"(INSTRUCTOR_INFORMATION.md)",
-		"(#instructor-information)",
-	)
+def rewrite_document_links(
+	markdown_text: str,
+	source_path: pathlib.Path,
+	document_anchors: dict[pathlib.Path, str],
+) -> str:
+	"""Point links between included Markdown files at complete-document sections."""
+	def replace_link(match: re.Match[str]) -> str:
+		"""Rewrite one link whose target is represented in the document."""
+		relative_target = match.group(1)
+		fragment = match.group(2)
+		resolved_target = (source_path.parent / relative_target).resolve()
+		# ASVS 5.3.2: rewrite only paths already validated into this manifest.
+		if resolved_target not in document_anchors:
+			return match.group(0)
+		if fragment:
+			document_target = fragment
+		else:
+			document_target = f"#{document_anchors[resolved_target]}"
+		replacement = f"({document_target})"
+		return replacement
+
+	pattern = r"\(([^()\s]+\.md)(#[^()\s]+)?\)"
+	rewritten = re.sub(pattern, replace_link, markdown_text)
 	return rewritten
 
 
@@ -488,20 +518,32 @@ def compose_markdown(manifest: SyllabusManifest) -> str:
 	"""Compose course and shared sources in manifest order."""
 	parts = []
 	contents = ["# Contents", ""]
+	document_anchors = {}
+	for index, section_path in enumerate(manifest.sections):
+		anchor = "course-overview" if index == 0 else section_path.stem.lower().replace("_", "-")
+		document_anchors[section_path.resolve()] = anchor
+	for section_path in manifest.shared_sections:
+		anchor = section_path.stem.lower().replace("_", "-")
+		document_anchors[section_path.resolve()] = anchor
+	# The instructor policy route is embedded under this heading in COURSE_DETAILS.md.
+	instructor_route_path = manifest.path.parent.parent / "policies" / "INSTRUCTOR_INFORMATION.md"
+	if instructor_route_path.is_file():
+		document_anchors[instructor_route_path.resolve()] = "instructor-information"
 	for index, section_path in enumerate(manifest.sections):
 		markdown = section_path.read_text(encoding="utf-8")
 		markdown = expand_shared_includes(markdown, section_path, manifest.docs_root)
-		anchor = "course-overview" if index == 0 else section_path.stem.lower().replace("_", "-")
+		markdown = rewrite_document_links(markdown, section_path, document_anchors)
+		anchor = document_anchors[section_path.resolve()]
 		title = "Course overview" if index == 0 else get_section_title(markdown, section_path)
 		contents.append(f"- [{title}](#{anchor})")
 		parts.append(prepare_section(markdown, is_overview=index == 0, anchor=anchor))
 	for section_path in manifest.shared_sections:
 		markdown = section_path.read_text(encoding="utf-8")
 		markdown = expand_shared_includes(markdown, section_path, manifest.docs_root)
-		markdown = rewrite_document_links(markdown)
+		markdown = rewrite_document_links(markdown, section_path, document_anchors)
 		if section_path.name == "POLICIES.md":
 			markdown = remove_heading_sections(markdown, ("Policy topics", "Student support"))
-		anchor = section_path.stem.lower().replace("_", "-")
+		anchor = document_anchors[section_path.resolve()]
 		title = get_section_title(markdown, section_path)
 		contents.append(f"- [{title}](#{anchor})")
 		parts.append(prepare_section(markdown, is_overview=False, anchor=anchor))
@@ -892,7 +934,7 @@ def main() -> None:
 	repo_root = get_repo_root()
 	docs_root = repo_root / "site_docs"
 	downloads_dir = docs_root / "downloads"
-	reference_path = repo_root / "templates" / "syllabus_reference.docx"
+	reference_path = repo_root / "pipeline" / "syllabus_reference.docx"
 	pdf_stylesheet_path = docs_root / "assets" / "stylesheets" / "syllabus_pdf.css"
 	mkdocs_config_path = repo_root / "mkdocs.yml"
 	if not reference_path.is_file():
@@ -905,8 +947,8 @@ def main() -> None:
 		raise FileNotFoundError(f"Missing MkDocs configuration: {mkdocs_config_path}")
 	check_tools()
 	require_public_only_repository(repo_root)
+	require_single_content_authority(repo_root)
 	scan_public_sources(docs_root)
-	scan_public_sources(repo_root / "templates")
 	markdown_extensions, markdown_extension_configs = load_markdown_configuration(
 		mkdocs_config_path
 	)

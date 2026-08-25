@@ -35,6 +35,12 @@
 
 ### Behavior or Interface Changes
 
+- Removed the parallel Markdown and manifest template tree; the active term under `site_docs/` is
+  now the only live syllabus authority.
+- Made `site_docs/fall_2026/policies/GRADING.md` the sole source for the shared letter-grade scale;
+  course grading pages and the FAQ now link to that policy instead of repeating its thresholds.
+- Stopped tracking generated PDF and DOCX downloads under `site_docs/downloads/`, added the
+  directory to the ignore policy, and moved the DOCX renderer reference beside the export pipeline.
 - Changed the public site source from maintainer `docs/` to `site_docs/` and added explicit
   term/course navigation with complete PDF and DOCX download controls.
 - Replaced filename-oriented course links with student-facing task labels such as meetings,
@@ -82,6 +88,16 @@
 
 ### Fixes and Maintenance
 
+- Added a build guard that rejects Markdown or YAML below `templates/`, preventing a second live
+  content authority from reappearing.
+- Rewrote links between manifest-included Markdown files as internal document anchors so course
+  pages can link to one shared policy without breaking the complete PDF and DOCX forms.
+- Preserved internal instructor-information links when that canonical content is embedded in course
+  details instead of appended as a separate manifest section.
+- Made the clean-checkout browser audit generate the ignored syllabus downloads and verify that its
+  PDF and DOCX links return successfully before reporting accessibility results.
+- Updated authoring, installation, HCI, and durable human guidance with the exact shared-content
+  edit locations and the active-term lifecycle.
 - Expanded `HUMAN_GUIDANCE.md` with the owner's durable session requirements for syllabus
   authority, shared policies, edit-once content, the four-part learning framework, student-facing
   active-term navigation, contextual Blackboard guidance, and consistent cross-format tables.
@@ -169,6 +185,8 @@
 
 ### Decisions and Failures
 
+- Treat the current term as the live editable version. Create a historical snapshot only when the
+  term closes, before starting the next live term, rather than maintaining a parallel snapshot.
 - Removed the `raw/` local-input concept and made tracked public Markdown the only repository
   content authority.
 - Kept the implementation plan active through autonomous grading, schedule, policy, export, and
@@ -259,3 +277,11 @@
   course-identity behavior checks.
 - Rendered inspection of the finalized BIOL 351/451 grading and schedule pages found fitted tables,
   complete headings, readable text, and no draft or review banners.
+- `source source_me.sh && python3 -m pytest tests/` passed: 785 tests after removing the duplicated
+  template sources and adding the single-authority and internal-link regressions.
+- `bash tests/e2e/e2e_syllabus_export.sh` rebuilt all three PDF/DOCX pairs from the moved renderer
+  reference, passed content and credential checks, and completed the strict MkDocs build.
+- `npm run test:playwright` passed the desktop/mobile accessibility, navigation, table, and
+  course-identity behavior checks against the rebuilt site.
+- Extracted text from every generated PDF and DOCX contains the canonical `92.0% and above` scale
+  row exactly once; the authored percentage thresholds occur only in the grading-policy source.

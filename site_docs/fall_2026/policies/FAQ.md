@@ -2,7 +2,7 @@
 
 **What is the difference between an A and an A-?**
 
-* An A- grade is earned when your points percentage falls between 90.0% and 91.9%, an A is any grade 92.0% or above.
+* See the single letter-grade scale under [Grading policies](GRADING.md#grades).
 
 **How are discussion marks earned for remote classes?**
 

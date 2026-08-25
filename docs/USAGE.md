@@ -22,8 +22,8 @@ topic links are omitted from document exports.
 
 Term-wide fragments under `shared/` hold facts that students need in more than one context but the
 instructor should edit once. The current fragments provide instructor information, including
-office hours, Roosevelt learning-goal bullets, and the letter-grade scale. Course pages embed them
-with the restricted syntax:
+office hours, and Roosevelt learning-goal bullets. Course pages embed them with the restricted
+syntax:
 
 ```markdown
 --8<-- "fall_2026/shared/INSTRUCTOR_INFORMATION.md"
@@ -35,12 +35,27 @@ Only public-safe canonical content belongs in this repository. Do not create an 
 tree for private syllabi, credentials, meeting links, student information, or access-controlled
 material; transfer only public facts into the tracked Markdown sources.
 
-## Start a course
+## Edit shared content
 
-Copy `templates/course/` to a new term/course folder. When starting a new term, copy
-`templates/POLICIES.md`, `templates/policies/`, `templates/shared/`, and
-`templates/STUDENT_RESOURCES.md`. Replace every placeholder, including `TERM` in shared-include
-paths, then add the new pages to `mkdocs.yml` navigation.
+- Edit a policy in `site_docs/<term>/policies/<topic>.md`.
+- Edit the letter-grade scale in `site_docs/<term>/policies/GRADING.md`.
+- Edit office hours and instructor facts in `site_docs/<term>/shared/INSTRUCTOR_INFORMATION.md`.
+- Edit Roosevelt learning goals in `site_docs/<term>/shared/ROOSEVELT_LEARNING_GOALS.md`.
+- Edit shared support information in `site_docs/<term>/STUDENT_RESOURCES.md`.
+
+Course pages link to these sources; they do not keep policy or grade-scale copies.
+
+## Live-term lifecycle
+
+Treat the active term folder as the only live syllabus authority. Do not maintain a parallel
+Markdown template tree or a future-term copy while the current term is active. To add a course,
+create the standard course files listed under [Content organization](#content-organization)
+directly below the active term, use a current course only as a structural guide, and add the new
+pages to `mkdocs.yml` navigation. Keep shared policy and resource files at the term level.
+
+At the end of the term, build and preserve the completed term snapshot before creating the next
+active term. This is the point when historical duplication becomes intentional archival evidence,
+not another live editing target.
 
 Add a `.meta.yml` file to the course folder to give every page in that folder the same web-header
 color:
@@ -105,12 +120,12 @@ source source_me.sh
 python3 pipeline/build_syllabi.py --archive
 ```
 
-Generated student downloads live in ignored `site_docs/downloads/`. The pipeline stages and
-validates the complete set before replacing current downloads, then builds the site so links cannot
-point to stale or partial output. Both formats use the same manifest-assembled Markdown authority.
-Pandoc creates the DOCX after flattening web-only constructs such as admonitions. Python-Markdown
-uses the extension stack from `mkdocs.yml` to create small semantic HTML, and WeasyPrint renders
-that HTML directly to PDF.
+Generated student downloads live in ignored, untracked `site_docs/downloads/`. The pipeline stages
+and validates the complete set before replacing current downloads, then builds the site so links
+cannot point to stale or partial output. Both formats use the same manifest-assembled Markdown
+authority. Pandoc creates the DOCX after flattening web-only constructs such as admonitions.
+Python-Markdown uses the extension stack from `mkdocs.yml` to create small semantic HTML, and
+WeasyPrint renders that HTML directly to PDF.
 
 ## Refine course content
 

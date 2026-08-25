@@ -191,7 +191,7 @@ try {
 
 	const gradingPage = await browser.newPage();
 	await gradingPage.goto(`${staticServer.baseUrl}/fall_2026/policies/GRADING/`);
-	const gradeTable = gradingPage.getByRole("table").filter({ hasText: "92.0% and above" });
+	const gradeTable = gradingPage.getByRole("table").first();
 	await gradeTable.waitFor();
 	assert.deepEqual(await gradeTable.getByRole("columnheader").allTextContents(), [
 		"Percentage",
@@ -242,6 +242,10 @@ try {
 	assert.equal(docxUrl.origin, siteOrigin);
 	assert.match(pdfUrl.pathname, /\.pdf$/);
 	assert.match(docxUrl.pathname, /\.docx$/);
+	const pdfResponse = await coursePage.request.get(pdfUrl.href);
+	const docxResponse = await coursePage.request.get(docxUrl.href);
+	assert.equal(pdfResponse.status(), 200, "PDF download did not load");
+	assert.equal(docxResponse.status(), 200, "DOCX download did not load");
 	await pdfLink.focus();
 	assert.equal(await pdfLink.evaluate((element) => element.matches(":focus-visible")), true);
 	await docxLink.focus();

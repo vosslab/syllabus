@@ -18,3 +18,4 @@ sdist/
 *.egg
 *.egg-info/
 site/
+/site_docs/downloads/

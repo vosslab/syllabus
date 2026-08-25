@@ -13,9 +13,6 @@
 
 Extra-credit opportunities do not increase the denominator used to calculate the final percentage.
 
-## Letter-grade scale
-
---8<-- "fall_2026/shared/LETTER_GRADE_SCALE.md"
-
-Percentages are rounded to one decimal place when the final course grade is calculated. Blackboard
-is the authoritative record for submissions, scores, and feedback.
+Final percentages, rounding, and letter-grade thresholds follow the shared
+[grading policies](../policies/GRADING.md#grades). Blackboard is the authoritative record for
+submissions, scores, and feedback.
