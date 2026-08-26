@@ -85,6 +85,9 @@
 
 ### Fixes and Maintenance
 
+- Removed the stacked bottom margins and nested horizontal scrolling from website tables. The
+  outer Material wrapper now owns both one normal content gap and any narrow-screen overflow,
+  while a following section heading retains its deliberate section spacing.
 - Kept WeasyPrint unpinned like every other Python dependency. The current 69.0 renderer applies
   the print stylesheet's logical margin and padding properties without compatibility warnings.
 - Removed `pymdownx.snippets` from both the MkDocs and PDF extension stack, and removed the now
@@ -170,6 +173,9 @@
 
 ### Developer Tests and Notes
 
+- Measured table-to-paragraph and table-to-heading gaps after a strict MkDocs rebuild. Chromium
+  checks covered two-, three-, and four-column tables at 390-, 768-, and 1440-pixel viewports;
+  only the four-column schedule required horizontal overflow at the mobile width.
 - Classified the Google Sheet rule extraction, exact seven-color inventory, contrast measurements,
   computed browser colors, and responsive screenshot review as one-time rebuild evidence. Kept no
   permanent palette or CSS-class assertion; the existing offline renderer test covers only visible

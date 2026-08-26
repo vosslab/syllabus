@@ -8,6 +8,9 @@ Dishonesty of any kind including cheating and plagiarism will not be tolerated. 
 
 For combating dishonesty, I use a three-strike system. For the first offense, you earn zero points for that question or section of the assignment and you are reported to the writing center for tutoring. In some rare cases, students will be allowed to re-complete the assignment with reduced points. For the second offense, you earn zero points for the entire assignment. For the third offense, you will earn an F for the course.
 
+If you have any questions about collaboration with your lab partners and classmates, citations and
+use of external sources, or any other aspect of academic conduct, ask the instructor. Never assume.
+
 <!-- Do not change this AI policy for Fall 2026. This wording was heavily refined. -->
 
 ## How to get the most out of this class in the age of AI
@@ -46,5 +49,15 @@ submitted are genuinely yours, can you honestly answer yes?
 1. Aaron Clauset, [Biological Networks (CSCI 3352, Fall 2026)](https://aaronclauset.github.io/courses/3352/), syllabus p. 3, University of Colorado Boulder.
 2. Colin Carlson, [The only reason you'll ever need not to write with AI](https://www.carlsonlab.bio/thoughts/the-only-reason-youll-ever-need-not-to-write-with-ai), The Carlson Lab.
 
-If you have any questions about collaboration with your lab partners and classmates, citations and
-use of external sources, or any other aspect of academic conduct, ask the instructor. Never assume.
+## Classroom conduct
+
+This classroom will be a safe place for all participants. We will treat one another with respect.
+
+Students enrolled in the university are expected to conduct themselves in a manner compatible with the university's function as an educational institution. Please familiarize yourself with the Student Code of Conduct, the Student Handbook and related procedures:
+
+[Roosevelt University complaint and conflict resolution](https://www.roosevelt.edu/current-students/support-services/complaint/conflict-resolution)
+
+Using music devices either in the classroom or in the laboratory is not permitted. Reading materials other than assigned for teaching are not allowed. No children allowed in the classroom. Cellular phones must be set either to the silent/vibration mode or turned off completely before coming into the classroom. Eating or drinking in classrooms is discouraged, but allowed if you do not create a disturbance. Do not bring loud food packaging to class as they will be disruptive. Examples of unacceptable items include, anything that has condiments, fried chicken, french fries, cereal with milk, and salads. Most things from the vending machine are fine. Rude or disruptive behavior will not be tolerated. If you must leave class for any reason, do not distract your classmates. Courtesy and respect are expected of all our students. Any deviation from such an expectation will be a clear violation of the students code of conduct; an act that will neither be tolerated by the instructor nor the department.
+
+
+

@@ -12,6 +12,7 @@ set | grep -q '^BASH_VERSION=' || exit 1
 # it clears PYTHONPATH (verified). Anything that sets PYTHONPATH must run after
 # this line, or ~/.bashrc would wipe it.
 source ~/.bashrc
+export NO_MKDOCS_2_WARNING=1
 
 # Python runtime defaults: unbuffered stdout/stderr, and no .pyc/__pycache__
 # files written on import.
