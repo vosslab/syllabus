@@ -17,7 +17,15 @@
 :root {
 	--md-text-font: "Atkinson Hyperlegible Next";
 	--syllabus-content-font-size: 0.85rem;
+	--syllabus-content-line-height: 1.25;
 	--syllabus-navigation-font-size: 0.8rem;
+	--syllabus-page-max-width: 70rem;
+	--syllabus-sidebar-width: 13rem;
+}
+
+/* Use wide desktop viewports while preserving comfortable text and navigation widths. */
+.md-grid {
+	max-width: var(--syllabus-page-max-width);
 }
 
 /* Course metadata changes only the web header; document exports stay neutral. */
@@ -25,9 +33,36 @@
 	background-color: var(--course-header-color, var(--md-primary-fg-color));
 }
 
-/* Keep student-facing text readable and consistent across Material components. */
+/* Keep student-facing text readable without Material's unusually loose vertical rhythm. */
 .md-typeset {
 	font-size: var(--syllabus-content-font-size);
+	line-height: var(--syllabus-content-line-height);
+}
+
+.md-typeset p {
+	margin-block: 0.65em;
+}
+
+.md-typeset h1 {
+	line-height: 1.2;
+	margin-block: 0 0.6em;
+}
+
+.md-typeset h2 {
+	line-height: 1.2;
+	margin-block: 1.05em 0.35em;
+}
+
+.md-typeset h3 {
+	line-height: 1.25;
+	margin-block: 1em 0.35em;
+}
+
+.md-typeset h4,
+.md-typeset h5,
+.md-typeset h6 {
+	line-height: 1.25;
+	margin-block: 0.9em 0.3em;
 }
 
 .md-nav {
@@ -45,7 +80,7 @@
 	border-collapse: collapse;
 	display: table;
 	font-size: 1em;
-	line-height: 1.35;
+	line-height: var(--syllabus-content-line-height);
 	margin-block: 0.75rem 1.25rem;
 	width: 100%;
 }
@@ -111,6 +146,12 @@
 /* Material's default footer gray misses AA by a small margin on its dark background. */
 .md-footer-meta .md-copyright {
 	color: #999;
+}
+
+@media screen and (min-width: 76.25em) {
+	.md-sidebar {
+		width: var(--syllabus-sidebar-width);
+	}
 }
 
 @media print {

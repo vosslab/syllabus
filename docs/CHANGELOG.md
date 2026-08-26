@@ -12,6 +12,10 @@
 
 ### Behavior or Interface Changes
 
+- Expanded the web layout beyond Material's default desktop limit so wide browsers give more room
+  to the reading column and both navigation sidebars while preserving the existing mobile layout.
+- Tightened website typography to 1.25 line spacing, smaller paragraph gaps, and more compact
+  heading margins. PDF and DOCX typography remains unchanged.
 - Rebuilt the shared policy information architecture so each subsection has one subject-based
   parent: instructor communication, course delivery, assessment, attendance and accommodations,
   academic integrity, course expectations, inclusion and safety, or course enrollment.
@@ -49,6 +53,11 @@
 
 ### Developer Tests and Notes
 
+- Compared the student-services page at 2004, 1280, and 390 CSS-pixel widths. At the wide viewport,
+  the grid grew from 1464 to 1680 pixels, the reading column grew from 826 to 998 pixels, and the
+  full page height fell from 7285 to 5161 pixels; mobile height fell from 9270 to 7221 pixels.
+- Passed all 822 fast tests, the strict production site build, and the Playwright accessibility and
+  responsive-overflow audit after the website layout and typography changes.
 - Added focused offline tests for worksheet schema and date validation, month separation, category
   inference, maintainer-metadata omission, Google redirect restrictions, and safe Markdown
   rendering of remote cell text. Kept inputs inline and removed duplicate row-format coverage and
