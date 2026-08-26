@@ -18,6 +18,9 @@ BIOL 480. Official course numbers remain in headings, section tables, metadata, 
 - `SCHEDULE.md` for literal meeting dates and topics.
 - `syllabus.yml` for complete-document order and metadata.
 
+See [FILE_FORMATS.md](FILE_FORMATS.md) for the exact manifest, Markdown, include, and generated
+document contracts.
+
 Each term keeps its public term-wide pages under `shared/`: important dates, instructor
 information, policies, and student resources. The short policy topic index and the canonical
 policy categories live together under `shared/policies/`. Every course links to those shared
@@ -196,10 +199,22 @@ Use the refinement checklist to improve:
 - current university-source statements and student-resource language;
 - public contact information and the absence of meeting credentials.
 
-Every successful push to `main` deploys the verified Pages artifact. A failed source, export, or
-site check blocks delivery without requiring a separate human-controlled manifest state.
+A successful push to `main` that reaches the deploy job publishes the verified Pages artifact. If
+several pushes arrive while a deployment runs, GitHub retains only the newest pending candidate. A
+failed source, export, or site check blocks that candidate without requiring a separate
+human-controlled manifest state.
 
 ## Validate
+
+Run every local semantic-validation lane in dependency order:
+
+```bash
+./all_test.sh
+```
+
+The runner prints a phase banner and stops at the first failure. Both the export E2E and the Pages
+production builder refresh the live Google Sheets dates; the final production rebuild is followed
+by Playwright. Use the commands below for focused validation.
 
 Run the fast repository checks:
 
@@ -216,8 +231,28 @@ After a site build, optionally run the desktop/mobile accessibility audit:
 
 Use `./run_playwright_tests.sh --build` to rebuild first.
 
-Accessibility audits promote continuous improvement but do not block publication. Review reported
-findings, prioritize barriers affecting students, and record deliberate follow-up work.
+Accessibility audits promote continuous improvement. The local runner returns a nonzero result so
+findings receive maintainer attention, while Pages publication remains governed by artifact
+generation. Review reported findings, prioritize barriers affecting students, and record deliberate
+follow-up work.
+
+## Refresh README screenshots
+
+Build the production-shaped static site, then run the durable documentation capture harness:
+
+```bash
+source source_me.sh
+python3 -m mkdocs build --strict
+node tests/playwright/capture_readme_screenshots.mjs
+mkdir -p docs/screenshots
+cp /tmp/syllabus_readme_screenshots/fall_2026_home_light.png docs/screenshots/
+cp /tmp/syllabus_readme_screenshots/general_genetics_dark.png docs/screenshots/
+```
+
+The harness captures the current local `site/` output over HTTP at a fixed desktop viewport. It
+writes temporary PNGs under `/tmp/syllabus_readme_screenshots/`; the final two commands replace the
+tracked README images. Review both images before keeping them. The README visual block is managed by
+the screenshot workflow and should contain only current, tracked captures.
 
 Run the complete production-readiness gate without publishing:
 

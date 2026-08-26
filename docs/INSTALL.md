@@ -1,5 +1,9 @@
 # Installation
 
+The public student site requires no installation. Open the
+[Fall 2026 course syllabi](https://vosslab.github.io/syllabus/) in a browser. The steps below set up
+a maintainer checkout for authoring, document generation, and validation.
+
 ## Requirements
 
 - Python 3.12
@@ -9,7 +13,7 @@
 - Ripgrep
 
 Node.js and Playwright Chromium are optional local dependencies for the browser accessibility
-audit. They are not part of PDF or DOCX generation.
+audit and README screenshot capture. They are not part of PDF or DOCX generation.
 
 On macOS with Homebrew, install the system tools from the repository manifest:
 
@@ -39,11 +43,12 @@ Course content is maintained only in the active term under `site_docs/`. The bui
 `site_docs/downloads/` and `site/`; both directories are ignored outputs and are never editing
 sources.
 
-To run the optional browser accessibility audit locally, install its dependency and Chromium once:
+To run the optional browser accessibility audit locally, install its dependencies and Chromium
+once:
 
 ```bash
 npm ci
-npx playwright install chromium
+./devel/setup_playwright.sh
 ```
 
 ## Bundled web font
@@ -70,3 +75,6 @@ system Pango text stack. The build also requires HTTPS access to Google Sheets s
 important-dates table before publishing. The export pipeline requires neither an office suite nor a
 browser. Missing converters or an unavailable spreadsheet fail directly because an incomplete or
 stale result would not satisfy the publication requirement.
+
+See [CODE_ARCHITECTURE.md](CODE_ARCHITECTURE.md) for the full component flow and
+[USAGE.md](USAGE.md) for authoring and maintenance workflows.

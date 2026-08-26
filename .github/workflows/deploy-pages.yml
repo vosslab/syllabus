@@ -27,58 +27,7 @@ jobs:
         with:
           python-version: "3.12"
           cache: pip
-          cache-dependency-path: |
-            pip_requirements.txt
-            pip_requirements-dev.txt
-
-      - name: Install document tools
-        run: |
-          sudo apt-get update
-          sudo apt-get install --no-install-recommends -y \
-            libharfbuzz-subset0 \
-            libharfbuzz0b \
-            libpango-1.0-0 \
-            libpangoft2-1.0-0 \
-            pandoc \
-            poppler-utils \
-            ripgrep
-
-      - name: Install Python dependencies
-        run: python3 -m pip install -r pip_requirements.txt -r pip_requirements-dev.txt
-
-      - name: Run repository tests
-        run: python3 -m pytest tests/
-
-      - name: Configure Pages
-        uses: actions/configure-pages@v6
-
-      - name: Run complete export and site gate
-        run: bash tests/e2e/e2e_syllabus_export.sh
-
-      - name: Upload Pages artifact
-        uses: actions/upload-pages-artifact@v5
-        with:
-          path: site
-
-  accessibility_audit:
-    continue-on-error: true
-    runs-on: ubuntu-latest
-    steps:
-      - name: Check out repository
-        uses: actions/checkout@v7
-
-      - name: Set up Python 3.12
-        uses: actions/setup-python@v7
-        with:
-          python-version: "3.12"
-          cache: pip
           cache-dependency-path: pip_requirements.txt
-
-      - name: Set up Node.js 24
-        uses: actions/setup-node@v6
-        with:
-          node-version: 24
-          cache: npm
 
       - name: Install document tools
         run: |
@@ -91,17 +40,19 @@ jobs:
             pandoc \
             poppler-utils
 
-      - name: Install audit dependencies
-        run: |
-          python3 -m pip install -r pip_requirements.txt
-          npm ci
-          npx playwright install --with-deps --only-shell chromium
+      - name: Install Python dependencies
+        run: python3 -m pip install -r pip_requirements.txt
 
-      - name: Build the site for browser review
+      - name: Configure Pages
+        uses: actions/configure-pages@v6
+
+      - name: Build the publication artifact
         run: python3 pipeline/build_site.py
 
-      - name: Run advisory browser accessibility audit
-        run: npm run test:playwright
+      - name: Upload Pages artifact
+        uses: actions/upload-pages-artifact@v5
+        with:
+          path: site
 
   deploy:
     environment:

@@ -1,15 +1,19 @@
 // Selector contract:
-// - Material route and navigation markup come from mkdocs.yml:7 and mkdocs.yml:36.
+// - Material theme markup comes from mkdocs.yml:10; navigation labels and routes come from
+//   mkdocs.yml:80.
 // - Current-course links and Blackboard context come from site_docs/index.md:1.
 // - The important-dates wrapper comes from site_docs/fall_2026/shared/IMPORTANT_DATES.md:1;
 //   its generated month tables come from pipeline/sync_important_dates.py:386.
 // - Main headings, prose, tables, course-page links, and download links come from
 //   site_docs/fall_2026/genetics/index.md:1.
 // - Typography and focus-visible behavior come from site_docs/assets/stylesheets/site.css:17.
+// - System-aware palette toggles come from mkdocs.yml:15; dark color roles come from
+//   site_docs/assets/stylesheets/site.css:38.
 // - Course-header metadata comes from each course .meta.yml, overrides/main.html:5, and
-//   site_docs/assets/stylesheets/site.css:43.
+//   site_docs/assets/stylesheets/site.css:52.
 // - The shared protein favicon comes from mkdocs.yml:13 and
 //   site_docs/assets/images/favicon.svg:1.
+// - Footer social-link names and destinations come from mkdocs.yml:61.
 
 import assert from "node:assert/strict";
 import fs from "node:fs";
@@ -48,8 +52,31 @@ const VIEWPORTS = [
 	{ name: "mobile", width: 390, height: 844 },
 ];
 
+const COLOR_SCHEMES = [
+	{
+		name: "light",
+		materialScheme: "default",
+		toggleName: "Switch to dark mode",
+	},
+	{
+		name: "dark",
+		materialScheme: "slate",
+		toggleName: "Switch to light mode",
+	},
+];
+
+const DARK_GREEN_SURFACE = "rgb(30, 41, 35)";
 const ROOSEVELT_GREEN = "rgb(115, 193, 103)";
 const ROOSEVELT_LINK_GREEN = "rgb(0, 120, 73)";
+const WHITE = "rgb(255, 255, 255)";
+
+const SOCIAL_LINKS = [
+	{ name: "GitHub", href: "https://github.com/vosslab" },
+	{ name: "YouTube", href: "https://www.youtube.com/neilvosslab" },
+	{ name: "Bluesky", href: "https://bsky.app/profile/neilvosslab.bsky.social" },
+	{ name: "LinkedIn", href: "https://www.linkedin.com/in/vosslab" },
+	{ name: "Facebook", href: "https://www.facebook.com/neilvosslab" },
+];
 
 async function getCourseTypography(page) {
 	return page.evaluate(async () => {
@@ -144,55 +171,83 @@ const siteOrigin = new URL(staticServer.baseUrl).origin;
 const browser = await chromium.launch();
 
 try {
-	for (const viewport of VIEWPORTS) {
-		const context = await browser.newContext({
-			viewport: { width: viewport.width, height: viewport.height },
-		});
-		for (const route of ROUTES) {
-			const page = await context.newPage();
-			const externalFontRequests = [];
-			const pageErrors = [];
-			page.on("pageerror", (error) => pageErrors.push(error.message));
-			page.on("request", (request) => {
-				if (request.resourceType() !== "font") {
-					return;
+	for (const colorScheme of COLOR_SCHEMES) {
+		for (const viewport of VIEWPORTS) {
+			const context = await browser.newContext({
+				colorScheme: colorScheme.name,
+				viewport: { width: viewport.width, height: viewport.height },
+			});
+			for (const route of ROUTES) {
+				const page = await context.newPage();
+				const externalFontRequests = [];
+				const pageErrors = [];
+				page.on("pageerror", (error) => pageErrors.push(error.message));
+				page.on("request", (request) => {
+					if (request.resourceType() !== "font") {
+						return;
+					}
+					if (new URL(request.url()).origin !== siteOrigin) {
+						externalFontRequests.push(request.url());
+					}
+				});
+				const response = await page.goto(`${staticServer.baseUrl}${route}`, {
+					waitUntil: "domcontentloaded",
+				});
+				assert.equal(
+					response?.status(),
+					200,
+					`${route} did not load in ${viewport.name} ${colorScheme.name} mode`,
+				);
+				assert.equal(
+					pageErrors.length,
+					0,
+					`${route} raised browser errors: ${pageErrors.join("; ")}`,
+				);
+				await page.locator("main h1").waitFor({ state: "visible" });
+				assert.equal(
+					await page.locator("body").getAttribute("data-md-color-scheme"),
+					colorScheme.materialScheme,
+				);
+				if (route === "/") {
+					await page
+						.getByTitle(colorScheme.toggleName, { exact: true })
+						.waitFor({ state: "visible" });
 				}
-				if (new URL(request.url()).origin !== siteOrigin) {
-					externalFontRequests.push(request.url());
+				const results = await new AxeBuilder({ page })
+					.withTags(["wcag2a", "wcag2aa", "wcag21aa", "wcag22aa"])
+					.analyze();
+				assert.deepEqual(
+					results.violations,
+					[],
+					`${route} ${viewport.name} ${colorScheme.name} accessibility violations:\n${JSON.stringify(results.violations, null, 2)}`,
+				);
+				const horizontalOverflow = await page.evaluate(() => {
+					return document.documentElement.scrollWidth > window.innerWidth + 1;
+				});
+				assert.equal(
+					horizontalOverflow,
+					false,
+					`${route} overflows the ${viewport.name} ${colorScheme.name} viewport`,
+				);
+				if (COURSE_ROUTES.includes(route)) {
+					checkCourseTypography(
+						await getCourseTypography(page),
+						`${viewport.name} ${colorScheme.name}`,
+					);
 				}
-			});
-			const response = await page.goto(`${staticServer.baseUrl}${route}`, {
-				waitUntil: "domcontentloaded",
-			});
-			assert.equal(response?.status(), 200, `${route} did not load in ${viewport.name}`);
-			assert.equal(pageErrors.length, 0, `${route} raised browser errors: ${pageErrors.join("; ")}`);
-			await page.locator("main h1").waitFor({ state: "visible" });
-			const results = await new AxeBuilder({ page })
-				.withTags(["wcag2a", "wcag2aa", "wcag21aa", "wcag22aa"])
-				.analyze();
-			assert.deepEqual(
-				results.violations,
-				[],
-				`${route} ${viewport.name} accessibility violations:\n${JSON.stringify(results.violations, null, 2)}`,
-			);
-			const horizontalOverflow = await page.evaluate(() => {
-				return document.documentElement.scrollWidth > window.innerWidth + 1;
-			});
-			assert.equal(horizontalOverflow, false, `${route} overflows the ${viewport.name} viewport`);
-			if (COURSE_ROUTES.includes(route)) {
-				checkCourseTypography(await getCourseTypography(page), viewport.name);
+				assert.deepEqual(
+					externalFontRequests,
+					[],
+					`${route} ${viewport.name} ${colorScheme.name} requested external fonts`,
+				);
+				await page.close();
 			}
-			assert.deepEqual(
-				externalFontRequests,
-				[],
-				`${route} ${viewport.name} requested external fonts`,
-			);
-			await page.close();
+			await context.close();
 		}
-		await context.close();
 	}
 
-	const homePage = await browser.newPage();
+	const themeContext = await browser.newContext({ colorScheme: "light" });
+	const homePage = await themeContext.newPage();
 	await homePage.goto(`${staticServer.baseUrl}/`);
 	const faviconLink = homePage.locator('link[rel="icon"]');
 	const faviconUrl = new URL(await faviconLink.getAttribute("href"), homePage.url());
@@ -230,7 +285,43 @@ try {
 		.waitFor();
 	assert.equal(await homeMain.getByRole("heading", { name: "Archived terms" }).count(), 0);
 	assert.equal(await homeMain.getByRole("heading", { name: "Secure course access" }).count(), 0);
+	const socialFooter = homePage.locator(".md-social");
+	await socialFooter.waitFor({ state: "visible" });
+	for (const social of SOCIAL_LINKS) {
+		const socialLink = socialFooter.getByRole("link", { name: social.name, exact: true });
+		await socialLink.waitFor({ state: "visible" });
+		assert.equal(await socialLink.getAttribute("href"), social.href);
+		assert.equal(await socialLink.getAttribute("target"), "_blank");
+		assert.match(await socialLink.getAttribute("rel"), /\bnoopener\b/);
+	}
+	await homePage.getByTitle("Switch to dark mode", { exact: true }).click();
+	await homePage.waitForFunction(() => document.body.dataset.mdColorScheme === "slate");
+	const darkPageBackground = await homePage
+		.locator("body")
+		.evaluate((element) => getComputedStyle(element).backgroundColor);
+	assert.equal(
+		darkPageBackground,
+		DARK_GREEN_SURFACE,
+	);
+	for (const course of currentCourses) {
+		const courseLink = homeMain.getByRole("link", { name: course.name, exact: true });
+		assert.equal(
+			await courseLink.evaluate((element) => getComputedStyle(element).color),
+			ROOSEVELT_GREEN,
+		);
+	}
+	await homePage.goto(`${staticServer.baseUrl}/fall_2026/genetics/`);
+	assert.equal(await homePage.locator("body").getAttribute("data-md-color-scheme"), "slate");
+	assert.equal(
+		await homePage
+			.locator(".md-header")
+			.evaluate((element) => getComputedStyle(element).color),
+		WHITE,
+	);
+	await homePage.getByTitle("Switch to light mode", { exact: true }).click();
+	await homePage.waitForFunction(() => document.body.dataset.mdColorScheme === "default");
 	await homePage.close();
+	await themeContext.close();
 
 	const accommodationPage = await browser.newPage();
 	await accommodationPage.goto(

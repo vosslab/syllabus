@@ -13,8 +13,20 @@ theme:
   favicon: assets/images/favicon.svg
   font: false
   palette:
-    primary: custom
-    accent: custom
+    - media: "(prefers-color-scheme: light)"
+      scheme: default
+      primary: custom
+      accent: custom
+      toggle:
+        icon: material/weather-night
+        name: Switch to dark mode
+    - media: "(prefers-color-scheme: dark)"
+      scheme: slate
+      primary: custom
+      accent: custom
+      toggle:
+        icon: material/weather-sunny
+        name: Switch to light mode
   features:
     - content.footer
     - navigation.indexes
@@ -46,6 +58,23 @@ extra_css:
 extra_javascript:
   - assets/javascripts/accessibility.js
 
+extra:
+  social:
+    - icon: fontawesome/brands/github
+      link: https://github.com/vosslab
+      name: GitHub
+    - icon: fontawesome/brands/youtube
+      link: https://www.youtube.com/neilvosslab
+      name: YouTube
+    - icon: fontawesome/brands/bluesky
+      link: https://bsky.app/profile/neilvosslab.bsky.social
+      name: Bluesky
+    - icon: fontawesome/brands/linkedin
+      link: https://www.linkedin.com/in/vosslab
+      name: LinkedIn
+    - icon: fontawesome/brands/facebook
+      link: https://www.facebook.com/neilvosslab
+      name: Facebook
 copyright: Copyright &copy; 2026 Neil R. Voss. Course materials are licensed CC BY 4.0.
 
 nav:

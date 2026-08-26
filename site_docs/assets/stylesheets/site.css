@@ -34,6 +34,16 @@
 	--syllabus-sidebar-width: 13rem;
 }
 
+/* Tint Material's dark surfaces green and keep brand links readable on them. */
+[data-md-color-scheme="slate"] {
+	--md-hue: 145;
+	--md-primary-fg-color: var(--syllabus-roosevelt-green);
+	--md-primary-fg-color--light: var(--syllabus-roosevelt-green-light);
+	--md-primary-fg-color--dark: var(--syllabus-roosevelt-green-dark);
+	--md-accent-fg-color: var(--syllabus-roosevelt-green-light);
+	--md-typeset-a-color: var(--syllabus-roosevelt-green);
+}
+
 /* Use wide desktop viewports while preserving comfortable text and navigation widths. */
 .md-grid {
 	max-width: var(--syllabus-page-max-width);

@@ -4,6 +4,26 @@ An accessibility-focused publishing system that turns separately maintained cour
 policies, and resources into a navigable student website plus complete PDF and DOCX syllabi for
 departmental archives.
 
+## Open the live syllabi
+
+**[Open the Fall 2026 course syllabi on GitHub Pages](https://vosslab.github.io/syllabus/)**
+
+Students can use the public site without installing anything. It provides direct routes to
+Biostatistics, General Genetics, and Applications of Biotechnology, plus shared dates, policies,
+support resources, and complete syllabus downloads.
+
+<!-- screenshots:begin (managed by screenshot-docs) -->
+![Fall 2026 syllabus homepage in light mode with three direct course links](docs/screenshots/fall_2026_home_light.png)
+
+*The student homepage puts current courses, shared policies, support, and Blackboard context on one
+screen.*
+
+![General Genetics course page in dark mode with navigation and course summary](docs/screenshots/general_genetics_dark.png)
+
+*Course pages keep task links and the course summary visible while preserving the course-specific
+header identity.*
+<!-- screenshots:end -->
+
 ## One source, three student-ready forms
 
 Students should not need to navigate a 30-page document to find one deadline or policy. This
@@ -23,9 +43,6 @@ course Markdown + shared policies + student resources
 - Atkinson Hyperlegible Next is self-hosted for predictable, readable website typography.
 - Credential scanning rejects common meeting links, passcodes, and private invitations.
 - Every successful build produces complete student-facing candidates without draft-state banners.
-
-<!-- screenshots:begin (managed by screenshot-docs) -->
-<!-- screenshots:end -->
 
 ## Quick start
 
@@ -92,28 +109,45 @@ archive policy.
 
 ## Verification
 
-The production-oriented E2E command builds every DOCX/PDF pair, removes stale generated downloads,
-scans public output for credentials, and performs a strict MkDocs build:
+Run every local validation lane with one command:
 
 ```bash
-bash tests/e2e/e2e_syllabus_export.sh
+./all_test.sh
 ```
 
-Fast repository tests and the optional browser accessibility audit run separately:
+The runner prints a banner for each phase and stops at the first failure. It runs fast pytest, the
+production-oriented export E2E and strict site build, then the Pages production builder and
+Playwright. Both build paths refresh the live Google Sheets dates so the aggregate runner exercises
+every local entry point. Run a lane individually when investigating a focused failure:
 
 ```bash
 source source_me.sh
 python3 -m pytest tests/
-./run_playwright_tests.sh
+bash tests/e2e/e2e_syllabus_export.sh
+./run_playwright_tests.sh --build
 ```
 
 Accessibility findings guide improvement but do not claim legal or PDF/UA compliance.
+
+## Current development
+
+`VERSION` identifies 26.08 as the current development version. Its notes remain unreleased until a
+human creates the release and tag. See [docs/NEWS.md](docs/NEWS.md) for the student and maintainer
+summary, or [docs/RELEASE_HISTORY.md](docs/RELEASE_HISTORY.md) for highlights.
 
 ## Documentation
 
 - [docs/INSTALL.md](docs/INSTALL.md) - system tools, Python dependencies, fonts, and audit setup.
 - [docs/USAGE.md](docs/USAGE.md) - course authoring, generation, validation, and source ownership.
+- [docs/CODE_ARCHITECTURE.md](docs/CODE_ARCHITECTURE.md) - source, rendering, validation, and
+  deployment flow.
+- [docs/FILE_STRUCTURE.md](docs/FILE_STRUCTURE.md) - repository map and generated boundaries.
+- [docs/FILE_FORMATS.md](docs/FILE_FORMATS.md) - syllabus manifest and Markdown include contracts.
+- [docs/GITHUB_PAGES_BUILD.md](docs/GITHUB_PAGES_BUILD.md) - artifact-build and deployment boundary,
+  local-only semantic tests, and deployment failure triage.
 - [docs/HCI_BRIEF.md](docs/HCI_BRIEF.md) - student navigation and accessibility design rationale.
+- [docs/RELATED_PROJECTS.md](docs/RELATED_PROJECTS.md) - direct publishing, document, deployment,
+  and validation foundations.
 - [docs/active_plans/reports/fall_2026_content_review.md](docs/active_plans/reports/fall_2026_content_review.md)
   - non-blocking editorial refinement checklist.
 - [docs/CHANGELOG.md](docs/CHANGELOG.md) - implementation decisions, failures, and verification
@@ -123,3 +157,5 @@ Accessibility findings guide improvement but do not claim legal or PDF/UA compli
 
 Course materials are available under the
 [Creative Commons Attribution 4.0 International license](LICENSE.CC-BY-4.0.md).
+Repository software is available under the
+[GNU Lesser General Public License 3.0](LICENSE.LGPL-3.0.md).

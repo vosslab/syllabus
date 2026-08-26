@@ -2,8 +2,23 @@
 
 ### Additions and New Features
 
+- Added executable `all_test.sh` as the local validation front door. It prints conspicuous phase
+  banners and runs fast pytest, the complete export E2E and strict site build, then the Pages
+  production builder and Playwright. Both build paths refresh the live Google Sheets dates.
 - Added a custom protein-ribbon SVG favicon using the three greens from Roosevelt University's R
   mark and verified that the built homepage links to the published image.
+- Added named GitHub, YouTube, Bluesky, LinkedIn, and Facebook links to the Material footer using
+  the student-appropriate social profiles from the Biology Problems website.
+- Added an accessible light/dark palette toggle that follows the student's operating-system
+  preference on first visit and preserves a manual choice while navigating the site.
+- Added `GITHUB_PAGES_BUILD.md` as the canonical deployment reference, with the required artifact
+  build path, local-only semantic-test boundary, and zero-job failure triage. Linked it from
+  `AGENTS.md` and the README so agents encounter it before changing the workflow.
+- Added durable architecture, file-structure, file-format, visitor-focused related-project,
+  release-history, and news documentation grounded in current sources, workflows, and authoritative
+  project evidence.
+- Added two current README screenshots covering the light student homepage and dark General
+  Genetics page, plus a reusable Playwright capture harness that serves the real built site.
 - Added `pipeline/sync_important_dates.py` to pull the first worksheet of the Fall 2026 planning
   spreadsheet into an ignored Markdown fragment, group its table rows by month, and infer a readable
   event type.
@@ -14,6 +29,13 @@
 
 ### Behavior or Interface Changes
 
+- Added `-D`/`--include-docs` to fresh Graphify builds so the repository mapper can include
+  Markdown and Graphify's other semantic document inputs. Document extraction uses the same pinned
+  Claude CLI or Ollama backend as community labeling and forces semantic re-extraction past an
+  existing code-only manifest; code-only remains the default.
+- Made the public GitHub Pages site the README's first action after the opening paragraph, with a
+  prominent Fall 2026 link, student-facing orientation, current release context, and a broader
+  documentation map.
 - Changed the main and shared-page theme from Material indigo to Roosevelt green, with the middle
   logo green behind dark controls and an accessibility-adjusted dark green for body links. Each
   course keeps its existing header identity color and white controls.
@@ -43,6 +65,25 @@
 
 ### Fixes and Maintenance
 
+- Pruned manager-authored architecture, content routing, test doctrine, and implementation details
+  from `HUMAN_GUIDANCE.md`. It now contains only explicit durable owner guidance and a provenance
+  rule that prevents it from becoming an agent or manager dumping ground.
+- Rebuilt `RELATED_PROJECTS.md` around comparable syllabus repositories, publishing alternatives,
+  and accessibility guidance after the updated discovery rules excluded implementation
+  dependencies.
+- Corrected the unreleased 26.08 labeling, documented the exact Pages pending-run semantics,
+  limited the Playwright setup helper to the Chromium browser used by both consumers, and repaired
+  a stale selector-contract line reference after the six-pass change audit.
+- Refreshed installation and usage guidance with the no-install public route, architecture and
+  format cross-links, and the exact README screenshot regeneration workflow. Replaced `AGENTS.md`
+  prose links with a compact task router to canonical documents.
+- Narrowed the GitHub Pages workflow to runtime Python artifact generation, upload, and deployment.
+  Pytest, export E2E assertions, and Playwright remain local maintainer checks so semantic or browser
+  findings cannot prevent an otherwise buildable site from publishing.
+- Restored Poppler to the Pages runner because production syllabus generation directly requires
+  `pdfinfo` and `pdftotext`. Unified clean-machine Playwright setup around `npm ci` and the
+  repository helper, and clarified that accessibility failures are strong local signals rather
+  than Pages deployment gates.
 - Moved academic integrity and AI guidance out of grading, and moved withdrawal, late withdrawal,
   and tuition refunds into the course-enrollment category.
 - Removed the Spring 2026 withdrawal date from the Fall 2026 policy source. The policy now routes
@@ -52,6 +93,14 @@
 
 ### Decisions and Failures
 
+- Treat `--include-docs` as an explicit source-egress operation: unlike the code-only default, it
+  sends every nonignored semantic input to the selected Claude CLI or Ollama backend. Automated
+  validation therefore stops at local corpus and command construction; a connected extraction is
+  an explicit maintainer action.
+- Human review approved removing pytest, export E2E, and Playwright release gates from GitHub
+  Actions. This is settled release governance: Pages publishes whenever the production artifact
+  can be generated and uploaded, while semantic validation remains a local maintainer
+  responsibility.
 - Kept the R mark's exact three green fills in the favicon. The first browser render also used the
   middle green for text links and a translucent search surface; the accessibility audit rejected
   both. The final theme separates middle-green surfaces, pale-green fields, and a darkened
@@ -64,9 +113,32 @@
 - Made every complete site build depend on a successful Google Sheets refresh. The build fails
   instead of using a previously generated table when the canonical source is unavailable; the
   local MkDocs preview applies the same freshness rule.
+- A config-only dark-mode pass retained the light scheme's `#007849` links, which were unreadable
+  on the dark surface. The final scheme uses Roosevelt middle green for links and tints Material's
+  slate surfaces toward the Roosevelt green hue while retaining each course's header color.
 
 ### Developer Tests and Notes
 
+- Ran `./all_test.sh` end to end after adding the aggregate runner: the fast repository lane, both
+  live Google Sheets refresh and build paths, the export E2E, and the Playwright browser
+  accessibility audit passed.
+- Passed all 869 fast tests, Python compilation, focused ASCII checks, and `git diff --check` after
+  adding six Graphify CLI contract tests. Graphify 0.9.50's local detector found the intended 35
+  repository Markdown inputs: five root documents and all 30 live `site_docs/` Markdown sources;
+  `docs/` and generated output remain excluded.
+- Verified that the prominent GitHub Pages target returns HTTP 200. Passed all 863 fast tests
+  against an isolated material-tree Git index, the complete syllabus export E2E, the strict MkDocs
+  build, and the Playwright accessibility audit without changing the user's real staging state.
+- Visually reviewed both 1440 by 900 README captures and regenerated them from the final built site;
+  the tracked and regenerated PNG checksums match exactly.
+- Added a browser regression check for the five footer profiles, including their accessible names,
+  exact destinations, new-tab behavior, and `noopener` protection.
+- Measured the dark palette's key pairs at the 5.5:1 house target: `#73c167` links reach 6.84:1 on
+  the `#1e2923` page surface, `#bddeb1` accents reach 10.20:1, and `#231f20` header controls reach
+  7.41:1 on the `#73c167` brand header.
+- Expanded the browser audit across every published route at 390 and 1280 pixels in both light and
+  dark modes. It also exercises the visible toggle, verifies the manual choice across navigation,
+  and checks the dark course-header foreground; reviewed screenshots at 390, 1280, and 2004 pixels.
 - Parsed the favicon as XML, resolved its local references, and rendered and visually inspected it
   at 16, 32, and 64 pixels. The light-green ribbon reaches 3.07:1 against the dark-green tile.
 - Added browser checks for the favicon URL, response, and SVG media type, plus the Roosevelt main
