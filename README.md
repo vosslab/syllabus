@@ -39,7 +39,7 @@ course Markdown + shared policies + student resources
 ```
 
 - Course schedules, grading, learning frameworks, and policies remain ordinary Markdown.
-- Course-specific header colors provide a restrained web identity; downloads remain neutral.
+- Course-specific colors provide a restrained website and PDF identity; DOCX remains neutral.
 - Atkinson Hyperlegible Next is self-hosted for predictable, readable website typography.
 - Credential scanning rejects common meeting links, passcodes, and private invitations.
 - Every successful build produces complete student-facing candidates without draft-state banners.

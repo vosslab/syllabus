@@ -47,7 +47,7 @@ site_docs/
 
 Each course directory contains an `index.md`, `COURSE_DETAILS.md`,
 `COURSE_LEARNING_FRAMEWORK.md`, `ASSIGNMENTS_AND_GRADING.md`, `SCHEDULE.md`, a
-`syllabus.yml` manifest, and `.meta.yml` website color metadata.
+`syllabus.yml` manifest, and `.meta.yml` website/PDF course-theme metadata.
 
 ## Pipeline files
 
@@ -55,7 +55,7 @@ Each course directory contains an `index.md`, `COURSE_DETAILS.md`,
 pipeline/
 |-- build_site.py                       Production build front door
 |-- build_syllabi.py                    Complete DOCX and PDF entry point
-|-- mkdocs_hooks.py                     Website include adapter loaded by MkDocs
+|-- mkdocs_hooks.py                     Website metadata/include adapter loaded by MkDocs
 |-- sync_important_dates.py             Google Sheets fragment importer
 |-- create_syllabus_reference_docx.py   Intentional DOCX style-asset generator
 |-- syllabus_reference.docx             Tracked Pandoc reference document

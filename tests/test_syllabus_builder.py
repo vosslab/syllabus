@@ -61,6 +61,7 @@ def test_download_links_cover_course_and_term_pages(tmp_path: pathlib.Path) -> N
 		term="Fall 20XX",
 		author="Instructor",
 		language="en-US",
+		course_color="#007849",
 		download_basename="BIOL_000_SYLLABUS",
 		sections=(overview_path,),
 		shared_sections=(),
@@ -149,6 +150,7 @@ def test_compose_markdown_links_to_embedded_instructor_section(tmp_path: pathlib
 		term="Fall 20XX",
 		author="Instructor",
 		language="en-US",
+		course_color="#007849",
 		download_basename="BIOL_000_SYLLABUS",
 		sections=(index_path, details_path),
 		shared_sections=(policies_path,),
@@ -169,6 +171,7 @@ def test_markdown_html_uses_site_extension_stack(tmp_path: pathlib.Path) -> None
 		term="Fall 20XX",
 		author="Instructor",
 		language="en-US",
+		course_color="#007849",
 		download_basename="BIOL_000_SYLLABUS",
 		sections=(),
 		shared_sections=(),
@@ -187,11 +190,24 @@ def test_markdown_html_uses_site_extension_stack(tmp_path: pathlib.Path) -> None
 	)
 	html_text = html_path.read_text(encoding="utf-8")
 	assert '<html lang="en-US">' in html_text
+	assert 'style="--syllabus-page-accent: #007849"' in html_text
 	assert (
 		'<h2 id="course-overview">Course overview</h2>\n'
 		'<div class="admonition warning">\n<p class="admonition-title">Review</p>'
 	) in html_text
 	assert html_text.count("<table>") == 1
+
+
+#============================================
+def test_course_theme_rejects_unsafe_css_values(tmp_path: pathlib.Path) -> None:
+	"""Course metadata accepts only auditable six-digit hex colors."""
+	metadata_path = tmp_path / ".meta.yml"
+	metadata_path.write_text(
+		'course_color: "red; display: none"\ncourse_color_dark: "#73c167"\n',
+		encoding="utf-8",
+	)
+	with pytest.raises(ValueError, match="course_color must be a six-digit hex color"):
+		build_lib.syllabus_model.load_course_theme(metadata_path)
 
 
 #============================================
@@ -277,6 +293,7 @@ def test_compose_markdown_appends_policy_and_resources_once(tmp_path: pathlib.Pa
 		term="Fall 20XX",
 		author="Instructor",
 		language="en-US",
+		course_color="#007849",
 		download_basename="BIOL_000_SYLLABUS",
 		sections=(index_path,),
 		shared_sections=(policy_path, resource_path),

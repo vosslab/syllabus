@@ -65,14 +65,17 @@ authorize any additional directory.
 
 ## Course metadata
 
-An optional `.meta.yml` beside course pages supplies the website-only course header color:
+A required `.meta.yml` beside each course manifest supplies one light and one dark course accent:
 
 ```yaml
 course_color: "#1565c0"
+course_color_dark: "#8ab4f8"
 ```
 
-This value does not change the neutral PDF or DOCX styles. Choose a dark color that gives white
-header text and controls at least 5.5:1 contrast.
+Both values must use six-digit hex notation. `course_color` controls the Material header, light
+website accents, and PDF accents; choose it to give both white header controls and dark PDF text at
+least 5.5:1 contrast. `course_color_dark` controls content accents on the slate website surface and
+must also reach at least 5.5:1 there. DOCX output retains its format-native neutral styling.
 
 ## Synchronized dates
 

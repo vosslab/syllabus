@@ -35,6 +35,17 @@
 
 ### Behavior or Interface Changes
 
+- Gave the Material website and WeasyPrint PDF one shared visual hierarchy: bold small-caps
+  level-one headings, bold solid-underlined and slightly left-shifted level-two headings, bold
+  paragraph-aligned level-three headings, and italic level-four headings. Course colors now appear
+  as restrained heading and rule accents instead of a header-only theme.
+- Justified long-form body paragraphs on comfortable website widths and in PDFs with last lines
+  returned to the start edge and automatic hyphenation disabled. Narrow web columns and paragraphs
+  containing external links fall back to left alignment; URLs and code use emergency wrapping only
+  when they would otherwise overflow.
+- Restyled website and PDF tables with course-colored top and header rules, pale neutral headers,
+  and quiet alternating rows. Web tables with four or more columns now retain a readable minimum
+  width and use Material's existing horizontal scroller on narrow screens.
 - Added direct PDF and DOCX links for every course to the Fall 2026 overview, eliminating the need
   to visit each course page before downloading a complete syllabus.
 - Replaced the separate PyMdown and exporter include languages with one exact full-line,
@@ -87,6 +98,16 @@
 
 ### Fixes and Maintenance
 
+- Applied the six-pass code audit's shared-ownership fix: both MkDocs and the document builder now
+  call one course-theme validator, and the MkDocs hook normalizes allowlisted colors before the
+  template receives them. Removed the website-only dark accent from the PDF manifest model.
+- Corrected the README and maintained palette audit to show the course-colored PDF accents, dark
+  website companions, current Roosevelt link colors, and neutral DOCX boundary.
+- Made each course's adjacent `.meta.yml` the validated color authority for both render paths.
+  Metadata now requires six-digit light and dark accents; the standalone PDF HTML receives only an
+  allowlisted light accent, while Material uses the measured dark companion on its slate surface.
+- Refreshed both tracked README screenshots from the final production-shaped site so the documented
+  light homepage and dark General Genetics page show the new hierarchy and table treatment.
 - Removed the stacked bottom margins and nested horizontal scrolling from website tables. The
   outer Material wrapper now owns both one normal content gap and any narrow-screen overflow,
   while a following section heading retains its deliberate section spacing.
@@ -133,6 +154,10 @@
 
 ### Decisions and Failures
 
+- CSS provides no interoperable per-line word-stretch cutoff, and adding JavaScript would make the
+  Material and WeasyPrint behavior diverge. The implemented fail-safe is content- and
+  viewport-based: URL-bearing paragraphs and narrow screens use start alignment, while ordinary
+  long-form prose retains justification.
 - The initial one-green month-heading pass misunderstood the Google Sheet's color system. Replaced
   it with code-owned month-number classes and distinct theme-aware colors for every published
   month; the current sheet has no May rule, so May uses its unused `#fff2cc` yellow swatch.
@@ -175,6 +200,20 @@
 
 ### Developer Tests and Notes
 
+- Ran the requested six-pass audit with independent plan, test, style, documentation, legacy, and
+  comment reviewers. Plan, test, and comment passes returned no findings; the other passes found
+  the split MkDocs validation owner, stale neutral-PDF documentation, and unused dark manifest
+  field corrected above. The post-audit `all_test.sh` run passed all 967 fast tests, both live build
+  cycles, export/include parity, and the Playwright accessibility audit.
+- Measured every light course accent against white and every dark companion against Material's
+  `#1e2923` slate surface at the 5.5:1 house target. Light accents reach 5.53:1 to 6.63:1; dark
+  accents reach 6.29:1 to 8.99:1. Browser review covered light/dark desktop pages, 390-pixel course
+  and schedule views, URL-heavy policy prose, and refreshed README captures.
+- Rendered and reviewed contact sheets for all 100 pages across the three final PDFs, then inspected
+  full-size title, heading, prose, URL, and table pages. No clipping, overlap, broken wrapping, or
+  table overflow was found. The complete `all_test.sh` gate passed with 967 fast tests, two live
+  dates/build cycles, export/include parity, and the Playwright accessibility audit; Chromium's
+  first sandboxed launch was denied by macOS, and the identical permission-enabled rerun passed.
 - Extended manifest validation so every generated basename must appear on both its course landing
   page and the term overview. Added the term route to the responsive accessibility matrix and a
   browser check that its unique, descriptive download links match and load every published file.

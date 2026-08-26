@@ -66,7 +66,8 @@ The runnable `pipeline/build_syllabi.py` file owns orchestration and CLI flow. T
 own the implementation:
 
 - [pipeline/build_lib/syllabus_model.py](../pipeline/build_lib/syllabus_model.py) loads manifest
-  structure, validates source containment, and defines the immutable manifest model.
+  structure, validates shared course-theme metadata and source containment, and defines the
+  immutable manifest model.
 - [pipeline/build_lib/syllabus_content.py](../pipeline/build_lib/syllabus_content.py) scans public
   sources, validates learning content and Markdown, expands includes, and composes complete-document
   Markdown.
@@ -78,10 +79,10 @@ own the implementation:
 ### Website branch
 
 MkDocs reads `site_docs/`, calls
-[pipeline/mkdocs_hooks.py](../pipeline/mkdocs_hooks.py) to expand authorized fragments, applies the
-Material theme, repository overrides, custom CSS and JavaScript, and copies downloads and assets
-into `site/`. `mkdocs.yml` owns navigation, hook registration, theme configuration, social links,
-and the public site URL.
+[pipeline/mkdocs_hooks.py](../pipeline/mkdocs_hooks.py) to validate and normalize inherited course
+colors and expand authorized fragments, applies the Material theme, repository overrides, custom
+CSS and JavaScript, and copies downloads and assets into `site/`. `mkdocs.yml` owns navigation,
+hook registration, theme configuration, social links, and the public site URL.
 
 ### DOCX branch
 
@@ -94,7 +95,8 @@ language, and semantic table properties before output verification.
 ### PDF branch
 
 The same composed Markdown is rendered to semantic HTML with the Markdown extension stack loaded
-from `mkdocs.yml`. WeasyPrint applies
+from `mkdocs.yml`. The validated adjacent `.meta.yml` course accent is attached to the standalone
+HTML as a CSS custom property so the website and PDF share one color authority. WeasyPrint applies
 `site_docs/assets/stylesheets/syllabus_pdf.css` and creates a tagged PDF. Poppler verifies document
 metadata, text, tables, and required section titles.
 
@@ -103,9 +105,9 @@ metadata, text, tables, and required section titles.
 [pipeline/build_lib/markdown_includes.py](../pipeline/build_lib/markdown_includes.py) is the only
 include grammar and expansion engine. The complete-document content library calls it before the
 DOCX/PDF rendering split, and the website reaches it through
-[pipeline/mkdocs_hooks.py](../pipeline/mkdocs_hooks.py). The hook imports the engine while MkDocs
-temporarily exposes `pipeline/` during hook loading, so page rendering does not depend on a lasting
-path mutation.
+[pipeline/mkdocs_hooks.py](../pipeline/mkdocs_hooks.py). The hook imports its shared build libraries
+while MkDocs temporarily exposes `pipeline/` during hook loading, so page rendering does not depend
+on a lasting path mutation.
 
 The engine accepts one full-line, double-quoted `--8<--` form with paths resolved from `site_docs/`.
 Targets must be local, non-empty `.md` files under a directory named `fragments` or `generated`.

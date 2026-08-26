@@ -20,15 +20,42 @@ class SyllabusManifest:
 	term: str
 	author: str
 	language: str
+	course_color: str
 	download_basename: str
 	sections: tuple[pathlib.Path, ...]
 	shared_sections: tuple[pathlib.Path, ...]
 
 
 #============================================
+def validate_course_theme(
+	loaded: dict[object, object],
+	metadata_path: pathlib.Path,
+) -> tuple[str, str]:
+	"""Return normalized course accents after validating their CSS-safe form."""
+	# ASVS 2.2.1: allow only the documented six-digit hex format at the shared boundary.
+	colors = []
+	for key in ("course_color", "course_color_dark"):
+		color = require_text(loaded, key, metadata_path)
+		if re.fullmatch(r"#[0-9A-Fa-f]{6}", color) is None:
+			raise ValueError(f"{metadata_path}: {key} must be a six-digit hex color")
+		colors.append(color.lower())
+	return colors[0], colors[1]
+
+
+#============================================
+def load_course_theme(metadata_path: pathlib.Path) -> tuple[str, str]:
+	"""Load CSS-safe light and dark course accents from adjacent metadata."""
+	# ASVS 1.5.2: deserialize authored YAML without permitting custom object construction.
+	loaded = yaml.safe_load(metadata_path.read_text(encoding="utf-8"))
+	if not isinstance(loaded, dict):
+		raise ValueError(f"{metadata_path}: metadata root must be a mapping")
+	return validate_course_theme(loaded, metadata_path)
+
+
+#============================================
 def require_text(data: dict[object, object], key: str, manifest_path: pathlib.Path) -> str:
 	"""Return one required, non-empty string field from manifest data."""
-	value = data[key]
+	value = data.get(key)
 	if not isinstance(value, str) or not value.strip():
 		raise ValueError(f"{manifest_path}: {key} must be a non-empty string")
 	text_value = value.strip()
@@ -75,6 +102,7 @@ def load_manifest(
 	term = require_text(loaded, "term", manifest_path)
 	author = require_text(loaded, "author", manifest_path)
 	language = require_text(loaded, "language", manifest_path)
+	course_color = load_course_theme(manifest_path.parent / ".meta.yml")[0]
 	download_basename = require_text(loaded, "download_basename", manifest_path)
 	if re.fullmatch(r"[A-Z0-9_]+", download_basename) is None:
 		raise ValueError(f"{manifest_path}: download_basename must use A-Z, 0-9, and underscores")
@@ -88,6 +116,7 @@ def load_manifest(
 		term=term,
 		author=author,
 		language=language,
+		course_color=course_color,
 		download_basename=download_basename,
 		sections=sections,
 		shared_sections=shared_sections,

@@ -21,6 +21,7 @@
 	--syllabus-roosevelt-green-light: #bddeb1;
 	--syllabus-roosevelt-ink: #231f20;
 	--syllabus-roosevelt-link: #007849;
+	--syllabus-page-accent: var(--course-page-accent, var(--syllabus-roosevelt-link));
 	--md-primary-fg-color: var(--syllabus-roosevelt-link);
 	--md-primary-fg-color--light: var(--syllabus-roosevelt-green-light);
 	--md-primary-fg-color--dark: var(--syllabus-roosevelt-green-dark);
@@ -50,6 +51,7 @@
 	--md-primary-fg-color--dark: var(--syllabus-roosevelt-green-dark);
 	--md-accent-fg-color: var(--syllabus-roosevelt-green-light);
 	--md-typeset-a-color: var(--syllabus-roosevelt-green);
+	--syllabus-page-accent: var(--course-page-accent-dark, var(--syllabus-roosevelt-green));
 	--syllabus-calendar-month-01: #c9daf8;
 	--syllabus-calendar-month-05: #fff2cc;
 	--syllabus-calendar-month-08: #e6b8af;
@@ -64,7 +66,7 @@
 	max-width: var(--syllabus-page-max-width);
 }
 
-/* Course metadata changes only the web header; document exports stay neutral. */
+/* Course metadata gives each course one restrained identity across its page and header. */
 .md-header {
 	background-color: var(--course-header-color, var(--syllabus-roosevelt-green));
 }
@@ -85,30 +87,60 @@
 
 /* Keep student-facing text readable without Material's unusually loose vertical rhythm. */
 .md-typeset {
+	font-kerning: normal;
+	font-optical-sizing: auto;
 	font-size: var(--syllabus-content-font-size);
 	line-height: var(--syllabus-content-line-height);
 }
 
-.md-typeset p {
+.md-typeset > p {
+	hyphens: manual;
 	margin-block: var(--syllabus-content-gap);
+	text-align: justify;
+	text-align-last: start;
+	text-justify: inter-word;
+}
+
+/* Displayed external URLs can consume most of a line, so those paragraphs use the safe fallback. */
+.md-typeset > p:has(a[href^="http://"], a[href^="https://"]) {
+	text-align: start;
 }
 
 .md-typeset h1 {
+	color: var(--syllabus-page-accent);
+	font-variant-caps: small-caps;
+	font-weight: 760;
+	letter-spacing: 0.025em;
 	line-height: 1.2;
 	margin-block: 0 0.6em;
+	margin-inline-start: -0.35rem;
 }
 
 .md-typeset h2 {
+	font-weight: 700;
 	line-height: 1.2;
 	margin-block: 1.05em 0.35em;
+	margin-inline-start: -0.25rem;
+	text-decoration-color: var(--syllabus-page-accent);
+	text-decoration-line: underline;
+	text-decoration-skip-ink: auto;
+	text-decoration-thickness: 0.11em;
+	text-underline-offset: 0.16em;
 }
 
 .md-typeset h3 {
+	font-weight: 700;
 	line-height: 1.25;
 	margin-block: 1em 0.35em;
 }
 
-.md-typeset h4,
+.md-typeset h4 {
+	font-style: italic;
+	font-weight: 650;
+	line-height: 1.25;
+	margin-block: 0.9em 0.3em;
+}
+
 .md-typeset h5,
 .md-typeset h6 {
 	line-height: 1.25;
@@ -160,12 +192,18 @@
 }
 
 .md-typeset table:not([class]) {
+	border-block-start: 0.18rem solid var(--syllabus-page-accent);
 	border-collapse: collapse;
 	display: table;
 	font-size: 1em;
 	line-height: var(--syllabus-content-line-height);
 	margin-block: 0;
 	width: 100%;
+}
+
+/* Let wide schedules scroll instead of compressing their prose columns into word stacks. */
+.md-typeset table:not([class]):has(th:nth-child(4)) {
+	min-width: 44rem;
 }
 
 /* Give headings the same gap before paragraphs and Material-wrapped tables. */
@@ -189,7 +227,12 @@
 
 .md-typeset table:not([class]) th {
 	background-color: var(--md-default-fg-color--lightest);
+	border-block-end: 0.12rem solid var(--syllabus-page-accent);
 	font-weight: 700;
+}
+
+.md-typeset table:not([class]) tbody tr:nth-child(even) {
+	background-color: var(--md-default-fg-color--lightest);
 }
 
 .course-page-links li {
@@ -222,6 +265,13 @@
 	text-underline-offset: 0.15em;
 }
 
+/* Preserve readable words, but give URLs and code an emergency overflow escape hatch. */
+.md-typeset :where(a, code, kbd, samp) {
+	hyphens: none;
+	overflow-wrap: anywhere;
+	word-break: normal;
+}
+
 /* Material's default footer gray misses AA by a small margin on its dark background. */
 .md-footer-meta .md-copyright {
 	color: #999;
@@ -237,6 +287,18 @@
 @media screen and (min-width: 76.25em) {
 	.md-sidebar {
 		width: var(--syllabus-sidebar-width);
+	}
+}
+
+/* Narrow columns do not have enough words per line for calm full justification. */
+@media screen and (max-width: 44.99em) {
+	.md-typeset > p {
+		text-align: start;
+	}
+
+	.md-typeset h1,
+	.md-typeset h2 {
+		margin-inline-start: 0;
 	}
 }
 

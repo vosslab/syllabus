@@ -210,6 +210,8 @@ def run_markdown_html(
 	escaped_term = html.escape(manifest.term)
 	escaped_author = html.escape(manifest.author)
 	escaped_language = html.escape(manifest.language, quote=True)
+	# ASVS 1.1.2 and 1.2.1: escape the allowlisted CSS token at the HTML boundary.
+	escaped_course_color = html.escape(manifest.course_color, quote=True)
 	document = "\n".join(
 		[
 			"<!doctype html>",
@@ -220,7 +222,10 @@ def run_markdown_html(
 			f'<meta name="author" content="{escaped_author}">',
 			f'<link rel="stylesheet" href="{stylesheet_path.as_uri()}">',
 			"</head>",
-			'<body class="syllabus-document">',
+			(
+				'<body class="syllabus-document" '
+				f'style="--syllabus-page-accent: {escaped_course_color}">'
+			),
 			'<header id="title-block-header">',
 			f"<h1>{escaped_course_title}</h1>",
 			f'<p class="subtitle">{escaped_term}</p>',

@@ -41,8 +41,10 @@
 }
 
 :root {
+	--syllabus-page-accent: #007849;
 	color: #111;
 	font-family: "Atkinson Hyperlegible Next", sans-serif;
+	font-kerning: normal;
 	font-size: 11.5pt;
 	line-height: 1.38;
 }
@@ -52,7 +54,7 @@ body {
 }
 
 #title-block-header {
-	border-bottom: 2px solid #17365d;
+	border-bottom: 2px solid var(--syllabus-page-accent);
 	margin-bottom: 1.25rem;
 	padding-bottom: 0.75rem;
 }
@@ -79,8 +81,11 @@ h6 {
 }
 
 h1 {
-	color: #17365d;
+	color: var(--syllabus-page-accent);
 	font-size: 20pt;
+	font-variant-caps: small-caps;
+	font-weight: 700;
+	letter-spacing: 0.025em;
 	margin-block: 1.35rem 0.6rem;
 }
 
@@ -89,26 +94,31 @@ h1 {
 }
 
 h2 {
-	border-bottom: 1px solid #9aa7b1;
-	color: #17365d;
+	border-bottom: 1.5px solid var(--syllabus-page-accent);
+	color: #111;
 	font-size: 17pt;
+	font-weight: 700;
 	margin-block: 1.35rem 0.55rem;
+	margin-left: -0.08in;
 	padding-bottom: 0.18rem;
 }
 
 h3 {
-	color: #17365d;
+	color: #111;
 	font-size: 14pt;
+	font-weight: 700;
 	margin-block: 1.1rem 0.45rem;
 }
 
 h4 {
 	font-size: 12.5pt;
+	font-style: italic;
+	font-weight: 400;
 	margin-block: 0.9rem 0.35rem;
 }
 
 h5 {
-	color: #17365d;
+	color: var(--syllabus-page-accent);
 	font-size: 11.5pt;
 	margin-block: 0.8rem 0.3rem;
 }
@@ -125,6 +135,16 @@ ol,
 table,
 blockquote {
 	margin-block: 0.45rem 0.75rem;
+}
+
+#syllabus-content > p {
+	hyphens: manual;
+	text-align: justify;
+	text-align-last: start;
+}
+
+#syllabus-content > p:has(a[href^="http://"], a[href^="https://"]) {
+	text-align: start;
 }
 
 li {
@@ -156,6 +176,7 @@ a {
 }
 
 table {
+	border-top: 2pt solid var(--syllabus-page-accent);
 	border-collapse: collapse;
 	font-size: 1rem;
 	line-height: 1.35;
@@ -180,8 +201,13 @@ td {
 }
 
 th {
-	background: #e6e6e6;
+	background: #edf2ef;
+	border-bottom: 1.5pt solid var(--syllabus-page-accent);
 	font-weight: 700;
+}
+
+tbody tr:nth-child(even) {
+	background: #f7f8f7;
 }
 
 blockquote {
@@ -193,6 +219,15 @@ blockquote {
 pre,
 code {
 	font-family: ui-monospace, "SFMono-Regular", Consolas, monospace;
+}
+
+a,
+code,
+kbd,
+samp {
+	hyphens: none;
+	overflow-wrap: anywhere;
+	word-break: normal;
 }
 
 pre {

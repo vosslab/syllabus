@@ -23,6 +23,13 @@ history. Those belong in the appropriate technical documentation or changelog.
 - Keep the favicon protein-themed and use the three greens from Roosevelt University's R logo.
 - Provide a student-accessible light and dark theme toggle.
 - Avoid CSS specificity arms races. Keep style ownership and the cascade easy to understand.
+- Use subtle course color themes across headings and tables. Keep level-one headings left-aligned,
+  bold, and in small caps; level-two headings bold, underlined, and slightly left-shifted;
+  level-three headings bold and aligned with body paragraphs; and level-four headings italic.
+- Justify long-form paragraphs at comfortable widths without aggressive automatic hyphenation.
+  Return narrow screens to left alignment, and allow emergency wrapping for long URLs and code.
+- Keep the heading, paragraph, and table design readable in both MkDocs Material and WeasyPrint,
+  while allowing renderer-specific spacing where the formats need it.
 - Use my student-appropriate social links in the footer. Do not include PayPal, Patreon, or other
   donation links.
 - Keep the public GitHub Pages link prominent in the README.

@@ -112,16 +112,18 @@ that work begins, do not add another term source tree or an archive navigation b
 rollover must define the snapshot location, tracked/generated boundary, and pipeline behavior
 before a second term is introduced.
 
-Add a `.meta.yml` file to the course folder to give every page in that folder the same web-header
-color:
+Add a `.meta.yml` file to the course folder to give every page and complete PDF the same course
+identity:
 
 ```yaml
 course_color: "#1565c0"
+course_color_dark: "#8ab4f8"
 ```
 
-Choose a dark color that gives white header text and controls at least 5.5:1 contrast. This
-metadata affects the Material website only; complete PDF and DOCX exports keep their neutral
-document styling.
+Use six-digit hex colors. Choose `course_color` so white header controls and dark PDF text each
+reach at least 5.5:1 contrast; choose `course_color_dark` to meet the same target against the slate
+website surface. The Material website and WeasyPrint PDF use these accents for their shared
+heading and table language. DOCX keeps its format-native neutral styling.
 
 Use descriptive links and real Markdown heading levels. Keep tables simple: use a named header for
 every column, one idea per cell, the same number of cells in every row, and no merged cells. Align
