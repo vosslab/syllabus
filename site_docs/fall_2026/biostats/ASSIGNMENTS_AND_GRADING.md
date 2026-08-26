@@ -7,7 +7,7 @@ students to select methods, perform analyses, interpret results, and communicate
 Current scores and the authoritative point total are maintained in Blackboard.
 
 Final percentages, rounding, and letter-grade thresholds follow the shared
-[grading policies](../policies/GRADING.md#grades).
+[grading policies](../policies/ASSESSMENT.md#grades).
 
 ## Feedback
 

@@ -1,4 +1,4 @@
-# Expectations
+# What students and instructors can expect
 
 ## Student expectations
 
@@ -21,8 +21,7 @@
 * I am committed to working with each of you to meet your needs and goals for the course, and I encourage open communication.
 * Limited PREVIEW versions of lecture slides will be available on Blackboard before class to help you prepare.
 * Full versions of lecture slides will be available on Blackboard within 36 hours after class for your review.
-* I will follow the response time listed in
-  [Instructor information](INSTRUCTOR_INFORMATION.md).
+* I will follow the response time listed in [Contacting Dr. Voss](INSTRUCTOR_INFORMATION.md).
 * I will provide feedback on assignments and exams to support your learning and improvement.
 * I will promote a respectful and inclusive classroom environment where all students feel valued and heard.
 
@@ -35,3 +34,13 @@
 * Arriving on time and staying for the full class shows respect for the learning process and your classmates.
 * Participate actively in discussions to help create a dynamic and engaging class environment.
   * Respect the opinions of others during discussions, even when they differ from your own.
+
+## Classroom conduct
+
+This classroom will be a safe place for all participants. We will treat one another with respect.
+
+Students enrolled in the university are expected to conduct themselves in a manner compatible with the university's function as an educational institution. Please familiarize yourself with the Student Code of Conduct, the Student Handbook and related procedures:
+
+[Roosevelt University complaint and conflict resolution](https://www.roosevelt.edu/current-students/support-services/complaint/conflict-resolution)
+
+Using music devices either in the classroom or in the laboratory is not permitted. Reading materials other than assigned for teaching are not allowed. No children allowed in the classroom. Cellular phones must be set either to the silent/vibration mode or turned off completely before coming into the classroom. Eating or drinking in classrooms is discouraged, but allowed if you do not create a disturbance. Do not bring loud food packaging to class as they will be disruptive. Examples of unacceptable items include, anything that has condiments, fried chicken, french fries, cereal with milk, and salads. Most things from the vending machine are fine. Rude or disruptive behavior will not be tolerated. If you must leave class for any reason, do not distract your classmates. Courtesy and respect are expected of all our students. Any deviation from such an expectation will be a clear violation of the students code of conduct; an act that will neither be tolerated by the instructor nor the department.

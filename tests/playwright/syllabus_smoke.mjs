@@ -26,8 +26,14 @@ const ROUTES = [
 	"/fall_2026/biol_351_451/",
 	"/fall_2026/biol_480/",
 	"/fall_2026/POLICIES/",
-	"/fall_2026/policies/ACCOMMODATIONS/",
-	"/fall_2026/policies/GRADING/",
+	"/fall_2026/policies/INSTRUCTOR_INFORMATION/",
+	"/fall_2026/policies/COURSE_DELIVERY/",
+	"/fall_2026/policies/ASSESSMENT/",
+	"/fall_2026/policies/ATTENDANCE_AND_ACCOMMODATIONS/",
+	"/fall_2026/policies/ACADEMIC_INTEGRITY/",
+	"/fall_2026/policies/COURSE_EXPECTATIONS/",
+	"/fall_2026/policies/INCLUSION_AND_SAFETY/",
+	"/fall_2026/policies/COURSE_ENROLLMENT/",
 	"/fall_2026/STUDENT_RESOURCES/",
 ];
 
@@ -180,7 +186,9 @@ try {
 	await homePage.close();
 
 	const accommodationPage = await browser.newPage();
-	await accommodationPage.goto(`${staticServer.baseUrl}/fall_2026/policies/ACCOMMODATIONS/`);
+	await accommodationPage.goto(
+		`${staticServer.baseUrl}/fall_2026/policies/ATTENDANCE_AND_ACCOMMODATIONS/`,
+	);
 	const absenceTable = accommodationPage.getByRole("table").filter({
 		hasText: "First communicated",
 	});
@@ -193,7 +201,7 @@ try {
 	await accommodationPage.close();
 
 	const gradingPage = await browser.newPage();
-	await gradingPage.goto(`${staticServer.baseUrl}/fall_2026/policies/GRADING/`);
+	await gradingPage.goto(`${staticServer.baseUrl}/fall_2026/policies/ASSESSMENT/`);
 	const gradeTable = gradingPage.getByRole("table").first();
 	await gradeTable.waitFor();
 	assert.deepEqual(await gradeTable.getByRole("columnheader").allTextContents(), [

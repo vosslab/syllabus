@@ -5,20 +5,22 @@ this same policy set, and every complete syllabus download includes each topic o
 
 ## Policy topics
 
-- [Instructor information](policies/INSTRUCTOR_INFORMATION.md): contact information, office hours,
-  locations, and response time.
-- [Overview](policies/OVERVIEW.md): communication, course changes, online tools, course modalities,
-  and the land acknowledgement.
-- [Assessment guidelines](policies/ASSESSMENT.md): assignments, quizzes, exams, make-up work,
-  discussion marks, and extra credit.
-- [Grading policies](policies/GRADING.md): grades, incompletes, withdrawal, and academic integrity.
-- [Accommodation policies](policies/ACCOMMODATIONS.md): attendance, laboratory preparation,
-  disability accommodations, religious holidays, caregivers, and student athletes.
-- [Conduct and behavioral policies](policies/CONDUCT_AND_BEHAVIORAL_POLICIES.md): classroom conduct,
-  Title IX, discrimination, harassment, bullying, retaliation, and inclusion.
-- [Expectations](policies/EXPECTATIONS.md): student, instructor, and classroom expectations.
-- [Frequently asked questions](policies/FAQ.md): answers to recurring questions about how the
-  courses operate.
+- [Contacting Dr. Voss](policies/INSTRUCTOR_INFORMATION.md): contact information, office hours,
+  response time, and what to do when something feels urgent.
+- [Course format and online tools](policies/COURSE_DELIVERY.md): syllabus changes, Blackboard,
+  Zoom, Discord, and course formats.
+- [Grades and graded work](policies/ASSESSMENT.md): letter grades, assignments, quizzes, exams,
+  make-up work, discussion marks, and extra credit.
+- [Attendance, absences, and accommodations](policies/ATTENDANCE_AND_ACCOMMODATIONS.md): class and
+  lab attendance, disability accommodations, religious holidays, caregivers, and student athletes.
+- [Academic integrity and AI](policies/ACADEMIC_INTEGRITY.md): plagiarism, academic dishonesty,
+  course consequences, the honor system, and responsible AI use.
+- [What students and instructors can expect](policies/COURSE_EXPECTATIONS.md): shared
+  responsibilities, classroom participation, and conduct.
+- [Safety, inclusion, and belonging](policies/INCLUSION_AND_SAFETY.md): Title IX, discrimination,
+  harassment, reporting, inclusion, and the Roosevelt land acknowledgement.
+- [Dropping or withdrawing from class](policies/COURSE_ENROLLMENT.md): official withdrawal, late
+  withdrawal, tuition refunds, and financial-aid cautions.
 
 ## Student support
 

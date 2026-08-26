@@ -10,6 +10,28 @@
   type placed immediately after the date; personal confirmation, calculated week, update notes, and
   the source-only `X` formula used to gray past spreadsheet rows are omitted.
 
+### Behavior or Interface Changes
+
+- Rebuilt the shared policy information architecture so each subsection has one subject-based
+  parent: instructor communication, course delivery, assessment, attendance and accommodations,
+  academic integrity, course expectations, inclusion and safety, or course enrollment.
+- Kept instructor-facing category names in canonical filenames while giving students task-oriented
+  page labels such as **Grades and graded work**, **Contacting Dr. Voss**, and **Dropping or
+  withdrawing from class**.
+- Made `ASSESSMENT.md` the sole shared grading source, including the letter-grade scale and rules
+  for assignments, quizzes, exams, discussion marks, make-up work, and Blackboard percentages.
+- Kept `POLICIES.md` as the only policy overview and removed the competing generic overview and
+  catch-all FAQ after routing their content to subject pages.
+
+### Fixes and Maintenance
+
+- Moved academic integrity and AI guidance out of grading, and moved withdrawal, late withdrawal,
+  and tuition refunds into the course-enrollment category.
+- Removed the Spring 2026 withdrawal date from the Fall 2026 policy source. The policy now routes
+  students to the canonical term dates and current Roosevelt withdrawal and refund information.
+- Removed the unrelated university important-dates link from the instructor-information table;
+  the term dates page remains the student-facing authority for shared deadlines.
+
 ### Decisions and Failures
 
 - Kept date and event wording faithful to the worksheet. The current source includes Fall 2025 and

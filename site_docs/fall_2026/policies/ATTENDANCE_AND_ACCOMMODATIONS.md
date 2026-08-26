@@ -1,4 +1,4 @@
-# Accommodation policies
+# Attendance, absences, and accommodations
 
 ## Attendance policy
 
@@ -35,7 +35,7 @@ Deductions may be made for not bringing your lab coat, not wearing lab goggles, 
 
 Absences fall into two categories: communicated and uncommunicated. A **communicated absence** is when a student contacts the instructor before the start of lab to explain they will not be attending. This includes illness, family emergencies, travel conflicts, or personal matters. While communicated absences still result in a reduced or missing preparation score (see table above), they are treated more leniently than absences with no communication. An **uncommunicated absence** is when a student misses lab class without notifying the instructor in advance. These will result in greater point deductions and may impact your standing in the course (see table above).
 
-## Accommodation of students with dis/abilities
+## Disability accommodations
 
 If you have a condition or disability that requires reasonable accommodation, please alert Disability Services (in the Learning Commons) as soon as possible. To be effective, accommodations should be implemented prior to any assignments, quizzes, or tests. In Chicago, Disability Services is located in the Learning Commons, AUD 1038 (inside the Library), the phone number is 312-341-3629, and the email address for the Disability Services Specialist is [nyoon@roosevelt.edu](mailto:nyoon@roosevelt.edu). Staff can offer both in-person and virtual appointments for our students to determine which academic accommodations are feasible and appropriate.
 

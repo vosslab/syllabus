@@ -61,13 +61,15 @@ site_docs/fall_2026/
 |-- POLICIES.md
 |-- STUDENT_RESOURCES.md
 |-- policies/
+|   |-- ACADEMIC_INTEGRITY.md
 |   |-- ASSESSMENT.md
-|   |-- GRADING.md
+|   |-- COURSE_DELIVERY.md
+|   |-- COURSE_ENROLLMENT.md
 |   `-- ...
 |-- shared/
 |   |-- INSTRUCTOR_INFORMATION.md
 |   `-- ROOSEVELT_LEARNING_GOALS.md
-`-- biol_318_418/
+`-- biostats/
     |-- index.md
     |-- COURSE_DETAILS.md
     |-- COURSE_LEARNING_FRAMEWORK.md

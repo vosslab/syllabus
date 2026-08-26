@@ -1,7 +1,7 @@
-# BIOL 318/418 - Biostatistics
+# BIOL 480 - Applications of Biotechnology
 
-Biostatistics develops the skills needed to design, analyze, and interpret biological data. The
-course uses examples from ecology, genetics, molecular biology, and related experimental sciences.
+Applications of Biotechnology examines research, medical, environmental, and industrial uses of
+biotechnology through current literature, discussion, presentations, and applied projects.
 
 ## Find what you need
 
@@ -9,15 +9,15 @@ The syllabus is divided into shorter pages so you can go directly to the informa
 
 <div class="course-page-links" markdown="1">
 
-- [**Meetings and instructor**](COURSE_DETAILS.md): class time, location, prerequisites, course
+- [**Meetings and instructor**](COURSE_DETAILS.md): class time, locations, prerequisites, course
   description, and instructor contact information.
 - [**Learning Objectives, Outcomes, and Goals**](COURSE_LEARNING_FRAMEWORK.md): Roosevelt learning
   goals, learning objectives, course learning outcomes, and overall learning goals.
 - [**Coursework and grades**](ASSIGNMENTS_AND_GRADING.md): assignments, points, and the letter-grade
   scale.
 - [**Dates and topics**](SCHEDULE.md): the week-by-week course schedule.
-- [**Dr. Voss course policies**](../POLICIES.md): assessment, attendance, grading, accommodation,
-  conduct, and classroom expectations shared by Dr. Voss's courses.
+- [**Dr. Voss course policies**](../POLICIES.md): grading, attendance, accommodations, academic
+  integrity, classroom expectations, safety, and withdrawal information.
 - [**Help and student services**](../STUDENT_RESOURCES.md): advising, tutoring, technology,
   disability services, counseling, and other support.
 
@@ -27,10 +27,10 @@ The syllabus is divided into shorter pages so you can go directly to the informa
 
 | Course summary | Fall 2026 |
 | --- | --- |
-| Sections | BIOL 318-20 and BIOL 418-20 |
+| Sections | BIOL 480-10 and BIOL 480-24 |
 | Format | Hybrid and videoconferenced |
-| Meeting | Wednesday, 5:00-5:55 p.m. |
-| Location | SCH 612, Schaumburg campus |
+| Meeting | Thursday, 6:00-9:00 p.m. |
+| Locations | WB 416, Chicago; SCH 614, Schaumburg |
 | Session | August 31-December 19, 2026 |
 | Credit hours | 3.0 |
 
@@ -39,12 +39,12 @@ The syllabus is divided into shorter pages so you can go directly to the informa
   <p>Download all course pages, Dr. Voss course policies, and student resources as one file.</p>
   <ul>
     <li>
-      <a href="../../downloads/BIOL_318_418_FALL_2026_SYLLABUS.pdf">
+      <a href="../../downloads/BIOL_480_FALL_2026_SYLLABUS.pdf">
         Download the complete course syllabus (PDF)
       </a>
     </li>
     <li>
-      <a href="../../downloads/BIOL_318_418_FALL_2026_SYLLABUS.docx">
+      <a href="../../downloads/BIOL_480_FALL_2026_SYLLABUS.docx">
         Download the complete course syllabus (DOCX)
       </a>
     </li>

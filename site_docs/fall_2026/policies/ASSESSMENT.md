@@ -1,6 +1,52 @@
-# Assessment guidelines
+# Grades and graded work
 
-## Main forms of assessment
+## Grades
+
+Your final grade for this course will be determined by the total points you've earned, compared to
+the maximum possible points. Percentages will be rounded to a single decimal place. For example,
+if you earn 500 points out of 715, your percentage would be 69.9%, resulting in a grade of D+.
+With 501 points out of 715, your percentage would be 70.1%, or a grade of C-. The percentage scale
+for letter grades is as follows:
+
+| Percentage | Grade |
+| --- | :---: |
+| 92.0% and above | A |
+| 90.0-91.9% | A- |
+| 88.0-89.9% | B+ |
+| 82.0-87.9% | B |
+| 80.0-81.9% | B- |
+| 78.0-79.9% | C+ |
+| 72.0-77.9% | C |
+| 70.0-71.9% | C- |
+| 68.0-69.9% | D+ |
+| 62.0-67.9% | D |
+| 60.0-61.9% | D- |
+| Below 60.0% | F |
+
+Please note that Roosevelt University enables instructors to send Progress Reports, offering you
+insights into your performance. These reports may prompt Academic Advisors to connect you with
+additional support and university resources.
+
+## Incomplete grade policy
+
+A grade of incomplete may only be given with the specific consent of the instructor. Proper
+notification to the Office of the Registrar and the instructor's dean or department chair is also
+required. A student may only receive an Incomplete grade if:
+
+* The student initiates the request for an incomplete grade before the end of the academic term; and
+* The student is in good standing in the course and has completed a majority of the coursework
+  (usually at least 75% of the coursework); and
+* A medical condition or other serious, non-academic extenuating circumstance (as documented with
+  the Office of the Dean of Students) prevents them from completing a small portion of the
+  coursework required to complete the course prior to the end of the term; and
+* The required work may be reasonably completed in an agreed-upon timeframe with the faculty
+  member (no later than the end of the next semester, excluding summer); and
+* The required work does not require the student to retake any portion of the course.
+
+For more information, see Roosevelt University's
+[course and credit policies](https://catalog.roosevelt.edu/undergraduate/policies/course-and-credit/).
+
+## Graded work
 
 **Assignments**: Tasks completed outside of class.
 
@@ -77,6 +123,25 @@ Two separate parts of about 50 questions each
 * Take anytime in the 36-hour window (e.g., the first night for part 2, the second day morning for part 1\)
 * Each part must be completed in one session
 * Clock starts once the part of the exam is open, must finish within the time-limit
+
+## Online quiz and exam reset policy
+
+I make it a point to remind students of this policy during lecture before each exam. If you
+experience internet issues, technical difficulties, accidentally open the exam, or face other
+non-academic distractions during a quiz or exam, follow these steps:
+
+1. **Don't Panic**: Stay calm and do not rush.
+2. **Stop and Exit:** Close the quiz or exam without viewing additional questions.
+3. **Contact Me Immediately**: Preferably via Discord, but email is also fine. Do not expect an
+   immediate response; I will contact you when I am available.
+
+**How I Handle Different Situations**
+
+1. **Less than 10% of the questions**: I can reset the quiz or exam for a fresh start.
+2. **Between 10% and 90% of the questions**: I will likely create a custom quiz or exam covering
+   only the questions you haven't seen.
+3. **100% of the questions (rushed to complete)**: I can offer a second attempt, but your final
+   score will be the average of both attempts.
 
 ## Exam submission bonus and penalty policy
 

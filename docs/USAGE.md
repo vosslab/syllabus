@@ -10,7 +10,7 @@ Public course content lives under `site_docs/<term>/<course>/`. Each course cont
 - `COURSE_LEARNING_FRAMEWORK.md` for Roosevelt learning goals, learning objectives, course
   learning outcomes, and overall learning goals. Its student-facing title is **Learning
   Objectives, Outcomes, and Goals**.
-- `ASSIGNMENTS_AND_GRADING.md` for assessment and grade calculations.
+- `ASSIGNMENTS_AND_GRADING.md` for course-specific graded work and grade calculations.
 - `SCHEDULE.md` for literal meeting dates and topics.
 - `syllabus.yml` for complete-document order and metadata.
 
@@ -73,7 +73,8 @@ neither stale dates nor download links without their generated targets.
 ## Edit shared content
 
 - Edit a policy in `site_docs/<term>/policies/<topic>.md`.
-- Edit the letter-grade scale in `site_docs/<term>/policies/GRADING.md`.
+- Edit shared assessment rules and the letter-grade scale in
+  `site_docs/<term>/policies/ASSESSMENT.md`. Its student-facing title is **Grades and graded work**.
 - Edit office hours and instructor facts in `site_docs/<term>/shared/INSTRUCTOR_INFORMATION.md`.
 - Edit Roosevelt learning goals in `site_docs/<term>/shared/ROOSEVELT_LEARNING_GOALS.md`.
 - Edit shared support information in `site_docs/<term>/STUDENT_RESOURCES.md`.

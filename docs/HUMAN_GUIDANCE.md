@@ -25,14 +25,21 @@
 ## Policy organization
 
 - Keep **Policies** and **Student resources** as the two top-level branches of the shared material.
-- Split the long policy document into student-recognizable topics such as assessment guidelines,
-  grading policies, accommodation policies, conduct and behavioral policies, expectations,
-  instructor information, and frequently asked questions.
+- Name canonical policy files with instructor-facing subject categories while giving each page a
+  student-facing title. For example, `ASSESSMENT.md` appears to students as **Grades and graded
+  work**, following the same pattern as `COURSE_LEARNING_FRAMEWORK.md` and **Learning Objectives,
+  Outcomes, and Goals**.
+- Keep `POLICIES.md` as the only policy overview. Do not add a second overview or a catch-all FAQ;
+  assign every policy subsection to one subject category.
+- Organize the shared policy branch around instructor communication, course delivery, assessment,
+  attendance and accommodations, academic integrity, course expectations, inclusion and safety,
+  and course enrollment.
 - Maintain Dr. Voss's course policies once per term in `site_docs/<term>/policies/`; use
   `POLICIES.md` only as the student-facing topic index. Link every course to that shared branch and
   append each topic once to every complete syllabus.
-- Maintain the complete letter-grade scale only in `site_docs/<term>/policies/GRADING.md`; course
-  pages link to that policy and complete syllabi include it once.
+- Maintain the complete letter-grade scale only in `site_docs/<term>/policies/ASSESSMENT.md`; label
+  that route **Grades and graded work** for students. Course pages link to that source and complete
+  syllabi include it once.
 - Keep policies and student resources independently editable and merge both into each complete
   course syllabus during the build.
 

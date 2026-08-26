@@ -50,31 +50,31 @@ nav:
       - Overview: fall_2026/index.md
       - Important dates and deadlines: fall_2026/IMPORTANT_DATES.md
       - BIOL 318/418 - Biostatistics:
-          - Start here: fall_2026/biol_318_418/index.md
-          - Meetings and instructor: fall_2026/biol_318_418/COURSE_DETAILS.md
-          - Learning Objectives, Outcomes, and Goals: fall_2026/biol_318_418/COURSE_LEARNING_FRAMEWORK.md
-          - Coursework and grades: fall_2026/biol_318_418/ASSIGNMENTS_AND_GRADING.md
-          - Dates and topics: fall_2026/biol_318_418/SCHEDULE.md
+          - Start here: fall_2026/biostats/index.md
+          - Meetings and instructor: fall_2026/biostats/COURSE_DETAILS.md
+          - Learning Objectives, Outcomes, and Goals: fall_2026/biostats/COURSE_LEARNING_FRAMEWORK.md
+          - Coursework and grades: fall_2026/biostats/ASSIGNMENTS_AND_GRADING.md
+          - Dates and topics: fall_2026/biostats/SCHEDULE.md
       - BIOL 351/451 - General Genetics:
-          - Start here: fall_2026/biol_351_451/index.md
-          - Meetings and instructor: fall_2026/biol_351_451/COURSE_DETAILS.md
-          - Learning Objectives, Outcomes, and Goals: fall_2026/biol_351_451/COURSE_LEARNING_FRAMEWORK.md
-          - Coursework and grades: fall_2026/biol_351_451/ASSIGNMENTS_AND_GRADING.md
-          - Dates and topics: fall_2026/biol_351_451/SCHEDULE.md
+          - Start here: fall_2026/genetics/index.md
+          - Meetings and instructor: fall_2026/genetics/COURSE_DETAILS.md
+          - Learning Objectives, Outcomes, and Goals: fall_2026/genetics/COURSE_LEARNING_FRAMEWORK.md
+          - Coursework and grades: fall_2026/genetics/ASSIGNMENTS_AND_GRADING.md
+          - Dates and topics: fall_2026/genetics/SCHEDULE.md
       - BIOL 480 - Applications of Biotechnology:
-          - Start here: fall_2026/biol_480/index.md
-          - Meetings and instructor: fall_2026/biol_480/COURSE_DETAILS.md
-          - Learning Objectives, Outcomes, and Goals: fall_2026/biol_480/COURSE_LEARNING_FRAMEWORK.md
-          - Coursework and grades: fall_2026/biol_480/ASSIGNMENTS_AND_GRADING.md
-          - Dates and topics: fall_2026/biol_480/SCHEDULE.md
+          - Start here: fall_2026/biotech/index.md
+          - Meetings and instructor: fall_2026/biotech/COURSE_DETAILS.md
+          - Learning Objectives, Outcomes, and Goals: fall_2026/biotech/COURSE_LEARNING_FRAMEWORK.md
+          - Coursework and grades: fall_2026/biotech/ASSIGNMENTS_AND_GRADING.md
+          - Dates and topics: fall_2026/biotech/SCHEDULE.md
       - Dr. Voss course policies:
           - Policy overview: fall_2026/POLICIES.md
-          - Instructor information: fall_2026/policies/INSTRUCTOR_INFORMATION.md
-          - Overview: fall_2026/policies/OVERVIEW.md
-          - Assessment guidelines: fall_2026/policies/ASSESSMENT.md
-          - Grading policies: fall_2026/policies/GRADING.md
-          - Accommodation policies: fall_2026/policies/ACCOMMODATIONS.md
-          - Conduct and behavioral policies: fall_2026/policies/CONDUCT_AND_BEHAVIORAL_POLICIES.md
-          - Expectations: fall_2026/policies/EXPECTATIONS.md
-          - Frequently asked questions: fall_2026/policies/FAQ.md
+          - Contacting Dr. Voss: fall_2026/policies/INSTRUCTOR_INFORMATION.md
+          - Course format and online tools: fall_2026/policies/COURSE_DELIVERY.md
+          - Grades and graded work: fall_2026/policies/ASSESSMENT.md
+          - Attendance, absences, and accommodations: fall_2026/policies/ATTENDANCE_AND_ACCOMMODATIONS.md
+          - Academic integrity and AI: fall_2026/policies/ACADEMIC_INTEGRITY.md
+          - What students and instructors can expect: fall_2026/policies/COURSE_EXPECTATIONS.md
+          - Safety, inclusion, and belonging: fall_2026/policies/INCLUSION_AND_SAFETY.md
+          - Dropping or withdrawing from class: fall_2026/policies/COURSE_ENROLLMENT.md
       - Help and student services: fall_2026/STUDENT_RESOURCES.md

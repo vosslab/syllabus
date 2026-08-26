@@ -58,19 +58,19 @@ def test_remove_heading_sections_omits_web_only_policy_routes() -> None:
 def test_rewrite_document_links_targets_included_section(tmp_path: pathlib.Path) -> None:
 	"""Source-page links become internal links when their target is included."""
 	source_path = tmp_path / "course" / "ASSIGNMENTS_AND_GRADING.md"
-	target_path = tmp_path / "policies" / "GRADING.md"
+	target_path = tmp_path / "policies" / "ASSESSMENT.md"
 	markdown = (
-		"See [grade thresholds](../policies/GRADING.md#grades), "
-		"[grading policies](../policies/GRADING.md), and "
+		"See [grade thresholds](../policies/ASSESSMENT.md#grades), "
+		"[grading policies](../policies/ASSESSMENT.md), and "
 		"[other policies](../policies/OTHER.md)."
 	)
 	rewritten = pipeline.build_syllabi.rewrite_document_links(
 		markdown,
 		source_path,
-		{target_path.resolve(): "grading"},
+		{target_path.resolve(): "assessment"},
 	)
 	assert rewritten == (
-		"See [grade thresholds](#grades), [grading policies](#grading), and "
+		"See [grade thresholds](#grades), [grading policies](#assessment), and "
 		"[other policies](../policies/OTHER.md)."
 	)
 

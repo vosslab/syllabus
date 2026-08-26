@@ -17,8 +17,8 @@ The syllabus is divided into shorter pages so you can go directly to the informa
 - [**Coursework and grades**](ASSIGNMENTS_AND_GRADING.md): assignments, points, and the letter-grade
   scale.
 - [**Dates and topics**](SCHEDULE.md): the week-by-week course schedule.
-- [**Dr. Voss course policies**](../POLICIES.md): assessment, attendance, grading, accommodation,
-  conduct, and classroom expectations shared by Dr. Voss's courses.
+- [**Dr. Voss course policies**](../POLICIES.md): grading, attendance, accommodations, academic
+  integrity, classroom expectations, safety, and withdrawal information.
 - [**Help and student services**](../STUDENT_RESOURCES.md): advising, tutoring, technology,
   disability services, counseling, and other support.
 

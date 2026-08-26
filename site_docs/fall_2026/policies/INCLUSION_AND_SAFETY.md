@@ -1,16 +1,4 @@
-# Conduct and behavioral policies
-
-## Classroom conduct
-
-This classroom will be a safe place for all participants. We will treat one another with respect.
-
-Students enrolled in the university are expected to conduct themselves in a manner compatible with the university's function as an educational institution. Please familiarize yourself with the Student Code of Conduct, the Student Handbook and related procedures which is available through this link.
-
-[https://www.roosevelt.edu/current-students/support-services/complaint/conflict-resolution](https://www.roosevelt.edu/current-students/support-services/complaint/conflict-resolution)
-
-Using music devices either in the classroom or in the laboratory is not permitted. Reading materials other than assigned for teaching are not allowed. No children allowed in the classroom. Cellular phones must be set either to the silent/vibration mode or turned off completely before coming into the classroom. Eating or drinking in classrooms is discouraged, but allowed if you do not create a disturbance. Do not bring loud food packaging to class as they will be disruptive. Examples of unacceptable items include, anything that has condiments, fried chicken, french fries, cereal with milk, and salads. Most things from the vending machine are fine. Rude or disruptive behavior will not be tolerated. If you must leave class for any reason, do not distract your classmates. Courtesy and respect are expected of all our students. Any deviation from such an expectation will be a clear violation of the students code of conduct; an act that will neither be tolerated by the instructor nor the department. See also,
-
-[*https://www.roosevelt.edu/current-students/support-services/complaint/conflict-resolution*](https://www.roosevelt.edu/current-students/support-services/complaint/conflict-resolution)
+# Safety, inclusion, and belonging
 
 ## Title IX and sexual misconduct policy
 
@@ -41,3 +29,9 @@ Incident Reporting Form: [https://cm.maxient.com/reportingform.php?RooseveltUniv
 ## Challenges to inclusion
 
 The instructor recognizes that the ability for students to comfortably participate in class may be affected by such factors as racial or gender inequality, access to food or housing, and substance abuse. Any student who faces such challenges to their security or access to food or housing is urged to contact the Office of the Dean of Students ([https://www.roosevelt.edu/policies/student-rights/dean-of-students](https://www.roosevelt.edu/policies/student-rights/dean-of-students)). Furthermore, if you are comfortable in doing so, please notify the instructor. This will enable the instructor to provide any resources that they may possess.
+
+## Roosevelt land acknowledgement
+
+Roosevelt University is positioned on the traditional, unceded homelands of the Council of the Three Fires: the Ojibwe, Odawa, and Potawatomi Nations. Many other tribes such as the Miami, Ho-Chunk, Menominee, Sac, and Fox also called this area home. Today, Chicago is home to one of the largest urban Indigenous communities in the United States.
+
+With this land acknowledgment, the Roosevelt University community honors, with gratitude, this land and the Indigenous people who have stewarded it throughout the generations. We recognize the Indigenous people who laid the foundation for the city we inhabit, as well as the diverse Indigenous nations that reside here today. We vow to do our part to right the historic wrongs of colonization, to support Indigenous communities' struggles for self-determination, and to be better stewards of the land that we inhabit.

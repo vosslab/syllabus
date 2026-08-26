@@ -24,7 +24,11 @@ offline reading and archival use.
 - Use conventional syllabus labels that tell students exactly what each route contains while
   keeping technical filenames internal.
 - Keep policies and student resources as separate top-level branches. Split Dr. Voss's long policy
-  document into recognizable topic pages without creating course-specific alternatives.
+  document into recognizable topic pages without creating course-specific alternatives or a
+  second overview.
+- Use instructor-facing subject names for canonical files and student-facing task language for
+  page headings and navigation. Students should recognize the question a page answers without
+  knowing terms such as **assessment** or **course delivery**.
 - Embed instructor information and Roosevelt learning goals from canonical term-level fragments.
 - Keep the letter-grade scale once in the shared grading policy; course grading pages link to it.
 - Place task-oriented course links immediately after the introduction.
@@ -38,6 +42,27 @@ offline reading and archival use.
 - Use literal schedule dates so every academic-calendar exception remains explicit and reviewable.
 - Keep private meeting links and credentials in Blackboard.
 - Present complete student-facing candidates; keep editorial uncertainty outside published pages.
+
+## Policy information architecture
+
+The policy overview supports recognition rather than recall: students scan visible task labels,
+then choose the page that matches their question. Each subsection belongs to one subject category;
+`POLICIES.md` is the only overview and the policy branch has no catch-all FAQ.
+
+| Canonical category | Student-facing page | Student question answered |
+| --- | --- | --- |
+| `INSTRUCTOR_INFORMATION.md` | Contacting Dr. Voss | How and when do I contact the instructor? |
+| `COURSE_DELIVERY.md` | Course format and online tools | Where and how does the course operate? |
+| `ASSESSMENT.md` | Grades and graded work | How are assignments, quizzes, exams, and grades handled? |
+| `ATTENDANCE_AND_ACCOMMODATIONS.md` | Attendance, absences, and accommodations | What happens if I miss class or need an accommodation? |
+| `ACADEMIC_INTEGRITY.md` | Academic integrity and AI | What work must be my own, and how may I use AI? |
+| `COURSE_EXPECTATIONS.md` | What students and instructors can expect | What responsibilities and classroom behavior are expected? |
+| `INCLUSION_AND_SAFETY.md` | Safety, inclusion, and belonging | What protections, reporting routes, and community commitments apply? |
+| `COURSE_ENROLLMENT.md` | Dropping or withdrawing from class | How do withdrawal, late withdrawal, and tuition refunds work? |
+
+The inspection scenario starts at the policy overview with one of those questions. Success means
+the matching link is recognizable without opening competing pages, its target contains the answer,
+and the same category appears once in each complete syllabus.
 
 ## Task models
 
@@ -71,7 +96,7 @@ Dr. Voss's shared policy branch controls.
 | Preserve Roosevelt goals | Every course renders the bullets from one term learning-goals fragment |
 | Maintain one grade scale | Only the grading-policy source contains thresholds; course pages link to it |
 | Find learning statements | Every course exposes all four required sections under the formal page label |
-| Find a policy | Navigation uses the original policy topic vocabulary and contains no competing course policy page |
+| Find a policy | Navigation uses student-facing task labels and contains no second overview, catch-all FAQ, or competing course policy page |
 | Preserve complete syllabi | Each shared policy topic and student-resource source appears once in every export |
 
 ## Homepage UX delta
