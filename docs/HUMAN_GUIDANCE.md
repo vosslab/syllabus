@@ -34,3 +34,9 @@ history. Those belong in the appropriate technical documentation or changelog.
   gates; enforce those expectations through local maintainer checks.
 - `all_test.sh` means all local validation. It must include the live Google Sheets build as well as
   pytest, export E2E, and Playwright.
+
+## Code architecture
+
+- Keep runnable files under `pipeline/` focused on orchestration. Put substantial reusable models,
+  composition, validation, and rendering code under `pipeline/build_lib/`; reducing a large entry
+  point by only enough lines to stay below the source limit is not structural success.

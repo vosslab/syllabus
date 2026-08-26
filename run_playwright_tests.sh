@@ -2,6 +2,8 @@
 
 set -euo pipefail
 
+export NO_MKDOCS_2_WARNING=1
+
 cd "$(git rev-parse --show-toplevel)"
 
 if [[ "${1:-}" == "--build" ]]; then

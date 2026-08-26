@@ -52,26 +52,42 @@ ignored and must be rebuilt from the tracked source.
 
 1. `pipeline/sync_important_dates.py` downloads and validates the fixed Google Sheets CSV source,
    then atomically replaces the website's generated important-dates fragment.
-2. `pipeline/build_syllabi.py` loads every manifest, validates public content, composes course and
-   shared sources, and publishes a complete PDF/DOCX pair per course.
+2. `pipeline/build_syllabi.py` coordinates manifest discovery, staged builds, publication, and
+   optional archives through the importable units under `pipeline/build_lib/`.
 3. MkDocs builds `site/` in strict mode using `mkdocs.yml`.
 
 The document builder stages all generated downloads in a temporary directory. It validates the
 complete expected set before replacing the current files under `site_docs/downloads/`, so a failed
 course build cannot publish a partial set.
 
+### Complete-document internals
+
+The runnable `pipeline/build_syllabi.py` file owns orchestration and CLI flow. Three library units
+own the implementation:
+
+- [pipeline/build_lib/syllabus_model.py](../pipeline/build_lib/syllabus_model.py) loads manifest
+  structure, validates source containment, and defines the immutable manifest model.
+- [pipeline/build_lib/syllabus_content.py](../pipeline/build_lib/syllabus_content.py) scans public
+  sources, validates learning content and Markdown, expands includes, and composes complete-document
+  Markdown.
+- [pipeline/build_lib/syllabus_rendering.py](../pipeline/build_lib/syllabus_rendering.py) renders,
+  verifies, stages, and publishes DOCX and PDF artifacts.
+
 ## Rendering branches
 
 ### Website branch
 
-MkDocs reads `site_docs/`, applies the Material theme, repository overrides, custom CSS and
-JavaScript, and copies downloads and assets into `site/`. `mkdocs.yml` owns navigation, theme
-configuration, the restricted Markdown include settings, social links, and the public site URL.
+MkDocs reads `site_docs/`, calls
+[pipeline/mkdocs_hooks.py](../pipeline/mkdocs_hooks.py) to expand authorized fragments, applies the
+Material theme, repository overrides, custom CSS and JavaScript, and copies downloads and assets
+into `site/`. `mkdocs.yml` owns navigation, hook registration, theme configuration, social links,
+and the public site URL.
 
 ### DOCX branch
 
-The document builder expands approved Markdown fragments, rewrites links between included pages as
-document anchors, removes web-only controls, and sends portable Markdown to Pandoc. The tracked
+The content library calls the shared include engine, rewrites links between included pages as
+document anchors, removes web-only controls, and the rendering library sends portable Markdown to
+Pandoc. The tracked
 `pipeline/syllabus_reference.docx` owns Word styles. Python post-processing adds metadata,
 language, and semantic table properties before output verification.
 
@@ -84,17 +100,25 @@ metadata, text, tables, and required section titles.
 
 ## Shared includes
 
-The website uses `pymdownx.snippets` with `site_docs/` as its restricted base path. The document
-builder implements the same one-level include notation for its non-MkDocs branches. It accepts only
-local `.md` paths below `site_docs/`, rejects traversal and remote URLs, and disallows nested or
-empty fragments. This narrow contract preserves edit-once content without introducing a general
-template engine.
+[pipeline/build_lib/markdown_includes.py](../pipeline/build_lib/markdown_includes.py) is the only
+include grammar and expansion engine. The complete-document content library calls it before the
+DOCX/PDF rendering split, and the website reaches it through
+[pipeline/mkdocs_hooks.py](../pipeline/mkdocs_hooks.py). The hook imports the engine while MkDocs
+temporarily exposes `pipeline/` during hook loading, so page rendering does not depend on a lasting
+path mutation.
+
+The engine accepts one full-line, double-quoted `--8<--` form with paths resolved from `site_docs/`.
+Targets must be local, non-empty `.md` files under a directory named `fragments` or `generated`.
+Traversal, remote paths, symlink escapes, nested includes, and every unsupported marker form fail
+before rendering. `exclude_docs` remains a navigation rule; tests require every authorized Markdown
+fragment to be excluded without treating every exclusion as authorization.
 
 ## Validation boundaries
 
 - `source source_me.sh && python3 -m pytest tests/` is the fast repository lane.
-- `bash tests/e2e/e2e_syllabus_export.sh` exercises the production export boundary, stale-output
-  cleanup, credential checks, and rendered artifact checks.
+- `source source_me.sh && python3 tests/e2e/e2e_include_parity.py` exercises the production export
+  boundary, stale-output cleanup, credential checks, strict site build, and include parity across
+  the relevant website, DOCX, and PDF corpora.
 - `./run_playwright_tests.sh --build` serves the production-shaped `site/` tree and checks real
   routes, downloads, accessibility, responsive behavior, theme state, and navigation.
 - `.github/workflows/deploy-pages.yml` runs the production builder and deploys only after the Pages

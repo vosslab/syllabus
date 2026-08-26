@@ -36,8 +36,8 @@ required learning-statement sections.
 ## Course Markdown
 
 Every complete-document source starts with one level-one heading. The website may add Material
-admonitions, attributes, tables, and restricted snippet includes configured in `mkdocs.yml`. The
-document renderer converts supported web-only constructs into portable linear content.
+admonitions, attributes, tables, and repository-owned restricted includes. The document renderer
+converts supported web-only constructs into portable linear content.
 
 Tables use a named header in every column, a valid separator row, and the same cell count in every
 row. Hidden line-breaking controls are rejected. Links between manifest-included Markdown pages are
@@ -45,15 +45,23 @@ rewritten as internal document anchors in PDF and DOCX output.
 
 ## Shared fragments
 
-Include-only Markdown lives under `site_docs/<term>/shared/fragments/` and uses this exact one-line
-notation:
+Include-only Markdown lives under a `fragments` or `generated` directory below `site_docs/` and
+uses this exact one-line notation:
 
 ```markdown
 --8<-- "fall_2026/shared/fragments/INSTRUCTOR_CONTACT_DETAILS.md"
 ```
 
-The path must name a non-empty `.md` file below `site_docs/`. Absolute paths, `..` traversal,
-remote URLs, and nested includes are invalid. Fragments do not receive direct website routes.
+The quoted path is always relative to `site_docs/`, never to the including page. It must name a
+non-empty `.md` file whose relative path contains a directory named `fragments` or `generated`.
+The engine in [pipeline/build_lib/markdown_includes.py](../pipeline/build_lib/markdown_includes.py)
+expands the file once for the website, DOCX, and PDF paths.
+
+Absolute paths, `..` traversal, remote URLs, symlink escapes, nested includes, single-quoted or
+unquoted paths, block form, section selection, and alternate marker lengths are invalid. Any line
+containing `--8<--` that does not match the exact form fails the build. Authorized Markdown remains
+excluded from direct website routes through `exclude_docs`; that navigation exclusion does not
+authorize any additional directory.
 
 ## Course metadata
 
@@ -86,4 +94,3 @@ Each manifest creates two files under `site_docs/downloads/` using `download_bas
 The builder verifies that all expected files exist before publishing them and removes obsolete
 managed downloads. `--archive` packages the current generated documents as ZIP files under
 `output/archive/`; it does not create a historical Markdown source tree.
-

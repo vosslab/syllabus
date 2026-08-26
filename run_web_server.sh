@@ -2,6 +2,8 @@
 
 set -euo pipefail
 
+export NO_MKDOCS_2_WARNING=1
+
 repo_dir="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)"
 readonly repo_dir
 cd "$repo_dir"

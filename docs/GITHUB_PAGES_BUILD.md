@@ -74,7 +74,7 @@ E2E orchestration and the production front door. Run the lanes individually for 
 
 ```bash
 source source_me.sh && python3 -m pytest tests/
-bash tests/e2e/e2e_syllabus_export.sh
+source source_me.sh && python3 tests/e2e/e2e_include_parity.py
 ```
 
 Install Playwright Chromium once, then run the browser lane explicitly:
@@ -85,12 +85,12 @@ npm ci
 ./run_playwright_tests.sh --build
 ```
 
-The export E2E adds stale-file, extracted-PDF, credential, and editorial-marker assertions around
-the production build. The Playwright `--build` form creates the production-shaped local site and
-downloads before checking the rendered interface, responsive behavior, links, and accessibility
-findings. The browser runner uses a nonzero result as a clear local maintainer signal. This
-separation lets artifact generation determine Pages availability while the local lanes provide
-broader repository and interface confidence.
+The export/include E2E adds stale-file, extracted-PDF, credential, editorial-marker, and
+cross-format include assertions around the production build. The Playwright `--build` form creates
+the production-shaped local site and downloads before checking the rendered interface, responsive
+behavior, links, and accessibility findings. The browser runner uses a nonzero result as a clear
+local maintainer signal. This separation lets artifact generation determine Pages availability
+while the local lanes provide broader repository and interface confidence.
 
 ## Reproduce publication locally
 

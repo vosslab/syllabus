@@ -6,6 +6,8 @@ site_dir: site
 exclude_docs: |
   */shared/fragments/*
   generated/*
+hooks:
+  - pipeline/mkdocs_hooks.py
 
 theme:
   name: material
@@ -45,12 +47,6 @@ markdown_extensions:
   - tables
   - toc:
       permalink: true
-  - pymdownx.snippets:
-      base_path:
-        - site_docs
-      check_paths: true
-      restrict_base_path: true
-      url_download: false
 
 extra_css:
   - assets/stylesheets/site.css

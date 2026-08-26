@@ -2,6 +2,12 @@
 
 ### Additions and New Features
 
+- Added one repository-owned Markdown include engine under `pipeline/build_lib/` and a thin MkDocs
+  hook so the website and complete-document builder share the same grammar, authorization, path
+  resolution, and content expansion.
+- Added fast include-contract tests for syntax, target roles, traversal, symlink containment,
+  nested includes, MkDocs hook loading, and `exclude_docs` consistency. Added a production E2E that
+  checks the relevant website, DOCX, and PDF artifact corpora, and routed it through `all_test.sh`.
 - Added executable `all_test.sh` as the local validation front door. It prints conspicuous phase
   banners and runs fast pytest, the complete export E2E and strict site build, then the Pages
   production builder and Playwright. Both build paths refresh the live Google Sheets dates.
@@ -29,6 +35,12 @@
 
 ### Behavior or Interface Changes
 
+- Replaced the separate PyMdown and exporter include languages with one exact full-line,
+  double-quoted `--8<--` form. Paths resolve from `site_docs/`, and only Markdown below a directory
+  named `fragments` or `generated` is authorized.
+- Made every unsupported marker form fail before rendering instead of passing raw markup into one
+  format. Empty targets, remote or absolute paths, parent traversal, symlink escapes, ordinary page
+  targets, and nested includes also fail explicitly.
 - Added `-D`/`--include-docs` to fresh Graphify builds so the repository mapper can include
   Markdown and Graphify's other semantic document inputs. Document extraction uses the same pinned
   Claude CLI or Ollama backend as community labeling and forces semantic re-extraction past an
@@ -65,6 +77,21 @@
 
 ### Fixes and Maintenance
 
+- Declared WeasyPrint 69 as the minimum PDF renderer so the print stylesheet's logical margin and
+  padding properties are applied instead of being ignored with compatibility warnings.
+- Removed `pymdownx.snippets` from both the MkDocs and PDF extension stack, and removed the now
+  unused direct `pymdown-extensions` application dependency. Declared the test-only direct
+  `pathspec` import in development requirements.
+- Migrated pytest imports to the repository's folder-not-package model by placing `pipeline/` on
+  the test import path and loading `build_syllabi` and `sync_important_dates` under one module name.
+- Decomposed the complete-document implementation into manifest-model, content-composition, and
+  artifact-rendering library modules. `build_syllabi.py` now owns orchestration and CLI flow rather
+  than retaining the implementation behind a marginal line-count reduction.
+- Refreshed the architecture, file-structure, file-format, usage, and Pages-build references from
+  the implemented include flow and artifact-parity boundary.
+- After the six-pass implementation audit, corrected comments to distinguish the website hook from
+  its shared engine and HTML text nodes from browser-visible text. Updated the README's focused E2E
+  command to run the include-parity wrapper rather than its narrower export-only child runner.
 - Pruned manager-authored architecture, content routing, test doctrine, and implementation details
   from `HUMAN_GUIDANCE.md`. It now contains only explicit durable owner guidance and a provenance
   rule that prevents it from becoming an agent or manager dumping ground.
@@ -93,6 +120,19 @@
 
 ### Decisions and Failures
 
+- Kept one logical spacing declaration per PDF rule after WeasyPrint 69 added the required support.
+  The website and PDF retain separate, format-appropriate spacing rather than duplicating values
+  that would have to remain synchronized across two stylesheets.
+- Treated the original 997-to-972-line include extraction as an incomplete architectural step, not
+  a success criterion. The completed split leaves reusable implementation in `build_lib/` and the
+  136-line `build_syllabi.py` entry point focused on orchestration; line count is evidence of that
+  responsibility boundary, not the goal itself.
+- Kept include authorization explicit in the engine. `exclude_docs` remains a broader navigation
+  rule, and the permanent consistency test enforces only that every authorized Markdown fragment
+  is excluded from direct routes.
+- Scoped artifact evidence to outputs that actually contain each source. Instructor-contact text
+  must reach the website, DOCX, and PDF corpora; generated important dates must reach the website
+  corpus because no course manifest includes that term-wide page in complete documents.
 - Treat `--include-docs` as an explicit source-egress operation: unlike the code-only default, it
   sends every nonignored semantic input to the selected Claude CLI or Ollama backend. Automated
   validation therefore stops at local corpus and command construction; a connected extraction is
@@ -119,6 +159,26 @@
 
 ### Developer Tests and Notes
 
+- Rebuilt all three DOCX/PDF pairs with WeasyPrint 69.0 without CSS compatibility warnings. As
+  one-time implementation evidence, rendered and reviewed all 33 pages of the BIOL 318/418 PDF and
+  compared representative pages with the physical-property probe; no clipping, overlap, broken
+  tables, or material spacing regression was found.
+- Passed all 965 fast tests against a temporary material-tree index after the decomposition. The
+  live export/include-parity lane rebuilt every DOCX and PDF and passed the strict site build; the
+  Playwright accessibility audit passed outside the filesystem sandbox required by Chromium.
+- The production convergence audit found one `expand_includes` definition and exactly two runtime
+  routes: `syllabus_content.py` with three pre-render call sites and `mkdocs_hooks.py` with one.
+  It found no `expand_shared_includes` or `pymdownx.snippets` production reference, ruling out a
+  second include grammar and the former PDF double-expansion path.
+- Passed all 17 focused include tests. A mutation that deferred the hook import failed the isolated
+  MkDocs-loader test with `ModuleNotFoundError` after MkDocs restored `sys.path`; restoring the
+  module-level import passed, proving pytest's own `pipeline/` path does not invalidate the test.
+- Ran `python3 tests/e2e/e2e_include_parity.py`: the live dates refresh, all three PDF/DOCX builds,
+  strict MkDocs build, zero-marker scans, shared-fragment corpus checks, and generated-date website
+  check passed.
+- Passed all 927 fast tests against a disposable material-tree Git index, including the new files
+  without changing the maintainer's real staging area. This covered Bandit, ASCII, typing, import,
+  indentation, Markdown-link, pyflakes, shebang, whitespace, and source-line-limit gates.
 - Ran `./all_test.sh` end to end after adding the aggregate runner: the fast repository lane, both
   live Google Sheets refresh and build paths, the export E2E, and the Playwright browser
   accessibility audit passed.

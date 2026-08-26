@@ -7,7 +7,9 @@ import pathlib
 import pytest
 
 # local repo modules
-import pipeline.build_syllabi
+import build_lib.syllabus_model
+import build_lib.syllabus_content
+import build_lib.syllabus_rendering
 
 
 #============================================
@@ -20,7 +22,7 @@ def test_prepare_section_removes_web_only_content() -> None:
 		"## Course pages\n\n- [Details](COURSE_DETAILS.md)\n\n"
 		"## Course at a glance\n\n| Course | Term |\n| --- | --- |\n| Test | Fall |\n"
 	)
-	prepared = pipeline.build_syllabi.prepare_section(markdown, True, "course-overview")
+	prepared = build_lib.syllabus_content.prepare_section(markdown, True, "course-overview")
 	expected = (
 		"## Course title {#course-overview}\n\n"
 		'!!! warning "Review required"\n\n'
@@ -35,7 +37,7 @@ def test_prepare_section_removes_web_only_content() -> None:
 def test_normalize_admonitions_for_docx() -> None:
 	"""Pandoc receives a portable equivalent of Material admonitions."""
 	markdown = '!!! warning "Review required"\n\n    Confirm the grading plan.\n'
-	portable = pipeline.build_syllabi.normalize_admonitions(markdown)
+	portable = build_lib.syllabus_content.normalize_admonitions(markdown)
 	assert portable == "**Review required**\n\nConfirm the grading plan."
 
 
@@ -47,7 +49,7 @@ def test_remove_heading_sections_omits_web_only_policy_routes() -> None:
 		"## Policy topics\n\n- [Assessment](ASSESSMENT.md)\n\n"
 		"## Student support\n\n- [Resources](../STUDENT_RESOURCES.md)\n"
 	)
-	prepared = pipeline.build_syllabi.remove_heading_sections(
+	prepared = build_lib.syllabus_content.remove_heading_sections(
 		markdown,
 		("Policy topics", "Student support"),
 	)
@@ -64,7 +66,7 @@ def test_rewrite_document_links_targets_included_section(tmp_path: pathlib.Path)
 		"[grading policies](../shared/policies/ASSESSMENT.md), and "
 		"[other policies](../shared/policies/OTHER.md)."
 	)
-	rewritten = pipeline.build_syllabi.rewrite_document_links(
+	rewritten = build_lib.syllabus_content.rewrite_document_links(
 		markdown,
 		source_path,
 		{target_path.resolve(): "assessment"},
@@ -98,7 +100,7 @@ def test_compose_markdown_links_to_embedded_instructor_section(tmp_path: pathlib
 		encoding="utf-8",
 	)
 	write_section(instructor_route_path, "Instructor information")
-	manifest = pipeline.build_syllabi.SyllabusManifest(
+	manifest = build_lib.syllabus_model.SyllabusManifest(
 		path=course_path / "syllabus.yml",
 		docs_root=tmp_path,
 		title="Course title",
@@ -110,7 +112,7 @@ def test_compose_markdown_links_to_embedded_instructor_section(tmp_path: pathlib
 		sections=(index_path, details_path),
 		shared_sections=(policies_path,),
 	)
-	combined = pipeline.build_syllabi.compose_markdown(manifest)
+	combined = build_lib.syllabus_content.compose_markdown(manifest)
 	assert "[Instructor information](#instructor-information)" in combined
 	assert "(../INSTRUCTOR_INFORMATION.md)" not in combined
 
@@ -118,7 +120,7 @@ def test_compose_markdown_links_to_embedded_instructor_section(tmp_path: pathlib
 #============================================
 def test_markdown_html_uses_site_extension_stack(tmp_path: pathlib.Path) -> None:
 	"""PDF HTML preserves native admonitions and explicit heading anchors."""
-	manifest = pipeline.build_syllabi.SyllabusManifest(
+	manifest = build_lib.syllabus_model.SyllabusManifest(
 		path=tmp_path / "syllabus.yml",
 		docs_root=tmp_path,
 		title="Course title",
@@ -133,7 +135,7 @@ def test_markdown_html_uses_site_extension_stack(tmp_path: pathlib.Path) -> None
 	stylesheet_path = tmp_path / "print.css"
 	stylesheet_path.write_text("body { color: black; }\n", encoding="utf-8")
 	html_path = tmp_path / "syllabus.html"
-	pipeline.build_syllabi.run_markdown_html(
+	build_lib.syllabus_rendering.run_markdown_html(
 		'## Course overview {#course-overview}\n\n!!! warning "Review"\n\n    Check this.\n\n'
 		"| Field | Value |\n| --- | ---: |\n| Points | 10 |\n",
 		html_path,
@@ -164,7 +166,7 @@ def test_secret_scan_rejects_meeting_credentials() -> None:
 		)
 	)
 	with pytest.raises(ValueError, match="prohibited public credential pattern"):
-		pipeline.build_syllabi.scan_text_for_secrets(
+		build_lib.syllabus_content.scan_text_for_secrets(
 			credential_fixture,
 			"inline test",
 		)
@@ -174,7 +176,7 @@ def test_secret_scan_rejects_meeting_credentials() -> None:
 def test_source_scan_rejects_line_breaking_control_characters() -> None:
 	"""Invisible controls cannot silently turn a Markdown table into prose."""
 	with pytest.raises(ValueError, match="prohibited control character: U\\+000B"):
-		pipeline.build_syllabi.scan_text_for_prohibited_controls(
+		build_lib.syllabus_content.scan_text_for_prohibited_controls(
 			"| Included in\vtotal points |",
 			"inline test",
 		)
@@ -184,11 +186,11 @@ def test_source_scan_rejects_line_breaking_control_characters() -> None:
 def test_markdown_table_validation_requires_consistent_columns() -> None:
 	"""Every Markdown table has named headers and a rectangular row structure."""
 	valid_markdown = "| Absence type | Score |\n| --- | ---: |\n| First communicated | N/A |\n"
-	pipeline.build_syllabi.validate_markdown_tables(valid_markdown, "inline test")
-	assert pipeline.build_syllabi.count_markdown_tables(valid_markdown) == 1
+	build_lib.syllabus_content.validate_markdown_tables(valid_markdown, "inline test")
+	assert build_lib.syllabus_content.count_markdown_tables(valid_markdown) == 1
 	markdown = "| Absence type | Score |\n| --- | ---: |\n| First communicated |\n"
 	with pytest.raises(ValueError, match="inconsistent table columns"):
-		pipeline.build_syllabi.validate_markdown_tables(markdown, "inline test")
+		build_lib.syllabus_content.validate_markdown_tables(markdown, "inline test")
 
 
 #============================================
@@ -196,37 +198,6 @@ def write_section(path: pathlib.Path, heading: str) -> None:
 	"""Write one minimal inline section for composition testing."""
 	path.write_text(f"# {heading}\n\n{heading} body.\n", encoding="utf-8")
 	return None
-
-
-#============================================
-def test_expand_shared_includes_inlines_canonical_markdown(tmp_path: pathlib.Path) -> None:
-	"""A course page can render one canonical term-level Markdown fragment."""
-	shared_dir = tmp_path / "fall_2026" / "shared" / "fragments"
-	shared_dir.mkdir(parents=True)
-	include_path = shared_dir / "ROOSEVELT_LEARNING_GOALS.md"
-	include_path.write_text("- Effective communication.\n", encoding="utf-8")
-	source_path = tmp_path / "fall_2026" / "course" / "COURSE_LEARNING_FRAMEWORK.md"
-	source_path.parent.mkdir()
-	markdown = (
-		"# Learning Objectives, Outcomes, and Goals\n\n"
-		"## Roosevelt learning goals\n\n"
-		'--8<-- "fall_2026/shared/fragments/ROOSEVELT_LEARNING_GOALS.md"\n\n'
-		"Following paragraph.\n"
-	)
-	expanded = pipeline.build_syllabi.expand_shared_includes(markdown, source_path, tmp_path)
-	assert "- Effective communication." in expanded
-	assert "- Effective communication.\n\nFollowing paragraph." in expanded
-	assert "--8<--" not in expanded
-
-
-#============================================
-def test_expand_shared_includes_rejects_parent_traversal(tmp_path: pathlib.Path) -> None:
-	"""Shared includes cannot read a Markdown path above site_docs."""
-	source_path = tmp_path / "course" / "COURSE_DETAILS.md"
-	source_path.parent.mkdir()
-	markdown = '--8<-- "../private.md"\n'
-	with pytest.raises(ValueError, match="unsafe Markdown include"):
-		pipeline.build_syllabi.expand_shared_includes(markdown, source_path, tmp_path)
 
 
 #============================================
@@ -244,7 +215,7 @@ def test_learning_framework_requires_all_four_ordered_sections(tmp_path: pathlib
 		"Overall, this course aims to accomplish:\n\n- Growth.\n",
 		encoding="utf-8",
 	)
-	pipeline.build_syllabi.validate_course_learning_framework((framework_path,), tmp_path)
+	build_lib.syllabus_content.validate_course_learning_framework((framework_path,), tmp_path)
 
 
 #============================================
@@ -257,7 +228,7 @@ def test_compose_markdown_appends_policy_and_resources_once(tmp_path: pathlib.Pa
 	write_section(index_path, "Course title")
 	write_section(policy_path, "Policies")
 	write_section(resource_path, "Student resources")
-	manifest = pipeline.build_syllabi.SyllabusManifest(
+	manifest = build_lib.syllabus_model.SyllabusManifest(
 		path=tmp_path / "syllabus.yml",
 		docs_root=tmp_path,
 		title="Course title",
@@ -269,7 +240,7 @@ def test_compose_markdown_appends_policy_and_resources_once(tmp_path: pathlib.Pa
 		sections=(index_path,),
 		shared_sections=(policy_path, resource_path),
 	)
-	combined = pipeline.build_syllabi.compose_markdown(manifest)
+	combined = build_lib.syllabus_content.compose_markdown(manifest)
 	assert combined.count("## Policies {#policies}") == 1
 	assert combined.index("## Policies") < combined.index("## Student resources")
 
@@ -286,7 +257,7 @@ def test_publish_downloads_replaces_the_managed_set(tmp_path: pathlib.Path) -> N
 	(downloads_dir / "COURSE.pdf").write_text("old PDF", encoding="utf-8")
 	(downloads_dir / "STALE.docx").write_text("obsolete", encoding="utf-8")
 	(downloads_dir / "README.txt").write_text("preserve", encoding="utf-8")
-	pipeline.build_syllabi.publish_downloads(
+	build_lib.syllabus_rendering.publish_downloads(
 		staged_dir,
 		downloads_dir,
 		{"COURSE.docx", "COURSE.pdf"},
@@ -311,7 +282,7 @@ def test_publish_downloads_rejects_an_incomplete_stage(tmp_path: pathlib.Path) -
 	current_path = downloads_dir / "COURSE.pdf"
 	current_path.write_text("current PDF", encoding="utf-8")
 	with pytest.raises(RuntimeError, match="Staged downloads do not match"):
-		pipeline.build_syllabi.publish_downloads(
+		build_lib.syllabus_rendering.publish_downloads(
 			staged_dir,
 			downloads_dir,
 			{"COURSE.docx", "COURSE.pdf"},
@@ -324,7 +295,7 @@ def test_public_only_repository_rejects_a_raw_tree(tmp_path: pathlib.Path) -> No
 	"""Private or ambiguous raw content cannot live inside the repository."""
 	(tmp_path / "raw").mkdir()
 	with pytest.raises(RuntimeError, match="only public-safe canonical content"):
-		pipeline.build_syllabi.require_public_only_repository(tmp_path)
+		build_lib.syllabus_content.require_public_only_repository(tmp_path)
 
 
 #============================================
@@ -334,4 +305,4 @@ def test_single_content_authority_rejects_markdown_templates(tmp_path: pathlib.P
 	templates_path.mkdir()
 	(templates_path / "POLICIES.md").write_text("# Competing policies\n", encoding="utf-8")
 	with pytest.raises(RuntimeError, match="content belongs only under site_docs"):
-		pipeline.build_syllabi.require_single_content_authority(tmp_path)
+		build_lib.syllabus_content.require_single_content_authority(tmp_path)

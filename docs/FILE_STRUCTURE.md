@@ -51,16 +51,34 @@ Each course directory contains an `index.md`, `COURSE_DETAILS.md`,
 
 ## Pipeline files
 
-- `pipeline/build_site.py` coordinates the production build.
-- `pipeline/sync_important_dates.py` fetches and renders the important-dates fragment.
-- `pipeline/build_syllabi.py` validates manifests and creates all complete documents.
-- `pipeline/create_syllabus_reference_docx.py` intentionally regenerates the DOCX style asset.
-- `pipeline/syllabus_reference.docx` is the tracked Pandoc reference document.
+```text
+pipeline/
+|-- build_site.py                       Production build front door
+|-- build_syllabi.py                    Complete DOCX and PDF entry point
+|-- mkdocs_hooks.py                     Website include adapter loaded by MkDocs
+|-- sync_important_dates.py             Google Sheets fragment importer
+|-- create_syllabus_reference_docx.py   Intentional DOCX style-asset generator
+|-- syllabus_reference.docx             Tracked Pandoc reference document
+`-- build_lib/
+    |-- markdown_includes.py             Shared include grammar and expansion engine
+    |-- syllabus_content.py              Source validation and Markdown composition
+    |-- syllabus_model.py                Manifest model, loading, and path validation
+    `-- syllabus_rendering.py            DOCX/PDF rendering, checks, and publication
+```
+
+[pipeline/](../pipeline/) holds runnable or externally loaded entry points.
+[pipeline/build_lib/](../pipeline/build_lib/) holds importable library units used by those entry
+points; it is found by placing `pipeline/` itself on the Python import path rather than treating
+`pipeline/` as a package. Entry points coordinate those units instead of retaining substantial
+composition, validation, or rendering implementations.
 
 ## Test layout
 
 - `tests/test_*.py` contains the fast pytest lane.
-- `tests/e2e/e2e_syllabus_export.sh` runs the production-oriented export gate.
+- [tests/e2e/e2e_syllabus_export.sh](../tests/e2e/e2e_syllabus_export.sh) runs the
+  production-oriented export gate.
+- [tests/e2e/e2e_include_parity.py](../tests/e2e/e2e_include_parity.py) runs that export gate and
+  checks include content in the built website, DOCX, and PDF artifact corpora.
 - `tests/playwright/syllabus_smoke.mjs` audits the built site in Chromium.
 - `tests/playwright/helper_server.mjs` serves the local static build over HTTP.
 - `tests/playwright/capture_readme_screenshots.mjs` captures documentation images from the built

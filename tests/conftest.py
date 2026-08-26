@@ -1,13 +1,18 @@
+import os
 import sys
 
 import file_utils
 
-# Insert the repo root onto sys.path so top-level modules import from any test
-# file without installing the package first. file_utils.get_repo_root() uses
-# git rev-parse --show-toplevel under the hood.
+# Insert the repo root so top-level modules import without installation. Also
+# insert pipeline/ because it is a folder of loose entry-point modules, not a
+# package, and its build_lib modules must keep the same import names in tests.
+# file_utils.get_repo_root() uses git rev-parse --show-toplevel under the hood.
 _repo_root = file_utils.get_repo_root()
 if _repo_root not in sys.path:
 	sys.path.insert(0, _repo_root)
+_pipeline_root = os.path.join(_repo_root, "pipeline")
+if _pipeline_root not in sys.path:
+	sys.path.insert(0, _pipeline_root)
 
 
 # Exclude both end-to-end tiers from pytest collection. tests/playwright/

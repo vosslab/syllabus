@@ -37,13 +37,16 @@ the restricted syntax:
 --8<-- "fall_2026/shared/fragments/INSTRUCTOR_CONTACT_DETAILS.md"
 ```
 
-Includes must be non-empty `.md` files below `site_docs/`; absolute paths, parent traversal, remote
-URLs, and nested includes are rejected. Files under `shared/fragments/` are excluded from direct
-website routes. The public `shared/INSTRUCTOR_INFORMATION.md` page supplies its page heading and
-embeds the contact-details fragment; course details embed that same fragment under their own
-heading. Only public-safe canonical content belongs in this repository. Do not create an ignored
-`raw/` tree for private syllabi, credentials, meeting links, student information, or
-access-controlled material; transfer only public facts into the tracked Markdown sources.
+Includes use one full-line, double-quoted form and resolve from `site_docs/`. Targets must be
+non-empty `.md` files under a directory named `fragments` or `generated`; absolute paths, parent
+traversal, remote URLs, symlink escapes, nested includes, and alternate forms are rejected. The
+repository-owned engine expands the same source for the website, DOCX, and PDF branches. Files in
+either authorized role are excluded from direct website routes. The public
+`shared/INSTRUCTOR_INFORMATION.md` page supplies its page heading and embeds the contact-details
+fragment; course details embed that same fragment under their own heading. Only public-safe
+canonical content belongs in this repository. Do not create an ignored `raw/` tree for private
+syllabi, credentials, meeting links, student information, or access-controlled material; transfer
+only public facts into the tracked Markdown sources.
 
 ## Source and generated boundary
 
@@ -75,10 +78,10 @@ only from the fixed Google Sheets HTTPS source and replaces the ignored
 validation. Every complete site build requires that live refresh and fails rather than publishing
 the previous table when Google Sheets is unavailable. The fast pytest lane remains offline.
 
-`pipeline/build_syllabi.py` composes each manifest's course pages, shared policies, and student
-resources into one DOCX and one PDF. `pipeline/build_site.py` refreshes the important dates, runs
-that document generation, and then performs the strict MkDocs build, so the website publishes
-neither stale dates nor download links without their generated targets.
+`pipeline/build_syllabi.py` coordinates the manifest, content, and rendering units under
+`pipeline/build_lib/` to create one DOCX and one PDF per course. `pipeline/build_site.py` refreshes
+the important dates, runs that document generation, and then performs the strict MkDocs build, so
+the website publishes neither stale dates nor download links without their generated targets.
 
 ## Edit shared content
 
@@ -127,10 +130,10 @@ blank table cells for visual layout. The build rejects malformed tables and hidd
 characters that can change Markdown line structure. Store private meeting links, passwords,
 invitations, grades, and assignment submissions only in Blackboard.
 
-The PDF branch mirrors the `markdown_extensions` entries in `mkdocs.yml`. MkDocs plugins, macros,
-theme hooks, and JavaScript-dependent Material interactions do not transfer automatically. Before
-adding one of those features to syllabus content, define and test a readable linear PDF and DOCX
-form.
+The shared include engine runs before each renderer. After expansion, the PDF branch mirrors the
+`markdown_extensions` entries in `mkdocs.yml`. Other MkDocs plugins, macros, theme hooks, and
+JavaScript-dependent Material interactions do not transfer automatically. Before adding one of
+those features to syllabus content, define and test a readable linear PDF and DOCX form.
 
 ## Edit dates
 
@@ -257,9 +260,11 @@ the screenshot workflow and should contain only current, tracked captures.
 Run the complete production-readiness gate without publishing:
 
 ```bash
-bash tests/e2e/e2e_syllabus_export.sh
+source source_me.sh && python3 tests/e2e/e2e_include_parity.py
 ```
 
-The exporter rejects common Zoom meeting URLs, embedded passwords or passcodes, and Discord invite
-links in syllabus source or downloadable text. Private or access-controlled content does not belong
-anywhere in this repository, including ignored paths.
+This runner invokes the export E2E and strict site build, then checks include expansion across the
+relevant website, DOCX, and PDF artifact corpora. The exporter rejects common Zoom meeting URLs,
+embedded passwords or passcodes, and Discord invite links in syllabus source or downloadable text.
+Private or access-controlled content does not belong anywhere in this repository, including ignored
+paths.

@@ -123,7 +123,7 @@ every local entry point. Run a lane individually when investigating a focused fa
 ```bash
 source source_me.sh
 python3 -m pytest tests/
-bash tests/e2e/e2e_syllabus_export.sh
+python3 tests/e2e/e2e_include_parity.py
 ./run_playwright_tests.sh --build
 ```
 
