@@ -1,15 +1,16 @@
 # === UNIVERSAL === [PROPAGATED - LOCAL EDITS OVERWRITTEN]
-/.env
 .DS_Store
+/node_modules/
+/.env
 /report_*.txt
 /output*/
 /generated/
 /graphify-out/
 _temp*.?*
 /temp/
-/node_modules/
 /OTHER_REPOS/
 /LOCAL_ONLY/
+
 # === LOCAL REPOSITORY RULES === [ADD CUSTOM IGNORES HERE]
 # Propagation preserves this section.
 # Template-only ignores.
