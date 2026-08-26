@@ -156,6 +156,6 @@ summary, or [docs/RELEASE_HISTORY.md](docs/RELEASE_HISTORY.md) for highlights.
 ## License
 
 Course materials are available under the
-[Creative Commons Attribution 4.0 International license](LICENSE.CC-BY-4.0.md).
+[Creative Commons Attribution 4.0 International license](LICENSE.CC-BY-4.0).
 Repository software is available under the
-[GNU Lesser General Public License 3.0](LICENSE.LGPL-3.0.md).
+[GNU Lesser General Public License 3.0](LICENSE.LGPL-3.0).

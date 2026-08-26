@@ -98,6 +98,12 @@
 
 ### Fixes and Maintenance
 
+- Corrected the README license links to target the tracked extensionless legal filenames used for
+  GitHub license recognition while preserving descriptive Creative Commons and LGPL link text.
+- Replaced the PDF's blanket new-page rule for every merged source with a transitional rule that
+  starts only the course body and Dr. Voss policy group on new pages. Other sections now flow
+  naturally, while each top-level heading's introduction stays with its first subsection. This
+  removes sparse continuation pages without tying the stylesheet to the current page numbers.
 - Applied the six-pass code audit's shared-ownership fix: both MkDocs and the document builder now
   call one course-theme validator, and the MkDocs hook normalizes allowlisted colors before the
   template receives them. Removed the website-only dark accent from the PDF manifest model.
@@ -154,6 +160,10 @@
 
 ### Decisions and Failures
 
+- Kept the pagination repair deliberately narrow ahead of the planned content-order review. The
+  current stable `course-overview` and `policies` anchors provide the two certain document
+  boundaries; manifest-owned semantic document groups remain the durable follow-up after the order
+  is settled.
 - CSS provides no interoperable per-line word-stretch cutoff, and adding JavaScript would make the
   Material and WeasyPrint behavior diverge. The implemented fail-safe is content- and
   viewport-based: URL-bearing paragraphs and narrow screens use start alignment, while ordinary
@@ -200,6 +210,14 @@
 
 ### Developer Tests and Notes
 
+- Rebuilt all three final PDF/DOCX pairs after the transitional pagination repair. The PDFs now
+  use 27, 28, and 28 pages instead of 33, 34, and 33; rendered contact-sheet review covered all 83
+  pages plus full-size section transitions and found no isolated headings, clipping, overlap,
+  broken tables, or unreadable wrapping.
+- After correcting the README license targets, passed the 200-test focused Markdown-link, README,
+  and ASCII lane and a clean full `all_test.sh`: all 958 fast tests, the live complete-export and
+  include-parity E2E, the strict site build, the production rebuild, and the Playwright browser
+  accessibility audit.
 - Ran the requested six-pass audit with independent plan, test, style, documentation, legacy, and
   comment reviewers. Plan, test, and comment passes returned no findings; the other passes found
   the split MkDocs validation owner, stale neutral-PDF documentation, and unused dark manifest

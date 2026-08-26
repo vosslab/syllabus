@@ -89,8 +89,13 @@ h1 {
 	margin-block: 1.35rem 0.6rem;
 }
 
-#syllabus-content > h2 {
+#syllabus-content > h2#course-overview,
+#syllabus-content > h2#policies {
 	break-before: page;
+}
+
+#syllabus-content > h2 + p {
+	break-after: avoid;
 }
 
 h2 {
