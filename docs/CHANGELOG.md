@@ -77,8 +77,8 @@
 
 ### Fixes and Maintenance
 
-- Declared WeasyPrint 69 as the minimum PDF renderer so the print stylesheet's logical margin and
-  padding properties are applied instead of being ignored with compatibility warnings.
+- Kept WeasyPrint unpinned like every other Python dependency. The current 69.0 renderer applies
+  the print stylesheet's logical margin and padding properties without compatibility warnings.
 - Removed `pymdownx.snippets` from both the MkDocs and PDF extension stack, and removed the now
   unused direct `pymdown-extensions` application dependency. Declared the test-only direct
   `pathspec` import in development requirements.
@@ -120,9 +120,9 @@
 
 ### Decisions and Failures
 
-- Kept one logical spacing declaration per PDF rule after WeasyPrint 69 added the required support.
-  The website and PDF retain separate, format-appropriate spacing rather than duplicating values
-  that would have to remain synchronized across two stylesheets.
+- Kept one logical spacing declaration per PDF rule with the current WeasyPrint renderer. The
+  website and PDF retain separate, format-appropriate spacing rather than duplicating values that
+  would have to remain synchronized across two stylesheets or adding a package-version constraint.
 - Treated the original 997-to-972-line include extraction as an incomplete architectural step, not
   a success criterion. The completed split leaves reusable implementation in `build_lib/` and the
   136-line `build_syllabi.py` entry point focused on orchestration; line count is evidence of that

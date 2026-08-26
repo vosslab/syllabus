@@ -5,4 +5,4 @@ Markdown  # shared MkDocs-compatible parser for print HTML
 python-docx  # accessible DOCX post-processing and reference document generation
 pypdf  # PDF metadata and bookmark verification
 PyYAML  # syllabus manifest parsing
-weasyprint>=69  # tagged PDF rendering with logical CSS property support
+weasyprint  # lightweight tagged PDF rendering from semantic HTML and print CSS
