@@ -11,6 +11,7 @@ stale_pdf="site_docs/downloads/STALE_SYLLABUS.pdf"
 printf '%s\n' 'obsolete generated artifact' > "$stale_docx"
 printf '%s\n' 'obsolete generated artifact' > "$stale_pdf"
 
+python3 pipeline/sync_important_dates.py
 python3 pipeline/build_syllabi.py "$@"
 
 if [[ -e "$stale_docx" || -e "$stale_pdf" ]]; then

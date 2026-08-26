@@ -46,6 +46,11 @@
   understand. Reusing a canonical fragment is preferable to omitting useful context.
 - Keep tables visually and structurally consistent across the website, PDF, and DOCX outputs. Use
   simple semantic tables with named headers, rectangular rows, and no blank-cell layout grids.
+- Treat the first worksheet of the Fall 2026 important-dates Google Sheet as the current source for
+  the important-dates page. Every complete site build must refresh the ignored table fragment and
+  fail rather than publish stale dates when the source is unavailable. Confirmation, calculated
+  week, and notes are personal semester-update aids, and the `X` formula exists only to gray past
+  rows in Google Sheets. Validate those source cells but do not publish them in Markdown.
 
 ## Learning framework
 

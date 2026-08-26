@@ -1,4 +1,4 @@
-"""Build complete syllabus downloads and the strict MkDocs site."""
+"""Refresh external dates and build complete downloads and the strict MkDocs site."""
 
 # Standard Library
 import pathlib
@@ -21,8 +21,14 @@ def get_repo_root() -> pathlib.Path:
 
 #============================================
 def main() -> None:
-	"""Build verified downloads before building the static site."""
+	"""Refresh external dates and build verified downloads and the static site."""
 	repo_root = get_repo_root()
+	# ASVS 16.5.2, 16.5.3: fail closed instead of publishing a stale calendar.
+	subprocess.run(
+		[sys.executable, "pipeline/sync_important_dates.py"],
+		cwd=repo_root,
+		check=True,
+	)
 	subprocess.run(
 		[sys.executable, "pipeline/build_syllabi.py"],
 		cwd=repo_root,

@@ -47,10 +47,28 @@ material; transfer only public facts into the tracked Markdown sources.
 - Treat `site_docs/downloads/`, `site/`, and `output/` as generated, ignored output. Regenerate
   them from the active Markdown instead of editing or committing them.
 
+The tracked `site_docs/fall_2026/IMPORTANT_DATES.md` file is the stable page wrapper. Its table
+content comes from the first worksheet of the linked Google Sheet. `pipeline/build_site.py` runs
+the synchronization automatically; run only the synchronization step with:
+
+```bash
+source source_me.sh && python3 pipeline/sync_important_dates.py
+```
+
+The importer requires the expected six-column `Date`, confirmation, week, `X`, event, and notes
+schema. It validates chronological dates and worksheet markers, groups the resulting tables by
+month, and infers a student-scanning type from each event name. Confirmation, calculated week, and
+notes are personal maintainer aids, while the `X` formula controls whether Google Sheets grays out a
+past event. The importer validates but omits all four metadata cells from Markdown. It downloads
+only from the fixed Google Sheets HTTPS source and replaces the ignored
+`site_docs/generated/FALL_2026_IMPORTANT_DATES.md` fragment only after the complete response passes
+validation. Every complete site build requires that live refresh and fails rather than publishing
+the previous table when Google Sheets is unavailable. The fast pytest lane remains offline.
+
 `pipeline/build_syllabi.py` composes each manifest's course pages, shared policies, and student
-resources into one DOCX and one PDF. `pipeline/build_site.py` runs that document generation first
-and then performs the strict MkDocs build, so the website never publishes download links without
-their generated targets.
+resources into one DOCX and one PDF. `pipeline/build_site.py` refreshes the important dates, runs
+that document generation, and then performs the strict MkDocs build, so the website publishes
+neither stale dates nor download links without their generated targets.
 
 ## Edit shared content
 
@@ -122,7 +140,8 @@ python3 pipeline/build_syllabi.py
 ```
 
 The preview opens in the default browser and stops automatically after five
-minutes. Press `Ctrl-C` to stop it sooner.
+minutes. `run_web_server.sh` refreshes the important-dates table before starting MkDocs. Press
+`Ctrl-C` to stop it sooner.
 
 Build only the complete documents:
 

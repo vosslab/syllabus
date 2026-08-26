@@ -27,6 +27,8 @@ trap stop_server EXIT
 trap 'exit 130' INT
 trap 'exit 143' TERM
 
+# ASVS 16.5.3: do not start a preview with a stale important-dates table.
+python3 pipeline/sync_important_dates.py
 printf 'Starting the syllabus preview; it will stop automatically after five minutes.\n'
 python3 -m mkdocs serve --open &
 server_pid=$!

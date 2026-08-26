@@ -66,6 +66,7 @@ python3 pipeline/build_site.py
 The complete build requires every core export tool. Pandoc creates the DOCX from portable assembled
 Markdown and the reference document. Python-Markdown reads the extension configuration from
 `mkdocs.yml` and creates small semantic HTML for WeasyPrint. WeasyPrint renders the PDF through the
-system Pango text stack. The export pipeline requires neither an office suite nor a browser. Missing
-converters fail with a direct error because a web-only result would not satisfy the archival
-requirement.
+system Pango text stack. The build also requires HTTPS access to Google Sheets so it can refresh the
+important-dates table before publishing. The export pipeline requires neither an office suite nor a
+browser. Missing converters or an unavailable spreadsheet fail directly because an incomplete or
+stale result would not satisfy the publication requirement.

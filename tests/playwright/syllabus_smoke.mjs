@@ -1,6 +1,8 @@
 // Selector contract:
 // - Material route and navigation markup come from mkdocs.yml:7 and mkdocs.yml:36.
 // - Current-course links and Blackboard context come from site_docs/index.md:1.
+// - The important-dates wrapper comes from site_docs/fall_2026/IMPORTANT_DATES.md:1;
+//   its generated month tables come from pipeline/sync_important_dates.py:386.
 // - Main headings, prose, tables, course-page links, and download links come from
 //   site_docs/fall_2026/biol_351_451/index.md:1.
 // - Typography and focus-visible behavior come from site_docs/assets/stylesheets/site.css:17.
@@ -19,6 +21,7 @@ import { startStaticServer } from "./helper_server.mjs";
 
 const ROUTES = [
 	"/",
+	"/fall_2026/IMPORTANT_DATES/",
 	"/fall_2026/biol_318_418/",
 	"/fall_2026/biol_351_451/",
 	"/fall_2026/biol_480/",

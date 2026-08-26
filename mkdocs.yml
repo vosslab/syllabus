@@ -5,6 +5,7 @@ docs_dir: site_docs
 site_dir: site
 exclude_docs: |
   */shared/*
+  generated/*
 
 theme:
   name: material
@@ -47,6 +48,7 @@ nav:
   - Home: index.md
   - Fall 2026:
       - Overview: fall_2026/index.md
+      - Important dates and deadlines: fall_2026/IMPORTANT_DATES.md
       - BIOL 318/418 - Biostatistics:
           - Start here: fall_2026/biol_318_418/index.md
           - Meetings and instructor: fall_2026/biol_318_418/COURSE_DETAILS.md

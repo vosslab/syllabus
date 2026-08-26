@@ -13,6 +13,7 @@ The Fall 2026 session runs from August 31 through December 19, 2026.
 
 ## Shared information
 
+- [Important dates and deadlines](IMPORTANT_DATES.md)
 - [Dr. Voss course policies](POLICIES.md)
 - [Help and student services](STUDENT_RESOURCES.md)
 

@@ -1,3 +1,41 @@
+## 2026-08-26
+
+### Additions and New Features
+
+- Added `pipeline/sync_important_dates.py` to pull the first worksheet of the Fall 2026 planning
+  spreadsheet into an ignored Markdown fragment, group its table rows by month, and infer a readable
+  event type.
+- Added a tracked important-dates page wrapper to the Fall 2026 site navigation and
+  shared-information links. It includes the live generated fragment, with the event and inferred
+  type placed immediately after the date; personal confirmation, calculated week, update notes, and
+  the source-only `X` formula used to gray past spreadsheet rows are omitted.
+
+### Decisions and Failures
+
+- Kept date and event wording faithful to the worksheet. The current source includes Fall 2025 and
+  Spring 2026 wording within rows dated Fall 2026 or later; those labels should be corrected in the
+  spreadsheet rather than silently rewritten by the synchronization script.
+- Made every complete site build depend on a successful Google Sheets refresh. The build fails
+  instead of using a previously generated table when the canonical source is unavailable; the
+  local MkDocs preview applies the same freshness rule.
+
+### Developer Tests and Notes
+
+- Added focused offline tests for worksheet schema and date validation, month separation, category
+  inference, maintainer-metadata omission, Google redirect restrictions, and safe Markdown
+  rendering of remote cell text. Kept inputs inline and removed duplicate row-format coverage and
+  repetitive category examples during the permanent-test audit.
+- Added the important-dates route to the built-site browser accessibility and responsive-overflow
+  smoke.
+- Kept the fast pytest lane offline; the complete build and its E2E gate intentionally use the live
+  Google Sheets source.
+- Classified the live worksheet's 45-event/seven-month category census, repeat-sync checksum, and
+  responsive screenshot review as one-time implementation evidence rather than permanent tests.
+- Confirmed the live first worksheet currently has no `Other` category fallbacks.
+- Passed all 822 fast tests with the new files represented in a disposable projected Git index,
+  the strict production site build, the Playwright accessibility audit, and the complete syllabus
+  export E2E gate.
+
 ## 2026-08-25
 
 ### Additions and New Features

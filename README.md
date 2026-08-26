@@ -39,8 +39,9 @@ python3 -m pip install -r pip_requirements.txt -r pip_requirements-dev.txt
 python3 pipeline/build_site.py
 ```
 
-A successful build creates `site/index.html` and complete course documents under the ignored
-`site_docs/downloads/` directory. Preview the result in a temporary local server:
+A successful build refreshes important dates from Google Sheets, creates `site/index.html`, and
+creates complete course documents under the ignored `site_docs/downloads/` directory. Preview the
+result in a temporary local server:
 
 ```bash
 ./run_web_server.sh

@@ -20,6 +20,8 @@ Hybrid and videoconferenced sections meeting Thursdays in Chicago and Schaumburg
 
 ## Policies and student support
 
+- [Important dates and deadlines](fall_2026/IMPORTANT_DATES.md): academic-calendar dates,
+  university events, and other shared deadlines organized by month.
 - [Dr. Voss course policies](fall_2026/POLICIES.md): assessment, grading, accommodations, conduct,
   expectations, and other policies shared by these courses.
 - [Help and student services](fall_2026/STUDENT_RESOURCES.md): advising, tutoring, technology,
