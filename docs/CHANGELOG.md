@@ -58,6 +58,14 @@
   size.
 - Tightened website typography to 1.25 line spacing, smaller paragraph gaps, and more compact
   heading margins. PDF and DOCX typography remains unchanged.
+- Gave headings one consistent content gap before paragraphs and tables by removing the table's
+  duplicate inner margin. Removed the decorative rules between important-date months and above
+  complete-syllabus downloads; headings and whitespace now provide the page structure without
+  faint redundant lines.
+- Matched generated important-date headings to the Google Sheet's month-specific colors without
+  adding colored table fills. Light mode uses accessible hue-preserving companions for January,
+  May, and August through December (`#1c61db`, `#866300`, `#ad4a36`, `#476f77`, `#9f560a`,
+  `#745aae`, and `#477337`); dark mode uses the exact pastel sheet swatches.
 - Rebuilt the shared policy information architecture so each subsection has one subject-based
   parent: instructor communication, course delivery, assessment, attendance and accommodations,
   academic integrity, course expectations, inclusion and safety, or course enrollment.
@@ -120,6 +128,9 @@
 
 ### Decisions and Failures
 
+- The initial one-green month-heading pass misunderstood the Google Sheet's color system. Replaced
+  it with code-owned month-number classes and distinct theme-aware colors for every published
+  month; the current sheet has no May rule, so May uses its unused `#fff2cc` yellow swatch.
 - Kept one logical spacing declaration per PDF rule with the current WeasyPrint renderer. The
   website and PDF retain separate, format-appropriate spacing rather than duplicating values that
   would have to remain synchronized across two stylesheets or adding a package-version constraint.
@@ -159,6 +170,10 @@
 
 ### Developer Tests and Notes
 
+- Classified the Google Sheet rule extraction, exact seven-color inventory, contrast measurements,
+  computed browser colors, and responsive screenshot review as one-time rebuild evidence. Kept no
+  permanent palette or CSS-class assertion; the existing offline renderer test covers only visible
+  month grouping without decorative rules and safe escaping of remote worksheet text.
 - Rebuilt all three DOCX/PDF pairs with WeasyPrint 69.0 without CSS compatibility warnings. As
   one-time implementation evidence, rendered and reviewed all 33 pages of the BIOL 318/418 PDF and
   compared representative pages with the physical-property probe; no clipping, overlap, broken

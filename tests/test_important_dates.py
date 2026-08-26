@@ -16,12 +16,16 @@ SAMPLE_CSV = (
 
 
 #============================================
-def test_render_markdown_separates_months_and_escapes_remote_markup() -> None:
-	"""Month headings separate tables and remote cell text remains literal."""
+def test_render_markdown_groups_months_and_escapes_remote_markup() -> None:
+	"""Month headings group tables without rules and remote text remains literal."""
 	entries = sync_important_dates.parse_csv(SAMPLE_CSV)
 	entries[1].event = "[Click](javascript:alert(1)) | <script>"
 	markdown = sync_important_dates.render_markdown(entries)
-	assert "\n## August 2026\n" in markdown and "\n---\n\n## September 2026\n" in markdown
+	assert (
+		"## August 2026" in markdown
+		and "## September 2026" in markdown
+		and "\n---\n" not in markdown
+	)
 	assert (
 		"[Click]" not in markdown
 		and "&#91;Click&#93;" in markdown

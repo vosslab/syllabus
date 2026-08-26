@@ -27,8 +27,16 @@
 	--md-primary-bg-color: var(--syllabus-roosevelt-ink);
 	--md-accent-fg-color: var(--syllabus-roosevelt-link);
 	--md-typeset-a-color: var(--syllabus-roosevelt-link);
+	--syllabus-calendar-month-01: #1c61db;
+	--syllabus-calendar-month-05: #866300;
+	--syllabus-calendar-month-08: #ad4a36;
+	--syllabus-calendar-month-09: #476f77;
+	--syllabus-calendar-month-10: #9f560a;
+	--syllabus-calendar-month-11: #745aae;
+	--syllabus-calendar-month-12: #477337;
 	--syllabus-content-font-size: 0.85rem;
 	--syllabus-content-line-height: 1.25;
+	--syllabus-content-gap: 0.65em;
 	--syllabus-navigation-font-size: 0.8rem;
 	--syllabus-page-max-width: 78rem;
 	--syllabus-sidebar-width: 13rem;
@@ -42,6 +50,13 @@
 	--md-primary-fg-color--dark: var(--syllabus-roosevelt-green-dark);
 	--md-accent-fg-color: var(--syllabus-roosevelt-green-light);
 	--md-typeset-a-color: var(--syllabus-roosevelt-green);
+	--syllabus-calendar-month-01: #c9daf8;
+	--syllabus-calendar-month-05: #fff2cc;
+	--syllabus-calendar-month-08: #e6b8af;
+	--syllabus-calendar-month-09: #d0e0e3;
+	--syllabus-calendar-month-10: #fce5cd;
+	--syllabus-calendar-month-11: #d9d2e9;
+	--syllabus-calendar-month-12: #d9ead3;
 }
 
 /* Use wide desktop viewports while preserving comfortable text and navigation widths. */
@@ -75,7 +90,7 @@
 }
 
 .md-typeset p {
-	margin-block: 0.65em;
+	margin-block: var(--syllabus-content-gap);
 }
 
 .md-typeset h1 {
@@ -100,6 +115,35 @@
 	margin-block: 0.9em 0.3em;
 }
 
+/* Echo the Google Sheet's month colors with accessible text companions. */
+.md-typeset .important-dates-month-01 {
+	color: var(--syllabus-calendar-month-01);
+}
+
+.md-typeset .important-dates-month-05 {
+	color: var(--syllabus-calendar-month-05);
+}
+
+.md-typeset .important-dates-month-08 {
+	color: var(--syllabus-calendar-month-08);
+}
+
+.md-typeset .important-dates-month-09 {
+	color: var(--syllabus-calendar-month-09);
+}
+
+.md-typeset .important-dates-month-10 {
+	color: var(--syllabus-calendar-month-10);
+}
+
+.md-typeset .important-dates-month-11 {
+	color: var(--syllabus-calendar-month-11);
+}
+
+.md-typeset .important-dates-month-12 {
+	color: var(--syllabus-calendar-month-12);
+}
+
 .md-nav {
 	font-size: var(--syllabus-navigation-font-size);
 }
@@ -116,8 +160,14 @@
 	display: table;
 	font-size: 1em;
 	line-height: var(--syllabus-content-line-height);
-	margin-block: 0.75rem 1.25rem;
+	margin-block: 0 1.25rem;
 	width: 100%;
+}
+
+/* Give headings the same gap before paragraphs and Material-wrapped tables. */
+.md-typeset :where(h1, h2, h3, h4, h5, h6) + .md-typeset__scrollwrap,
+.md-typeset :where(h1, h2, h3, h4, h5, h6) + table:not([class]) {
+	margin-block-start: var(--syllabus-content-gap);
 }
 
 .md-typeset .admonition,
@@ -140,16 +190,6 @@
 
 .course-page-links li {
 	margin-block: 0.65rem;
-}
-
-.syllabus-downloads {
-	border-top: 1px solid var(--md-default-fg-color--lightest);
-	margin-block-start: 2.5rem;
-	padding-block-start: 1rem;
-}
-
-.syllabus-downloads h2 {
-	margin-block-start: 0;
 }
 
 .syllabus-downloads ul {
