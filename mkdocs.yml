@@ -10,7 +10,11 @@ exclude_docs: |
 theme:
   name: material
   custom_dir: overrides
+  favicon: assets/images/favicon.svg
   font: false
+  palette:
+    primary: custom
+    accent: custom
   features:
     - content.footer
     - navigation.indexes

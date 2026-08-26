@@ -16,10 +16,21 @@
 
 :root {
 	--md-text-font: "Atkinson Hyperlegible Next";
+	--syllabus-roosevelt-green-dark: #008852;
+	--syllabus-roosevelt-green: #73c167;
+	--syllabus-roosevelt-green-light: #bddeb1;
+	--syllabus-roosevelt-ink: #231f20;
+	--syllabus-roosevelt-link: #007849;
+	--md-primary-fg-color: var(--syllabus-roosevelt-link);
+	--md-primary-fg-color--light: var(--syllabus-roosevelt-green-light);
+	--md-primary-fg-color--dark: var(--syllabus-roosevelt-green-dark);
+	--md-primary-bg-color: var(--syllabus-roosevelt-ink);
+	--md-accent-fg-color: var(--syllabus-roosevelt-link);
+	--md-typeset-a-color: var(--syllabus-roosevelt-link);
 	--syllabus-content-font-size: 0.85rem;
 	--syllabus-content-line-height: 1.25;
 	--syllabus-navigation-font-size: 0.8rem;
-	--syllabus-page-max-width: 70rem;
+	--syllabus-page-max-width: 78rem;
 	--syllabus-sidebar-width: 13rem;
 }
 
@@ -30,7 +41,21 @@
 
 /* Course metadata changes only the web header; document exports stay neutral. */
 .md-header {
-	background-color: var(--course-header-color, var(--md-primary-fg-color));
+	background-color: var(--course-header-color, var(--syllabus-roosevelt-green));
+}
+
+/* Keep the desktop search field readable on the middle-green brand header. */
+@media screen and (min-width: 60em) {
+	.md-search__form,
+	.md-search__form:hover {
+		background-color: var(--syllabus-roosevelt-green-light);
+	}
+
+	.md-search__input,
+	.md-search__input::placeholder,
+	.md-search__icon {
+		color: var(--syllabus-roosevelt-ink);
+	}
 }
 
 /* Keep student-facing text readable without Material's unusually loose vertical rhythm. */
@@ -146,6 +171,13 @@
 /* Material's default footer gray misses AA by a small margin on its dark background. */
 .md-footer-meta .md-copyright {
 	color: #999;
+}
+
+/* Material enlarges every rem at 1600px and 2000px; use that space for content instead. */
+@media screen and (min-width: 100em) {
+	html {
+		font-size: 125%;
+	}
 }
 
 @media screen and (min-width: 76.25em) {

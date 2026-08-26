@@ -7,7 +7,9 @@
 //   site_docs/fall_2026/genetics/index.md:1.
 // - Typography and focus-visible behavior come from site_docs/assets/stylesheets/site.css:17.
 // - Course-header metadata comes from each course .meta.yml, overrides/main.html:5, and
-//   site_docs/assets/stylesheets/site.css:23.
+//   site_docs/assets/stylesheets/site.css:43.
+// - The shared protein favicon comes from mkdocs.yml:13 and
+//   site_docs/assets/images/favicon.svg:1.
 
 import assert from "node:assert/strict";
 import fs from "node:fs";
@@ -45,6 +47,9 @@ const VIEWPORTS = [
 	{ name: "desktop", width: 1280, height: 900 },
 	{ name: "mobile", width: 390, height: 844 },
 ];
+
+const ROOSEVELT_GREEN = "rgb(115, 193, 103)";
+const ROOSEVELT_LINK_GREEN = "rgb(0, 120, 73)";
 
 async function getCourseTypography(page) {
 	return page.evaluate(async () => {
@@ -91,6 +96,34 @@ function checkCourseTypography(typography, viewportName) {
 		typography.table >= typography.body,
 		`${viewportName} table text ${typography.table}px is smaller than course text ${typography.body}px`,
 	);
+}
+
+async function getResponsiveReadingMetrics(page, baseUrl, width) {
+	await page.setViewportSize({ width, height: 900 });
+	const response = await page.goto(
+		`${baseUrl}/fall_2026/shared/policies/ACADEMIC_INTEGRITY/`,
+		{ waitUntil: "domcontentloaded" },
+	);
+	assert.equal(response?.status(), 200, `Responsive typography route failed at ${width}px`);
+	await page.locator("main h1").waitFor({ state: "visible" });
+	return page.evaluate(() => {
+		const body = document.querySelector("main p");
+		const header = document.querySelector(".md-header__topic");
+		const navigation = document.querySelector(".md-sidebar--primary .md-nav");
+		const readingColumn = document.querySelector("main h1");
+		if (!body || !header || !navigation || !readingColumn) {
+			throw new Error("Responsive typography elements are missing");
+		}
+		const bodyFontSize = Number.parseFloat(window.getComputedStyle(body).fontSize);
+		return {
+			bodyFontSize,
+			headerFontSize: Number.parseFloat(window.getComputedStyle(header).fontSize),
+			navigationFontSize: Number.parseFloat(
+				window.getComputedStyle(navigation).fontSize,
+			),
+			readingMeasure: readingColumn.getBoundingClientRect().width / bodyFontSize,
+		};
+	});
 }
 
 async function getHeaderColor(page, baseUrl, route) {
@@ -161,6 +194,12 @@ try {
 
 	const homePage = await browser.newPage();
 	await homePage.goto(`${staticServer.baseUrl}/`);
+	const faviconLink = homePage.locator('link[rel="icon"]');
+	const faviconUrl = new URL(await faviconLink.getAttribute("href"), homePage.url());
+	assert.equal(faviconUrl.pathname, "/assets/images/favicon.svg");
+	const faviconResponse = await homePage.request.get(faviconUrl.href);
+	assert.equal(faviconResponse.status(), 200, "Protein favicon did not load");
+	assert.match(faviconResponse.headers()["content-type"], /^image\/svg\+xml/);
 	const homeMain = homePage.getByRole("article");
 	const currentCourses = [
 		{
@@ -181,6 +220,10 @@ try {
 		await courseLink.waitFor();
 		const courseUrl = new URL(await courseLink.getAttribute("href"), homePage.url());
 		assert.equal(courseUrl.pathname, course.pathname);
+		assert.equal(
+			await courseLink.evaluate((element) => getComputedStyle(element).color),
+			ROOSEVELT_LINK_GREEN,
+		);
 	}
 	await homeMain
 		.getByRole("heading", { name: "Blackboard and private course materials" })
@@ -268,6 +311,7 @@ try {
 	await coursePage.close();
 
 	const headerPage = await browser.newPage();
+	const homeColor = await getHeaderColor(headerPage, staticServer.baseUrl, "/");
 	const biostatisticsColor = await getHeaderColor(
 		headerPage,
 		staticServer.baseUrl,
@@ -293,6 +337,8 @@ try {
 		staticServer.baseUrl,
 		"/fall_2026/shared/policies/",
 	);
+	assert.equal(homeColor, ROOSEVELT_GREEN);
+	assert.equal(sharedPageColor, ROOSEVELT_GREEN);
 	assert.equal(
 		biostatisticsDetailsColor,
 		biostatisticsColor,
@@ -305,6 +351,38 @@ try {
 	assert.notEqual(sharedPageColor, geneticsColor);
 	assert.notEqual(sharedPageColor, biotechnologyColor);
 	await headerPage.close();
+
+	const responsivePage = await browser.newPage();
+	const desktopReading = await getResponsiveReadingMetrics(
+		responsivePage,
+		staticServer.baseUrl,
+		1280,
+	);
+	const wideReading = await getResponsiveReadingMetrics(
+		responsivePage,
+		staticServer.baseUrl,
+		2004,
+	);
+	assert.equal(
+		wideReading.bodyFontSize,
+		desktopReading.bodyFontSize,
+		"Widening the browser must not enlarge body text",
+	);
+	assert.equal(
+		wideReading.navigationFontSize,
+		desktopReading.navigationFontSize,
+		"Widening the browser must not enlarge navigation text",
+	);
+	assert.equal(
+		wideReading.headerFontSize,
+		desktopReading.headerFontSize,
+		"Widening the browser must not enlarge header text",
+	);
+	assert.ok(
+		wideReading.readingMeasure > desktopReading.readingMeasure,
+		"Widening the browser must increase the reading measure",
+	);
+	await responsivePage.close();
 } finally {
 	await browser.close();
 	await staticServer.close();

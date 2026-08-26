@@ -1,0 +1,95 @@
+<svg
+  xmlns="http://www.w3.org/2000/svg"
+  width="64"
+  height="64"
+  viewBox="0 0 64 64"
+  role="img"
+  aria-labelledby="favicon-title favicon-description"
+>
+  <title id="favicon-title">Dr. Voss course syllabi</title>
+  <desc id="favicon-description">
+    A stylized folded protein ribbon in Roosevelt green.
+  </desc>
+  <defs>
+    <linearGradient
+      id="favicon-helix"
+      x1="13"
+      y1="12"
+      x2="31"
+      y2="48"
+      gradientUnits="userSpaceOnUse"
+    >
+      <stop stop-color="#bddeb1" />
+      <stop offset="1" stop-color="#73c167" />
+    </linearGradient>
+    <path
+      id="protein-fold"
+      d="
+        M18 12
+        C35 6 51 10 46 19
+        C42 25 29 24 20 24
+        C9 24 9 33 20 36
+        C30 39 47 34 49 42
+        C52 51 37 56 26 52
+        C20 50 16 52 18 56
+      "
+    />
+  </defs>
+  <g id="background">
+    <rect
+      x="2"
+      y="2"
+      width="60"
+      height="60"
+      rx="15"
+      fill="#008852"
+      stroke="#231f20"
+      stroke-width="2"
+    />
+    <circle cx="32" cy="31" r="24" fill="#bddeb1" opacity="0.08" />
+  </g>
+  <g id="protein-ribbon">
+    <use
+      id="helix-outline"
+      href="#protein-fold"
+      fill="none"
+      stroke="#231f20"
+      stroke-linecap="round"
+      stroke-linejoin="round"
+      stroke-width="12"
+    />
+    <use
+      id="alpha-helix"
+      href="#protein-fold"
+      fill="none"
+      stroke="url(#favicon-helix)"
+      stroke-linecap="round"
+      stroke-linejoin="round"
+      stroke-width="8"
+    />
+    <path
+      id="upper-turn-highlight"
+      d="M18 12C27 9 36 9 42 12"
+      fill="none"
+      stroke="#bddeb1"
+      stroke-linecap="round"
+      stroke-width="2.5"
+    />
+    <path
+      id="middle-turn-highlight"
+      d="M16 33C18 35 23 37 28 37"
+      fill="none"
+      stroke="#73c167"
+      stroke-linecap="round"
+      stroke-width="2.5"
+    />
+    <path
+      id="lower-turn-highlight"
+      d="M48 43C48 48 41 51 35 52"
+      fill="none"
+      stroke="#bddeb1"
+      stroke-linecap="round"
+      stroke-width="2.5"
+    />
+  </g>
+</svg>

@@ -2,6 +2,8 @@
 
 ### Additions and New Features
 
+- Added a custom protein-ribbon SVG favicon using the three greens from Roosevelt University's R
+  mark and verified that the built homepage links to the published image.
 - Added `pipeline/sync_important_dates.py` to pull the first worksheet of the Fall 2026 planning
   spreadsheet into an ignored Markdown fragment, group its table rows by month, and infer a readable
   event type.
@@ -12,8 +14,14 @@
 
 ### Behavior or Interface Changes
 
+- Changed the main and shared-page theme from Material indigo to Roosevelt green, with the middle
+  logo green behind dark controls and an accessibility-adjusted dark green for body links. Each
+  course keeps its existing header identity color and white controls.
 - Expanded the web layout beyond Material's default desktop limit so wide browsers give more room
   to the reading column and both navigation sidebars while preserving the existing mobile layout.
+- Stopped Material's 1600- and 2000-pixel root-font increases from enlarging the entire interface.
+  Wider desktop windows now add reading width while body, navigation, and header text stay the same
+  size.
 - Tightened website typography to 1.25 line spacing, smaller paragraph gaps, and more compact
   heading margins. PDF and DOCX typography remains unchanged.
 - Rebuilt the shared policy information architecture so each subsection has one subject-based
@@ -44,6 +52,12 @@
 
 ### Decisions and Failures
 
+- Kept the R mark's exact three green fills in the favicon. The first browser render also used the
+  middle green for text links and a translucent search surface; the accessibility audit rejected
+  both. The final theme separates middle-green surfaces, pale-green fields, and a darkened
+  `#007849` link color that reaches the 5.5:1 house target on white.
+- Bounded the desktop grid at 78rem instead of filling the entire viewport. This gives policy prose
+  substantially longer lines on wide displays without turning it into edge-to-edge monitor text.
 - Kept date and event wording faithful to the worksheet. The current source includes Fall 2025 and
   Spring 2026 wording within rows dated Fall 2026 or later; those labels should be corrected in the
   spreadsheet rather than silently rewritten by the synchronization script.
@@ -53,9 +67,19 @@
 
 ### Developer Tests and Notes
 
-- Compared the student-services page at 2004, 1280, and 390 CSS-pixel widths. At the wide viewport,
-  the grid grew from 1464 to 1680 pixels, the reading column grew from 826 to 998 pixels, and the
-  full page height fell from 7285 to 5161 pixels; mobile height fell from 9270 to 7221 pixels.
+- Parsed the favicon as XML, resolved its local references, and rendered and visually inspected it
+  at 16, 32, and 64 pixels. The light-green ribbon reaches 3.07:1 against the dark-green tile.
+- Added browser checks for the favicon URL, response, and SVG media type, plus the Roosevelt main
+  header and link colors. Reviewed the real homepage at 390, 1280, and 2004 pixels.
+- Passed all 822 fast tests, the live production build, the complete syllabus export E2E gate, and
+  the final Playwright accessibility and responsive-overflow audit after the favicon and palette
+  changes.
+- Added a Playwright regression check that compares the academic-integrity page at 1280 and 2004
+  pixels. It requires identical body, navigation, and header font sizes and a larger wide-screen
+  reading measure.
+- Confirmed the new regression failed before the fix because body text grew from 17 to 20.4 pixels.
+  After the fix, body text stays 17 pixels while the reading column grows from 686 to 992 pixels
+  between the 1254- and 2004-pixel screenshot widths.
 - Passed all 822 fast tests, the strict production site build, and the Playwright accessibility and
   responsive-overflow audit after the website layout and typography changes.
 - Added focused offline tests for worksheet schema and date validation, month separation, category
