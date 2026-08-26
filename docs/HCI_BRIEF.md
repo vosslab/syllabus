@@ -21,15 +21,20 @@ offline reading and archival use.
 - Explain Blackboard in terms of the private materials students should expect to find there,
   rather than using an unexplained security-oriented heading.
 - Organize navigation by term, course, and task-oriented section.
+- Use subject-based course paths so cross-listed students recognize the course topic without one
+  section number appearing to own the shared route.
 - Use conventional syllabus labels that tell students exactly what each route contains while
   keeping technical filenames internal.
-- Keep policies and student resources as separate top-level branches. Split Dr. Voss's long policy
-  document into recognizable topic pages without creating course-specific alternatives or a
-  second overview.
+- Keep directly navigable term-wide material together under `shared/`, with policy topics grouped
+  under `shared/policies/` and include-only content under `shared/fragments/`. Split Dr. Voss's
+  long policy document into recognizable topic pages without creating course-specific alternatives
+  or a second overview.
 - Use instructor-facing subject names for canonical files and student-facing task language for
   page headings and navigation. Students should recognize the question a page answers without
   knowing terms such as **assessment** or **course delivery**.
-- Embed instructor information and Roosevelt learning goals from canonical term-level fragments.
+- Embed instructor contact details and Roosevelt learning goals from canonical term-level
+  fragments. Keep the directly navigable instructor-information page as a student-facing wrapper
+  around the same contact fragment used by course-details pages.
 - Keep the letter-grade scale once in the shared grading policy; course grading pages link to it.
 - Place task-oriented course links immediately after the introduction.
 - Place secondary complete PDF and DOCX links after the course summary and label them as complete
@@ -47,7 +52,7 @@ offline reading and archival use.
 
 The policy overview supports recognition rather than recall: students scan visible task labels,
 then choose the page that matches their question. Each subsection belongs to one subject category;
-`POLICIES.md` is the only overview and the policy branch has no catch-all FAQ.
+`shared/policies/index.md` is the only overview and the policy branch has no catch-all FAQ.
 
 | Canonical category | Student-facing page | Student question answered |
 | --- | --- | --- |

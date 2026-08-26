@@ -20,8 +20,14 @@
   withdrawing from class**.
 - Made `ASSESSMENT.md` the sole shared grading source, including the letter-grade scale and rules
   for assignments, quizzes, exams, discussion marks, make-up work, and Blackboard percentages.
-- Kept `POLICIES.md` as the only policy overview and removed the competing generic overview and
-  catch-all FAQ after routing their content to subject pages.
+- Kept `shared/policies/index.md` as the only policy overview and removed the competing generic
+  overview and catch-all FAQ after routing their content to subject pages.
+- Replaced course-number directory paths with subject-based aliases: `biostats` for BIOL 318/418,
+  `genetics` for BIOL 351/451, and `biotech` for BIOL 480. Student-facing headings, section details,
+  manifest metadata, and download names retain the official course codes.
+- Consolidated directly navigable term-wide pages under `shared/`, policy pages under
+  `shared/policies/`, and include-only Markdown under `shared/fragments/`. The public instructor
+  page now wraps the named instructor-contact fragment that course-details pages also embed.
 
 ### Fixes and Maintenance
 
@@ -54,9 +60,8 @@
 - Classified the live worksheet's 45-event/seven-month category census, repeat-sync checksum, and
   responsive screenshot review as one-time implementation evidence rather than permanent tests.
 - Confirmed the live first worksheet currently has no `Other` category fallbacks.
-- Passed all 822 fast tests with the new files represented in a disposable projected Git index,
-  the strict production site build, the Playwright accessibility audit, and the complete syllabus
-  export E2E gate.
+- Passed all 822 fast tests on the final moved content tree, the strict production site build, the
+  Playwright accessibility audit, and the complete syllabus export E2E gate.
 
 ## 2026-08-25
 

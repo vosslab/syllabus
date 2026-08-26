@@ -54,35 +54,35 @@ document-rendering stack.
 ## Authoring a course
 
 Public content is organized by term. Each course owns its short student pages and a manifest that
-defines the complete-document order; term-level policies and resources remain shared:
+defines the complete-document order; term-wide pages live together under `shared/`:
 
 ```text
 site_docs/fall_2026/
-|-- POLICIES.md
-|-- STUDENT_RESOURCES.md
-|-- policies/
-|   |-- ACADEMIC_INTEGRITY.md
-|   |-- ASSESSMENT.md
-|   |-- COURSE_DELIVERY.md
-|   |-- COURSE_ENROLLMENT.md
-|   `-- ...
+|-- index.md
+|-- biostats/
+|-- biotech/
+|-- genetics/
 |-- shared/
+|   |-- IMPORTANT_DATES.md
 |   |-- INSTRUCTOR_INFORMATION.md
-|   `-- ROOSEVELT_LEARNING_GOALS.md
-`-- biostats/
-    |-- index.md
-    |-- COURSE_DETAILS.md
-    |-- COURSE_LEARNING_FRAMEWORK.md
-    |-- ASSIGNMENTS_AND_GRADING.md
-    |-- SCHEDULE.md
-    `-- syllabus.yml
+|   |-- STUDENT_RESOURCES.md
+|   |-- fragments/
+|   |   |-- INSTRUCTOR_CONTACT_DETAILS.md
+|   |   `-- ROOSEVELT_LEARNING_GOALS.md
+|   `-- policies/
+|       |-- index.md
+|       |-- ACADEMIC_INTEGRITY.md
+|       |-- ASSESSMENT.md
+|       `-- ...
+`-- ...
 ```
 
 For Fall 2026, `site_docs/fall_2026/` is the only live content authority. Add new course pages
 directly there, using the listed file structure and a current course as a structural guide. Shared
-policies stay in the term's `policies/` branch rather than being copied into courses or a parallel
-template tree. The website, PDF files, and DOCX files are generated views of this Markdown and must
-not be edited as content sources or committed as substitutes for it.
+policies stay in the term's `shared/policies/` branch rather than being copied into courses or a
+parallel template tree. Public shared pages remain directly navigable; include-only Markdown lives
+under `shared/fragments/`. The website, PDF files, and DOCX files are generated views of this
+Markdown and must not be edited as content sources or committed as substitutes for it.
 
 Historical-term archive design and the first term rollover are deferred until Spring 2027. Do not
 create an archived-term or future-term source tree during Fall 2026. Dates remain literal Markdown

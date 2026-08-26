@@ -1,10 +1,10 @@
 // Selector contract:
 // - Material route and navigation markup come from mkdocs.yml:7 and mkdocs.yml:36.
 // - Current-course links and Blackboard context come from site_docs/index.md:1.
-// - The important-dates wrapper comes from site_docs/fall_2026/IMPORTANT_DATES.md:1;
+// - The important-dates wrapper comes from site_docs/fall_2026/shared/IMPORTANT_DATES.md:1;
 //   its generated month tables come from pipeline/sync_important_dates.py:386.
 // - Main headings, prose, tables, course-page links, and download links come from
-//   site_docs/fall_2026/biol_351_451/index.md:1.
+//   site_docs/fall_2026/genetics/index.md:1.
 // - Typography and focus-visible behavior come from site_docs/assets/stylesheets/site.css:17.
 // - Course-header metadata comes from each course .meta.yml, overrides/main.html:5, and
 //   site_docs/assets/stylesheets/site.css:23.
@@ -19,22 +19,26 @@ import { chromium } from "playwright";
 import { REPO_ROOT } from "./repo_root.mjs";
 import { startStaticServer } from "./helper_server.mjs";
 
+const COURSE_ROUTES = [
+	"/fall_2026/biostats/",
+	"/fall_2026/genetics/",
+	"/fall_2026/biotech/",
+];
+
 const ROUTES = [
 	"/",
-	"/fall_2026/IMPORTANT_DATES/",
-	"/fall_2026/biol_318_418/",
-	"/fall_2026/biol_351_451/",
-	"/fall_2026/biol_480/",
-	"/fall_2026/POLICIES/",
-	"/fall_2026/policies/INSTRUCTOR_INFORMATION/",
-	"/fall_2026/policies/COURSE_DELIVERY/",
-	"/fall_2026/policies/ASSESSMENT/",
-	"/fall_2026/policies/ATTENDANCE_AND_ACCOMMODATIONS/",
-	"/fall_2026/policies/ACADEMIC_INTEGRITY/",
-	"/fall_2026/policies/COURSE_EXPECTATIONS/",
-	"/fall_2026/policies/INCLUSION_AND_SAFETY/",
-	"/fall_2026/policies/COURSE_ENROLLMENT/",
-	"/fall_2026/STUDENT_RESOURCES/",
+	"/fall_2026/shared/IMPORTANT_DATES/",
+	...COURSE_ROUTES,
+	"/fall_2026/shared/policies/",
+	"/fall_2026/shared/INSTRUCTOR_INFORMATION/",
+	"/fall_2026/shared/policies/COURSE_DELIVERY/",
+	"/fall_2026/shared/policies/ASSESSMENT/",
+	"/fall_2026/shared/policies/ATTENDANCE_AND_ACCOMMODATIONS/",
+	"/fall_2026/shared/policies/ACADEMIC_INTEGRITY/",
+	"/fall_2026/shared/policies/COURSE_EXPECTATIONS/",
+	"/fall_2026/shared/policies/INCLUSION_AND_SAFETY/",
+	"/fall_2026/shared/policies/COURSE_ENROLLMENT/",
+	"/fall_2026/shared/STUDENT_RESOURCES/",
 ];
 
 const VIEWPORTS = [
@@ -142,7 +146,7 @@ try {
 				return document.documentElement.scrollWidth > window.innerWidth + 1;
 			});
 			assert.equal(horizontalOverflow, false, `${route} overflows the ${viewport.name} viewport`);
-			if (route.includes("/fall_2026/biol_")) {
+			if (COURSE_ROUTES.includes(route)) {
 				checkCourseTypography(await getCourseTypography(page), viewport.name);
 			}
 			assert.deepEqual(
@@ -161,15 +165,15 @@ try {
 	const currentCourses = [
 		{
 			name: "BIOL 318 and BIOL 418 - Biostatistics",
-			pathname: "/fall_2026/biol_318_418/",
+			pathname: "/fall_2026/biostats/",
 		},
 		{
 			name: "BIOL 351 and BIOL 451 - General Genetics",
-			pathname: "/fall_2026/biol_351_451/",
+			pathname: "/fall_2026/genetics/",
 		},
 		{
 			name: "BIOL 480 - Applications of Biotechnology",
-			pathname: "/fall_2026/biol_480/",
+			pathname: "/fall_2026/biotech/",
 		},
 	];
 	for (const course of currentCourses) {
@@ -187,7 +191,7 @@ try {
 
 	const accommodationPage = await browser.newPage();
 	await accommodationPage.goto(
-		`${staticServer.baseUrl}/fall_2026/policies/ATTENDANCE_AND_ACCOMMODATIONS/`,
+		`${staticServer.baseUrl}/fall_2026/shared/policies/ATTENDANCE_AND_ACCOMMODATIONS/`,
 	);
 	const absenceTable = accommodationPage.getByRole("table").filter({
 		hasText: "First communicated",
@@ -201,7 +205,7 @@ try {
 	await accommodationPage.close();
 
 	const gradingPage = await browser.newPage();
-	await gradingPage.goto(`${staticServer.baseUrl}/fall_2026/policies/ASSESSMENT/`);
+	await gradingPage.goto(`${staticServer.baseUrl}/fall_2026/shared/policies/ASSESSMENT/`);
 	const gradeTable = gradingPage.getByRole("table").first();
 	await gradeTable.waitFor();
 	assert.deepEqual(await gradeTable.getByRole("columnheader").allTextContents(), [
@@ -211,7 +215,7 @@ try {
 	await gradingPage.close();
 
 	const coursePage = await browser.newPage();
-	await coursePage.goto(`${staticServer.baseUrl}/fall_2026/biol_351_451/`);
+	await coursePage.goto(`${staticServer.baseUrl}/fall_2026/genetics/`);
 	const courseMain = coursePage.getByRole("article");
 	await courseMain.getByRole("link", { name: "Meetings and instructor" }).waitFor();
 	await courseMain
@@ -267,27 +271,27 @@ try {
 	const biostatisticsColor = await getHeaderColor(
 		headerPage,
 		staticServer.baseUrl,
-		"/fall_2026/biol_318_418/",
+		"/fall_2026/biostats/",
 	);
 	const biostatisticsDetailsColor = await getHeaderColor(
 		headerPage,
 		staticServer.baseUrl,
-		"/fall_2026/biol_318_418/COURSE_DETAILS/",
+		"/fall_2026/biostats/COURSE_DETAILS/",
 	);
 	const geneticsColor = await getHeaderColor(
 		headerPage,
 		staticServer.baseUrl,
-		"/fall_2026/biol_351_451/",
+		"/fall_2026/genetics/",
 	);
 	const biotechnologyColor = await getHeaderColor(
 		headerPage,
 		staticServer.baseUrl,
-		"/fall_2026/biol_480/",
+		"/fall_2026/biotech/",
 	);
 	const sharedPageColor = await getHeaderColor(
 		headerPage,
 		staticServer.baseUrl,
-		"/fall_2026/POLICIES/",
+		"/fall_2026/shared/policies/",
 	);
 	assert.equal(
 		biostatisticsDetailsColor,

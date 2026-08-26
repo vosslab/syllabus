@@ -523,10 +523,11 @@ def compose_markdown(manifest: SyllabusManifest) -> str:
 		anchor = "course-overview" if index == 0 else section_path.stem.lower().replace("_", "-")
 		document_anchors[section_path.resolve()] = anchor
 	for section_path in manifest.shared_sections:
-		anchor = section_path.stem.lower().replace("_", "-")
+		is_policy_index = section_path.name == "index.md" and section_path.parent.name == "policies"
+		anchor = "policies" if is_policy_index else section_path.stem.lower().replace("_", "-")
 		document_anchors[section_path.resolve()] = anchor
-	# The instructor policy route is embedded under this heading in COURSE_DETAILS.md.
-	instructor_route_path = manifest.path.parent.parent / "policies" / "INSTRUCTOR_INFORMATION.md"
+	# The shared instructor route is embedded under this heading in COURSE_DETAILS.md.
+	instructor_route_path = manifest.path.parent.parent / "shared" / "INSTRUCTOR_INFORMATION.md"
 	if instructor_route_path.is_file():
 		document_anchors[instructor_route_path.resolve()] = "instructor-information"
 	for index, section_path in enumerate(manifest.sections):
@@ -541,7 +542,8 @@ def compose_markdown(manifest: SyllabusManifest) -> str:
 		markdown = section_path.read_text(encoding="utf-8")
 		markdown = expand_shared_includes(markdown, section_path, manifest.docs_root)
 		markdown = rewrite_document_links(markdown, section_path, document_anchors)
-		if section_path.name == "POLICIES.md":
+		is_policy_index = section_path.name == "index.md" and section_path.parent.name == "policies"
+		if is_policy_index:
 			markdown = remove_heading_sections(markdown, ("Policy topics", "Student support"))
 		anchor = document_anchors[section_path.resolve()]
 		title = get_section_title(markdown, section_path)

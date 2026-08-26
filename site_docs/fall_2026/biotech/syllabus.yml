@@ -11,12 +11,12 @@ sections:
   - ASSIGNMENTS_AND_GRADING.md
   - SCHEDULE.md
 shared_sections:
-  - ../POLICIES.md
-  - ../policies/COURSE_DELIVERY.md
-  - ../policies/ASSESSMENT.md
-  - ../policies/ATTENDANCE_AND_ACCOMMODATIONS.md
-  - ../policies/ACADEMIC_INTEGRITY.md
-  - ../policies/COURSE_EXPECTATIONS.md
-  - ../policies/INCLUSION_AND_SAFETY.md
-  - ../policies/COURSE_ENROLLMENT.md
-  - ../STUDENT_RESOURCES.md
+  - ../shared/policies/index.md
+  - ../shared/policies/COURSE_DELIVERY.md
+  - ../shared/policies/ASSESSMENT.md
+  - ../shared/policies/ATTENDANCE_AND_ACCOMMODATIONS.md
+  - ../shared/policies/ACADEMIC_INTEGRITY.md
+  - ../shared/policies/COURSE_EXPECTATIONS.md
+  - ../shared/policies/INCLUSION_AND_SAFETY.md
+  - ../shared/policies/COURSE_ENROLLMENT.md
+  - ../shared/STUDENT_RESOURCES.md

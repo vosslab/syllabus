@@ -20,4 +20,4 @@ faculty and industrial researchers address current and future trends in the fiel
 
 ## Instructor information
 
---8<-- "fall_2026/shared/INSTRUCTOR_INFORMATION.md"
+--8<-- "fall_2026/shared/fragments/INSTRUCTOR_CONTACT_DETAILS.md"

@@ -2,7 +2,7 @@
 
 ## Roosevelt learning goals
 
---8<-- "fall_2026/shared/ROOSEVELT_LEARNING_GOALS.md"
+--8<-- "fall_2026/shared/fragments/ROOSEVELT_LEARNING_GOALS.md"
 
 ## Learning Objectives
 

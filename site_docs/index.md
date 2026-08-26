@@ -20,11 +20,12 @@ Hybrid and videoconferenced sections meeting Thursdays in Chicago and Schaumburg
 
 ## Policies and student support
 
-- [Important dates and deadlines](fall_2026/IMPORTANT_DATES.md): academic-calendar dates,
+- [Important dates and deadlines](fall_2026/shared/IMPORTANT_DATES.md): academic-calendar dates,
   university events, and other shared deadlines organized by month.
-- [Dr. Voss course policies](fall_2026/POLICIES.md): grading, attendance, accommodations, academic
-  integrity, course expectations, safety, and withdrawal information shared by these courses.
-- [Help and student services](fall_2026/STUDENT_RESOURCES.md): advising, tutoring, technology,
+- [Dr. Voss course policies](fall_2026/shared/policies/index.md): grading, attendance,
+  accommodations, academic integrity, course expectations, safety, and withdrawal information
+  shared by these courses.
+- [Help and student services](fall_2026/shared/STUDENT_RESOURCES.md): advising, tutoring, technology,
   accessibility, counseling, and other Roosevelt support.
 
 ## Blackboard and private course materials

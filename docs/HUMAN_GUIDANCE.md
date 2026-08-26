@@ -21,25 +21,29 @@
   commit generated output as a competing content source.
 - Keep course-specific details, assignments, schedules, and learning statements in their course
   folders while drawing shared facts and policies from canonical term-level sources.
+- Use subject-based course-directory slugs: `biostats` for BIOL 318/418, `genetics` for BIOL
+  351/451, and `biotech` for BIOL 480. Keep official course numbers in student-facing headings,
+  section information, manifest metadata, and download names rather than directory paths.
 
 ## Policy organization
 
-- Keep **Policies** and **Student resources** as the two top-level branches of the shared material.
+- Keep public term-wide pages under `site_docs/<term>/shared/`, with policy categories grouped under
+  `shared/policies/` and reusable include-only Markdown grouped under `shared/fragments/`.
 - Name canonical policy files with instructor-facing subject categories while giving each page a
   student-facing title. For example, `ASSESSMENT.md` appears to students as **Grades and graded
   work**, following the same pattern as `COURSE_LEARNING_FRAMEWORK.md` and **Learning Objectives,
   Outcomes, and Goals**.
-- Keep `POLICIES.md` as the only policy overview. Do not add a second overview or a catch-all FAQ;
-  assign every policy subsection to one subject category.
+- Keep `shared/policies/index.md` as the only policy overview. Do not add a second overview or a
+  catch-all FAQ; assign every policy subsection to one subject category.
 - Organize the shared policy branch around instructor communication, course delivery, assessment,
   attendance and accommodations, academic integrity, course expectations, inclusion and safety,
   and course enrollment.
-- Maintain Dr. Voss's course policies once per term in `site_docs/<term>/policies/`; use
-  `POLICIES.md` only as the student-facing topic index. Link every course to that shared branch and
-  append each topic once to every complete syllabus.
-- Maintain the complete letter-grade scale only in `site_docs/<term>/policies/ASSESSMENT.md`; label
-  that route **Grades and graded work** for students. Course pages link to that source and complete
-  syllabi include it once.
+- Maintain Dr. Voss's course policies once per term in `site_docs/<term>/shared/policies/`; use
+  `shared/policies/index.md` only as the student-facing topic index. Link every course to that
+  shared branch and append each topic once to every complete syllabus.
+- Maintain the complete letter-grade scale only in
+  `site_docs/<term>/shared/policies/ASSESSMENT.md`; label that route **Grades and graded work** for
+  students. Course pages link to that source and complete syllabi include it once.
 - Keep policies and student resources independently editable and merge both into each complete
   course syllabus during the build.
 
@@ -47,8 +51,12 @@
 
 - Follow an edit-once model. Store any fact shared by multiple courses in one canonical source and
   embed it wherever students need the context.
-- Maintain term-wide instructor information, office hours, and Roosevelt learning-goal bullets in
-  `site_docs/<term>/shared/`.
+- Maintain directly navigable term-wide pages for important dates, instructor information, and
+  student resources in `site_docs/<term>/shared/`.
+- Maintain the canonical instructor contact body and Roosevelt learning-goal bullets under
+  `site_docs/<term>/shared/fragments/`. Keep the public
+  `site_docs/<term>/shared/INSTRUCTOR_INFORMATION.md` page as a heading wrapper around the contact
+  fragment, and embed that fragment in course-details pages.
 - Use Markdown embedding when it makes a course page or complete syllabus easier for a student to
   understand. Reusing a canonical fragment is preferable to omitting useful context.
 - Keep tables visually and structurally consistent across the website, PDF, and DOCX outputs. Use

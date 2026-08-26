@@ -14,5 +14,5 @@
 Extra-credit opportunities do not increase the denominator used to calculate the final percentage.
 
 Final percentages, rounding, and letter-grade thresholds follow the shared
-[grading policies](../policies/ASSESSMENT.md#grades). Blackboard is the authoritative record for
+[grading policies](../shared/policies/ASSESSMENT.md#grades). Blackboard is the authoritative record for
 submissions, scores, and feedback.

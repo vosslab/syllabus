@@ -4,7 +4,7 @@ site_url: https://vosslab.github.io/syllabus/
 docs_dir: site_docs
 site_dir: site
 exclude_docs: |
-  */shared/*
+  */shared/fragments/*
   generated/*
 
 theme:
@@ -48,7 +48,7 @@ nav:
   - Home: index.md
   - Fall 2026:
       - Overview: fall_2026/index.md
-      - Important dates and deadlines: fall_2026/IMPORTANT_DATES.md
+      - Important dates and deadlines: fall_2026/shared/IMPORTANT_DATES.md
       - BIOL 318/418 - Biostatistics:
           - Start here: fall_2026/biostats/index.md
           - Meetings and instructor: fall_2026/biostats/COURSE_DETAILS.md
@@ -68,13 +68,13 @@ nav:
           - Coursework and grades: fall_2026/biotech/ASSIGNMENTS_AND_GRADING.md
           - Dates and topics: fall_2026/biotech/SCHEDULE.md
       - Dr. Voss course policies:
-          - Policy overview: fall_2026/POLICIES.md
-          - Contacting Dr. Voss: fall_2026/policies/INSTRUCTOR_INFORMATION.md
-          - Course format and online tools: fall_2026/policies/COURSE_DELIVERY.md
-          - Grades and graded work: fall_2026/policies/ASSESSMENT.md
-          - Attendance, absences, and accommodations: fall_2026/policies/ATTENDANCE_AND_ACCOMMODATIONS.md
-          - Academic integrity and AI: fall_2026/policies/ACADEMIC_INTEGRITY.md
-          - What students and instructors can expect: fall_2026/policies/COURSE_EXPECTATIONS.md
-          - Safety, inclusion, and belonging: fall_2026/policies/INCLUSION_AND_SAFETY.md
-          - Dropping or withdrawing from class: fall_2026/policies/COURSE_ENROLLMENT.md
-      - Help and student services: fall_2026/STUDENT_RESOURCES.md
+          - Policy overview: fall_2026/shared/policies/index.md
+          - Contacting Dr. Voss: fall_2026/shared/INSTRUCTOR_INFORMATION.md
+          - Course format and online tools: fall_2026/shared/policies/COURSE_DELIVERY.md
+          - Grades and graded work: fall_2026/shared/policies/ASSESSMENT.md
+          - Attendance, absences, and accommodations: fall_2026/shared/policies/ATTENDANCE_AND_ACCOMMODATIONS.md
+          - Academic integrity and AI: fall_2026/shared/policies/ACADEMIC_INTEGRITY.md
+          - What students and instructors can expect: fall_2026/shared/policies/COURSE_EXPECTATIONS.md
+          - Safety, inclusion, and belonging: fall_2026/shared/policies/INCLUSION_AND_SAFETY.md
+          - Dropping or withdrawing from class: fall_2026/shared/policies/COURSE_ENROLLMENT.md
+      - Help and student services: fall_2026/shared/STUDENT_RESOURCES.md

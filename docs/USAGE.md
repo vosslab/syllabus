@@ -4,6 +4,10 @@
 
 Public course content lives under `site_docs/<term>/<course>/`. Each course contains:
 
+Course directories use subject-based slugs so cross-listed students do not see another section's
+number as the path: `biostats` for BIOL 318/418, `genetics` for BIOL 351/451, and `biotech` for
+BIOL 480. Official course numbers remain in headings, section tables, metadata, and download names.
+
 - `index.md` for the short overview, task links, course summary, and secondary download links.
 - `COURSE_DETAILS.md` for registration, meeting, catalog, and embedded shared instructor
   information.
@@ -14,26 +18,29 @@ Public course content lives under `site_docs/<term>/<course>/`. Each course cont
 - `SCHEDULE.md` for literal meeting dates and topics.
 - `syllabus.yml` for complete-document order and metadata.
 
-Each term keeps a short `POLICIES.md` topic index, canonical topic files under `policies/`, and one
-`STUDENT_RESOURCES.md` file for support information. Every course links to the shared policy and
-resource branches. Its manifest adds the policy overview as a section heading, then appends each
-policy topic and the student-resource source once to the complete syllabus. The overview's web-only
-topic links are omitted from document exports.
+Each term keeps its public term-wide pages under `shared/`: important dates, instructor
+information, policies, and student resources. The short policy topic index and the canonical
+policy categories live together under `shared/policies/`. Every course links to those shared
+branches. Its manifest adds the policy overview as a section heading, then appends each policy
+topic and the student-resource source once to the complete syllabus. The overview's web-only topic
+links are omitted from document exports.
 
-Term-wide fragments under `shared/` hold facts that students need in more than one context but the
-instructor should edit once. The current fragments provide instructor information, including
-office hours, and Roosevelt learning-goal bullets. Course pages embed them with the restricted
-syntax:
+Include-only Markdown under `shared/fragments/` holds facts that students need in more than one
+context but the instructor should edit once. The current fragments provide instructor contact
+details, including office hours, and Roosevelt learning-goal bullets. Course pages embed them with
+the restricted syntax:
 
 ```markdown
---8<-- "fall_2026/shared/INSTRUCTOR_INFORMATION.md"
+--8<-- "fall_2026/shared/fragments/INSTRUCTOR_CONTACT_DETAILS.md"
 ```
 
 Includes must be non-empty `.md` files below `site_docs/`; absolute paths, parent traversal, remote
-URLs, and nested includes are rejected. Shared fragments are excluded from direct website routes.
-Only public-safe canonical content belongs in this repository. Do not create an ignored `raw/`
-tree for private syllabi, credentials, meeting links, student information, or access-controlled
-material; transfer only public facts into the tracked Markdown sources.
+URLs, and nested includes are rejected. Files under `shared/fragments/` are excluded from direct
+website routes. The public `shared/INSTRUCTOR_INFORMATION.md` page supplies its page heading and
+embeds the contact-details fragment; course details embed that same fragment under their own
+heading. Only public-safe canonical content belongs in this repository. Do not create an ignored
+`raw/` tree for private syllabi, credentials, meeting links, student information, or
+access-controlled material; transfer only public facts into the tracked Markdown sources.
 
 ## Source and generated boundary
 
@@ -47,9 +54,9 @@ material; transfer only public facts into the tracked Markdown sources.
 - Treat `site_docs/downloads/`, `site/`, and `output/` as generated, ignored output. Regenerate
   them from the active Markdown instead of editing or committing them.
 
-The tracked `site_docs/fall_2026/IMPORTANT_DATES.md` file is the stable page wrapper. Its table
-content comes from the first worksheet of the linked Google Sheet. `pipeline/build_site.py` runs
-the synchronization automatically; run only the synchronization step with:
+The tracked `site_docs/fall_2026/shared/IMPORTANT_DATES.md` file is the stable page wrapper. Its
+table content comes from the first worksheet of the linked Google Sheet. `pipeline/build_site.py`
+runs the synchronization automatically; run only the synchronization step with:
 
 ```bash
 source source_me.sh && python3 pipeline/sync_important_dates.py
@@ -72,12 +79,16 @@ neither stale dates nor download links without their generated targets.
 
 ## Edit shared content
 
-- Edit a policy in `site_docs/<term>/policies/<topic>.md`.
+- Edit a policy in `site_docs/<term>/shared/policies/<topic>.md`.
 - Edit shared assessment rules and the letter-grade scale in
-  `site_docs/<term>/policies/ASSESSMENT.md`. Its student-facing title is **Grades and graded work**.
-- Edit office hours and instructor facts in `site_docs/<term>/shared/INSTRUCTOR_INFORMATION.md`.
-- Edit Roosevelt learning goals in `site_docs/<term>/shared/ROOSEVELT_LEARNING_GOALS.md`.
-- Edit shared support information in `site_docs/<term>/STUDENT_RESOURCES.md`.
+  `site_docs/<term>/shared/policies/ASSESSMENT.md`. Its student-facing title is **Grades and graded
+  work**.
+- Edit office hours and instructor facts in
+  `site_docs/<term>/shared/fragments/INSTRUCTOR_CONTACT_DETAILS.md`. The public
+  `shared/INSTRUCTOR_INFORMATION.md` page embeds this canonical body.
+- Edit Roosevelt learning goals in
+  `site_docs/<term>/shared/fragments/ROOSEVELT_LEARNING_GOALS.md`.
+- Edit shared support information in `site_docs/<term>/shared/STUDENT_RESOURCES.md`.
 
 Course pages link to these sources; they do not keep policy or grade-scale copies.
 
@@ -87,7 +98,8 @@ For Fall 2026, `site_docs/fall_2026/` is the only live syllabus authority. Do no
 parallel Markdown template tree, archived-term tree, or future-term copy. To add a course, create
 the standard course files listed under [Content organization](#content-organization) directly
 below that term, use a current course only as a structural guide, and add the new pages to
-`mkdocs.yml` navigation. Keep shared policy and resource files at the term level.
+`mkdocs.yml` navigation. Keep public term-wide material under `shared/` and include-only Markdown
+under `shared/fragments/`.
 
 Historical-term archive support is intentionally deferred until the Spring 2027 rollover. Until
 that work begins, do not add another term source tree or an archive navigation branch. The Spring

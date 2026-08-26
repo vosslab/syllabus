@@ -44,8 +44,8 @@ def test_remove_heading_sections_omits_web_only_policy_routes() -> None:
 	"""Complete documents keep the policy branch heading without its route lists."""
 	markdown = (
 		"# Dr. Voss course policies\n\nShared policy introduction.\n\n"
-		"## Policy topics\n\n- [Assessment](policies/ASSESSMENT.md)\n\n"
-		"## Student support\n\n- [Resources](STUDENT_RESOURCES.md)\n"
+		"## Policy topics\n\n- [Assessment](ASSESSMENT.md)\n\n"
+		"## Student support\n\n- [Resources](../STUDENT_RESOURCES.md)\n"
 	)
 	prepared = pipeline.build_syllabi.remove_heading_sections(
 		markdown,
@@ -58,11 +58,11 @@ def test_remove_heading_sections_omits_web_only_policy_routes() -> None:
 def test_rewrite_document_links_targets_included_section(tmp_path: pathlib.Path) -> None:
 	"""Source-page links become internal links when their target is included."""
 	source_path = tmp_path / "course" / "ASSIGNMENTS_AND_GRADING.md"
-	target_path = tmp_path / "policies" / "ASSESSMENT.md"
+	target_path = tmp_path / "shared" / "policies" / "ASSESSMENT.md"
 	markdown = (
-		"See [grade thresholds](../policies/ASSESSMENT.md#grades), "
-		"[grading policies](../policies/ASSESSMENT.md), and "
-		"[other policies](../policies/OTHER.md)."
+		"See [grade thresholds](../shared/policies/ASSESSMENT.md#grades), "
+		"[grading policies](../shared/policies/ASSESSMENT.md), and "
+		"[other policies](../shared/policies/OTHER.md)."
 	)
 	rewritten = pipeline.build_syllabi.rewrite_document_links(
 		markdown,
@@ -71,7 +71,7 @@ def test_rewrite_document_links_targets_included_section(tmp_path: pathlib.Path)
 	)
 	assert rewritten == (
 		"See [grade thresholds](#grades), [grading policies](#assessment), and "
-		"[other policies](../policies/OTHER.md)."
+		"[other policies](../shared/policies/OTHER.md)."
 	)
 
 
@@ -80,20 +80,21 @@ def test_compose_markdown_links_to_embedded_instructor_section(tmp_path: pathlib
 	"""Policy routes target instructor information already embedded in course details."""
 	term_path = tmp_path / "fall_20xx"
 	course_path = term_path / "course"
-	policy_path = term_path / "policies"
+	shared_path = term_path / "shared"
+	policy_path = shared_path / "policies"
 	course_path.mkdir(parents=True)
-	policy_path.mkdir()
+	policy_path.mkdir(parents=True)
 	index_path = course_path / "index.md"
 	details_path = course_path / "COURSE_DETAILS.md"
-	policies_path = term_path / "POLICIES.md"
-	instructor_route_path = policy_path / "INSTRUCTOR_INFORMATION.md"
+	policies_path = policy_path / "index.md"
+	instructor_route_path = shared_path / "INSTRUCTOR_INFORMATION.md"
 	write_section(index_path, "Course title")
 	details_path.write_text(
 		"# Meetings and instructor\n\n## Instructor information\n\nContact details.\n",
 		encoding="utf-8",
 	)
 	policies_path.write_text(
-		"# Policies\n\nSee [Instructor information](policies/INSTRUCTOR_INFORMATION.md).\n",
+		"# Policies\n\nSee [Instructor information](../INSTRUCTOR_INFORMATION.md).\n",
 		encoding="utf-8",
 	)
 	write_section(instructor_route_path, "Instructor information")
@@ -111,7 +112,7 @@ def test_compose_markdown_links_to_embedded_instructor_section(tmp_path: pathlib
 	)
 	combined = pipeline.build_syllabi.compose_markdown(manifest)
 	assert "[Instructor information](#instructor-information)" in combined
-	assert "(policies/INSTRUCTOR_INFORMATION.md)" not in combined
+	assert "(../INSTRUCTOR_INFORMATION.md)" not in combined
 
 
 #============================================
@@ -200,7 +201,7 @@ def write_section(path: pathlib.Path, heading: str) -> None:
 #============================================
 def test_expand_shared_includes_inlines_canonical_markdown(tmp_path: pathlib.Path) -> None:
 	"""A course page can render one canonical term-level Markdown fragment."""
-	shared_dir = tmp_path / "fall_2026" / "shared"
+	shared_dir = tmp_path / "fall_2026" / "shared" / "fragments"
 	shared_dir.mkdir(parents=True)
 	include_path = shared_dir / "ROOSEVELT_LEARNING_GOALS.md"
 	include_path.write_text("- Effective communication.\n", encoding="utf-8")
@@ -209,7 +210,7 @@ def test_expand_shared_includes_inlines_canonical_markdown(tmp_path: pathlib.Pat
 	markdown = (
 		"# Learning Objectives, Outcomes, and Goals\n\n"
 		"## Roosevelt learning goals\n\n"
-		'--8<-- "fall_2026/shared/ROOSEVELT_LEARNING_GOALS.md"\n\n'
+		'--8<-- "fall_2026/shared/fragments/ROOSEVELT_LEARNING_GOALS.md"\n\n'
 		"Following paragraph.\n"
 	)
 	expanded = pipeline.build_syllabi.expand_shared_includes(markdown, source_path, tmp_path)
@@ -250,8 +251,9 @@ def test_learning_framework_requires_all_four_ordered_sections(tmp_path: pathlib
 def test_compose_markdown_appends_policy_and_resources_once(tmp_path: pathlib.Path) -> None:
 	"""The manifest order keeps policies and resources separate and non-duplicated."""
 	index_path = tmp_path / "index.md"
-	policy_path = tmp_path / "POLICIES.md"
-	resource_path = tmp_path / "STUDENT_RESOURCES.md"
+	policy_path = tmp_path / "shared" / "policies" / "index.md"
+	resource_path = tmp_path / "shared" / "STUDENT_RESOURCES.md"
+	policy_path.parent.mkdir(parents=True)
 	write_section(index_path, "Course title")
 	write_section(policy_path, "Policies")
 	write_section(resource_path, "Student resources")
