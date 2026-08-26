@@ -41,6 +41,8 @@
   course grading pages and the FAQ now link to that policy instead of repeating its thresholds.
 - Stopped tracking generated PDF and DOCX downloads under `site_docs/downloads/`, added the
   directory to the ignore policy, and moved the DOCX renderer reference beside the export pipeline.
+- Documented the complete source-to-output boundary: active-term Markdown is authoritative, while
+  website, PDF, DOCX, and ZIP artifacts are regenerated outputs rather than editable copies.
 - Changed the public site source from maintainer `docs/` to `site_docs/` and added explicit
   term/course navigation with complete PDF and DOCX download controls.
 - Replaced filename-oriented course links with student-facing task labels such as meetings,
@@ -187,6 +189,9 @@
 
 - Treat the current term as the live editable version. Create a historical snapshot only when the
   term closes, before starting the next live term, rather than maintaining a parallel snapshot.
+- Deferred historical-term archive design and the first term rollover until Spring 2027. Fall 2026
+  remains the only term source tree; the current `--archive` flag packages generated documents but
+  does not establish a second Markdown authority.
 - Removed the `raw/` local-input concept and made tracked public Markdown the only repository
   content authority.
 - Kept the implementation plan active through autonomous grading, schedule, policy, export, and

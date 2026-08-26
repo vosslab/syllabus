@@ -15,7 +15,10 @@
   course-specific policy documents that ask students or maintainers to reconcile two versions.
 - Treat the active term under `site_docs/` as the only live content authority. Do not maintain a
   parallel Markdown template tree or a future-term copy during the active term.
-- Snapshot a completed term only when the term closes, before creating the next live term.
+- During Fall 2026, do not create an archived-term source tree. Defer archive design and the first
+  historical rollover until Spring 2027.
+- Generate `site_docs/downloads/`, `site/`, and `output/` from the live Markdown. Never edit or
+  commit generated output as a competing content source.
 - Keep course-specific details, assignments, schedules, and learning statements in their course
   folders while drawing shared facts and policies from canonical term-level sources.
 
@@ -62,8 +65,8 @@
   system-administration concepts.
 - Make every course in the active semester directly accessible from the main page. For Fall 2026,
   show BIOL 318/418, BIOL 351/451, and BIOL 480 without requiring a term-page detour.
-- Show future-term and archived-term sections only when real content exists. Add the archive route
-  when the first archived term exists rather than displaying a placeholder.
+- Keep future-term and archive navigation absent during Fall 2026. Add archive routes only after
+  the Spring 2027 rollover defines and creates the first historical snapshot.
 - Explain Blackboard as the location for private meeting links, assignments, grades, and course
   announcements. Use that concrete context instead of an unexplained **Secure course access**
   label.

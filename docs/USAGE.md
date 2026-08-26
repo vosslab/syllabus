@@ -12,7 +12,7 @@ Public course content lives under `site_docs/<term>/<course>/`. Each course cont
   Objectives, Outcomes, and Goals**.
 - `ASSIGNMENTS_AND_GRADING.md` for assessment and grade calculations.
 - `SCHEDULE.md` for literal meeting dates and topics.
-- `syllabus.yml` for export order, metadata, and publication state.
+- `syllabus.yml` for complete-document order and metadata.
 
 Each term keeps a short `POLICIES.md` topic index, canonical topic files under `policies/`, and one
 `STUDENT_RESOURCES.md` file for support information. Every course links to the shared policy and
@@ -35,6 +35,23 @@ Only public-safe canonical content belongs in this repository. Do not create an 
 tree for private syllabi, credentials, meeting links, student information, or access-controlled
 material; transfer only public facts into the tracked Markdown sources.
 
+## Source and generated boundary
+
+- Edit syllabus content only under the active `site_docs/<term>/` tree.
+- Keep course-specific facts in their course folder and each shared fact or policy in one canonical
+  term-level file. Link or embed that source wherever students need it.
+- Do not create Markdown or YAML syllabus content under `templates/`; the build rejects that second
+  authority.
+- Treat `pipeline/syllabus_reference.docx` as a tracked renderer asset, not a syllabus-content
+  template.
+- Treat `site_docs/downloads/`, `site/`, and `output/` as generated, ignored output. Regenerate
+  them from the active Markdown instead of editing or committing them.
+
+`pipeline/build_syllabi.py` composes each manifest's course pages, shared policies, and student
+resources into one DOCX and one PDF. `pipeline/build_site.py` runs that document generation first
+and then performs the strict MkDocs build, so the website never publishes download links without
+their generated targets.
+
 ## Edit shared content
 
 - Edit a policy in `site_docs/<term>/policies/<topic>.md`.
@@ -47,15 +64,16 @@ Course pages link to these sources; they do not keep policy or grade-scale copie
 
 ## Live-term lifecycle
 
-Treat the active term folder as the only live syllabus authority. Do not maintain a parallel
-Markdown template tree or a future-term copy while the current term is active. To add a course,
-create the standard course files listed under [Content organization](#content-organization)
-directly below the active term, use a current course only as a structural guide, and add the new
-pages to `mkdocs.yml` navigation. Keep shared policy and resource files at the term level.
+For Fall 2026, `site_docs/fall_2026/` is the only live syllabus authority. Do not maintain a
+parallel Markdown template tree, archived-term tree, or future-term copy. To add a course, create
+the standard course files listed under [Content organization](#content-organization) directly
+below that term, use a current course only as a structural guide, and add the new pages to
+`mkdocs.yml` navigation. Keep shared policy and resource files at the term level.
 
-At the end of the term, build and preserve the completed term snapshot before creating the next
-active term. This is the point when historical duplication becomes intentional archival evidence,
-not another live editing target.
+Historical-term archive support is intentionally deferred until the Spring 2027 rollover. Until
+that work begins, do not add another term source tree or an archive navigation branch. The Spring
+rollover must define the snapshot location, tracked/generated boundary, and pipeline behavior
+before a second term is introduced.
 
 Add a `.meta.yml` file to the course folder to give every page in that folder the same web-header
 color:
@@ -113,12 +131,15 @@ source source_me.sh
 python3 pipeline/build_syllabi.py
 ```
 
-Create an offline term ZIP in `output/archive/`:
+Optionally package the current generated documents into a ZIP under `output/archive/`:
 
 ```bash
 source source_me.sh
 python3 pipeline/build_syllabi.py --archive
 ```
+
+This flag bundles the current generated PDF/DOCX files only. It does not create an archived-term
+Markdown source tree or implement the deferred historical-term rollover.
 
 Generated student downloads live in ignored, untracked `site_docs/downloads/`. The pipeline stages
 and validates the complete set before replacing current downloads, then builds the site so links

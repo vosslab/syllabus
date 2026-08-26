@@ -75,13 +75,17 @@ site_docs/fall_2026/
     `-- syllabus.yml
 ```
 
-The active term folder is the only live content authority. Add new course pages directly there,
-using the listed file structure and a current course as a structural guide. Shared policies stay
-in the term's `policies/` branch rather than being copied into a course or a parallel template
-tree. Snapshot the completed term only when it closes, before starting the next live term. Dates
-remain literal Markdown so calendar exceptions are explicit rather than hidden behind automatic
-shifting. See [docs/USAGE.md](docs/USAGE.md) for the complete authoring, export, archival, and
-validation workflow.
+For Fall 2026, `site_docs/fall_2026/` is the only live content authority. Add new course pages
+directly there, using the listed file structure and a current course as a structural guide. Shared
+policies stay in the term's `policies/` branch rather than being copied into courses or a parallel
+template tree. The website, PDF files, and DOCX files are generated views of this Markdown and must
+not be edited as content sources or committed as substitutes for it.
+
+Historical-term archive design and the first term rollover are deferred until Spring 2027. Do not
+create an archived-term or future-term source tree during Fall 2026. Dates remain literal Markdown
+so calendar exceptions are explicit rather than hidden behind automatic shifting. See
+[docs/USAGE.md](docs/USAGE.md) for the complete authoring, generation, validation, and deferred
+archive policy.
 
 ## Verification
 
@@ -105,7 +109,7 @@ Accessibility findings guide improvement but do not claim legal or PDF/UA compli
 ## Documentation
 
 - [docs/INSTALL.md](docs/INSTALL.md) - system tools, Python dependencies, fonts, and audit setup.
-- [docs/USAGE.md](docs/USAGE.md) - course authoring, builds, archives, and validation.
+- [docs/USAGE.md](docs/USAGE.md) - course authoring, generation, validation, and source ownership.
 - [docs/HCI_BRIEF.md](docs/HCI_BRIEF.md) - student navigation and accessibility design rationale.
 - [docs/active_plans/reports/fall_2026_content_review.md](docs/active_plans/reports/fall_2026_content_review.md)
   - non-blocking editorial refinement checklist.

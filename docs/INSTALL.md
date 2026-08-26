@@ -35,6 +35,10 @@ python3 pipeline/create_syllabus_reference_docx.py
 The generated reference file is `pipeline/syllabus_reference.docx`. It is a DOCX renderer asset,
 not syllabus content, and routine course editing does not require regenerating it.
 
+Course content is maintained only in the active term under `site_docs/`. The build regenerates
+`site_docs/downloads/` and `site/`; both directories are ignored outputs and are never editing
+sources.
+
 To run the optional browser accessibility audit locally, install its dependency and Chromium once:
 
 ```bash
