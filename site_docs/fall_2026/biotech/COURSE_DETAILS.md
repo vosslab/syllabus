@@ -5,7 +5,6 @@
 | Field | BIOL 480-10 | BIOL 480-24 |
 | --- | --- | --- |
 | CRN | 14705 | 11602 |
-| Cross-listed with | BIOL 480-24 | BIOL 480-10 |
 | Meeting | Thursday, 6:00-9:00 p.m. | Thursday, 6:00-9:00 p.m. |
 | Location | WB 416, Chicago campus | SCH 614, Schaumburg campus |
 | Format | Hybrid; videoconferenced | Hybrid; videoconferenced |

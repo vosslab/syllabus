@@ -5,7 +5,6 @@
 | Field | BIOL 318-20 | BIOL 418-20 |
 | --- | --- | --- |
 | CRN | 14466 | 14471 |
-| Cross-listed with | BIOL 418-20 | BIOL 318-20 |
 | Meeting | Wednesday, 5:00-5:55 p.m. | Wednesday, 5:00-5:55 p.m. |
 | Location | SCH 612 | SCH 612 |
 | Format | Hybrid; videoconferenced | Hybrid; videoconferenced |

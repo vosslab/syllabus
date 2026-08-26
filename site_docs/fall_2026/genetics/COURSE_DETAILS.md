@@ -5,7 +5,6 @@
 | Field | BIOL 351-24A | BIOL 451-24A |
 | --- | --- | --- |
 | CRN | 11427 | 11444 |
-| Cross-listed with | BIOL 451-24A | BIOL 351-24A |
 | Meeting | Tuesday, 1:30-4:25 p.m. | Tuesday, 1:30-4:25 p.m. |
 | Location | SCH 612 | SCH 612 |
 | Format | Face-to-face; Natural Science attribute | Face-to-face |
