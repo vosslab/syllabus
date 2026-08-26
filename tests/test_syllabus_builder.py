@@ -34,6 +34,47 @@ def test_prepare_section_removes_web_only_content() -> None:
 
 
 #============================================
+def test_download_links_cover_course_and_term_pages(tmp_path: pathlib.Path) -> None:
+	"""Each manifest output is linked from both student landing pages."""
+	docs_root = tmp_path / "site_docs"
+	term_path = docs_root / "fall_20xx"
+	course_path = term_path / "course"
+	downloads_dir = docs_root / "downloads"
+	course_path.mkdir(parents=True)
+	overview_path = course_path / "index.md"
+	term_overview_path = term_path / "index.md"
+	overview_path.write_text(
+		"../../downloads/BIOL_000_SYLLABUS.pdf\n"
+		"../../downloads/BIOL_000_SYLLABUS.docx\n",
+		encoding="utf-8",
+	)
+	term_overview_path.write_text(
+		"../downloads/BIOL_000_SYLLABUS.pdf\n"
+		"../downloads/BIOL_000_SYLLABUS.docx\n",
+		encoding="utf-8",
+	)
+	manifest = build_lib.syllabus_model.SyllabusManifest(
+		path=course_path / "syllabus.yml",
+		docs_root=docs_root,
+		title="Course title",
+		course_code="BIOL 000",
+		term="Fall 20XX",
+		author="Instructor",
+		language="en-US",
+		download_basename="BIOL_000_SYLLABUS",
+		sections=(overview_path,),
+		shared_sections=(),
+	)
+	build_lib.syllabus_content.verify_download_links(manifest, downloads_dir)
+	term_overview_path.write_text(
+		"../downloads/BIOL_000_SYLLABUS.pdf\n",
+		encoding="utf-8",
+	)
+	with pytest.raises(RuntimeError, match=r"fall_20xx/index\.md: missing complete-download link"):
+		build_lib.syllabus_content.verify_download_links(manifest, downloads_dir)
+
+
+#============================================
 def test_normalize_admonitions_for_docx() -> None:
 	"""Pandoc receives a portable equivalent of Material admonitions."""
 	markdown = '!!! warning "Review required"\n\n    Confirm the grading plan.\n'

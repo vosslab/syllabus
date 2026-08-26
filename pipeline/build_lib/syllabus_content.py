@@ -362,14 +362,21 @@ def verify_download_links(
 	manifest: build_lib.syllabus_model.SyllabusManifest,
 	downloads_dir: pathlib.Path,
 ) -> None:
-	"""Require overview download targets derived from manifest output names."""
+	"""Require course and term download targets derived from manifest output names."""
 	overview_path = manifest.sections[0]
-	overview_markdown = overview_path.read_text(encoding="utf-8")
+	term_overview_path = manifest.path.parent.parent / "index.md"
+	link_sources = (overview_path, term_overview_path)
 	for suffix in (".pdf", ".docx"):
 		target_path = downloads_dir / f"{manifest.download_basename}{suffix}"
-		relative_path = pathlib.Path(os.path.relpath(target_path, overview_path.parent)).as_posix()
-		if relative_path not in overview_markdown:
-			raise RuntimeError(f"{overview_path}: missing complete-download link: {relative_path}")
+		for source_path in link_sources:
+			source_markdown = source_path.read_text(encoding="utf-8")
+			relative_path = pathlib.Path(
+				os.path.relpath(target_path, source_path.parent)
+			).as_posix()
+			if relative_path not in source_markdown:
+				raise RuntimeError(
+					f"{source_path}: missing complete-download link: {relative_path}"
+				)
 	return None
 
 

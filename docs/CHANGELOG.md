@@ -35,6 +35,8 @@
 
 ### Behavior or Interface Changes
 
+- Added direct PDF and DOCX links for every course to the Fall 2026 overview, eliminating the need
+  to visit each course page before downloading a complete syllabus.
 - Replaced the separate PyMdown and exporter include languages with one exact full-line,
   double-quoted `--8<--` form. Paths resolve from `site_docs/`, and only Markdown below a directory
   named `fragments` or `generated` is authorized.
@@ -173,6 +175,9 @@
 
 ### Developer Tests and Notes
 
+- Extended manifest validation so every generated basename must appear on both its course landing
+  page and the term overview. Added the term route to the responsive accessibility matrix and a
+  browser check that its unique, descriptive download links match and load every published file.
 - Measured table-to-paragraph and table-to-heading gaps after a strict MkDocs rebuild. Chromium
   checks covered two-, three-, and four-column tables at 390-, 768-, and 1440-pixel viewports;
   only the four-column schedule required horizontal overflow at the mobile width.

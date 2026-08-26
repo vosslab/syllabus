@@ -1,7 +1,8 @@
 // Selector contract:
 // - Material theme markup comes from mkdocs.yml:10; navigation labels and routes come from
 //   mkdocs.yml:80.
-// - Current-course links and Blackboard context come from site_docs/index.md:1.
+// - Current-course links and Blackboard context come from site_docs/index.md:1; term download
+//   access comes from site_docs/fall_2026/index.md:14.
 // - The important-dates wrapper comes from site_docs/fall_2026/shared/IMPORTANT_DATES.md:1;
 //   its generated month tables come from pipeline/sync_important_dates.py:386.
 // - Main headings, prose, tables, course-page links, and download links come from
@@ -33,6 +34,7 @@ const COURSE_ROUTES = [
 
 const ROUTES = [
 	"/",
+	"/fall_2026/",
 	"/fall_2026/shared/IMPORTANT_DATES/",
 	...COURSE_ROUTES,
 	"/fall_2026/shared/policies/",
@@ -347,6 +349,46 @@ try {
 		"Grade",
 	]);
 	await gradingPage.close();
+
+	const termPage = await browser.newPage();
+	await termPage.goto(`${staticServer.baseUrl}/fall_2026/`);
+	const termDownloads = termPage.locator(".term-syllabus-downloads");
+	await termPage
+		.getByRole("heading", { name: "Complete syllabus downloads" })
+		.waitFor();
+	const termDownloadLinks = await termDownloads.getByRole("link").all();
+	const actualDownloadPaths = [];
+	const accessibleNames = [];
+	for (const downloadLink of termDownloadLinks) {
+		const accessibleName = (await downloadLink.textContent())
+			.replace(/\s+/g, " ")
+			.trim();
+		const downloadUrl = new URL(
+			await downloadLink.getAttribute("href"),
+			termPage.url(),
+		);
+		accessibleNames.push(accessibleName);
+		actualDownloadPaths.push(downloadUrl.pathname);
+		assert.equal(downloadUrl.origin, siteOrigin);
+		assert.match(
+			accessibleName,
+			/^BIOL .+ complete syllabus \((?:PDF|DOCX)\)$/,
+		);
+		const downloadResponse = await termPage.request.get(downloadUrl.href);
+		assert.equal(
+			downloadResponse.status(),
+			200,
+			`${accessibleName} did not load`,
+		);
+	}
+	const expectedDownloadPaths = fs
+		.readdirSync(path.join(siteRoot, "downloads"))
+		.filter((fileName) => [".docx", ".pdf"].includes(path.extname(fileName)))
+		.map((fileName) => `/downloads/${fileName}`)
+		.sort();
+	assert.deepEqual(actualDownloadPaths.sort(), expectedDownloadPaths);
+	assert.equal(new Set(accessibleNames).size, accessibleNames.length);
+	await termPage.close();
 
 	const coursePage = await browser.newPage();
 	await coursePage.goto(`${staticServer.baseUrl}/fall_2026/genetics/`);
