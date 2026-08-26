@@ -35,6 +35,9 @@
 
 ### Behavior or Interface Changes
 
+- Replaced the generic AI-use paragraph with one shared Fall 2026 honor-system policy that asks
+  students to build expertise before relying on AI, keeps the instructor's responsibility boundary
+  concise, and includes the refined forklift analogy and AI-writing caution across all courses.
 - Removed the parallel Markdown and manifest template tree; the active term under `site_docs/` is
   now the only live syllabus authority.
 - Made `site_docs/fall_2026/policies/GRADING.md` the sole source for the shared letter-grade scale;

@@ -63,6 +63,8 @@
 
 - Design navigation and labels for students rather than exposing repository, publication, or
   system-administration concepts.
+- Link to a readable parent page instead of directly to a PDF when both are available. A link
+  should not unexpectedly open or download a PDF.
 - Make every course in the active semester directly accessible from the main page. For Fall 2026,
   show BIOL 318/418, BIOL 351/451, and BIOL 480 without requiring a term-page detour.
 - Keep future-term and archive navigation absent during Fall 2026. Add archive routes only after
