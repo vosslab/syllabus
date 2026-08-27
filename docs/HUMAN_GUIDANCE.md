@@ -45,15 +45,12 @@ history. Those belong in the appropriate technical documentation or changelog.
 - Explain the Atkinson Hyperlegible Next choice in the student-facing syllabus and link to an
   English source about the font's accessibility purpose.
 - Avoid CSS specificity arms races. Keep style ownership and the cascade easy to understand.
-- Use subtle course color themes across headings and tables. Keep level-one headings left-aligned,
-  bold, and in small caps; keep level-two headings bold and slightly left-shifted, with a separate
-  paragraph-width accent rule below instead of a text underline; keep level-three headings bold and
-  aligned with body paragraphs; and keep level-four headings italic.
-- Keep term-level PDF and DOCX links small and directly below their course instead of giving
-  downloads a large standalone section. Show the same course-and-download list on both the main
-  page and term overview from one shared term fragment. On course landing pages and other
-  subpages, pair visible file-format labels with small Font Awesome PDF or Word icons rather than
-  relying on icon-only links.
+- Use subtle course colors across headings and tables. Use bold, left-aligned small-caps H1s; bold,
+  slightly left-shifted H2s with a paragraph-width accent rule instead of a text underline;
+  body-aligned bold H3s; and italic H4s.
+- Keep term PDF and DOCX links small below each course, never in a large standalone section. Reuse
+  one shared course-and-download list on both overview pages. Elsewhere, pair visible format labels
+  with small Font Awesome PDF or Word icons instead of using icon-only links.
 - Justify long-form paragraphs at comfortable widths without aggressive automatic hyphenation.
   Return narrow screens to left alignment, and allow emergency wrapping for long URLs and code.
 - Keep the heading, paragraph, and table design readable in both MkDocs Material and WeasyPrint,
@@ -77,10 +74,9 @@ history. Those belong in the appropriate technical documentation or changelog.
 - Treat tests as evidence for intended product behavior, not as requirements that justify hacky
   production changes. When a test drives an otherwise-unwanted workaround, remove or redesign the
   test unless an independent user need or durable contract supports the production change.
-- Review every proposed test plan against `REPO_STYLE.md`, `PYTEST_STYLE.md`,
-  `tests/TESTS_README.md`, `devel/DEVEL_README.md`, and the relevant style documentation. Reject
-  unnecessary or fragile tests, extraneous fixtures, networked fast tests, and misplaced files
-  before implementation.
+- Review test plans against `REPO_STYLE.md`, `PYTEST_STYLE.md`, `tests/TESTS_README.md`,
+  `devel/DEVEL_README.md`, and relevant style docs. Before implementation, reject fragile or
+  unnecessary tests, extraneous fixtures, networked fast tests, and misplaced files.
 - I do not actively monitor agent chats. Finish obvious, safe, evidence-backed follow-through and
   validation without waiting for routine confirmation. Stop only when the next action is risky,
   requires new authority, or would materially change the requested outcome.

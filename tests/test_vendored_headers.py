@@ -1,22 +1,3 @@
-"""Check that vendored header regions in consumer-owned docs stay well formed.
-
-Propagation seeds `docs/HUMAN_GUIDANCE.md` and `docs/DESIGN_DECISIONS.md`, then
-refreshes the marked region inside each on every sync while this repository's own
-entries stay untouched.
-
-Two situations this catches, both of which propagation alone leaves quiet:
-
-- A file whose marker pair became ambiguous (unpaired, duplicated, or reversed).
-  Propagation reports an error and leaves such a file alone by design, so the
-  file keeps its stale header until somebody notices the error line.
-- A file rewritten wholesale, losing its header. The next sync restores it, but
-  until then the file carries no statement of what belongs in it.
-
-Scope is deliberately narrow: presence and shape of the region. Section names and
-entry length are guidance in `docs/REPO_STYLE.md`, not a contract, and they vary
-by repository.
-"""
-
 # Standard Library
 import os
 
@@ -26,68 +7,142 @@ import pytest
 # local repo modules
 import file_utils
 
-
-REPO_ROOT = file_utils.get_repo_root()
-
-# Marker pair written by propagation. Keep these strings in step with the
-# template's vendored headers.
-HEADER_START_MARKER = '<!-- VENDORED HEADER: START -->'
-HEADER_END_MARKER = '<!-- VENDORED HEADER: END -->'
-
-# Consumer-owned docs that carry a vendored header region.
-HEADER_DOCS = (
-	'docs/HUMAN_GUIDANCE.md',
-	'docs/DESIGN_DECISIONS.md',
-)
+# Marker pair written by propagation into files it seeds and then refreshes.
+# Any file carrying these markers is checked, so a file added to the HEADER
+# bucket later is covered here without editing this test.
+HEADER_START_MARKER = "<!-- VENDORED HEADER: START -->"
+HEADER_END_MARKER = "<!-- VENDORED HEADER: END -->"
 
 
 #============================================
-def read_doc_lines(file_rel: str) -> list[str]:
+def marker_lines(lines: list[str]) -> tuple[list[int], list[int]]:
 	"""
-	Return the lines of a header-carrying doc, skipping the test when it is absent.
+	Return the line numbers of start and end markers outside fenced code blocks.
 
-	A repository that has not synced yet legitimately lacks these files; the next
-	propagation run seeds them.
+	Docs that document the marker convention quote it inside a fence. Those
+	quotations are examples, not a header region, so fenced content is skipped
+	here and such a file never enters discovery.
 
 	Args:
-		file_rel (str): Repo-relative POSIX path of the doc.
+		lines: All lines of the file.
 
 	Returns:
-		list[str]: Lines of the file, without line endings.
+		tuple[list[int], list[int]]: One-based start and end marker line numbers.
 	"""
-	path = os.path.join(REPO_ROOT, file_rel)
-	if not os.path.isfile(path):
-		pytest.skip(f"{file_rel} is not present yet; propagation seeds it")
-	with open(path, 'r', encoding='utf-8') as file_handle:
-		text = file_handle.read()
-	return text.splitlines()
+	starts: list[int] = []
+	ends: list[int] = []
+	in_fence = False
+	for line_number, line in enumerate(lines, 1):
+		stripped = line.strip()
+		if stripped.startswith("```"):
+			in_fence = not in_fence
+			continue
+		if in_fence:
+			continue
+		if stripped == HEADER_START_MARKER:
+			starts.append(line_number)
+		if stripped == HEADER_END_MARKER:
+			ends.append(line_number)
+	return starts, ends
 
 
 #============================================
-@pytest.mark.parametrize("file_rel", HEADER_DOCS)
-def test_vendored_header_is_well_formed(file_rel: str) -> None:
-	"""The doc carries exactly one marker pair, in order."""
-	lines = read_doc_lines(file_rel)
-	start_lines = [num for num, line in enumerate(lines, 1) if line.strip() == HEADER_START_MARKER]
-	end_lines = [num for num, line in enumerate(lines, 1) if line.strip() == HEADER_END_MARKER]
-	message = (
-		f"{file_rel}: expected one vendored header region.\n"
-		f"  start markers on lines: {start_lines}\n"
-		f"  end markers on lines:   {end_lines}\n"
-		f"  Run propagation to restore the header, or repair the markers by hand "
-		f"when the pair is ambiguous."
+def carries_header_markers(rel: str) -> bool:
+	"""
+	Select files that carry, or should carry, a vendored header region.
+
+	A file counts when either marker appears outside a fence, so a half-removed
+	pair is still checked rather than quietly dropping out of discovery.
+
+	Args:
+		rel: Repo-relative POSIX path offered by discovery.
+
+	Returns:
+		bool: True when the file carries either marker as content.
+	"""
+	abs_path = os.path.join(file_utils.get_repo_root(), rel)
+	with open(abs_path, "r", encoding="utf-8") as handle:
+		lines = handle.read().splitlines()
+	starts, ends = marker_lines(lines)
+	return bool(starts or ends)
+
+
+FILES = file_utils.discover_files(
+	extensions=(".md",), extra_filter=carries_header_markers, test_key="vendored_headers"
+)
+
+REPORT_NAME = file_utils.report_name(__file__)
+
+HEADER = "vendored header violations"
+
+# Module-level dict of repo-relative POSIX key -> list of violation lines.
+# Populated by the autouse collect_report fixture before any test runs.
+VIOLATIONS_BY_FILE: dict[str, list[str]] = {}
+
+
+#============================================
+def check_file(rel: str) -> list[str]:
+	"""
+	Check that a file carries exactly one non-empty vendored header region.
+
+	Propagation rewrites this region on every sync and refuses to touch a file
+	whose markers are ambiguous, so a damaged pair stays damaged until someone
+	notices. This check surfaces that, and the loss of a header from a file that
+	was rewritten wholesale.
+
+	Args:
+		rel: Repo-relative POSIX path for the file.
+
+	Returns:
+		list[str]: Violation lines (empty when the region is well formed).
+	"""
+	abs_path = os.path.join(file_utils.get_repo_root(), rel)
+	with open(abs_path, "r", encoding="utf-8") as handle:
+		lines = handle.read().splitlines()
+	starts, ends = marker_lines(lines)
+	if (len(starts), len(ends)) != (1, 1):
+		return [
+			f"{rel}: expected one vendored header region "
+			f"(start markers {starts}, end markers {ends}); "
+			f"run propagation to restore it, or repair the markers by hand"
+		]
+	if starts[0] > ends[0]:
+		return [f"{rel}:{ends[0]}: vendored header end marker precedes its start marker"]
+	region = [line for line in lines[starts[0]:ends[0] - 1] if line.strip()]
+	if not region:
+		return [f"{rel}:{starts[0]}: vendored header region is empty; run propagation to restore it"]
+	return []
+
+
+#============================================
+@pytest.fixture(scope="module", autouse=True)
+def collect_report() -> None:
+	"""
+	Autouse fixture: clear stale reports, populate VIOLATIONS_BY_FILE, write report.
+
+	Runs the guarded once-per-process cleanup first, rebuilds the module-level
+	violations dict via the shared harness, then writes the report only when there
+	are violations.
+	"""
+	# Once-per-process guarded cleanup of repo-root report_*.txt (no-op after first call).
+	file_utils.clear_stale_reports()
+	# Clear any state left from a previous collection in the same process.
+	VIOLATIONS_BY_FILE.clear()
+	VIOLATIONS_BY_FILE.update(file_utils.collect_file_violations(FILES, check_file))
+	lines = file_utils.format_violation_report(HEADER, VIOLATIONS_BY_FILE)
+	# Write only when there are violations; cleanup already removed stale reports.
+	if lines:
+		file_utils.write_report_lines(REPORT_NAME, lines)
+
+
+#============================================
+@pytest.mark.parametrize("path", FILES, ids=file_utils.rel_id)
+def test_vendored_headers(path: str) -> None:
+	"""Fail on a missing, unpaired, reversed, duplicated, or empty header region."""
+	rel = file_utils.rel_to_root(path)
+	# Python evaluates an assert's message expression ONLY when the assert fails,
+	# so format_violation_assert_message runs on the failing path only -- not per pass.
+	assert rel not in VIOLATIONS_BY_FILE, file_utils.format_violation_assert_message(
+		rel, VIOLATIONS_BY_FILE.get(rel, []), REPORT_NAME
 	)
-	assert (len(start_lines), len(end_lines)) == (1, 1), message
-	assert start_lines[0] < end_lines[0], message
-
-
-#============================================
-@pytest.mark.parametrize("file_rel", HEADER_DOCS)
-def test_vendored_header_carries_text(file_rel: str) -> None:
-	"""The region holds instruction text rather than an empty shell."""
-	lines = read_doc_lines(file_rel)
-	start_index = next(num for num, line in enumerate(lines) if line.strip() == HEADER_START_MARKER)
-	end_index = next(num for num, line in enumerate(lines) if line.strip() == HEADER_END_MARKER)
-	body_lines = [line for line in lines[start_index + 1:end_index] if line.strip()]
-	message = f"{file_rel}: vendored header region is empty; run propagation to restore it"
-	assert body_lines, message
+# Vendored pytest file. Local changes can and will be overwritten.

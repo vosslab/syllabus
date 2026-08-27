@@ -22,6 +22,8 @@
 
 ### Fixes and Maintenance
 
+- Tightened three long owner-guidance bullets to satisfy the vendored three-line entry limit while
+  preserving their heading-style, download-presentation, and test-plan review requirements.
 - Recorded the durable owner requirement that syllabus content address students directly as its
   audience, even though students may be the least likely readers of the complete syllabus.
 - Corrected the rubric review so documenting one program role does not count as proof that every
