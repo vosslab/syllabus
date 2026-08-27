@@ -367,6 +367,32 @@
 	content: "\f1c2";
 }
 
+/* Distinguish Roosevelt destinations from other websites in syllabus content. */
+.md-typeset a[href^="http://"]::after,
+.md-typeset a[href^="https://"]::after {
+	content: "\f35d";
+	display: inline-block;
+	font-family: "Font Awesome 6 Free";
+	font-size: 0.72em;
+	font-style: normal;
+	font-weight: 900;
+	line-height: 1;
+	margin-inline-start: 0.32em;
+	text-decoration: none;
+	text-rendering: auto;
+	vertical-align: 0.08em;
+	-webkit-font-smoothing: antialiased;
+}
+
+.md-typeset a[href^="http://roosevelt.edu"]::after,
+.md-typeset a[href^="https://roosevelt.edu"]::after,
+.md-typeset a[href^="http://www.roosevelt.edu"]::after,
+.md-typeset a[href^="https://www.roosevelt.edu"]::after,
+.md-typeset a[href^="http://"][href*=".roosevelt.edu/"]::after,
+.md-typeset a[href^="https://"][href*=".roosevelt.edu/"]::after {
+	content: "\f19c";
+}
+
 .syllabus-downloads ul {
 	display: flex;
 	flex-wrap: wrap;

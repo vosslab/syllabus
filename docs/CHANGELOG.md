@@ -42,6 +42,15 @@
 
 ### Behavior or Interface Changes
 
+- Replaced the obsolete extra-credit document, SafeAssign, total-word-count, similarity-score, and
+  heading workflow with four category-specific Google Forms. Recast the former write-up as the
+  forms' actual structured fields: activity evidence, rating, short focus and reflection responses,
+  five brief definitions, and category-specific questions. Retained current-semester eligibility,
+  the shared deadline, grading timing, and activity-specific requirements.
+- Added separate self-hosted Font Awesome link marks within syllabus content: Roosevelt-owned
+  destinations use the building-columns mark, other HTTP(S) destinations use the external-link
+  mark, and internal syllabus navigation remains unmarked. The distinction inherits the existing
+  accessible link color in both light and dark modes and requires no extra link text or CSS class.
 - Restructured Help and student services for consistent scanning: explanatory prose now introduces
   each service, parallel campuses and contact methods use sibling labeled bullets, and tutoring,
   coaching, and Disability Services are grouped beneath Learning Commons. Corrected the pantry's
@@ -319,6 +328,29 @@
 
 ### Developer Tests and Notes
 
+- Audited the five offline link-checker tests against every permanent-test criterion in
+  `PYTEST_STYLE.md`. They remain permanent because they cover durable parser, encoding, soft-error,
+  source-location, and input-boundary behavior with inline `tmp_path` data, no network, no timing,
+  and one or two meaningful assertions. Live URL visits, redirect/title inspection, form-status
+  checks, screenshots, computed CSS glyph checks, and viewport overflow probes remain one-time
+  implementation evidence; their temporary scripts were removed rather than added to the suite.
+- Visited all supplied Extra credit forms after submissions opened and inspected the public field
+  definitions for Categories 1, 3, and 4. Category 2 correctly requires Google sign-in. Confirmed
+  that the first two originally supplied short links resolve to the same Category 4 form, so the
+  duplicate is omitted, and verified the later Category 1 link against its live seminar title and
+  field structure.
+- Rebuilt the strict site and verified the domain marks on Help and student services at 1440 by 900
+  in light mode and 390 by 844 in dark mode. Computed pseudo-element inspection confirmed the
+  building-columns glyph on `roosevelt.edu` and its subdomains, the external-link glyph on
+  third-party hosts, and no horizontal overflow in either viewport. All 1,012 fast tests passed.
+  The all-route Playwright run stopped before the affected route checks on a pre-existing generated
+  artifact mismatch: ignored `STALE_SYLLABUS.pdf` and `.docx` files were present in the download
+  source but correctly absent from the freshly rebuilt site; those generated files were left alone.
+- Rebuilt the strict MkDocs site and reviewed Help and student services at 1440 by 900 and 390 by
+  844 after the content-structure pass. Both views retained a clear service/contact hierarchy with
+  no horizontal overflow. All 15 external links on the page passed the live checker, and the
+  focused Markdown, ASCII, and syllabus-builder suites passed all 220 tests. The complete fast lane
+  passed all 1,012 tests after aligning the link checker's executable bit with its shebang.
 - Verified all 49 unique HTTP(S) links in the active Fall 2026 authority and all 39 links in the
   supplied 2026-2027 university reference with zero failures. All 989 fast tests passed. The full
   `all_test.sh` then stopped at the public-source boundary before document rendering because the
