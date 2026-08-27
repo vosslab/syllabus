@@ -26,7 +26,7 @@
 site_docs/
 |-- index.md                         Student homepage
 |-- assets/
-|   |-- fonts/                       Self-hosted web fonts and license
+|   |-- fonts/                       Self-hosted text/icon fonts and licenses
 |   |-- images/favicon.svg           Protein-themed site icon
 |   |-- javascripts/accessibility.js Accessible table behavior
 |   `-- stylesheets/                 Website and PDF presentation

@@ -24,8 +24,13 @@ history. Those belong in the appropriate technical documentation or changelog.
 - Provide a student-accessible light and dark theme toggle.
 - Avoid CSS specificity arms races. Keep style ownership and the cascade easy to understand.
 - Use subtle course color themes across headings and tables. Keep level-one headings left-aligned,
-  bold, and in small caps; level-two headings bold, underlined, and slightly left-shifted;
-  level-three headings bold and aligned with body paragraphs; and level-four headings italic.
+  bold, and in small caps; keep level-two headings bold and slightly left-shifted, with a separate
+  paragraph-width accent rule below instead of a text underline; keep level-three headings bold and
+  aligned with body paragraphs; and keep level-four headings italic.
+- Keep term-level PDF and DOCX links small and directly below their course instead of giving
+  downloads a large standalone section. On both the term overview and course landing pages, pair
+  visible file-format labels with small Font Awesome PDF or Word icons rather than relying on
+  icon-only links.
 - Justify long-form paragraphs at comfortable widths without aggressive automatic hyphenation.
   Return narrow screens to left alignment, and allow emergency wrapping for long URLs and code.
 - Keep the heading, paragraph, and table design readable in both MkDocs Material and WeasyPrint,
@@ -41,6 +46,8 @@ history. Those belong in the appropriate technical documentation or changelog.
   gates; enforce those expectations through local maintainer checks.
 - `all_test.sh` means all local validation. It must include the live Google Sheets build as well as
   pytest, export E2E, and Playwright.
+- Treat implementation-time and rebuild-only probes as one-time evidence. Keep a test permanently
+  only when it satisfies the durable-test checklist in `PYTEST_STYLE.md`; when in doubt, remove it.
 
 ## Code architecture
 

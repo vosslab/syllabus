@@ -14,6 +14,14 @@
 	src: url("../fonts/atkinson_hyperlegible_next_italic.woff2") format("woff2");
 }
 
+@font-face {
+	font-family: "Font Awesome 6 Free";
+	font-style: normal;
+	font-weight: 900;
+	font-display: block;
+	src: url("../fonts/fa-solid-900.woff2") format("woff2");
+}
+
 :root {
 	--md-text-font: "Atkinson Hyperlegible Next";
 	--syllabus-roosevelt-green-dark: #008852;
@@ -117,15 +125,12 @@
 }
 
 .md-typeset h2 {
+	border-block-end: 0.12rem solid var(--syllabus-page-accent);
 	font-weight: 700;
 	line-height: 1.2;
 	margin-block: 1.05em 0.35em;
 	margin-inline-start: -0.25rem;
-	text-decoration-color: var(--syllabus-page-accent);
-	text-decoration-line: underline;
-	text-decoration-skip-ink: auto;
-	text-decoration-thickness: 0.11em;
-	text-underline-offset: 0.16em;
+	padding-block-end: 0.2em;
 }
 
 .md-typeset h3 {
@@ -239,6 +244,52 @@
 	margin-block: 0.65rem;
 }
 
+.term-course-list > li {
+	margin-block: 0.8rem;
+}
+
+.term-course-downloads {
+	align-items: center;
+	display: flex;
+	flex-wrap: wrap;
+	font-size: 0.82em;
+	gap: 0.2rem 0.7rem;
+	margin-block-start: 0.2rem;
+}
+
+.term-download-link {
+	align-items: center;
+	display: inline-flex;
+	font-weight: 650;
+	gap: 0.25em;
+	white-space: nowrap;
+}
+
+/* Font Awesome Free file icons, https://fontawesome.com/license/free. */
+.term-download-link::before,
+.syllabus-downloads a[href$=".pdf"]::before,
+.syllabus-downloads a[href$=".docx"]::before {
+	display: inline-block;
+	flex: 0 0 auto;
+	font-family: "Font Awesome 6 Free";
+	font-size: 0.95em;
+	font-style: normal;
+	font-weight: 900;
+	line-height: 1;
+	text-rendering: auto;
+	-webkit-font-smoothing: antialiased;
+}
+
+.term-download-link--pdf::before,
+.syllabus-downloads a[href$=".pdf"]::before {
+	content: "\f1c1";
+}
+
+.term-download-link--docx::before,
+.syllabus-downloads a[href$=".docx"]::before {
+	content: "\f1c2";
+}
+
 .syllabus-downloads ul {
 	display: flex;
 	flex-wrap: wrap;
@@ -251,6 +302,7 @@
 .syllabus-downloads a {
 	display: inline-flex;
 	align-items: center;
+	gap: 0.35em;
 	min-height: 2.75rem;
 }
 

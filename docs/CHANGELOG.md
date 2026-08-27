@@ -35,6 +35,13 @@
 
 ### Behavior or Interface Changes
 
+- Moved the Fall 2026 PDF and DOCX links into a compact row directly below each course on the term
+  overview. Visible file-format labels now include small, self-hosted Font Awesome PDF or Word
+  icons on both the term overview and course landing pages, and the oversized standalone download
+  section is gone. The local Font Awesome font and its license follow the established Biology
+  Problems website installation.
+- Replaced website level-two heading text underlines with a separate course-colored rule spanning
+  the reading column, so headings no longer resemble links.
 - Gave the Material website and WeasyPrint PDF one shared visual hierarchy: bold small-caps
   level-one headings, bold solid-underlined and slightly left-shifted level-two headings, bold
   paragraph-aligned level-three headings, and italic level-four headings. Course colors now appear
@@ -98,6 +105,11 @@
 
 ### Fixes and Maintenance
 
+- Audited the rebuild's new browser assertions against the permanent-test checklist. Removed
+  computed CSS layout and font-size checks, exact course/link counts, old-heading absence, and
+  Font Awesome family, load, and pseudo-element content probes from the permanent Playwright suite.
+  The suite retains accessible download discovery, artifact parity, HTTP delivery, focus,
+  accessibility, and overflow behavior.
 - Corrected the README license links to target the tracked extensionless legal filenames used for
   GitHub license recognition while preserving descriptive Creative Commons and LGPL link text.
 - Replaced the PDF's blanket new-page rule for every merged source with a transitional rule that
@@ -160,6 +172,10 @@
 
 ### Decisions and Failures
 
+- Classified the compact-row screenshots and the computed layout, relative font size, Font Awesome
+  load, font family, and distinct-glyph checks as one-time rebuild evidence. Those checks proved the
+  requested presentation during implementation but describe the current technique rather than a
+  stable student-facing contract, so they do not remain as permanent tests.
 - Kept the pagination repair deliberately narrow ahead of the planned content-order review. The
   current stable `course-overview` and `policies` anchors provide the two certain document
   boundaries; manifest-owned semantic document groups remain the durable follow-up after the order
@@ -210,6 +226,15 @@
 
 ### Developer Tests and Notes
 
+- After removing rebuild-only assertions, passed all 962 pytest checks, the live Google Sheets
+  refresh, all three DOCX/PDF pairs, export/include parity, and both strict site builds through
+  `all_test.sh`. Its Chromium launch was denied by the macOS sandbox before assertions ran; the
+  same final `npm run test:playwright` lane passed with browser permission.
+- Passed the complete `all_test.sh` gate after the term-overview, heading-divider, and Font Awesome
+  changes: all 959 fast tests, the live dates refresh, all three final DOCX/PDF pairs, the export
+  and include-parity E2E, both strict site builds, and the Playwright accessibility/browser audit.
+  Rendered review covered the Fall 2026 overview and General Genetics landing page at mobile and
+  desktop widths in light and dark modes.
 - Rebuilt all three final PDF/DOCX pairs after the transitional pagination repair. The PDFs now
   use 27, 28, and 28 pages instead of 33, 34, and 33; rendered contact-sheet review covered all 83
   pages plus full-size section transitions and found no isolated headings, clipping, overlap,

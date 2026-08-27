@@ -51,13 +51,18 @@ npm ci
 ./devel/setup_playwright.sh
 ```
 
-## Bundled web font
+## Bundled web fonts
 
 The website self-hosts the upright and italic Atkinson Hyperlegible Next variable fonts from the
 [official Google Fonts source](https://github.com/googlefonts/atkinson-hyperlegible-next). The two
 WOFF2 files cover weights 200 through 800. The distribution includes its required SIL Open Font
-License beside the font files. The Material configuration keeps remote fonts disabled. GitHub
-Pages serves the font and license files with the rest of the static site.
+License beside the font files.
+
+The website also self-hosts the Font Awesome 6 Free solid font used for the PDF and Word file-type
+icons beside complete-syllabus links. Its WOFF2 file matches the established local installation in
+the Biology Problems website, and its Font Awesome Free license is stored beside the font. The
+Material configuration keeps remote fonts disabled. GitHub Pages serves the fonts and license files
+with the rest of the static site.
 
 ## Verify the installation
 
