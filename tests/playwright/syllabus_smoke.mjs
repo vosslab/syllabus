@@ -16,7 +16,6 @@
 //   site_docs/assets/stylesheets/site.css:78.
 // - The protein favicon exercised here comes from mkdocs.yml:15 and
 //   site_docs/assets/images/favicon.svg:1.
-// - Footer social-link names and destinations come from mkdocs.yml:58.
 
 import assert from "node:assert/strict";
 import fs from "node:fs";
@@ -45,7 +44,7 @@ const ROUTES = [
 	"/fall_2026/shared/policies/ASSESSMENT/",
 	"/fall_2026/shared/policies/DISCUSSION_MARKS/",
 	"/fall_2026/shared/policies/EXTRA_CREDIT/",
-	"/fall_2026/shared/policies/EXTRA_CREDIT_MOVIES/",
+	"/EXTRA_CREDIT_MOVIES/",
 	"/fall_2026/shared/policies/ATTENDANCE_AND_ACCOMMODATIONS/",
 	"/fall_2026/shared/policies/ACADEMIC_INTEGRITY/",
 	"/fall_2026/shared/policies/COURSE_EXPECTATIONS/",
@@ -76,14 +75,6 @@ const DARK_GREEN_SURFACE = "rgb(30, 41, 35)";
 const ROOSEVELT_GREEN = "rgb(115, 193, 103)";
 const ROOSEVELT_LINK_GREEN = "rgb(0, 120, 73)";
 const WHITE = "rgb(255, 255, 255)";
-
-const SOCIAL_LINKS = [
-	{ name: "GitHub", href: "https://github.com/vosslab" },
-	{ name: "YouTube", href: "https://www.youtube.com/neilvosslab" },
-	{ name: "Bluesky", href: "https://bsky.app/profile/neilvosslab.bsky.social" },
-	{ name: "LinkedIn", href: "https://www.linkedin.com/in/vosslab" },
-	{ name: "Facebook", href: "https://www.facebook.com/neilvosslab" },
-];
 
 async function getCourseTypography(page) {
 	return page.evaluate(async () => {
@@ -320,15 +311,6 @@ try {
 		.waitFor();
 	assert.equal(await homeMain.getByRole("heading", { name: "Archived terms" }).count(), 0);
 	assert.equal(await homeMain.getByRole("heading", { name: "Secure course access" }).count(), 0);
-	const socialFooter = homePage.locator(".md-social");
-	await socialFooter.waitFor({ state: "visible" });
-	for (const social of SOCIAL_LINKS) {
-		const socialLink = socialFooter.getByRole("link", { name: social.name, exact: true });
-		await socialLink.waitFor({ state: "visible" });
-		assert.equal(await socialLink.getAttribute("href"), social.href);
-		assert.equal(await socialLink.getAttribute("target"), "_blank");
-		assert.match(await socialLink.getAttribute("rel"), /\bnoopener\b/);
-	}
 	await homePage.getByTitle("Switch to dark mode", { exact: true }).click();
 	await homePage.waitForFunction(() => document.body.dataset.mdColorScheme === "slate");
 	const darkPageBackground = await homePage

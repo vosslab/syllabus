@@ -45,9 +45,10 @@ repository-owned engine expands the same source for the website, DOCX, and PDF b
 either authorized role are excluded from direct website routes. The public
 `shared/INSTRUCTOR_INFORMATION.md` page supplies its page heading and embeds the contact-details
 fragment; course details embed that same fragment under their own heading. Only public-safe
-canonical content belongs in this repository. Do not create an ignored `raw/` tree for private
-syllabi, credentials, meeting links, student information, or access-controlled material; transfer
-only public facts into the tracked Markdown sources.
+canonical content belongs in this repository. An ignored local `raw/` tree may hold public
+reference material, but it is never a live content authority and the build rejects tracked files
+inside it. Never place private syllabi, credentials, meeting links, student information, or
+access-controlled material there; transfer only public facts into the tracked Markdown sources.
 
 ## Source and generated boundary
 
@@ -96,7 +97,8 @@ the website publishes neither stale dates nor download links without their gener
 - Edit extra-credit categories, write-up rules, submission requirements, deductions, and FAQs in
   `site_docs/<term>/shared/policies/EXTRA_CREDIT.md`.
 - Edit approved, excluded, and pending movie choices in
-  `site_docs/<term>/shared/policies/EXTRA_CREDIT_MOVIES.md`.
+  `site_docs/EXTRA_CREDIT_MOVIES.md`. This global website page is deliberately excluded from the
+  complete PDF and DOCX syllabi.
 - Edit office hours and instructor facts in
   `site_docs/<term>/shared/fragments/INSTRUCTOR_CONTACT_DETAILS.md`. The public
   `shared/INSTRUCTOR_INFORMATION.md` page embeds this canonical body.

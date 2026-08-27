@@ -15,8 +15,8 @@ this same policy set, and every complete syllabus download includes each topic o
   common concerns, scoring, and the no-make-up policy.
 - [Extra credit write-ups](EXTRA_CREDIT.md): four eligible categories, write-up requirements,
   submission, grading, point deductions, and frequently asked questions.
-- [Approved science movies](EXTRA_CREDIT_MOVIES.md): categorized approved choices, excluded
-  choices, movies awaiting approval, and browsing resources.
+- [Approved science movies](https://vosslab.github.io/syllabus/EXTRA_CREDIT_MOVIES/): categorized
+  approved and excluded choices, movies awaiting approval, and browsing resources.
 - [Attendance, absences, and accommodations](ATTENDANCE_AND_ACCOMMODATIONS.md): class and
   lab attendance, disability accommodations, religious holidays, caregivers, and student athletes.
 - [Academic integrity and AI](ACADEMIC_INTEGRITY.md): plagiarism, academic dishonesty,

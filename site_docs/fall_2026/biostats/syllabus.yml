@@ -16,7 +16,6 @@ shared_sections:
   - ../shared/policies/ASSESSMENT.md
   - ../shared/policies/DISCUSSION_MARKS.md
   - ../shared/policies/EXTRA_CREDIT.md
-  - ../shared/policies/EXTRA_CREDIT_MOVIES.md
   - ../shared/policies/ATTENDANCE_AND_ACCOMMODATIONS.md
   - ../shared/policies/ACADEMIC_INTEGRITY.md
   - ../shared/policies/COURSE_EXPECTATIONS.md

@@ -25,6 +25,7 @@
 ```text
 site_docs/
 |-- index.md                         Student homepage
+|-- EXTRA_CREDIT_MOVIES.md           Global website-only approved movie catalog
 |-- assets/
 |   |-- fonts/                       Self-hosted text/icon fonts and licenses
 |   |-- images/favicon.svg           Protein-themed favicon and header logo

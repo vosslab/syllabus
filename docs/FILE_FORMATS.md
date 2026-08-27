@@ -24,7 +24,6 @@ shared_sections:
   - ../shared/policies/ASSESSMENT.md
   - ../shared/policies/DISCUSSION_MARKS.md
   - ../shared/policies/EXTRA_CREDIT.md
-  - ../shared/policies/EXTRA_CREDIT_MOVIES.md
   - ../shared/IMPORTANT_DATES.md
   - ../shared/STUDENT_RESOURCES.md
 ```
@@ -37,6 +36,10 @@ ASCII letters, digits, and underscores.
 resolve to an existing file below `site_docs/`. The order becomes the section order in complete
 documents. The course list must contain exactly one `COURSE_LEARNING_FRAMEWORK.md` with the four
 required learning-statement sections.
+
+The global `site_docs/EXTRA_CREDIT_MOVIES.md` catalog is website-only. Extra-credit policy pages
+may link to it, but course manifests omit it so the verbose catalog does not enter PDF or DOCX
+syllabi.
 
 ## Course Markdown
 

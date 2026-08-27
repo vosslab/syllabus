@@ -4,6 +4,7 @@
 import os
 import re
 import pathlib
+import subprocess
 
 # PIP3 modules
 import yaml
@@ -140,11 +141,22 @@ def scan_public_sources(docs_root: pathlib.Path) -> None:
 
 #============================================
 def require_public_only_repository(repo_root: pathlib.Path) -> None:
-	"""Reject a private or ambiguous raw-content tree inside the repository."""
-	raw_path = repo_root / "raw"
-	if raw_path.exists():
+	"""Reject tracked raw content while allowing ignored local public references."""
+	# ASVS 1.2.5: pass the fixed Git command and pathspec as separate arguments.
+	completed = subprocess.run(
+		["git", "ls-files", "-z", "--", "raw"],
+		cwd=repo_root,
+		check=True,
+		capture_output=True,
+	)
+	tracked_raw_paths = tuple(
+		path.decode("utf-8") for path in completed.stdout.split(b"\0") if path
+	)
+	if tracked_raw_paths:
+		path_list = ", ".join(tracked_raw_paths)
 		raise RuntimeError(
-			f"{raw_path}: only public-safe canonical content belongs in this repository"
+			"only public-safe canonical content belongs in this repository; "
+			f"remove tracked raw content: {path_list}"
 		)
 	return None
 

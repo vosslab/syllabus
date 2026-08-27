@@ -30,7 +30,8 @@ offline reading and archival use.
 - Keep directly navigable term-wide material together under `shared/`, with policy topics grouped
   under `shared/policies/` and include-only content under `shared/fragments/`. Split Dr. Voss's
   long policy document into recognizable topic pages without creating course-specific alternatives
-  or a second overview.
+  or a second overview. Keep the niche approved-movie catalog as a global website-only reference
+  outside the term policy branch and complete documents.
 - Use instructor-facing subject names for canonical files and student-facing task language for
   page headings and navigation. Students should recognize the question a page answers without
   knowing terms such as **assessment** or **course delivery**.
@@ -63,7 +64,7 @@ then choose the page that matches their question. Each subsection belongs to one
 | `ASSESSMENT.md` | Grades and graded work | How are assignments, quizzes, exams, and grades handled? |
 | `DISCUSSION_MARKS.md` | Discussion marks | How is live participation recognized and scored? |
 | `EXTRA_CREDIT.md` | Extra credit write-ups | What can earn extra credit, and how do I submit it? |
-| `EXTRA_CREDIT_MOVIES.md` | Approved science movies | Which movies may I use for extra credit? |
+| `site_docs/EXTRA_CREDIT_MOVIES.md` | Approved science movies | Which movies may I use for extra credit? |
 | `ATTENDANCE_AND_ACCOMMODATIONS.md` | Attendance, absences, and accommodations | What happens if I miss class or need an accommodation? |
 | `ACADEMIC_INTEGRITY.md` | Academic integrity and AI | What work must be my own, and how may I use AI? |
 | `COURSE_EXPECTATIONS.md` | What students and instructors can expect | What responsibilities and classroom behavior are expected? |
@@ -72,7 +73,8 @@ then choose the page that matches their question. Each subsection belongs to one
 
 The inspection scenario starts at the policy overview with one of those questions. Success means
 the matching link is recognizable without opening competing pages, its target contains the answer,
-and the same category appears once in each complete syllabus.
+and ordinary policy categories appear once in each complete syllabus. The approved-movie catalog
+is intentionally website-only because its length would overwhelm the complete syllabus.
 
 ## Task models
 

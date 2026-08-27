@@ -19,6 +19,9 @@ history. Those belong in the appropriate technical documentation or changelog.
   no-make-up rule together on their own shared page instead of inside the general grading page.
 - Keep the complete extra-credit guide and approved science-movie list in this repository instead
   of making students depend on Google Docs.
+- Keep the approved science-movie list in a global website-only location outside the active term.
+  Link to it from Extra credit, but exclude the niche, verbose catalog from course PDF and DOCX
+  syllabi.
 
 ## Presentation
 
@@ -60,6 +63,13 @@ history. Those belong in the appropriate technical documentation or changelog.
   pytest, export E2E, and Playwright.
 - Treat implementation-time and rebuild-only probes as one-time evidence. Keep a test permanently
   only when it satisfies the durable-test checklist in `PYTEST_STYLE.md`; when in doubt, remove it.
+- Treat tests as evidence for intended product behavior, not as requirements that justify hacky
+  production changes. When a test drives an otherwise-unwanted workaround, remove or redesign the
+  test unless an independent user need or durable contract supports the production change.
+- Review every proposed test plan against `REPO_STYLE.md`, `PYTEST_STYLE.md`,
+  `tests/TESTS_README.md`, `devel/DEVEL_README.md`, and the relevant style documentation. Reject
+  unnecessary or fragile tests, extraneous fixtures, networked fast tests, and misplaced files
+  before implementation.
 - I do not actively monitor agent chats. Finish obvious, safe, evidence-backed follow-through and
   validation without waiting for routine confirmation. Stop only when the next action is risky,
   requires new authority, or would materially change the requested outcome.

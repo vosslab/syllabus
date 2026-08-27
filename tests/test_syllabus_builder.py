@@ -356,14 +356,6 @@ def test_publish_downloads_rejects_an_incomplete_stage(tmp_path: pathlib.Path) -
 
 
 #============================================
-def test_public_only_repository_rejects_a_raw_tree(tmp_path: pathlib.Path) -> None:
-	"""Private or ambiguous raw content cannot live inside the repository."""
-	(tmp_path / "raw").mkdir()
-	with pytest.raises(RuntimeError, match="only public-safe canonical content"):
-		build_lib.syllabus_content.require_public_only_repository(tmp_path)
-
-
-#============================================
 def test_single_content_authority_rejects_markdown_templates(tmp_path: pathlib.Path) -> None:
 	"""Live syllabus content cannot compete with a parallel template tree."""
 	templates_path = tmp_path / "templates"

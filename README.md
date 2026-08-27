@@ -93,17 +93,20 @@ site_docs/fall_2026/
 |       |-- ASSESSMENT.md
 |       |-- DISCUSSION_MARKS.md
 |       |-- EXTRA_CREDIT.md
-|       |-- EXTRA_CREDIT_MOVIES.md
 |       `-- ...
 `-- ...
 ```
 
-For Fall 2026, `site_docs/fall_2026/` is the only live content authority. Add new course pages
-directly there, using the listed file structure and a current course as a structural guide. Shared
-policies stay in the term's `shared/policies/` branch rather than being copied into courses or a
-parallel template tree. Public shared pages remain directly navigable; include-only Markdown lives
-under `shared/fragments/`. The website, PDF files, and DOCX files are generated views of this
-Markdown and must not be edited as content sources or committed as substitutes for it.
+The website-only approved movie catalog lives at `site_docs/EXTRA_CREDIT_MOVIES.md`, outside the
+term tree and complete-document manifests.
+
+For Fall 2026, `site_docs/fall_2026/` is the only live course-content authority. Add new course
+pages directly there, using the listed file structure and a current course as a structural guide.
+Shared policies stay in the term's `shared/policies/` branch rather than being copied into courses
+or a parallel template tree. The global movie catalog is the deliberate website-only exception.
+Public shared pages remain directly navigable; include-only Markdown lives under
+`shared/fragments/`. The website, PDF files, and DOCX files are generated views of this Markdown
+and must not be edited as content sources or committed as substitutes for it.
 
 Historical-term archive design and the first term rollover are deferred until Spring 2027. Do not
 create an archived-term or future-term source tree during Fall 2026. Dates remain literal Markdown

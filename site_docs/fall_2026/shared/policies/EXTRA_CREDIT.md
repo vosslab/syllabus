@@ -41,7 +41,8 @@ Make something related to the course material.
 
 Watch a scientific documentary or science-related movie.
 
-- Choose from the repository-owned [approved science movies](EXTRA_CREDIT_MOVIES.md). You may ask
+- Choose from the repository-owned
+  [approved science movies](https://vosslab.github.io/syllabus/EXTRA_CREDIT_MOVIES/). You may ask
   the instructor to approve another movie.
 - The total runtime must exceed 80 minutes. If you choose a television series, watch enough
   episodes to exceed 80 minutes.

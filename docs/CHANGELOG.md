@@ -42,6 +42,11 @@
 
 ### Behavior or Interface Changes
 
+- Moved the approved science-movie catalog from the Fall 2026 policy branch to the global
+  website-only `site_docs/EXTRA_CREDIT_MOVIES.md` route. Extra credit still links students to the
+  catalog, while all three course manifests now omit its niche, verbose content from PDF and DOCX
+  syllabi. The Extra credit source uses the canonical public URL so the remaining link works from
+  exported documents rather than becoming a filesystem-relative Markdown target.
 - Reorganized Help and student services into four explicit student-task groups: academic progress
   and learning; technology and campus life; money and essential needs; and health, identity, and
   safety. General academic services now lead, personal services come later, and Campus Safety leads
@@ -163,6 +168,22 @@
 
 ### Fixes and Maintenance
 
+- Corrected the public-content build boundary so an ignored local `raw/` directory may hold public
+  university reference material without blocking the syllabus build. The build still fails closed
+  if Git tracks anything under `raw/`, and it continues scanning the actual `site_docs/` publication
+  sources for prohibited credentials and controls.
+- Used a temporary rendered-browser probe after a proposed social-link locator failed, then removed
+  both the exact five-profile assertion loop and the local Material footer override created to
+  satisfy it. The test duplicated current configuration and drove a theme hack rather than exposing
+  a failure in the existing route-wide axe accessibility audit, so neither belongs permanently.
+- Recorded the durable rule that tests provide evidence for independently intended behavior; they
+  do not justify hacky production changes solely to make an assertion pass.
+- Expanded the durable plan-review rule to require checking the repository, pytest, test-layout,
+  developer-tool, and relevant style guides before approving tests, fixtures, network access, or
+  file placement.
+- Removed the former permanent pytest that treated the mere existence of `raw/` as an error. That
+  assertion encoded the superseded implementation rather than durable behavior; the complete
+  production-shaped E2E build now supplies the appropriate tracked-scope proof.
 - Replaced four failed live-syllabus destinations found by the new checker: two retired catalog
   academic-integrity routes now use the current policy PDF and student guide, the obsolete Maxient
   accommodations form now uses Roosevelt's AIM request form, and the blocked pandemic-era Illinois
