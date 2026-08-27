@@ -24,6 +24,12 @@ screen.*
 header identity.*
 <!-- screenshots:end -->
 
+## What students receive
+
+- A short, navigable course page for the next task, deadline, policy, or support service.
+- Complete PDF and DOCX syllabi for students who need an offline or archival copy.
+- One shared set of policies and resources, so the same guidance does not drift among courses.
+
 ## One source, three student-ready forms
 
 Students should not need to navigate a 30-page document to find one deadline or policy. This

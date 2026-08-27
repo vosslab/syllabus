@@ -142,3 +142,30 @@ the detailed separation is documented in
 Only public-safe content belongs in the repository. The document builder scans source and generated
 text for common meeting URLs, passwords, passcodes, and invitation patterns. Private links,
 student information, assignments, grades, and access-controlled materials remain in Blackboard.
+
+The ignored local `raw/` directory may hold public reference material that supports authoring. It
+is outside the content pipeline, never supplies a published page or complete-syllabus section, and
+the builder rejects any tracked file below it. Move a verified public fact into the canonical
+Markdown source rather than linking a course page or manifest to `raw/`.
+
+## Extension points
+
+- Add or revise student-facing course and shared content in
+  [site_docs/fall_2026/](../site_docs/fall_2026/); keep the website-only movie catalog in
+  [site_docs/EXTRA_CREDIT_MOVIES.md](../site_docs/EXTRA_CREDIT_MOVIES.md).
+- Add a complete-syllabus section by updating the owning course `syllabus.yml` manifest and the
+  public Markdown source it names. The manifest contract is documented in
+  [FILE_FORMATS.md](FILE_FORMATS.md).
+- Put reusable manifest, content, include, or renderer behavior in
+  [pipeline/build_lib/](../pipeline/build_lib/). Keep runnable entry points in
+  [pipeline/](../pipeline/) as small coordinators.
+- Use [pipeline/check_links.py](../pipeline/check_links.py) for an on-demand live audit of every
+  external URL in `site_docs/`. It is a maintainer command, not a fast pytest dependency.
+- Add deterministic unit and integration checks under [tests/](../tests/); place production
+  builds in [tests/e2e/](../tests/e2e/) and browser checks in
+  [tests/playwright/](../tests/playwright/).
+
+## Known gaps
+
+- Define and validate the historical-term snapshot, generated-output, and navigation design before
+  creating the Spring 2027 source tree.

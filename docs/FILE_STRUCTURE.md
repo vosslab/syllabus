@@ -11,12 +11,14 @@
 |-- pipeline/                Date synchronization and syllabus renderers
 |-- site_docs/               Public website and syllabus source authority
 |-- tests/                   Fast, export E2E, and browser validation
+|-- tools/                   Optional repository-analysis utilities
 |-- all_test.sh              Complete local validation front door
 |-- mkdocs.yml               Site, navigation, theme, and Markdown configuration
 |-- package.json             Playwright audit dependencies and command
 |-- pip_requirements*.txt    Python runtime and development dependencies
 |-- Brewfile                 macOS document-rendering tools
 |-- run_web_server.sh        Local production-shaped preview
+|-- source_me.sh             Python 3.12 environment bootstrap
 `-- run_playwright_tests.sh  Browser audit front door
 ```
 
@@ -108,3 +110,7 @@ The following paths are outputs, not editable sources:
 - `site_docs/downloads/` - generated student PDF and DOCX files.
 - `site_docs/generated/` - synchronized important-dates Markdown.
 - `output/` - optional local archives and other generated output.
+
+The ignored top-level `raw/` directory is not a generated artifact or a source subtree. It may
+hold local public reference material, but no tracked file may live there and it is never read by
+the publication pipeline. Copy confirmed public facts into the tracked `site_docs/` authority.

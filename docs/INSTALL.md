@@ -1,4 +1,4 @@
-# Installation
+# Install
 
 The public student site requires no installation. Open the
 [Fall 2026 course syllabi](https://vosslab.github.io/syllabus/) in a browser. The steps below set up
@@ -21,8 +21,7 @@ On macOS with Homebrew, install the system tools from the repository manifest:
 brew bundle
 ```
 
-Install the Python application and development dependencies in the environment used for this
-repository:
+Install the runtime and local validation dependencies in the repository Python environment:
 
 ```bash
 source source_me.sh
@@ -64,22 +63,24 @@ the Biology Problems website, and its Font Awesome Free license is stored beside
 Material configuration keeps remote fonts disabled. GitHub Pages serves the fonts and license files
 with the rest of the static site.
 
-## Verify the installation
+## Verify install
 
 ```bash
 source source_me.sh
 python3 -m pytest tests/
-python3 pipeline/build_site.py
-./run_playwright_tests.sh
 ```
 
-The complete build requires every core export tool. Pandoc creates the DOCX from portable assembled
-Markdown and the reference document. Python-Markdown reads the extension configuration from
-`mkdocs.yml` and creates small semantic HTML for WeasyPrint. WeasyPrint renders the PDF through the
-system Pango text stack. The build also requires HTTPS access to Google Sheets so it can refresh the
-important-dates table before publishing. The export pipeline requires neither an office suite nor a
-browser. Missing converters or an unavailable spreadsheet fail directly because an incomplete or
-stale result would not satisfy the publication requirement.
+This fast, offline lane verifies the installed Python dependencies. Run the production build when
+the document tools and live Google Sheets connection also need verification:
+
+```bash
+source source_me.sh
+python3 pipeline/build_site.py
+```
+
+The production build refreshes important dates from Google Sheets, generates DOCX and PDF files,
+and builds the MkDocs site in strict mode. Missing converters or an unavailable spreadsheet fail
+directly so publication cannot use incomplete or stale output.
 
 See [CODE_ARCHITECTURE.md](CODE_ARCHITECTURE.md) for the full component flow and
 [USAGE.md](USAGE.md) for authoring and maintenance workflows.

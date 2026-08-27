@@ -1,311 +1,101 @@
 # Usage
 
-## Content organization
+Maintain the public Fall 2026 syllabus sources, then rebuild the student website and complete
+documents. Students only use the published site; these commands are for maintainers.
 
-Public course content lives under `site_docs/<term>/<course>/`. Each course contains:
+## Source ownership
 
-Course directories use subject-based slugs so cross-listed students do not see another section's
-number as the path: `biostats` for BIOL 318/418, `genetics` for BIOL 351/451, and `biotech` for
-BIOL 480. Official course numbers remain in headings, section tables, metadata, and download names.
+- `site_docs/fall_2026/` is the only live course and complete-syllabus authority.
+- Each course contains `index.md`, course-specific Markdown, `syllabus.yml`, and `.meta.yml`.
+- Term-wide policies, dates, instructor information, and student resources live under
+  `site_docs/fall_2026/shared/` and are linked or included rather than copied.
+- [site_docs/EXTRA_CREDIT_MOVIES.md](../site_docs/EXTRA_CREDIT_MOVIES.md) is the one global,
+  website-only exception. It is deliberately omitted from complete PDF and DOCX manifests.
+- `site_docs/downloads/`, `site/`, and `output/` are generated outputs. Regenerate them; do not
+  edit or commit them as content sources.
 
-- `index.md` for the short overview, task links, course summary, and secondary download links.
-- `COURSE_DETAILS.md` for registration, meeting, catalog, and embedded shared instructor
-  information.
-- `COURSE_LEARNING_FRAMEWORK.md` for Roosevelt learning goals, learning objectives, course
-  learning outcomes, and overall learning goals. Its student-facing title is **Learning
-  Objectives, Outcomes, and Goals**.
-- `ASSIGNMENTS_AND_GRADING.md` for course-specific graded work and grade calculations.
-- `SCHEDULE.md` for literal meeting dates and topics.
-- `syllabus.yml` for complete-document order and metadata.
+The ignored local `raw/` tree may hold public reference material. It is never a live authority;
+the build rejects tracked files inside it. Keep private syllabi, credentials, meeting links,
+student information, and access-controlled material in Blackboard.
 
-See [FILE_FORMATS.md](FILE_FORMATS.md) for the exact manifest, Markdown, include, and generated
-document contracts.
+See [FILE_FORMATS.md](FILE_FORMATS.md) for manifest, Markdown table, and restricted include rules.
 
-Each term keeps its public term-wide pages under `shared/`: important dates, instructor
-information, policies, and student resources. The short policy topic index and the canonical
-policy categories live together under `shared/policies/`. Every course links to those shared
-branches. Its manifest adds the policy overview as a section heading, then appends each policy
-manifest-included topic, the synchronized important dates, and the student-resource source once to
-the complete syllabus. Important dates sit near the end, between course enrollment and student
-resources. The overview's web-only topic links are omitted from document exports.
+## Edit content
 
-Include-only Markdown under `shared/fragments/` holds facts that students need in more than one
-context but the instructor should edit once. The current fragments provide the shared term course
-and download list, instructor contact details including office hours, and Roosevelt learning-goal
-bullets. Pages embed them with the restricted syntax:
+- Edit course-specific details, assignments, and schedules in that course folder.
+- Edit one shared policy in `site_docs/fall_2026/shared/policies/`; do not copy it into courses.
+- Edit shared instructor contact facts in
+  `site_docs/fall_2026/shared/fragments/INSTRUCTOR_CONTACT_DETAILS.md`.
+- Edit shared support information in `site_docs/fall_2026/shared/STUDENT_RESOURCES.md`.
+- Edit dates as literal Markdown in course details and schedules. Confirm calendar changes before
+  publishing; the build never shifts dates automatically.
+
+Use the exact, full-line include form when a public fact must appear in more than one place:
 
 ```markdown
 --8<-- "fall_2026/shared/fragments/INSTRUCTOR_CONTACT_DETAILS.md"
 ```
 
-Includes use one full-line, double-quoted form and resolve from `site_docs/`. Targets must be
-non-empty `.md` files under a directory named `fragments` or `generated`; absolute paths, parent
-traversal, remote URLs, symlink escapes, nested includes, and alternate forms are rejected. The
-repository-owned engine expands the same source for the website, DOCX, and PDF branches. Files in
-either authorized role are excluded from direct website routes. The public
-`shared/INSTRUCTOR_INFORMATION.md` page supplies its page heading and embeds the contact-details
-fragment; course details embed that same fragment under their own heading. Only public-safe
-canonical content belongs in this repository. An ignored local `raw/` tree may hold public
-reference material, but it is never a live content authority and the build rejects tracked files
-inside it. Never place private syllabi, credentials, meeting links, student information, or
-access-controlled material there; transfer only public facts into the tracked Markdown sources.
-
-## Source and generated boundary
-
-- Edit course and complete-syllabus content only under the active `site_docs/<term>/` tree. Edit
-  the one global website-only movie catalog at
-  [site_docs/EXTRA_CREDIT_MOVIES.md](../site_docs/EXTRA_CREDIT_MOVIES.md).
-- Keep course-specific facts in their course folder and each shared fact or policy in one canonical
-  term-level file. Link or embed that source wherever students need it.
-- Do not create Markdown or YAML syllabus content under `templates/`; the build rejects that second
-  authority.
-- Treat `pipeline/syllabus_reference.docx` as a tracked renderer asset, not a syllabus-content
-  template.
-- Treat `site_docs/downloads/`, `site/`, and `output/` as generated, ignored output. Regenerate
-  them from the active Markdown instead of editing or committing them.
-
-The tracked `site_docs/fall_2026/shared/IMPORTANT_DATES.md` file is the stable page wrapper. Its
-table content comes from the first worksheet of the linked Google Sheet. `pipeline/build_site.py`
-runs the synchronization automatically; run only the synchronization step with:
-
-```bash
-source source_me.sh && python3 pipeline/sync_important_dates.py
-```
-
-The importer requires the expected six-column `Date`, confirmation, week, `X`, event, and notes
-schema. It validates chronological dates and worksheet markers, groups the resulting tables by
-month, and infers a student-scanning type from each event name. Confirmation, calculated week, and
-notes are personal maintainer aids, while the `X` formula controls whether Google Sheets grays out a
-past event. The importer validates but omits all four metadata cells from Markdown. It downloads
-only from the fixed Google Sheets HTTPS source and replaces the ignored
-`site_docs/generated/FALL_2026_IMPORTANT_DATES.md` fragment only after the complete response passes
-validation. Every complete site build requires that live refresh and fails rather than publishing
-the previous table when Google Sheets is unavailable. Every course manifest includes the tracked
-wrapper near the end of its complete PDF and DOCX syllabus. The fast pytest lane remains offline.
-
-`pipeline/build_syllabi.py` coordinates the manifest, content, and rendering units under
-`pipeline/build_lib/` to create one DOCX and one PDF per course. `pipeline/build_site.py` refreshes
-the important dates, runs that document generation, and then performs the strict MkDocs build, so
-the website publishes neither stale dates nor download links without their generated targets.
-
-## Edit shared content
-
-- Edit a policy in `site_docs/<term>/shared/policies/<topic>.md`.
-- Edit shared assessment rules and the letter-grade scale in
-  `site_docs/<term>/shared/policies/ASSESSMENT.md`. Its student-facing title is **Grades and graded
-  work**.
-- Edit Zoom, in-person, scoring, criticism-response, and no-make-up discussion-mark rules in
-  `site_docs/<term>/shared/policies/DISCUSSION_MARKS.md`.
-- Edit extra-credit categories, write-up rules, submission requirements, deductions, and FAQs in
-  `site_docs/<term>/shared/policies/EXTRA_CREDIT.md`.
-- Edit approved, excluded, and pending movie choices in
-  [site_docs/EXTRA_CREDIT_MOVIES.md](../site_docs/EXTRA_CREDIT_MOVIES.md). This global website page
-  is deliberately excluded from the complete PDF and DOCX syllabi.
-- Edit office hours and instructor facts in
-  `site_docs/<term>/shared/fragments/INSTRUCTOR_CONTACT_DETAILS.md`. The public
-  `shared/INSTRUCTOR_INFORMATION.md` page embeds this canonical body.
-- Edit Roosevelt learning goals in
-  `site_docs/<term>/shared/fragments/ROOSEVELT_LEARNING_GOALS.md`.
-- Edit the course descriptions and main/term PDF and DOCX links in
-  `site_docs/<term>/shared/fragments/TERM_COURSES.md`.
-- Edit shared support information in `site_docs/<term>/shared/STUDENT_RESOURCES.md`.
-
-Course pages link to these sources; they do not keep policy or grade-scale copies.
-
-## Live-term lifecycle
-
-For Fall 2026, `site_docs/fall_2026/` is the only live course and complete-syllabus authority. The
-global movie catalog is the deliberate website-only exception. Do not maintain a
-parallel Markdown template tree, archived-term tree, or future-term copy. To add a course, create
-the standard course files listed under [Content organization](#content-organization) directly
-below that term, use a current course only as a structural guide, and add the new pages to
-`mkdocs.yml` navigation. Keep public term-wide material under `shared/` and include-only Markdown
-under `shared/fragments/`.
-
-Historical-term archive support is intentionally deferred until the Spring 2027 rollover. Until
-that work begins, do not add another term source tree or an archive navigation branch. The Spring
-rollover must define the snapshot location, tracked/generated boundary, and pipeline behavior
-before a second term is introduced.
-
-Add a `.meta.yml` file to the course folder to give every page and complete PDF the same course
-identity:
-
-```yaml
-course_color: "#1565c0"
-course_color_dark: "#8ab4f8"
-```
-
-Use six-digit hex colors. Choose `course_color` so white header controls and dark PDF text each
-reach at least 5.5:1 contrast; choose `course_color_dark` to meet the same target against the slate
-website surface. The Material website and WeasyPrint PDF use these accents for their shared
-heading and table language. DOCX keeps its format-native neutral styling.
-
-Use descriptive links and real Markdown heading levels. Keep tables simple: use a named header for
-every column, one idea per cell, the same number of cells in every row, and no merged cells. Align
-long text left, numbers right, and short categories such as letter grades in the center. Do not use
-blank table cells for visual layout. The build rejects malformed tables and hidden control
-characters that can change Markdown line structure. Store private meeting links, passwords,
-invitations, grades, and assignment submissions only in Blackboard.
-
-For a link that opens a PDF or DOCX file, keep the format in the descriptive link text and add the
-shared web icon classes explicitly. Explicit classes also cover stable or redirecting URLs that do
-not end with a filename extension:
-
-```markdown
-[Religious Holidays Policy (PDF)](https://www.roosevelt.edu/policies/religious-holidays){ .file-link .file-link--pdf }
-```
-
-Use `.file-link--docx` for Word files. The Font Awesome icon is decorative website presentation;
-the visible `(PDF)` or `(DOCX)` label remains meaningful in the website, PDF, and DOCX outputs.
-
-The shared include engine runs before each renderer. After expansion, the PDF branch mirrors the
-`markdown_extensions` entries in `mkdocs.yml`. Other MkDocs plugins, macros, theme hooks, and
-JavaScript-dependent Material interactions do not transfer automatically. Before adding one of
-those features to syllabus content, define and test a readable linear PDF and DOCX form.
-
-## Edit dates
-
-Dates are literal Markdown content. Edit `COURSE_DETAILS.md` and `SCHEDULE.md`, verify them against
-the official academic calendar, and review every affected row. The build intentionally does not
-shift dates because breaks, finals, and campus closures require academic judgment.
-
 ## Build and preview
 
-Build the complete DOCX/PDF downloads and strict static site:
+Build complete DOCX and PDF downloads plus the strict static website:
 
 ```bash
 source source_me.sh
 python3 pipeline/build_site.py
 ```
 
-Preview the site locally:
+The build refreshes the managed important-dates fragment from its fixed Google Sheets source,
+regenerates all downloads, and fails rather than publishing stale date data.
+
+Preview the generated site locally:
 
 ```bash
-source source_me.sh
-python3 pipeline/build_syllabi.py
 ./run_web_server.sh
 ```
 
-The preview opens in the default browser and stops automatically after five
-minutes. `run_web_server.sh` refreshes the important-dates table before starting MkDocs. Press
-`Ctrl-C` to stop it sooner.
+The preview refreshes important dates, opens in the default browser, and stops after five minutes.
+Press `Ctrl-C` to stop it sooner.
 
-Build only the complete documents:
+Build only DOCX and PDF files when the site itself is unchanged:
 
 ```bash
 source source_me.sh
 python3 pipeline/build_syllabi.py
 ```
 
-Optionally package the current generated documents into a ZIP under `output/archive/`:
-
-```bash
-source source_me.sh
-python3 pipeline/build_syllabi.py --archive
-```
-
-This flag bundles the current generated PDF/DOCX files only. It does not create an archived-term
-Markdown source tree or implement the deferred historical-term rollover.
-
-Generated student downloads live in ignored, untracked `site_docs/downloads/`. The pipeline stages
-and validates the complete set before replacing current downloads, then builds the site so links
-cannot point to stale or partial output. Both formats use the same manifest-assembled Markdown
-authority. Pandoc creates the DOCX after flattening web-only constructs such as admonitions.
-Python-Markdown uses the extension stack from `mkdocs.yml` to create small semantic HTML, and
-WeasyPrint renders that HTML directly to PDF.
-
-## Refine course content
-
-Tracked public Markdown is the working authority. Managers and agents produce a complete,
-student-facing candidate from repository evidence rather than exposing draft-state warnings or
-waiting for an approval transition. Record narrow evidence limitations in the refinement report,
-not in the student syllabus.
-
-Use the refinement checklist to improve:
-
-- section numbers, CRNs, meeting places, and session dates;
-- grading categories, totals, rounding, and late-work rules;
-- assignment and exam dates, breaks, and final-exam details;
-- Dr. Voss's shared course-policy language, including artificial-intelligence rules;
-- current university-source statements and student-resource language;
-- public contact information and the absence of meeting credentials.
-
-A successful push to `main` that reaches the deploy job publishes the verified Pages artifact. If
-several pushes arrive while a deployment runs, GitHub retains only the newest pending candidate. A
-failed source, export, or site check blocks that candidate without requiring a separate
-human-controlled manifest state.
+Use `--archive` with that command to package current generated documents under `output/archive/`.
 
 ## Validate
 
-Check every external HTTP(S) link in the public Markdown authority, including global website-only
-pages:
+Check public external HTTP(S) links as an explicit live maintainer task:
 
 ```bash
 source source_me.sh
 python3 pipeline/check_links.py
 ```
 
-The checker follows redirects, detects HTTP failures and common HTTP-200 error pages, and reports
-each failing URL with its source file and line. It intentionally remains a live, explicit
-maintainer check rather than part of the offline pytest lane. Pass one or more Markdown files or
-directories to inspect a separately held reference source.
+The checker reports source locations and follows redirects. It remains outside pytest because it
+uses the network; pass Markdown files or directories to check separately held public references.
 
-Run every local semantic-validation lane in dependency order:
+Run all local validation lanes before publishing a significant change:
 
 ```bash
 ./all_test.sh
 ```
 
-The runner prints a phase banner and stops at the first failure. Both the export E2E and the Pages
-production builder refresh the live Google Sheets dates; the final production rebuild is followed
-by Playwright. Use the commands below for focused validation.
+The runner executes fast offline pytest, export and include-parity E2E checks, a strict production
+build, and Playwright. For focused work, run `source source_me.sh && python3 -m pytest tests/`,
+`source source_me.sh && python3 tests/e2e/e2e_include_parity.py`, or
+`./run_playwright_tests.sh --build`.
 
-Run the fast repository checks:
+## Term lifecycle
 
-```bash
-source source_me.sh
-python3 -m pytest tests/
-```
+The Spring 2027 rollover must define the archival source location, generated boundary, and pipeline
+behavior before another term tree is added. Until then, do not create future-term or archive source
+trees.
 
-After a site build, optionally run the desktop/mobile accessibility audit:
+## Known gaps
 
-```bash
-./run_playwright_tests.sh
-```
-
-Use `./run_playwright_tests.sh --build` to rebuild first.
-
-Accessibility audits promote continuous improvement. The local runner returns a nonzero result so
-findings receive maintainer attention, while Pages publication remains governed by artifact
-generation. Review reported findings, prioritize barriers affecting students, and record deliberate
-follow-up work.
-
-## Refresh README screenshots
-
-Build the production-shaped static site, then run the durable documentation capture harness:
-
-```bash
-source source_me.sh
-python3 -m mkdocs build --strict
-node tests/playwright/capture_readme_screenshots.mjs
-mkdir -p docs/screenshots
-cp /tmp/syllabus_readme_screenshots/fall_2026_home_light.png docs/screenshots/
-cp /tmp/syllabus_readme_screenshots/general_genetics_dark.png docs/screenshots/
-```
-
-The harness captures the current local `site/` output over HTTP at a fixed desktop viewport. It
-writes temporary PNGs under `/tmp/syllabus_readme_screenshots/`; the final two commands replace the
-tracked README images. Review both images before keeping them. The README visual block is managed by
-the screenshot workflow and should contain only current, tracked captures.
-
-Run the complete production-readiness gate without publishing:
-
-```bash
-source source_me.sh && python3 tests/e2e/e2e_include_parity.py
-```
-
-This runner invokes the export E2E and strict site build, then checks include expansion across the
-relevant website, DOCX, and PDF artifact corpora. The exporter rejects common Zoom meeting URLs,
-embedded passwords or passcodes, and Discord invite links in syllabus source or downloadable text.
-Private or access-controlled content does not belong anywhere in this repository, including ignored
-paths.
+- TODO: Define and document the Spring 2027 archival and rollover workflow before creating its
+  source tree.

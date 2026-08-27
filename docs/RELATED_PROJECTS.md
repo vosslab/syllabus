@@ -11,12 +11,10 @@ comparisons, adjacent authoring workflows, or guidance for that work.
 - Relationship: prior art and inspiration
 - Link: [Biological Networks course-site source](https://github.com/aaronclauset/aaronclauset.github.io/tree/master/courses/3352)
 - Why visitors may care: The repository is another instructor-maintained, public course site with
-  current and archived syllabi alongside teaching resources.
-- Evidence: This repository's AI policy explicitly cites Aaron Clauset's Fall 2026 Biological
-  Networks syllabus, and the cited page is published from this GitHub source tree.
+  a public syllabus, schedule, and teaching resources.
+- Evidence: This repository's academic-integrity policy cites Aaron Clauset's Biological Networks
+  syllabus, and the cited course site is published from this GitHub source tree.
 - Confidence: confirmed
-- Maintenance: The active repository included a Fall 2026 syllabus and was updated in August 2026
-  when reviewed.
 
 ## Possible related projects
 
@@ -27,9 +25,8 @@ comparisons, adjacent authoring workflows, or guidance for that work.
 - Why visitors may care: It gives instructors another source-first workflow for turning Markdown
   or Word course content into accessible HTML, PDF, and DOCX materials, including LMS-ready output.
 - Evidence: The official README describes an educator-facing compiler for Markdown or Word sources
-  and a batch builder that can emit HTML, PDF, and DOCX course materials.
+  and a batch builder that can emit HTML, PDF, and DOCX course materials for LMS publication.
 - Confidence: likely
-- Maintenance: The active MIT-licensed repository was updated in August 2026 when reviewed.
 
 ### Syllabus Generator
 
@@ -40,7 +37,6 @@ comparisons, adjacent authoring workflows, or guidance for that work.
 - Evidence: The project documentation describes combining TOML course data with a Microsoft Word
   syllabus template to create term-specific output.
 - Confidence: likely
-- Maintenance: The active MIT-licensed repository was updated in August 2026 when reviewed.
 
 ### Simple Syllabus
 
@@ -51,8 +47,6 @@ comparisons, adjacent authoring workflows, or guidance for that work.
 - Evidence: The vendor describes an all-in-one syllabus platform with an accessibility checker,
   mobile presentation, and integrated publishing workflow.
 - Confidence: likely
-- Maintenance: This is an active commercial service; its accessibility and conformance statements
-  are vendor claims that institutions should evaluate during procurement.
 
 ### Accessible Syllabus
 
@@ -63,12 +57,22 @@ comparisons, adjacent authoring workflows, or guidance for that work.
 - Evidence: The project describes its purpose as helping instructors create accessible, inclusive
   syllabi and provides practical guidance organized around common syllabus-design decisions.
 - Confidence: likely
-- Maintenance: The project originated at Tulane University and identifies a 2025 relaunch
-  coordinator and current contributors.
+
+### CAST UDL Guidelines
+
+- Relationship: domain guide and visitor resource
+- Link: [CAST UDL Guidelines](https://udlguidelines.cast.org/)
+- Why visitors may care: Instructors and course-site maintainers can use the guidelines to make
+  course information more perceivable, navigable, and usable for varied learners.
+- Evidence: CAST presents concrete Universal Design for Learning guidance for educators,
+  curriculum developers, and instructional designers, including representation and access to
+  accessible materials.
+- Confidence: likely
 
 ## Evidence notes
 
 The candidate set came from repository citations and two bounded search rounds focused on syllabus
-authoring, publication, accessibility, and instructor workflows. Implementation dependencies were
-used only to understand this repository and were excluded from the candidate list. No possible
-project claims lineage from, or a reciprocal link to, this repository.
+authoring, publication, accessibility, and instructor workflows. Project documentation and the
+CAST guidelines provide the purpose evidence. Implementation dependencies were used only to
+understand this repository and were excluded from the candidate list. No possible project claims
+lineage from, or a reciprocal link to, this repository.

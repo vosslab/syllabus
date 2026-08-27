@@ -2,6 +2,10 @@
 
 ### Additions and New Features
 
+- Added a documentation roadmap for Fall 2026 maintenance, the planned Spring 2027 rollover, and
+  an evidence-backed troubleshooting guide. Refreshed the README student journey and screenshots,
+  architecture and file map, installation and usage paths, related-project evidence, release/news
+  summaries, and the concise agent-guidance pointers from the current source and build model.
 - Added a bounded live HTTP(S) link checker for the active Markdown syllabus authority. It follows
   validated public redirects, detects HTTP failures and common soft-error pages, and reports every
   failure with its source file and line while keeping the fast pytest lane offline.
