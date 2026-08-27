@@ -1,7 +1,8 @@
 # Dr. Voss course policies
 
 These are Dr. Voss's shared policies for every Fall 2026 course on this site. Each course links to
-this same policy set, and every complete syllabus download includes each topic once.
+this same policy set, and every complete syllabus download includes each topic once. Discussion
+marks are course-specific and appear with each course's own pages.
 
 ## Policy topics
 
@@ -10,8 +11,6 @@ this same policy set, and every complete syllabus download includes each topic o
 - [Course format and online tools](COURSE_DELIVERY.md): syllabus changes, Blackboard,
   Zoom, Discord, and course formats.
 - [Grades and graded work](ASSESSMENT.md): letter grades, make-up work, and Blackboard percentages.
-- [Discussion marks](DISCUSSION_MARKS.md): Zoom participation, in-person poker chips,
-  common concerns, scoring, and the no-make-up policy.
 - [Extra credit write-ups](EXTRA_CREDIT.md): four eligible categories, write-up requirements,
   submission, grading, point deductions, and frequently asked questions.
 - [Attendance, absences, and accommodations](ATTENDANCE_AND_ACCOMMODATIONS.md): class and

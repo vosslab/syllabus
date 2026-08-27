@@ -4,6 +4,7 @@
 import re
 import pathlib
 import dataclasses
+import urllib.parse
 
 # PIP3 modules
 import yaml
@@ -12,7 +13,22 @@ import yaml
 ASSESSMENT_FRAGMENT_PATHS = {
 	"assignments": pathlib.PurePosixPath("shared/fragments/assessments/ASSIGNMENTS.md"),
 	"group_quizzes": pathlib.PurePosixPath("shared/fragments/assessments/GROUP_QUIZZES.md"),
-	"exams": pathlib.PurePosixPath("shared/fragments/assessments/EXAMS.md"),
+	"f2f_exams": pathlib.PurePosixPath(
+		"shared/fragments/assessments/FACE_TO_FACE_EXAMS.md"
+	),
+	"online_exams": pathlib.PurePosixPath("shared/fragments/assessments/ONLINE_EXAMS.md"),
+}
+
+DISCUSSION_FRAGMENT_PATHS = {
+	"no_discussion": (pathlib.PurePosixPath("shared/fragments/discussions/NO_DISCUSSION.md"),),
+	"f2f_discussion": (
+		pathlib.PurePosixPath("shared/fragments/discussions/FACE_TO_FACE.md"),
+		pathlib.PurePosixPath("shared/fragments/discussions/COMMON.md"),
+	),
+	"remote_discussion": (
+		pathlib.PurePosixPath("shared/fragments/discussions/REMOTE.md"),
+		pathlib.PurePosixPath("shared/fragments/discussions/COMMON.md"),
+	),
 }
 
 
@@ -32,6 +48,8 @@ class SyllabusManifest:
 	sections: tuple[pathlib.Path, ...]
 	shared_sections: tuple[pathlib.Path, ...]
 	assessment_fragments: tuple[pathlib.Path, ...] = ()
+	assessment_examples_url: str | None = None
+	discussion_fragments: tuple[pathlib.Path, ...] = ()
 
 
 #============================================
@@ -68,6 +86,26 @@ def require_text(data: dict[object, object], key: str, manifest_path: pathlib.Pa
 		raise ValueError(f"{manifest_path}: {key} must be a non-empty string")
 	text_value = value.strip()
 	return text_value
+
+
+#============================================
+def validate_assessment_examples_url(value: str, manifest_path: pathlib.Path) -> str:
+	"""Return one allowlisted Biology Problems subject URL."""
+	# ASVS 1.2.2, 2.2.1: allow only the official HTTPS origin and one safe subject slug.
+	parsed = urllib.parse.urlsplit(value)
+	is_valid = (
+		parsed.scheme == "https"
+		and parsed.netloc == "biologyproblems.org"
+		and re.fullmatch(r"/[a-z0-9_-]+/", parsed.path) is not None
+		and not parsed.query
+		and not parsed.fragment
+	)
+	if not is_valid:
+		raise ValueError(
+			f"{manifest_path}: assessment_examples_url must be an HTTPS "
+			"biologyproblems.org subject URL"
+		)
+	return value
 
 
 #============================================
@@ -146,6 +184,31 @@ def resolve_assessment_fragments(
 
 
 #============================================
+def resolve_discussion_fragments(
+	data: dict[object, object],
+	manifest_path: pathlib.Path,
+	docs_root: pathlib.Path,
+) -> tuple[pathlib.Path, ...]:
+	"""Resolve one course discussion mode to its canonical fragments."""
+	discussion = data.get("discussion")
+	if not isinstance(discussion, str) or discussion not in DISCUSSION_FRAGMENT_PATHS:
+		raise ValueError(f"{manifest_path}: unsupported discussion mode: {discussion}")
+	term_root = manifest_path.parent.parent
+	fragments = tuple(
+		(term_root / relative_path).resolve()
+		for relative_path in DISCUSSION_FRAGMENT_PATHS[discussion]
+	)
+	for fragment_path in fragments:
+		if not fragment_path.is_relative_to(docs_root.resolve()):
+			raise ValueError(f"{manifest_path}: discussion fragment escapes site_docs")
+		if not fragment_path.is_file():
+			raise FileNotFoundError(
+				f"{manifest_path}: missing discussion fragment: {fragment_path}"
+			)
+	return fragments
+
+
+#============================================
 def load_manifest(
 	manifest_path: pathlib.Path,
 	docs_root: pathlib.Path,
@@ -166,6 +229,11 @@ def load_manifest(
 	sections = resolve_sources(loaded, "sections", manifest_path, docs_root)
 	shared_sections = resolve_sources(loaded, "shared_sections", manifest_path, docs_root)
 	assessment_fragments = resolve_assessment_fragments(loaded, manifest_path, docs_root)
+	discussion_fragments = resolve_discussion_fragments(loaded, manifest_path, docs_root)
+	assessment_examples_url = validate_assessment_examples_url(
+		require_text(loaded, "assessment_examples_url", manifest_path),
+		manifest_path,
+	)
 	manifest = SyllabusManifest(
 		path=manifest_path,
 		docs_root=docs_root.resolve(),
@@ -179,5 +247,7 @@ def load_manifest(
 		sections=sections,
 		shared_sections=shared_sections,
 		assessment_fragments=assessment_fragments,
+		assessment_examples_url=assessment_examples_url,
+		discussion_fragments=discussion_fragments,
 	)
 	return manifest

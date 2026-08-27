@@ -39,6 +39,16 @@ def on_page_markdown(
 			source_path,
 			manifest,
 		)
+	if build_lib.syllabus_content.DISCUSSION_FRAGMENT_MARKER in markdown:
+		manifest = build_lib.syllabus_model.load_manifest(
+			source_path.parent / "syllabus.yml",
+			docs_root,
+		)
+		markdown = build_lib.syllabus_content.apply_discussion_fragments(
+			markdown,
+			source_path,
+			manifest,
+		)
 	expanded = build_lib.markdown_includes.expand_includes(
 		markdown,
 		source_path,

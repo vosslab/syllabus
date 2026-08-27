@@ -12,39 +12,48 @@ term: Fall 2026
 author: Neil R. Voss
 language: en-US
 download_basename: BIOL_351_451_FALL_2026_SYLLABUS
+assessment_examples_url: https://biologyproblems.org/genetics/
 sections:
   - index.md
   - COURSE_DETAILS.md
   - COURSE_LEARNING_FRAMEWORK.md
   - ASSIGNMENTS_AND_GRADING.md
+  - DISCUSSION_MARKS.md
   - SCHEDULE.md
 assessments:
   - assignments
   - group_quizzes
-  - exams
+  - f2f_exams
+discussion: f2f_discussion
 shared_sections:
   - ../shared/policies/index.md
   - ../shared/policies/COURSE_DELIVERY.md
   - ../shared/policies/ASSESSMENT.md
-  - ../shared/policies/DISCUSSION_MARKS.md
   - ../shared/policies/EXTRA_CREDIT.md
   - ../shared/IMPORTANT_DATES.md
   - ../shared/STUDENT_RESOURCES.md
 ```
 
-Required scalar fields are `title`, `course_code`, `term`, `author`, `language`, and
-`download_basename`. Each must be a non-empty string. `download_basename` accepts only uppercase
-ASCII letters, digits, and underscores.
+Required scalar fields are `title`, `course_code`, `term`, `author`, `language`,
+`download_basename`, and `assessment_examples_url`. Each must be a non-empty string.
+`download_basename` accepts only uppercase ASCII letters, digits, and underscores.
+`assessment_examples_url` accepts only an HTTPS `biologyproblems.org` subject route with one safe
+lowercase slug, such as `https://biologyproblems.org/biochemistry/`.
 
 `assessments` is a non-empty ordered list containing one or more of `assignments`,
-`group_quizzes`, and `exams`, with no duplicates. These are the only assessment categories across
-Dr. Voss's classes. The model maps them to the three canonical Markdown files under
+`group_quizzes`, `f2f_exams`, and `online_exams`, with no duplicates. These are the only assessment
+categories across Dr. Voss's classes. The model maps them to the four canonical Markdown files under
 `shared/fragments/assessments/`.
 
 Each course's `ASSIGNMENTS_AND_GRADING.md` contains one
 `<!-- assessments from syllabus.yml -->` marker. The website, PDF, and DOCX replace it with the
 selected fragments through the shared include engine. Missing, duplicate, or misplaced markers
 fail explicitly.
+
+`discussion` is exactly one of `no_discussion`, `f2f_discussion`, or `remote_discussion`. Each
+course's `DISCUSSION_MARKS.md` contains one `<!-- discussion from syllabus.yml -->` marker. The
+selected mode controls the course-specific format fragment; face-to-face and remote discussion
+also include the shared criticism, scoring, and no-make-up fragment.
 
 `sections` and `shared_sections` are non-empty ordered lists of local source paths. Every path must
 resolve to an existing file below `site_docs/`. The order becomes the section order in complete

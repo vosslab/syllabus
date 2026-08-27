@@ -1,9 +1,9 @@
-## Group quizzes
+### Group quizzes
 
 Group quizzes are short assessments of your understanding of recent material. Each quiz begins
 with an individual attempt before class and is followed by an optional group attempt during class.
 
-### Quiz format
+#### Quiz format
 
 - 20 points total across 20-34 questions
   - 1 point for each multiple-choice question
@@ -15,13 +15,13 @@ with an individual attempt before class and is followed by an optional group att
   - Backtracking is allowed unless suspected cheating requires a change
   - Questions appear in random order
 
-### Individual quiz
+#### Individual quiz
 
 - Conducted electronically through Blackboard
 - Opens 20 hours before the start of class
 - Must be completed before class
 
-### Group quiz
+#### Group quiz
 
 - Groups contain 3-4 students
   - Sometimes students choose groups; sometimes groups are random
@@ -37,7 +37,7 @@ with an individual attempt before class and is followed by an optional group att
 Your final quiz score is the average of the individual and group scores. For example, individual
 and group scores of 14 and 20 produce a final score of 17 points.
 
-### Online quiz reset policy
+#### Online quiz reset policy
 
 If you experience internet issues, technical difficulties, accidentally open a quiz, or face
 another non-academic distraction, stay calm, close the quiz without viewing more questions, and

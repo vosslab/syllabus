@@ -45,11 +45,16 @@ term-independent approved-science-movies catalog lives at
 [site_docs/EXTRA_CREDIT_MOVIES.md](../site_docs/EXTRA_CREDIT_MOVIES.md) as a global website-only
 reference and is not listed in course manifests.
 
-Each course manifest selects an ordered subset of the three assessment categories Dr. Voss uses:
-assignments, group quizzes, and exams. The model maps that closed vocabulary to canonical shared
-fragments. The website hook and complete-document composer materialize the selection at the
-coursework marker before calling the shared include engine, so one YAML decision controls all
-three formats.
+Each course manifest selects an ordered subset of the four assessment categories Dr. Voss uses:
+assignments, group quizzes, face-to-face exams, and online exams. The model maps that closed
+vocabulary to canonical shared fragments. The website hook and complete-document composer
+materialize the selection at the coursework marker before calling the shared include engine, so
+one YAML decision controls all three formats. The same manifest owns the validated official
+Biology Problems subject URL shown immediately before those selected assessment descriptions.
+
+Discussion marks use a parallel closed manifest choice: no discussion, face-to-face discussion,
+or remote/video-conference discussion. Each course owns a thin Discussion marks page. The build
+expands its selected format and adds the shared scoring policy only for modes that award marks.
 
 The active term is intentionally singular. `templates/`, future-term copies, and historical-term
 copies cannot become parallel content authorities during Fall 2026. Generated directories are

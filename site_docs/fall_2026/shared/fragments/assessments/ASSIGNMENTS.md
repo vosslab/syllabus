@@ -1,4 +1,4 @@
-## Assignments
+### Assignments
 
 Assignments are tasks completed outside of class to reinforce learning or explore new topics.
 

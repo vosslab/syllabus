@@ -2,9 +2,12 @@
 
 ### Additions and New Features
 
-- Split the three assessment categories - assignments, group quizzes, and exams - into shared
-  fragments. Added a closed `assessments` manifest vocabulary so each course selects its ordered
-  subset consistently across the website, PDF, and DOCX.
+- Added a required, validated Biology Problems subject URL to each course manifest. Coursework
+  pages now link to official sample assessment problems for Biostatistics, General Genetics, and
+  Biotechnology; the same schema supports the Biochemistry route for the future Spring syllabus.
+- Split the four assessment categories - assignments, group quizzes, face-to-face exams, and
+  online exams - into shared fragments. Added a closed `assessments` manifest vocabulary so each
+  course selects its ordered subset consistently across the website, PDF, and DOCX.
 
 ### Developer Tests and Notes
 
@@ -88,6 +91,23 @@
   the source-only `X` formula used to gray past spreadsheet rows are omitted.
 
 ### Behavior or Interface Changes
+
+- Replaced the one shared Discussion marks page containing every delivery mode with a closed
+  course-level manifest choice. Biostatistics now selects no discussion marks, Genetics selects
+  face-to-face discussion with poker-chip tracking, and Biotechnology selects remote/video-
+  conference discussion. Only the two participating courses include shared criticism, scoring,
+  and no-make-up rules in their website, PDF, and DOCX syllabi.
+- Replaced the browser audit's retired shared Discussion marks route with all three course-specific
+  routes and refreshed the README source tree to show the assessment and discussion fragment sets.
+- Replaced the rubric-like Biostatistics assessment and feedback prose with Dr. Voss's shared
+  "memorization is not learning" pedagogy. Every coursework page now introduces only the
+  manifest-selected assessment types used in that course, with assignments, group quizzes, and
+  exams nested beneath one top-level assessment overview.
+- Removed the remote and online exam format, timing, reset, bonus, and penalty rules because Fall
+  2026 General Genetics uses face-to-face exams. The shared face-to-face fragment now describes
+  only the in-class, individual format; the Genetics point plan owns the exam count, names, and
+  values. The online rules remain a separate unselected assessment type rather than appearing in
+  Genetics.
 
 - Added page numbers and dotted leaders to the generated PDF and DOCX contents lists. Contents
   labels now derive automatically from source page filenames in Title Case, while visible headings

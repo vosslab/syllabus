@@ -4,21 +4,23 @@ term: Fall 2026
 author: Neil R. Voss
 language: en-US
 download_basename: BIOL_351_451_FALL_2026_SYLLABUS
+assessment_examples_url: https://biologyproblems.org/genetics/
 sections:
   - index.md
   - COURSE_DETAILS.md
   - COURSE_LEARNING_FRAMEWORK.md
   - ASSIGNMENTS_AND_GRADING.md
+  - DISCUSSION_MARKS.md
   - SCHEDULE.md
 assessments:
   - assignments
   - group_quizzes
-  - exams
+  - f2f_exams
+discussion: f2f_discussion
 shared_sections:
   - ../shared/policies/index.md
   - ../shared/policies/COURSE_DELIVERY.md
   - ../shared/policies/ASSESSMENT.md
-  - ../shared/policies/DISCUSSION_MARKS.md
   - ../shared/policies/EXTRA_CREDIT.md
   - ../shared/policies/ATTENDANCE_AND_ACCOMMODATIONS.md
   - ../shared/policies/ACADEMIC_INTEGRITY.md

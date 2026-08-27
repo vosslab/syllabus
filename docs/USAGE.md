@@ -29,8 +29,12 @@ See [FILE_FORMATS.md](FILE_FORMATS.md) for manifest, Markdown table, and restric
 - Edit shared support information in `site_docs/fall_2026/shared/STUDENT_RESOURCES.md`.
 - Edit dates as literal Markdown in course details and schedules. Confirm calendar changes before
   publishing; the build never shifts dates automatically.
-- Select `assignments`, `group_quizzes`, and `exams` in each course manifest's ordered
-  `assessments` list. Edit their shared wording under `shared/fragments/assessments/`.
+- Select `assignments`, `group_quizzes`, `f2f_exams`, and `online_exams` in each course manifest's
+  ordered `assessments` list. Edit their shared wording under `shared/fragments/assessments/`.
+- Set `assessment_examples_url` to the matching official `https://biologyproblems.org/<subject>/`
+  route. The coursework page publishes that practice-problem link before its assessment types.
+- Set `discussion` to `no_discussion`, `f2f_discussion`, or `remote_discussion`. Edit mode-specific
+  and shared discussion wording under `shared/fragments/discussions/`.
 
 Use the exact, full-line include form when a public fact must appear in more than one place:
 

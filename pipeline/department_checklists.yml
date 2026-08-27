@@ -332,7 +332,7 @@ items:
         path: COURSE_LEARNING_FRAMEWORK/
       - label: Coursework and grades
         path: ASSIGNMENTS_AND_GRADING/
-    note: The learning framework and assessment approach describe how students learn and demonstrate learning.
+    note: The learning framework and assessment philosophy describe how students learn and demonstrate learning.
   - id: active_learning
     group: Suggested - Course design
     label: Active or experiential learning
@@ -444,7 +444,7 @@ courses:
       optional_resources:
         note: Two LibreTexts biostatistics OER books, OpenIntro, OpenStax, and the former Triola text are listed as optional.
       teaching_methodology:
-        note: The assessment approach and Google Sheets rationale explain the course's applied, accessible teaching method.
+        note: The assessment philosophy and Google Sheets rationale explain the course's applied, accessible teaching method.
   - directory: genetics
     overrides:
       required_texts:

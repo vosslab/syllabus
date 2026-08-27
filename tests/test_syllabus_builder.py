@@ -13,6 +13,21 @@ import build_lib.syllabus_rendering
 
 
 #============================================
+def test_assessment_examples_url_accepts_only_official_subject_routes() -> None:
+	"""Assessment examples remain on the official OER subject routes."""
+	manifest_path = pathlib.Path("syllabus.yml")
+	valid_url = "https://biologyproblems.org/biochemistry/"
+	assert (
+		build_lib.syllabus_model.validate_assessment_examples_url(valid_url, manifest_path)
+		== valid_url
+	)
+	with pytest.raises(ValueError, match="assessment_examples_url"):
+		build_lib.syllabus_model.validate_assessment_examples_url(
+			"javascript:alert(1)", manifest_path
+		)
+
+
+#============================================
 def test_prepare_section_removes_web_only_content() -> None:
 	"""The archival source excludes web controls while retaining extension syntax."""
 	markdown = (
@@ -365,7 +380,7 @@ def test_manifest_assessments_control_coursework_content(
 
 #============================================
 def test_assessment_manifest_rejects_unknown_category(tmp_path: pathlib.Path) -> None:
-	"""The manifest accepts only Dr. Voss's three assessment categories."""
+	"""The manifest accepts only Dr. Voss's four assessment categories."""
 	manifest_path = tmp_path / "fall_20xx" / "course" / "syllabus.yml"
 	manifest_path.parent.mkdir(parents=True)
 	with pytest.raises(ValueError, match="unsupported assessments"):
@@ -400,6 +415,48 @@ def test_coursework_requires_one_assessment_marker(tmp_path: pathlib.Path) -> No
 			coursework_path,
 			manifest,
 		)
+
+
+#============================================
+def test_discussion_manifest_rejects_unknown_mode(tmp_path: pathlib.Path) -> None:
+	"""The manifest accepts only Dr. Voss's three discussion modes."""
+	manifest_path = tmp_path / "fall_20xx" / "course" / "syllabus.yml"
+	manifest_path.parent.mkdir(parents=True)
+	with pytest.raises(ValueError, match="unsupported discussion mode"):
+		build_lib.syllabus_model.resolve_discussion_fragments(
+			{"discussion": "generic_participation"},
+			manifest_path,
+			tmp_path,
+		)
+
+
+#============================================
+def test_discussion_marker_materializes_selected_fragments(tmp_path: pathlib.Path) -> None:
+	"""One course discussion page receives only its selected mode fragments."""
+	discussion_path = tmp_path / "DISCUSSION_MARKS.md"
+	mode_path = tmp_path / "FACE_TO_FACE.md"
+	common_path = tmp_path / "COMMON.md"
+	manifest = build_lib.syllabus_model.SyllabusManifest(
+		path=tmp_path / "syllabus.yml",
+		docs_root=tmp_path,
+		title="Course title",
+		course_code="BIOL 000",
+		term="Fall 20XX",
+		author="Instructor",
+		language="en-US",
+		course_color="#007849",
+		download_basename="BIOL_000_SYLLABUS",
+		sections=(discussion_path,),
+		shared_sections=(),
+		discussion_fragments=(mode_path, common_path),
+	)
+	selected = build_lib.syllabus_content.apply_discussion_fragments(
+		"# Discussion marks\n\n<!-- discussion from syllabus.yml -->\n",
+		discussion_path,
+		manifest,
+	)
+	assert selected.index("FACE_TO_FACE.md") < selected.index("COMMON.md")
+	assert "discussion from syllabus.yml" not in selected
 
 
 #============================================

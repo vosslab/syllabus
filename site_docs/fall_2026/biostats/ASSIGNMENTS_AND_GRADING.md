@@ -1,17 +1,9 @@
 # Coursework and grades
 
-## Assessment approach
-
-The course uses quizzes, data-analysis exercises, projects, and other assignments that require
-students to select methods, perform analyses, interpret results, and communicate conclusions.
-Current scores and the authoritative point total are maintained in Blackboard.
-
 Final percentages, rounding, and letter-grade thresholds follow the shared
 [grading policies](../shared/policies/ASSESSMENT.md#grades).
+Blackboard is the authoritative record for submissions and scores.
 
-## Feedback
-
-Assignment instructions identify the grading criteria and expected feedback window. Blackboard is
-the authoritative record for submissions, scores, and feedback.
+--8<-- "fall_2026/shared/fragments/assessments/OVERVIEW.md"
 
 <!-- assessments from syllabus.yml -->

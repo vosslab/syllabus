@@ -33,6 +33,7 @@ REQUIRED_LEARNING_MARKERS = (
 	"Overall, this course aims to accomplish:",
 )
 ASSESSMENT_FRAGMENT_MARKER = "<!-- assessments from syllabus.yml -->"
+DISCUSSION_FRAGMENT_MARKER = "<!-- discussion from syllabus.yml -->"
 
 
 #============================================
@@ -228,9 +229,38 @@ def apply_assessment_fragments(
 	for fragment_path in manifest.assessment_fragments:
 		relative_path = fragment_path.relative_to(manifest.docs_root).as_posix()
 		include_lines.append(f'--8<-- "{relative_path}"')
-	replacement = "\n\n".join(include_lines)
+	replacement_parts = include_lines
+	if manifest.assessment_examples_url is not None:
+		examples_link = (
+			"Practice with [sample assessment problems on my Biology Problems OER]"
+			f"({manifest.assessment_examples_url})."
+		)
+		replacement_parts.insert(0, examples_link)
+	replacement = "\n\n".join(replacement_parts)
 	selected = markdown.replace(ASSESSMENT_FRAGMENT_MARKER, replacement)
 	return selected
+
+
+#============================================
+def apply_discussion_fragments(
+	markdown: str,
+	source_path: pathlib.Path,
+	manifest: build_lib.syllabus_model.SyllabusManifest,
+) -> str:
+	"""Materialize one course's selected discussion mode on its discussion page."""
+	is_discussion_page = source_path.name == "DISCUSSION_MARKS.md"
+	marker_count = markdown.count(DISCUSSION_FRAGMENT_MARKER)
+	if is_discussion_page and marker_count != 1:
+		raise ValueError(f"{source_path}: expected exactly one discussion fragment marker")
+	if not is_discussion_page and marker_count:
+		raise ValueError(f"{source_path}: discussion marker is only valid on Discussion marks")
+	if not is_discussion_page:
+		return markdown
+	include_lines = []
+	for fragment_path in manifest.discussion_fragments:
+		relative_path = fragment_path.relative_to(manifest.docs_root).as_posix()
+		include_lines.append(f'--8<-- "{relative_path}"')
+	return markdown.replace(DISCUSSION_FRAGMENT_MARKER, "\n\n".join(include_lines))
 
 
 #============================================
@@ -458,6 +488,7 @@ def compose_markdown(manifest: build_lib.syllabus_model.SyllabusManifest) -> str
 	for index, section_path in enumerate(manifest.sections):
 		markdown = section_path.read_text(encoding="utf-8")
 		markdown = apply_assessment_fragments(markdown, section_path, manifest)
+		markdown = apply_discussion_fragments(markdown, section_path, manifest)
 		markdown = build_lib.markdown_includes.expand_includes(
 			markdown,
 			section_path,
