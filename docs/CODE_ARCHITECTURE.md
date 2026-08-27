@@ -9,25 +9,25 @@ the active Markdown authoritative and treats every rendered artifact as generate
 ## System overview
 
 ```text
-Google Sheets                       tracked site_docs/
-important dates                         |             |
-      |                                 |             | syllabus.yml manifests
-      v                                 |             v
-sync_important_dates.py                 |      build_syllabi.py
-      |                                 |          |          |
-      | generated date fragment         |          v          v
-      +----------------------------+    |       Pandoc   Python-Markdown
-                                   |    |          |          |
-                                   |    |          v          v
-                                   |    |         DOCX    HTML + WeasyPrint
-                                   |    |                     |
-                                   |    |                     v
-                                   |    |                    PDF
-                                   |    |                     |
-                                   |    |                     v
-                                   |    |             site_docs/downloads/
-                                   v    v                     |
-                                  MkDocs Material <-----------+
+Google Sheets                    tracked site_docs/
+important dates                      |             |
+      |                              |             | syllabus.yml manifests
+      v                              |             v
+sync_important_dates.py              |      build_syllabi.py
+      |                              |          |          |
+      | generated date fragment -----+          v          v
+      |                              |       Pandoc   Python-Markdown
+      |                              |          |          |
+      |                              |          v          v
+      |                              |         DOCX    HTML + WeasyPrint
+      |                              |                     |
+      |                              |                     v
+      |                              |                    PDF
+      |                              |                     |
+      |                              |                     v
+      |                              |             site_docs/downloads/
+      v                              v                     |
+     tracked dates wrapper ------> MkDocs Material <-------+
                                          |
                                          v
                                        site/
@@ -51,7 +51,8 @@ ignored and must be rebuilt from the tracked source.
 `pipeline/build_site.py` is the production front door. It runs three fail-fast stages:
 
 1. `pipeline/sync_important_dates.py` downloads and validates the fixed Google Sheets CSV source,
-   then atomically replaces the website's generated important-dates fragment.
+   then atomically replaces the generated important-dates fragment consumed by the tracked dates
+   wrapper on the website and in every complete syllabus.
 2. `pipeline/build_syllabi.py` coordinates manifest discovery, staged builds, publication, and
    optional archives through the importable units under `pipeline/build_lib/`.
 3. MkDocs builds `site/` in strict mode using `mkdocs.yml`.
@@ -112,15 +113,18 @@ on a lasting path mutation.
 The engine accepts one full-line, double-quoted `--8<--` form with paths resolved from `site_docs/`.
 Targets must be local, non-empty `.md` files under a directory named `fragments` or `generated`.
 Traversal, remote paths, symlink escapes, nested includes, and every unsupported marker form fail
-before rendering. `exclude_docs` remains a navigation rule; tests require every authorized Markdown
-fragment to be excluded without treating every exclusion as authorization.
+before rendering. Relative Markdown and HTML links inside a fragment are rebased from that
+fragment's directory to the receiving page while remaining contained by `site_docs/`; this lets the
+main page and term overview consume one canonical course-and-download block. `exclude_docs` remains
+a navigation rule; tests require every authorized Markdown fragment to be excluded without treating
+every exclusion as authorization.
 
 ## Validation boundaries
 
 - `source source_me.sh && python3 -m pytest tests/` is the fast repository lane.
 - `source source_me.sh && python3 tests/e2e/e2e_include_parity.py` exercises the production export
   boundary, stale-output cleanup, credential checks, strict site build, and include parity across
-  the relevant website, DOCX, and PDF corpora.
+  the website, DOCX, and PDF corpora.
 - `./run_playwright_tests.sh --build` serves the production-shaped `site/` tree and checks real
   routes, downloads, accessibility, responsive behavior, theme state, and navigation.
 - `.github/workflows/deploy-pages.yml` runs the production builder and deploys only after the Pages

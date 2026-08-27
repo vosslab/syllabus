@@ -398,7 +398,7 @@ def render_markdown(entries: list[CalendarEntry]) -> str:
 			lines.extend(
 				(
 					"",
-					f"## {month_title} {{ .important-dates-month .{month_class} }}",
+					f"### {month_title} {{ .important-dates-month .{month_class} }}",
 					"",
 					"| Date | Event | Type |",
 					"| --- | --- | --- |",

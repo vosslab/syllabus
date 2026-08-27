@@ -370,6 +370,11 @@ def verify_download_links(
 		target_path = downloads_dir / f"{manifest.download_basename}{suffix}"
 		for source_path in link_sources:
 			source_markdown = source_path.read_text(encoding="utf-8")
+			source_markdown = build_lib.markdown_includes.expand_includes(
+				source_markdown,
+				source_path,
+				manifest.docs_root,
+			)
 			relative_path = pathlib.Path(
 				os.path.relpath(target_path, source_path.parent)
 			).as_posix()

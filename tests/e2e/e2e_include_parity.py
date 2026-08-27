@@ -127,7 +127,7 @@ def select_contact_sentence(fragment_path: pathlib.Path) -> str:
 
 #============================================
 def select_generated_event(fragment_path: pathlib.Path) -> str:
-	"""Select one current event value that should reach the website corpus."""
+	"""Select one current event value that should reach every artifact corpus."""
 	for line in fragment_path.read_text(encoding="utf-8").splitlines():
 		if not line.startswith("|") or line.startswith(("| Date |", "| --- |")):
 			continue
@@ -156,13 +156,23 @@ def main() -> None:
 	pdf_marker_files = []
 	docx_text_parts = []
 	pdf_text_parts = []
+	docx_generated_missing = []
+	pdf_generated_missing = []
+	generated_event = select_generated_event(
+		repo_root / "site_docs" / "generated" / "FALL_2026_IMPORTANT_DATES.md"
+	)
 	for docx_path in sorted(downloads_root.glob("*.docx")):
-		docx_text_parts.append(read_docx_text(docx_path))
+		docx_text = read_docx_text(docx_path)
+		docx_text_parts.append(docx_text)
+		if generated_event not in docx_text:
+			docx_generated_missing.append(docx_path.name)
 	for pdf_path in sorted(downloads_root.glob("*.pdf")):
 		pdf_text = read_pdf_text(pdf_path)
 		pdf_text_parts.append(pdf_text)
 		if INCLUDE_MARKER in pdf_text:
 			pdf_marker_files.append(pdf_path.name)
+		if generated_event not in pdf_text:
+			pdf_generated_missing.append(pdf_path.name)
 	assert not site_marker_files, f"Unexpanded site includes: {site_marker_files}"
 	assert not docx_marker_files, f"Unexpanded DOCX includes: {docx_marker_files}"
 	assert not pdf_marker_files, f"Unexpanded PDF includes: {pdf_marker_files}"
@@ -175,9 +185,6 @@ def main() -> None:
 		/ "fragments"
 		/ "INSTRUCTOR_CONTACT_DETAILS.md"
 	)
-	generated_event = select_generated_event(
-		repo_root / "site_docs" / "generated" / "FALL_2026_IMPORTANT_DATES.md"
-	)
 	site_text = read_site_text(site_root)
 	docx_text = normalize_text(" ".join(docx_text_parts))
 	pdf_text = normalize_text(" ".join(pdf_text_parts))
@@ -185,7 +192,9 @@ def main() -> None:
 	assert contact_sentence in docx_text, "Shared fragment is absent from the DOCX corpus"
 	assert contact_sentence in pdf_text, "Shared fragment is absent from the PDF corpus"
 	assert generated_event in site_text, "Generated fragment is absent from the website corpus"
-	print("PASS: include expansion is consistent across relevant HTML, DOCX, and PDF artifacts")
+	assert not docx_generated_missing, f"Generated fragment is absent from: {docx_generated_missing}"
+	assert not pdf_generated_missing, f"Generated fragment is absent from: {pdf_generated_missing}"
+	print("PASS: include expansion is consistent across HTML, DOCX, and PDF artifacts")
 	return None
 
 

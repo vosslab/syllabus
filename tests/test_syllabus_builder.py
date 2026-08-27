@@ -39,18 +39,25 @@ def test_download_links_cover_course_and_term_pages(tmp_path: pathlib.Path) -> N
 	docs_root = tmp_path / "site_docs"
 	term_path = docs_root / "fall_20xx"
 	course_path = term_path / "course"
+	fragments_path = term_path / "shared" / "fragments"
 	downloads_dir = docs_root / "downloads"
 	course_path.mkdir(parents=True)
+	fragments_path.mkdir(parents=True)
 	overview_path = course_path / "index.md"
 	term_overview_path = term_path / "index.md"
+	term_courses_path = fragments_path / "TERM_COURSES.md"
 	overview_path.write_text(
 		"../../downloads/BIOL_000_SYLLABUS.pdf\n"
 		"../../downloads/BIOL_000_SYLLABUS.docx\n",
 		encoding="utf-8",
 	)
 	term_overview_path.write_text(
-		"../downloads/BIOL_000_SYLLABUS.pdf\n"
-		"../downloads/BIOL_000_SYLLABUS.docx\n",
+		'--8<-- "fall_20xx/shared/fragments/TERM_COURSES.md"\n',
+		encoding="utf-8",
+	)
+	term_courses_path.write_text(
+		'<a href="../../../downloads/BIOL_000_SYLLABUS.pdf">PDF</a>\n'
+		'<a href="../../../downloads/BIOL_000_SYLLABUS.docx">DOCX</a>\n',
 		encoding="utf-8",
 	)
 	manifest = build_lib.syllabus_model.SyllabusManifest(
@@ -67,8 +74,8 @@ def test_download_links_cover_course_and_term_pages(tmp_path: pathlib.Path) -> N
 		shared_sections=(),
 	)
 	build_lib.syllabus_content.verify_download_links(manifest, downloads_dir)
-	term_overview_path.write_text(
-		"../downloads/BIOL_000_SYLLABUS.pdf\n",
+	term_courses_path.write_text(
+		'<a href="../../../downloads/BIOL_000_SYLLABUS.pdf">PDF</a>\n',
 		encoding="utf-8",
 	)
 	with pytest.raises(RuntimeError, match=r"fall_20xx/index\.md: missing complete-download link"):

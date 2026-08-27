@@ -17,6 +17,8 @@ offline reading and archival use.
 
 - Make the active semester and its three course choices the homepage's dominant content. A student
   reaches a course in one click without first opening a term overview.
+- Put each complete PDF and DOCX directly below its course on both the homepage and term overview.
+  Render both entry points from one shared term fragment so their choices cannot drift apart.
 - Show archive navigation only after an archived syllabus actually exists.
 - Explain Blackboard in terms of the private materials students should expect to find there,
   rather than using an unexplained security-oriented heading.
@@ -59,6 +61,9 @@ then choose the page that matches their question. Each subsection belongs to one
 | `INSTRUCTOR_INFORMATION.md` | Contacting Dr. Voss | How and when do I contact the instructor? |
 | `COURSE_DELIVERY.md` | Course format and online tools | Where and how does the course operate? |
 | `ASSESSMENT.md` | Grades and graded work | How are assignments, quizzes, exams, and grades handled? |
+| `DISCUSSION_MARKS.md` | Discussion marks | How is live participation recognized and scored? |
+| `EXTRA_CREDIT.md` | Extra credit write-ups | What can earn extra credit, and how do I submit it? |
+| `EXTRA_CREDIT_MOVIES.md` | Approved science movies | Which movies may I use for extra credit? |
 | `ATTENDANCE_AND_ACCOMMODATIONS.md` | Attendance, absences, and accommodations | What happens if I miss class or need an accommodation? |
 | `ACADEMIC_INTEGRITY.md` | Academic integrity and AI | What work must be my own, and how may I use AI? |
 | `COURSE_EXPECTATIONS.md` | What students and instructors can expect | What responsibilities and classroom behavior are expected? |
@@ -106,9 +111,10 @@ Dr. Voss's shared policy branch controls.
 
 ## Homepage UX delta
 
-The primary homepage task is **open the syllabus for my current course**. The old path required two
-links: homepage to term, then term to course. The revised path requires one direct course link and
-removes two placeholder sections that did not help a Fall 2026 student.
+The primary homepage task is **open or download the syllabus for my current course**. The old path
+required two links: homepage to term, then term to course or download. The revised path offers each
+course page, PDF, and DOCX directly and removes placeholder sections that did not help a Fall 2026
+student.
 
 | Nielsen heuristic | Before | After | Evidence |
 | --- | ---: | ---: | --- |
@@ -118,7 +124,7 @@ removes two placeholder sections that did not help a Fall 2026 student.
 | Consistency and standards | 4 | 4 | Course names match the term page and navigation |
 | Error prevention | 3 | 4 | Blackboard content is described before students search the public site for it |
 | Recognition rather than recall | 2 | 4 | All current course choices are visible together |
-| Flexibility and efficiency | 2 | 4 | Course entry drops from two links to one |
+| Flexibility and efficiency | 2 | 4 | Course entry and complete downloads are one link away |
 | Aesthetic and minimalist design | 2 | 4 | Future archive copy and the ambiguous access section are removed |
 | Error recovery | 3 | 3 | The static landing page has no transactional error state |
 | Help and documentation | 2 | 4 | Policies, student services, and Blackboard each have explicit context |

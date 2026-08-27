@@ -10,7 +10,13 @@ this same policy set, and every complete syllabus download includes each topic o
 - [Course format and online tools](COURSE_DELIVERY.md): syllabus changes, Blackboard,
   Zoom, Discord, and course formats.
 - [Grades and graded work](ASSESSMENT.md): letter grades, assignments, quizzes, exams,
-  make-up work, discussion marks, and extra credit.
+  make-up work, and Blackboard percentages.
+- [Discussion marks](DISCUSSION_MARKS.md): Zoom participation, in-person poker chips,
+  common concerns, scoring, and the no-make-up policy.
+- [Extra credit write-ups](EXTRA_CREDIT.md): four eligible categories, write-up requirements,
+  submission, grading, point deductions, and frequently asked questions.
+- [Approved science movies](EXTRA_CREDIT_MOVIES.md): categorized approved choices, excluded
+  choices, movies awaiting approval, and browsing resources.
 - [Attendance, absences, and accommodations](ATTENDANCE_AND_ACCOMMODATIONS.md): class and
   lab attendance, disability accommodations, religious holidays, caregivers, and student athletes.
 - [Academic integrity and AI](ACADEMIC_INTEGRITY.md): plagiarism, academic dishonesty,

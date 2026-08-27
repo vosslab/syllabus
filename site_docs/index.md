@@ -6,17 +6,7 @@ grading information, learning framework, policies, and complete syllabus downloa
 
 ## Choose your course
 
-### [BIOL 318 and BIOL 418 - Biostatistics](fall_2026/biostats/index.md)
-
-Hybrid and videoconferenced sections meeting Wednesdays at the Schaumburg campus.
-
-### [BIOL 351 and BIOL 451 - General Genetics](fall_2026/genetics/index.md)
-
-Face-to-face lecture sections meeting Tuesdays at the Schaumburg campus.
-
-### [BIOL 480 - Applications of Biotechnology](fall_2026/biotech/index.md)
-
-Hybrid and videoconferenced sections meeting Thursdays in Chicago and Schaumburg.
+--8<-- "fall_2026/shared/fragments/TERM_COURSES.md"
 
 ## Policies and student support
 

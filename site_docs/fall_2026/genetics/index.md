@@ -40,12 +40,14 @@ The syllabus is divided into shorter pages so you can go directly to the informa
   <p>Download all course pages, Dr. Voss course policies, and student resources as one file.</p>
   <ul>
     <li>
-      <a href="../../downloads/BIOL_351_451_FALL_2026_SYLLABUS.pdf">
+      <a class="file-link file-link--pdf"
+         href="../../downloads/BIOL_351_451_FALL_2026_SYLLABUS.pdf">
         Download the complete course syllabus (PDF)
       </a>
     </li>
     <li>
-      <a href="../../downloads/BIOL_351_451_FALL_2026_SYLLABUS.docx">
+      <a class="file-link file-link--docx"
+         href="../../downloads/BIOL_351_451_FALL_2026_SYLLABUS.docx">
         Download the complete course syllabus (DOCX)
       </a>
     </li>

@@ -1,14 +1,15 @@
 // Selector contract:
 // - Material theme markup comes from mkdocs.yml:12; navigation labels and routes come from
 //   mkdocs.yml:77.
-// - Current-course links and Blackboard context come from site_docs/index.md:1; term download
-//   access comes from site_docs/fall_2026/index.md:7.
+// - Current-course and shared download links come from
+//   site_docs/fall_2026/shared/fragments/TERM_COURSES.md:1; Blackboard context comes from
+//   site_docs/index.md:1.
 // - The important-dates wrapper comes from site_docs/fall_2026/shared/IMPORTANT_DATES.md:1;
 //   its generated month tables come from pipeline/sync_important_dates.py:386.
 // - Main headings, prose, tables, course-page links, and download links come from
 //   site_docs/fall_2026/genetics/index.md:1.
-// - Typography and focus-visible behavior come from site_docs/assets/stylesheets/site.css:97 and
-//   site_docs/assets/stylesheets/site.css:309.
+// - Typography and focus-visible behavior come from site_docs/assets/stylesheets/site.css:110 and
+//   site_docs/assets/stylesheets/site.css:379.
 // - System-aware palette toggles come from mkdocs.yml:18; dark color roles come from
 //   site_docs/assets/stylesheets/site.css:55.
 // - Course-header metadata comes from each course .meta.yml, overrides/main.html:5, and
@@ -42,6 +43,9 @@ const ROUTES = [
 	"/fall_2026/shared/INSTRUCTOR_INFORMATION/",
 	"/fall_2026/shared/policies/COURSE_DELIVERY/",
 	"/fall_2026/shared/policies/ASSESSMENT/",
+	"/fall_2026/shared/policies/DISCUSSION_MARKS/",
+	"/fall_2026/shared/policies/EXTRA_CREDIT/",
+	"/fall_2026/shared/policies/EXTRA_CREDIT_MOVIES/",
 	"/fall_2026/shared/policies/ATTENDANCE_AND_ACCOMMODATIONS/",
 	"/fall_2026/shared/policies/ACADEMIC_INTEGRITY/",
 	"/fall_2026/shared/policies/COURSE_EXPECTATIONS/",
@@ -126,6 +130,33 @@ function checkCourseTypography(typography, viewportName) {
 		typography.table >= typography.body,
 		`${viewportName} table text ${typography.table}px is smaller than course text ${typography.body}px`,
 	);
+}
+
+async function checkCompleteSyllabusDownloads(page, siteOrigin, siteRoot) {
+	const downloadLinks = await page
+		.getByRole("link", {
+			name: /^BIOL .+ complete syllabus \((?:PDF|DOCX)\)$/,
+		})
+		.all();
+	const actualDownloadPaths = [];
+	for (const downloadLink of downloadLinks) {
+		const accessibleName = await downloadLink.getAttribute("aria-label");
+		const downloadUrl = new URL(await downloadLink.getAttribute("href"), page.url());
+		actualDownloadPaths.push(downloadUrl.pathname);
+		assert.equal(downloadUrl.origin, siteOrigin);
+		assert.match(
+			accessibleName,
+			/^BIOL .+ complete syllabus \((?:PDF|DOCX)\)$/,
+		);
+		const downloadResponse = await page.request.get(downloadUrl.href);
+		assert.equal(downloadResponse.status(), 200, `${accessibleName} did not load`);
+	}
+	const expectedDownloadPaths = fs
+		.readdirSync(path.join(siteRoot, "downloads"))
+		.filter((fileName) => [".docx", ".pdf"].includes(path.extname(fileName)))
+		.map((fileName) => `/downloads/${fileName}`)
+		.sort();
+	assert.deepEqual(actualDownloadPaths.sort(), expectedDownloadPaths);
 }
 
 async function getResponsiveReadingMetrics(page, baseUrl, width) {
@@ -259,6 +290,7 @@ try {
 	assert.equal(faviconResponse.status(), 200, "Protein favicon did not load");
 	assert.match(faviconResponse.headers()["content-type"], /^image\/svg\+xml/);
 	const homeMain = homePage.getByRole("article");
+	await checkCompleteSyllabusDownloads(homePage, siteOrigin, siteRoot);
 	const currentCourses = [
 		{
 			name: "BIOL 318 and BIOL 418 - Biostatistics",
@@ -353,37 +385,7 @@ try {
 
 	const termPage = await browser.newPage();
 	await termPage.goto(`${staticServer.baseUrl}/fall_2026/`);
-	const termDownloadLinks = await termPage
-		.getByRole("link", {
-			name: /^BIOL .+ complete syllabus \((?:PDF|DOCX)\)$/,
-		})
-		.all();
-	const actualDownloadPaths = [];
-	for (const downloadLink of termDownloadLinks) {
-		const accessibleName = await downloadLink.getAttribute("aria-label");
-		const downloadUrl = new URL(
-			await downloadLink.getAttribute("href"),
-			termPage.url(),
-		);
-		actualDownloadPaths.push(downloadUrl.pathname);
-		assert.equal(downloadUrl.origin, siteOrigin);
-		assert.match(
-			accessibleName,
-			/^BIOL .+ complete syllabus \((?:PDF|DOCX)\)$/,
-		);
-		const downloadResponse = await termPage.request.get(downloadUrl.href);
-		assert.equal(
-			downloadResponse.status(),
-			200,
-			`${accessibleName} did not load`,
-		);
-	}
-	const expectedDownloadPaths = fs
-		.readdirSync(path.join(siteRoot, "downloads"))
-		.filter((fileName) => [".docx", ".pdf"].includes(path.extname(fileName)))
-		.map((fileName) => `/downloads/${fileName}`)
-		.sort();
-	assert.deepEqual(actualDownloadPaths.sort(), expectedDownloadPaths);
+	await checkCompleteSyllabusDownloads(termPage, siteOrigin, siteRoot);
 	await termPage.close();
 
 	const coursePage = await browser.newPage();

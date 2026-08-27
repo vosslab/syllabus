@@ -21,6 +21,11 @@ sections:
 shared_sections:
   - ../shared/policies/index.md
   - ../shared/policies/COURSE_DELIVERY.md
+  - ../shared/policies/ASSESSMENT.md
+  - ../shared/policies/DISCUSSION_MARKS.md
+  - ../shared/policies/EXTRA_CREDIT.md
+  - ../shared/policies/EXTRA_CREDIT_MOVIES.md
+  - ../shared/IMPORTANT_DATES.md
   - ../shared/STUDENT_RESOURCES.md
 ```
 
@@ -57,6 +62,11 @@ non-empty `.md` file whose relative path contains a directory named `fragments` 
 The engine in [pipeline/build_lib/markdown_includes.py](../pipeline/build_lib/markdown_includes.py)
 expands the file once for the website, DOCX, and PDF paths.
 
+Relative Markdown links, images, and HTML `href` or `src` attributes inside a fragment resolve from
+the fragment's own directory. During expansion, the engine rebases them for the receiving page so
+one linked fragment can render correctly at different page depths. A relative target that escapes
+`site_docs/` fails the build.
+
 Absolute paths, `..` traversal, remote URLs, symlink escapes, nested includes, single-quoted or
 unquoted paths, block form, section selection, and alternate marker lengths are invalid. Any line
 containing `--8<--` that does not match the exact form fails the build. Authorized Markdown remains
@@ -85,7 +95,8 @@ the date, event, and inferred event type; the remaining columns are validated ma
 
 The generated fragment lives at `site_docs/generated/FALL_2026_IMPORTANT_DATES.md`. It is ignored
 output included by the tracked `site_docs/fall_2026/shared/IMPORTANT_DATES.md` wrapper. Edit the
-spreadsheet or importer, not the generated fragment.
+spreadsheet or importer, not the generated fragment. Every course manifest places that wrapper
+near the end of the complete PDF and DOCX, immediately before student resources.
 
 ## Generated documents
 

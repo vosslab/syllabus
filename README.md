@@ -13,7 +13,7 @@ Biostatistics, General Genetics, and Applications of Biotechnology, plus shared 
 support resources, and complete syllabus downloads.
 
 <!-- screenshots:begin (managed by screenshot-docs) -->
-![Fall 2026 syllabus homepage in light mode with three direct course links](docs/screenshots/fall_2026_home_light.png)
+![Fall 2026 syllabus homepage with three courses and direct PDF and DOCX links](docs/screenshots/fall_2026_home_light.png)
 
 *The student homepage puts current courses, shared policies, support, and Blackboard context on one
 screen.*
@@ -85,11 +85,15 @@ site_docs/fall_2026/
 |   |-- STUDENT_RESOURCES.md
 |   |-- fragments/
 |   |   |-- INSTRUCTOR_CONTACT_DETAILS.md
-|   |   `-- ROOSEVELT_LEARNING_GOALS.md
+|   |   |-- ROOSEVELT_LEARNING_GOALS.md
+|   |   `-- TERM_COURSES.md
 |   `-- policies/
 |       |-- index.md
 |       |-- ACADEMIC_INTEGRITY.md
 |       |-- ASSESSMENT.md
+|       |-- DISCUSSION_MARKS.md
+|       |-- EXTRA_CREDIT.md
+|       |-- EXTRA_CREDIT_MOVIES.md
 |       `-- ...
 `-- ...
 ```

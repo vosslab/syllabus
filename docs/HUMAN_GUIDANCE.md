@@ -15,6 +15,10 @@ history. Those belong in the appropriate technical documentation or changelog.
   information, and access-controlled course material. Blackboard is the home for private content.
 - I want shared syllabus information edited once, not copied among courses or maintained in a
   parallel template tree.
+- Keep the Zoom and in-person discussion-mark policies, criticism responses, scoring, and
+  no-make-up rule together on their own shared page instead of inside the general grading page.
+- Keep the complete extra-credit guide and approved science-movie list in this repository instead
+  of making students depend on Google Docs.
 
 ## Presentation
 
@@ -24,19 +28,25 @@ history. Those belong in the appropriate technical documentation or changelog.
 - Use the protein favicon as the MkDocs header logo in Material's standard upper-left position,
   replacing the default book mark.
 - Provide a student-accessible light and dark theme toggle.
+- Explain the Atkinson Hyperlegible Next choice in the student-facing syllabus and link to an
+  English source about the font's accessibility purpose.
 - Avoid CSS specificity arms races. Keep style ownership and the cascade easy to understand.
 - Use subtle course color themes across headings and tables. Keep level-one headings left-aligned,
   bold, and in small caps; keep level-two headings bold and slightly left-shifted, with a separate
   paragraph-width accent rule below instead of a text underline; keep level-three headings bold and
   aligned with body paragraphs; and keep level-four headings italic.
 - Keep term-level PDF and DOCX links small and directly below their course instead of giving
-  downloads a large standalone section. On both the term overview and course landing pages, pair
-  visible file-format labels with small Font Awesome PDF or Word icons rather than relying on
-  icon-only links.
+  downloads a large standalone section. Show the same course-and-download list on both the main
+  page and term overview from one shared term fragment. On course landing pages and other
+  subpages, pair visible file-format labels with small Font Awesome PDF or Word icons rather than
+  relying on icon-only links.
 - Justify long-form paragraphs at comfortable widths without aggressive automatic hyphenation.
   Return narrow screens to left alignment, and allow emergency wrapping for long URLs and code.
 - Keep the heading, paragraph, and table design readable in both MkDocs Material and WeasyPrint,
   while allowing renderer-specific spacing where the formats need it.
+- Put the shared important dates near the end of every complete course document, before student
+  resources. Use level-three month headings without divider rules, and give each month's table a
+  restrained version of its spreadsheet color.
 - Use my student-appropriate social links in the footer. Do not include PayPal, Patreon, or other
   donation links.
 - Keep the public GitHub Pages link prominent in the README.

@@ -25,13 +25,14 @@ Each term keeps its public term-wide pages under `shared/`: important dates, ins
 information, policies, and student resources. The short policy topic index and the canonical
 policy categories live together under `shared/policies/`. Every course links to those shared
 branches. Its manifest adds the policy overview as a section heading, then appends each policy
-topic and the student-resource source once to the complete syllabus. The overview's web-only topic
-links are omitted from document exports.
+topic, the synchronized important dates, and the student-resource source once to the complete
+syllabus. Important dates sit near the end, between course enrollment and student resources. The
+overview's web-only topic links are omitted from document exports.
 
 Include-only Markdown under `shared/fragments/` holds facts that students need in more than one
-context but the instructor should edit once. The current fragments provide instructor contact
-details, including office hours, and Roosevelt learning-goal bullets. Course pages embed them with
-the restricted syntax:
+context but the instructor should edit once. The current fragments provide the shared term course
+and download list, instructor contact details including office hours, and Roosevelt learning-goal
+bullets. Pages embed them with the restricted syntax:
 
 ```markdown
 --8<-- "fall_2026/shared/fragments/INSTRUCTOR_CONTACT_DETAILS.md"
@@ -76,7 +77,8 @@ past event. The importer validates but omits all four metadata cells from Markdo
 only from the fixed Google Sheets HTTPS source and replaces the ignored
 `site_docs/generated/FALL_2026_IMPORTANT_DATES.md` fragment only after the complete response passes
 validation. Every complete site build requires that live refresh and fails rather than publishing
-the previous table when Google Sheets is unavailable. The fast pytest lane remains offline.
+the previous table when Google Sheets is unavailable. Every course manifest includes the tracked
+wrapper near the end of its complete PDF and DOCX syllabus. The fast pytest lane remains offline.
 
 `pipeline/build_syllabi.py` coordinates the manifest, content, and rendering units under
 `pipeline/build_lib/` to create one DOCX and one PDF per course. `pipeline/build_site.py` refreshes
@@ -89,11 +91,19 @@ the website publishes neither stale dates nor download links without their gener
 - Edit shared assessment rules and the letter-grade scale in
   `site_docs/<term>/shared/policies/ASSESSMENT.md`. Its student-facing title is **Grades and graded
   work**.
+- Edit Zoom, in-person, scoring, criticism-response, and no-make-up discussion-mark rules in
+  `site_docs/<term>/shared/policies/DISCUSSION_MARKS.md`.
+- Edit extra-credit categories, write-up rules, submission requirements, deductions, and FAQs in
+  `site_docs/<term>/shared/policies/EXTRA_CREDIT.md`.
+- Edit approved, excluded, and pending movie choices in
+  `site_docs/<term>/shared/policies/EXTRA_CREDIT_MOVIES.md`.
 - Edit office hours and instructor facts in
   `site_docs/<term>/shared/fragments/INSTRUCTOR_CONTACT_DETAILS.md`. The public
   `shared/INSTRUCTOR_INFORMATION.md` page embeds this canonical body.
 - Edit Roosevelt learning goals in
   `site_docs/<term>/shared/fragments/ROOSEVELT_LEARNING_GOALS.md`.
+- Edit the course descriptions and main/term PDF and DOCX links in
+  `site_docs/<term>/shared/fragments/TERM_COURSES.md`.
 - Edit shared support information in `site_docs/<term>/shared/STUDENT_RESOURCES.md`.
 
 Course pages link to these sources; they do not keep policy or grade-scale copies.
@@ -131,6 +141,17 @@ long text left, numbers right, and short categories such as letter grades in the
 blank table cells for visual layout. The build rejects malformed tables and hidden control
 characters that can change Markdown line structure. Store private meeting links, passwords,
 invitations, grades, and assignment submissions only in Blackboard.
+
+For a link that opens a PDF or DOCX file, keep the format in the descriptive link text and add the
+shared web icon classes explicitly. Explicit classes also cover stable or redirecting URLs that do
+not end with a filename extension:
+
+```markdown
+[Religious Holidays Policy (PDF)](https://www.roosevelt.edu/policies/religious-holidays){ .file-link .file-link--pdf }
+```
+
+Use `.file-link--docx` for Word files. The Font Awesome icon is decorative website presentation;
+the visible `(PDF)` or `(DOCX)` label remains meaningful in the website, PDF, and DOCX outputs.
 
 The shared include engine runs before each renderer. After expansion, the PDF branch mirrors the
 `markdown_extensions` entries in `mkdocs.yml`. Other MkDocs plugins, macros, theme hooks, and

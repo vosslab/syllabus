@@ -66,6 +66,63 @@ def test_expand_includes_uses_docs_root_and_both_authorized_roles(
 
 
 #============================================
+def test_expand_includes_rebases_fragment_links_for_each_destination(
+	tmp_path: pathlib.Path,
+) -> None:
+	"""One linked fragment remains local when included at two page depths."""
+	docs_root = tmp_path / "site_docs"
+	root_source = docs_root / "index.md"
+	root_source.parent.mkdir(parents=True)
+	root_source.write_text("# Home\n", encoding="utf-8")
+	term_source = docs_root / "fall_20xx" / "index.md"
+	term_source.parent.mkdir()
+	term_source.write_text("# Term\n", encoding="utf-8")
+	write_include(
+		docs_root,
+		"fall_20xx/shared/fragments/TERM_LINKS.md",
+		"[Course](../../course/#start)\n"
+		'<a href="../../../downloads/course.pdf">PDF</a>\n'
+		"[Guide](https://example.com/guide)\n",
+	)
+	marker = '--8<-- "fall_20xx/shared/fragments/TERM_LINKS.md"\n'
+	root_expanded = build_lib.markdown_includes.expand_includes(
+		marker,
+		root_source,
+		docs_root,
+	)
+	term_expanded = build_lib.markdown_includes.expand_includes(
+		marker,
+		term_source,
+		docs_root,
+	)
+	assert root_expanded == (
+		"[Course](fall_20xx/course/#start)\n"
+		'<a href="downloads/course.pdf">PDF</a>\n'
+		"[Guide](https://example.com/guide)\n"
+	)
+	assert term_expanded == (
+		"[Course](course/#start)\n"
+		'<a href="../downloads/course.pdf">PDF</a>\n'
+		"[Guide](https://example.com/guide)\n"
+	)
+
+
+#============================================
+def test_expand_includes_rejects_a_fragment_link_escape(tmp_path: pathlib.Path) -> None:
+	"""Fragment-relative links must remain inside the public documentation root."""
+	docs_root = tmp_path / "site_docs"
+	source_path = write_source(docs_root)
+	write_include(
+		docs_root,
+		"fall_20xx/shared/fragments/ESCAPE.md",
+		"[Private](../../../../PRIVATE.md)\n",
+	)
+	markdown = '--8<-- "fall_20xx/shared/fragments/ESCAPE.md"\n'
+	with pytest.raises(ValueError, match=r"ESCAPE\.md: relative link escapes site_docs"):
+		build_lib.markdown_includes.expand_includes(markdown, source_path, docs_root)
+
+
+#============================================
 def test_expand_includes_rejects_a_missing_file(tmp_path: pathlib.Path) -> None:
 	"""A valid authorized path still fails when its target is absent."""
 	docs_root = tmp_path / "site_docs"

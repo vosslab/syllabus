@@ -43,6 +43,13 @@
 	--syllabus-calendar-month-10: #9f560a;
 	--syllabus-calendar-month-11: #745aae;
 	--syllabus-calendar-month-12: #477337;
+	--syllabus-calendar-month-01-table-surface: #c9daf8;
+	--syllabus-calendar-month-05-table-surface: #fff2cc;
+	--syllabus-calendar-month-08-table-surface: #e6b8af;
+	--syllabus-calendar-month-09-table-surface: #d0e0e3;
+	--syllabus-calendar-month-10-table-surface: #fce5cd;
+	--syllabus-calendar-month-11-table-surface: #d9d2e9;
+	--syllabus-calendar-month-12-table-surface: #d9ead3;
 	--syllabus-content-font-size: 0.85rem;
 	--syllabus-content-line-height: 1.25;
 	--syllabus-content-gap: 0.65em;
@@ -67,6 +74,13 @@
 	--syllabus-calendar-month-10: #fce5cd;
 	--syllabus-calendar-month-11: #d9d2e9;
 	--syllabus-calendar-month-12: #d9ead3;
+	--syllabus-calendar-month-01-table-surface: #394545;
+	--syllabus-calendar-month-05-table-surface: #42493e;
+	--syllabus-calendar-month-08-table-surface: #3e4039;
+	--syllabus-calendar-month-09-table-surface: #3a4642;
+	--syllabus-calendar-month-10-table-surface: #42473e;
+	--syllabus-calendar-month-11-table-surface: #3c4443;
+	--syllabus-calendar-month-12-table-surface: #3c483f;
 }
 
 /* Use wide desktop viewports while preserving comfortable text and navigation widths. */
@@ -181,8 +195,67 @@
 	color: var(--syllabus-calendar-month-12);
 }
 
+/* Carry each code-owned month palette into its immediately following table. */
+.md-typeset .important-dates-month-01 + table:not([class]),
+.md-typeset .important-dates-month-01 + .md-typeset__scrollwrap {
+	--important-dates-table-accent: var(--syllabus-calendar-month-01);
+	--important-dates-table-surface: var(--syllabus-calendar-month-01-table-surface);
+}
+
+.md-typeset .important-dates-month-05 + table:not([class]),
+.md-typeset .important-dates-month-05 + .md-typeset__scrollwrap {
+	--important-dates-table-accent: var(--syllabus-calendar-month-05);
+	--important-dates-table-surface: var(--syllabus-calendar-month-05-table-surface);
+}
+
+.md-typeset .important-dates-month-08 + table:not([class]),
+.md-typeset .important-dates-month-08 + .md-typeset__scrollwrap {
+	--important-dates-table-accent: var(--syllabus-calendar-month-08);
+	--important-dates-table-surface: var(--syllabus-calendar-month-08-table-surface);
+}
+
+.md-typeset .important-dates-month-09 + table:not([class]),
+.md-typeset .important-dates-month-09 + .md-typeset__scrollwrap {
+	--important-dates-table-accent: var(--syllabus-calendar-month-09);
+	--important-dates-table-surface: var(--syllabus-calendar-month-09-table-surface);
+}
+
+.md-typeset .important-dates-month-10 + table:not([class]),
+.md-typeset .important-dates-month-10 + .md-typeset__scrollwrap {
+	--important-dates-table-accent: var(--syllabus-calendar-month-10);
+	--important-dates-table-surface: var(--syllabus-calendar-month-10-table-surface);
+}
+
+.md-typeset .important-dates-month-11 + table:not([class]),
+.md-typeset .important-dates-month-11 + .md-typeset__scrollwrap {
+	--important-dates-table-accent: var(--syllabus-calendar-month-11);
+	--important-dates-table-surface: var(--syllabus-calendar-month-11-table-surface);
+}
+
+.md-typeset .important-dates-month-12 + table:not([class]),
+.md-typeset .important-dates-month-12 + .md-typeset__scrollwrap {
+	--important-dates-table-accent: var(--syllabus-calendar-month-12);
+	--important-dates-table-surface: var(--syllabus-calendar-month-12-table-surface);
+}
+
+.md-typeset .important-dates-month + table:not([class]),
+.md-typeset .important-dates-month + .md-typeset__scrollwrap table:not([class]) {
+	border-block-start-color: var(--important-dates-table-accent);
+}
+
+.md-typeset .important-dates-month + table:not([class]) th,
+.md-typeset .important-dates-month + .md-typeset__scrollwrap table:not([class]) th {
+	background-color: var(--important-dates-table-surface);
+	border-block-end-color: var(--important-dates-table-accent);
+}
+
 .md-nav {
 	font-size: var(--syllabus-navigation-font-size);
+}
+
+/* Preserve the WCAG 2.2 minimum target size when the navigation font is compact. */
+.md-nav__link {
+	min-block-size: 24px;
 }
 
 /* Keep wide course tables usable without shrinking text or clipping content. */
@@ -248,6 +321,10 @@
 	margin-block: 0.8rem;
 }
 
+.term-course-link {
+	font-weight: 700;
+}
+
 .term-course-downloads {
 	align-items: center;
 	display: flex;
@@ -257,18 +334,20 @@
 	margin-block-start: 0.2rem;
 }
 
-.term-download-link {
+.file-link {
 	align-items: center;
 	display: inline-flex;
+	gap: 0.3em;
+	max-width: 100%;
+}
+
+.term-download-link {
 	font-weight: 650;
-	gap: 0.25em;
 	white-space: nowrap;
 }
 
 /* Font Awesome Free file icons, https://fontawesome.com/license/free. */
-.term-download-link::before,
-.syllabus-downloads a[href$=".pdf"]::before,
-.syllabus-downloads a[href$=".docx"]::before {
+.file-link::before {
 	display: inline-block;
 	flex: 0 0 auto;
 	font-family: "Font Awesome 6 Free";
@@ -280,13 +359,11 @@
 	-webkit-font-smoothing: antialiased;
 }
 
-.term-download-link--pdf::before,
-.syllabus-downloads a[href$=".pdf"]::before {
+.file-link--pdf::before {
 	content: "\f1c1";
 }
 
-.term-download-link--docx::before,
-.syllabus-downloads a[href$=".docx"]::before {
+.file-link--docx::before {
 	content: "\f1c2";
 }
 
@@ -299,10 +376,7 @@
 	padding: 0;
 }
 
-.syllabus-downloads a {
-	display: inline-flex;
-	align-items: center;
-	gap: 0.35em;
+.syllabus-downloads .file-link {
 	min-height: 2.75rem;
 }
 

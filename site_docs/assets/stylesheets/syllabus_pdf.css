@@ -42,6 +42,20 @@
 
 :root {
 	--syllabus-page-accent: #007849;
+	--syllabus-calendar-month-01: #1c61db;
+	--syllabus-calendar-month-05: #866300;
+	--syllabus-calendar-month-08: #ad4a36;
+	--syllabus-calendar-month-09: #476f77;
+	--syllabus-calendar-month-10: #9f560a;
+	--syllabus-calendar-month-11: #745aae;
+	--syllabus-calendar-month-12: #477337;
+	--syllabus-calendar-month-01-table-surface: #c9daf8;
+	--syllabus-calendar-month-05-table-surface: #fff2cc;
+	--syllabus-calendar-month-08-table-surface: #e6b8af;
+	--syllabus-calendar-month-09-table-surface: #d0e0e3;
+	--syllabus-calendar-month-10-table-surface: #fce5cd;
+	--syllabus-calendar-month-11-table-surface: #d9d2e9;
+	--syllabus-calendar-month-12-table-surface: #d9ead3;
 	color: #111;
 	font-family: "Atkinson Hyperlegible Next", sans-serif;
 	font-kerning: normal;
@@ -90,7 +104,8 @@ h1 {
 }
 
 #syllabus-content > h2#course-overview,
-#syllabus-content > h2#policies {
+#syllabus-content > h2#policies,
+#syllabus-content > h2#important-dates {
 	break-before: page;
 }
 
@@ -132,6 +147,42 @@ h6 {
 	font-size: 11.5pt;
 	font-style: italic;
 	margin-block: 0.7rem 0.25rem;
+}
+
+/* Preserve the visual month-heading hierarchy after merged-document heading demotion. */
+.important-dates-month {
+	font-size: 14pt;
+	font-style: normal;
+	font-weight: 700;
+	margin-block: 1.1rem 0.45rem;
+}
+
+.important-dates-month-01 {
+	color: var(--syllabus-calendar-month-01);
+}
+
+.important-dates-month-05 {
+	color: var(--syllabus-calendar-month-05);
+}
+
+.important-dates-month-08 {
+	color: var(--syllabus-calendar-month-08);
+}
+
+.important-dates-month-09 {
+	color: var(--syllabus-calendar-month-09);
+}
+
+.important-dates-month-10 {
+	color: var(--syllabus-calendar-month-10);
+}
+
+.important-dates-month-11 {
+	color: var(--syllabus-calendar-month-11);
+}
+
+.important-dates-month-12 {
+	color: var(--syllabus-calendar-month-12);
 }
 
 p,
@@ -213,6 +264,50 @@ th {
 
 tbody tr:nth-child(even) {
 	background: #f7f8f7;
+}
+
+.important-dates-month-01 + table {
+	--important-dates-table-accent: var(--syllabus-calendar-month-01);
+	--important-dates-table-surface: var(--syllabus-calendar-month-01-table-surface);
+}
+
+.important-dates-month-05 + table {
+	--important-dates-table-accent: var(--syllabus-calendar-month-05);
+	--important-dates-table-surface: var(--syllabus-calendar-month-05-table-surface);
+}
+
+.important-dates-month-08 + table {
+	--important-dates-table-accent: var(--syllabus-calendar-month-08);
+	--important-dates-table-surface: var(--syllabus-calendar-month-08-table-surface);
+}
+
+.important-dates-month-09 + table {
+	--important-dates-table-accent: var(--syllabus-calendar-month-09);
+	--important-dates-table-surface: var(--syllabus-calendar-month-09-table-surface);
+}
+
+.important-dates-month-10 + table {
+	--important-dates-table-accent: var(--syllabus-calendar-month-10);
+	--important-dates-table-surface: var(--syllabus-calendar-month-10-table-surface);
+}
+
+.important-dates-month-11 + table {
+	--important-dates-table-accent: var(--syllabus-calendar-month-11);
+	--important-dates-table-surface: var(--syllabus-calendar-month-11-table-surface);
+}
+
+.important-dates-month-12 + table {
+	--important-dates-table-accent: var(--syllabus-calendar-month-12);
+	--important-dates-table-surface: var(--syllabus-calendar-month-12-table-surface);
+}
+
+.important-dates-month + table {
+	border-top-color: var(--important-dates-table-accent);
+}
+
+.important-dates-month + table th {
+	background: var(--important-dates-table-surface);
+	border-bottom-color: var(--important-dates-table-accent);
 }
 
 blockquote {

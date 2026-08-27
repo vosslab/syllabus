@@ -51,7 +51,7 @@ Please let your instructor know as soon as possible if you will miss class becau
 
 [*https://www.roosevelt.edu/policies*](https://www.roosevelt.edu/policies)
 
-[*https://www.roosevelt.edu/policies/religious-holidays*](https://www.roosevelt.edu/policies/religious-holidays) *(PDF file)*
+[Religious Holidays Policy (PDF)](https://www.roosevelt.edu/policies/religious-holidays){ .file-link .file-link--pdf }
 
 ## Single parents and primary caregivers
 

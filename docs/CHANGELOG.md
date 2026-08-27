@@ -2,6 +2,10 @@
 
 ### Additions and New Features
 
+- Added one canonical `TERM_COURSES.md` fragment for the Fall 2026 course summaries and complete
+  PDF/DOCX links. Both the main page and term overview now expand that source.
+- Added repository-owned `EXTRA_CREDIT.md` and `EXTRA_CREDIT_MOVIES.md` pages from the two public
+  Google Docs that previously held the write-up guide and approved movie list.
 - Added one repository-owned Markdown include engine under `pipeline/build_lib/` and a thin MkDocs
   hook so the website and complete-document builder share the same grammar, authorization, path
   resolution, and content expansion.
@@ -35,8 +39,35 @@
 
 ### Behavior or Interface Changes
 
+- Added the same compact, icon-labeled PDF and DOCX links beneath every course on the main student
+  homepage. Fragment-relative Markdown and HTML links now rebase for each receiving page while
+  remaining contained under `site_docs/`, so shared linked content works at different route depths.
+- Added a short accessibility note to the Fall 2026 overview explaining that the online syllabus
+  uses Atkinson Hyperlegible Next to make similar characters easier to distinguish, with a link to
+  the Braille Institute's English-language font guide. Recorded the same durable presentation
+  preference in owner guidance.
+- Replaced the external Extra credit Google Docs link with two local student routes directly after
+  Discussion marks. Every complete course PDF and DOCX now includes the four categories, write-up
+  and submission rules, deductions, FAQ, and categorized movie choices from the same live content
+  authority as the rest of the Fall 2026 syllabus.
+- Moved the Zoom discussion-mark policy, in-person poker-chip policy, criticism responses, scoring
+  rules, and no-make-up rule out of `ASSESSMENT.md` into one canonical
+  `shared/policies/DISCUSSION_MARKS.md` page. The new student-facing **Discussion marks** route
+  follows **Grades and graded work** in the policy overview, site navigation, and every course's
+  PDF/DOCX manifest.
+- Added the tracked Important Dates wrapper to all three course manifests after course enrollment
+  and before student resources. The synchronized tables now appear near the end of every complete
+  PDF and DOCX syllabus, and the long PDF reference section starts on a clean page.
+- Changed generated month headings from level two to level three and gave each immediately
+  following website/PDF table a restrained month-colored top rule and header surface. Light mode
+  and PDF use the Google Sheet's pale swatches; dark mode uses measured deep tints while DOCX keeps
+  its format-native neutral table style.
 - Replaced Material's default book logo with the protein favicon in the standard upper-left
   home-link position.
+- Added the shared Font Awesome PDF icon to Roosevelt's Religious Holidays Policy link and replaced
+  the displayed raw URL with a descriptive label that retains visible `(PDF)` text. Consolidated
+  term, course, and policy document links onto reusable explicit file-type classes so redirecting
+  URLs do not need filename suffixes.
 - Moved the Fall 2026 PDF and DOCX links into a compact row directly below each course on the term
   overview. Visible file-format labels now include small, self-hosted Font Awesome PDF or Word
   icons on both the term overview and course landing pages, and the oversized standalone download
@@ -94,8 +125,9 @@
 - Kept instructor-facing category names in canonical filenames while giving students task-oriented
   page labels such as **Grades and graded work**, **Contacting Dr. Voss**, and **Dropping or
   withdrawing from class**.
-- Made `ASSESSMENT.md` the sole shared grading source, including the letter-grade scale and rules
-  for assignments, quizzes, exams, discussion marks, make-up work, and Blackboard percentages.
+- Made `ASSESSMENT.md` the sole shared grading source at that stage, including the letter-grade
+  scale and rules for assignments, quizzes, exams, discussion marks, make-up work, and Blackboard
+  percentages. The later dedicated Discussion marks page supersedes that original grouping.
 - Kept `shared/policies/index.md` as the only policy overview and removed the competing generic
   overview and catch-all FAQ after routing their content to subject pages.
 - Replaced course-number directory paths with subject-based aliases: `biostats` for BIOL 318/418,
@@ -107,6 +139,30 @@
 
 ### Fixes and Maintenance
 
+- Expanded the document builder's landing-page link verifier before checking generated targets, so
+  moving the term links into their canonical fragment does not hide them from the build contract.
+  Replaced the term page's former raw `index.md` course URLs with working directory routes, and
+  refreshed both managed README screenshots from the final built site.
+- Applied the final six-pass audit's concrete fixes: removed a dead WBAL volunteering link,
+  converted the moved Discussion marks lists to the repository's `-` bullet style, made tracking
+  participation a real explanatory label, and refreshed two stale Playwright selector-contract
+  pointers.
+- Normalized the exported Google Docs headings, lists, raw URLs, Unicode punctuation, and duplicated
+  outline text into repository-style Markdown. Removed ten movie titles from the pending list when
+  those same titles were already categorized as approved, giving each affected movie one status.
+  Corrected the imported `Being John Malkovich` and `Ikiru` title misspellings.
+- Updated the owner guidance, author edit map, manifest example, policy information-architecture
+  table, public source tree, policy overview, and route audit for the two Extra credit sources.
+- Gave compact Material navigation links a 24-pixel minimum block size after the two added routes
+  exposed a 23.8-pixel WCAG 2.2 target-spacing failure in the complete browser audit.
+- Corrected the Discussion marks criticism introduction from five complaints to four so its stated
+  count matches the four numbered concerns that follow. Split the closing run-on sentence so the
+  page ends with a direct explanation of the collective-learning benefit.
+- Updated the owner guidance, edit map, manifest example, public source tree, and policy
+  information-architecture table to identify the dedicated Discussion marks source and its
+  student-facing purpose.
+- Expanded the production include-parity E2E from a website-only generated-date check to require a
+  current synchronized event in every individual DOCX and PDF as well as the website corpus.
 - Corrected the header-logo placement after the public-site review clarified that the protein mark
   should replace Material's book mark in its original upper-left position. Removed the custom
   display, sizing, and flex-order rules so Material owns the header layout and the logo no longer
@@ -178,6 +234,19 @@
 
 ### Decisions and Failures
 
+- The first full gate failed because the download verifier scanned the term wrapper before include
+  expansion. Fixed the verifier to inspect the same expanded source model as MkDocs instead of
+  duplicating links in the wrapper. Kept the two fragment-rebasing unit tests and the two-entry-page
+  browser download check as permanent logic and student-behavior contracts; screenshot review was
+  one-time evidence.
+- The repository is now the only live authority for Extra credit instructions and approved movie
+  choices; the imported Google Docs are neither linked nor synchronized. Exact categories, movie
+  titles, deadlines, and prose remain editable content rather than permanent test constants. The
+  durable gates cover local-link integrity, both public routes, accessibility, and inclusion of
+  every manifest section in each PDF/DOCX pair.
+- Treated the five requested Discussion marks headings and their exact wording as editable content,
+  not a permanent test contract. The durable suite instead covers the route in the all-page browser
+  audit and lets the document builder verify every manifest section in all three PDF/DOCX pairs.
 - Classified the compact-row screenshots and the computed layout, relative font size, Font Awesome
   load, font family, and distinct-glyph checks as one-time rebuild evidence. Those checks proved the
   requested presentation during implementation but describe the current technique rather than a
@@ -203,9 +272,15 @@
 - Kept include authorization explicit in the engine. `exclude_docs` remains a broader navigation
   rule, and the permanent consistency test enforces only that every authorized Markdown fragment
   is excluded from direct routes.
-- Scoped artifact evidence to outputs that actually contain each source. Instructor-contact text
-  must reach the website, DOCX, and PDF corpora; generated important dates must reach the website
-  corpus because no course manifest includes that term-wide page in complete documents.
+- Scoped the initial artifact evidence to outputs that contained each source at that stage.
+  Instructor-contact text reached the website, DOCX, and PDF corpora; generated important dates
+  initially reached only the website because no course manifest yet included the term-wide page.
+- Classified exact generated heading syntax, palette-token values, computed CSS colors, and
+  screenshots as one-time rebuild evidence. The permanent E2E retains the student-facing contract:
+  one current synchronized event must reach the website and every complete DOCX/PDF syllabus.
+- The first Important Dates PDF page-break selector used the automatic heading slug, but composed
+  documents use the explicit manifest anchor `#important-dates`. Rendered review exposed the
+  no-op selector; targeting the owned anchor produced the clean section start.
 - Treat `--include-docs` as an explicit source-egress operation: unlike the code-only default, it
   sends every nonignored semantic input to the selected Claude CLI or Ollama backend. Automated
   validation therefore stops at local corpus and command construction; a connected extraction is
@@ -232,6 +307,78 @@
 
 ### Developer Tests and Notes
 
+- Passed the shared term-course fragment through the complete material-tree `all_test.sh` gate:
+  all 984 pytest checks, both live Google Sheets build cycles, all three DOCX/PDF pairs,
+  export/include parity, both strict site builds, and the all-route Playwright accessibility audit
+  passed. The refreshed 1440 by 900 light homepage and dark Genetics captures are below 200 KB and
+  visually show readable hierarchy without clipping or overflow.
+- Passed the accessibility-font note through the complete material-tree `all_test.sh` gate: all
+  977 pytest checks, both live Google Sheets build cycles, all three DOCX/PDF pairs,
+  export/include parity, both strict site builds, and the all-route Playwright accessibility audit
+  passed. A one-time built-HTML inspection confirmed the visible note and Braille Institute link;
+  no permanent exact-wording or external-page test was added for editable prose.
+- Ran the requested six-pass audit across the complete working tree. Test and documentation
+  reviewers found no issues; style, legacy, and comment reviewers found the dead WBAL link,
+  ambiguous Discussion marks list structure, nonpreferred bullet markers, and stale selector
+  pointers corrected above. The plan reviewer requested a separate approved plan, but the
+  coordinator found that the cited repository rule requires atomic tasks with outcomes and
+  verification, all of which the directly authorized queued requests supplied.
+- Passed the post-audit material tree through the complete `all_test.sh` gate: all 977 pytest
+  checks, both live Google Sheets build cycles, all three DOCX/PDF pairs, export/include parity,
+  both strict site builds, and the Playwright accessibility audit passed.
+- Passed the repository-owned Extra credit tree through the complete material-tree `all_test.sh`
+  gate: all 977 pytest checks, both live Google Sheets build cycles, all three DOCX/PDF pairs,
+  export/include parity, both strict site builds, and the all-route Playwright accessibility audit
+  passed.
+- A one-time DOCX-source inventory compared the imported movie guide with the repository page:
+  all 255 unique title/year entries were present, no local-only titles remained, and no approved
+  title also remained pending. This exact inventory is migration evidence, not a permanent test.
+- Rendered and reviewed the complete 14-page Extra credit sequence in the BIOL 318/418 PDF. The
+  guide, approved choices, excluded and pending lists, links, page numbers, and transition into
+  Attendance showed no clipping, overlap, broken wrapping, or unreadable hierarchy.
+- The first post-import Playwright run exposed a 23.8-pixel navigation target-spacing failure after
+  the two new routes expanded the sidebar. The shared 24-pixel minimum target fix passed the focused
+  browser rerun and the final complete gate; no accessibility assertion was suppressed or weakened.
+- Ran the requested six-pass audit on the standalone Discussion marks change. Plan, test,
+  documentation, and legacy reviewers found no issues; style and comment reviewers independently
+  found the four-item complaint-count mismatch, and the comment reviewer also found the closing
+  run-on. Both content issues were corrected before the final gate.
+- Passed the dedicated Discussion marks page through a temporary material-tree Git index: all 967
+  pytest checks, both live Google Sheets build cycles, all three DOCX/PDF pairs, export/include
+  parity, both strict site builds, and the Playwright accessibility/browser audit passed. The real
+  index remains untouched for the human-only staging workflow; its pre-stage link check therefore
+  reports the new untracked target as absent until a human adds it.
+- A one-time normalized comparison confirmed that all five moved policy sections retained their
+  prior wording before the inherited complaint-count mismatch and closing run-on were corrected.
+  Rendered review of the three-page BIOL 318/418 PDF sequence found readable hierarchy, clean page
+  numbering, and no clipping, overlap, or broken transition into the following policy.
+- Passed the final Important Dates tree through `all_test.sh`: all 962 pytest checks, both live
+  Google Sheets build cycles, all three DOCX/PDF pairs, per-artifact generated-date parity, both
+  strict site builds, and the Playwright accessibility/browser audit.
+- One-time Chromium review covered the Important Dates page at 390 and 1280 pixels in light and
+  dark modes. All generated month headings rendered as level three with no divider; computed coral
+  heading/table colors matched the new tokens. Measured rendered header text against all 14 light
+  and dark month surfaces at the 5.5:1 house target; ratios ranged from 5.69:1 to 14.75:1.
+- Rendered the complete three-page Important Dates sequence from the BIOL 318/418 PDF and the clean
+  section-start page from both other course PDFs. The section begins on a fresh page, tables repeat
+  headers across page breaks, and no clipping, overlap, broken wrapping, or unreadable color was
+  found before the document flows into student resources.
+- Passed the reusable file-link change through the complete `all_test.sh` gate: all 962 pytest
+  checks, both live build cycles, all three DOCX/PDF pairs, export/include parity, both strict site
+  builds, and the Playwright accessibility/browser audit. One-time screenshots covered the
+  Religious Holidays PDF link at 1280 and 390 pixels in light and dark modes; extracted PDF and
+  DOCX text retained `Religious Holidays Policy (PDF)` without depending on the web icon.
+- Ran the requested six-pass audit against `0a5c6ea..aa972bd`. Plan and test reviewers found no
+  issues; style, docs, legacy, and comment reviewers identified the custom Material flex ordering,
+  separately cached visibility rule, local-versus-deployed evidence wording, incomplete file-map
+  description, and selector-contract overclaim corrected above.
+- Passed the corrected tree through the complete `all_test.sh` gate: all 962 pytest checks, both
+  live build cycles, all three DOCX/PDF pairs, export/include parity, both strict site builds, and
+  the Playwright accessibility/browser audit. A separate one-time production-shaped render at
+  `/syllabus/` loaded every header asset with HTTP 200 and showed the SVG in Material's original
+  upper-left logo position; no layout-specific permanent assertion was added. After commit
+  `7d81267` deployed, a fresh public Pages capture confirmed the same left-side logo and confirmed
+  that the former custom right-edge CSS was absent.
 - The initial right-edge implementation passed 962 pytest checks, the live builds, export/include
   parity, and local Playwright. Its one-time review used a root-served local site at 1280 and 390
   pixels rather than the deployed `/syllabus/` path; public review then exposed both the unwanted

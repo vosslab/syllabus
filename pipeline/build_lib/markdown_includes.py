@@ -1,8 +1,10 @@
 """Expand the repository's restricted Markdown include language."""
 
 # Standard Library
+import os
 import re
 import pathlib
+import urllib.parse
 
 
 INCLUDE_MARKER = "--8<--"
@@ -12,6 +14,13 @@ INCLUDE_LINE_PATTERN = re.compile(
 )
 SAFE_INCLUDE_PATH_PATTERN = re.compile(r"[A-Za-z0-9][A-Za-z0-9_./-]*\.md")
 FRAGMENT_DIRECTORY_NAMES = ("fragments", "generated")
+MARKDOWN_LINK_PATTERN = re.compile(
+	r'(?P<prefix>!?\[[^\]\r\n]*\]\([ \t]*)(?P<destination><[^>\r\n]+>|[^)\s\r\n]+)'
+)
+HTML_LINK_PATTERN = re.compile(
+	r'(?P<prefix>\b(?:href|src)=["\'])(?P<destination>[^"\']+)(?P<suffix>["\'])',
+	re.IGNORECASE,
+)
 
 
 #============================================
@@ -46,6 +55,74 @@ def parse_include_names(markdown_text: str, source_path: pathlib.Path) -> tuple[
 
 
 #============================================
+def rebase_relative_url(
+	url: str,
+	include_path: pathlib.Path,
+	source_path: pathlib.Path,
+	resolved_docs_root: pathlib.Path,
+) -> str:
+	"""Rebase one fragment-relative URL for the page receiving the fragment."""
+	parsed_url = urllib.parse.urlsplit(url)
+	if parsed_url.scheme or parsed_url.netloc or url.startswith(("/", "#")):
+		return url
+	if not parsed_url.path:
+		return url
+
+	target_path = (include_path.parent / parsed_url.path).resolve()
+	if not target_path.is_relative_to(resolved_docs_root):
+		raise ValueError(f"{include_path}: relative link escapes site_docs: {url}")
+
+	relative_path = os.path.relpath(target_path, source_path.parent.resolve())
+	rebased_path = pathlib.PurePath(relative_path).as_posix()
+	if parsed_url.path.endswith("/") and not rebased_path.endswith("/"):
+		rebased_path += "/"
+	rebased_url = urllib.parse.urlunsplit(
+		("", "", rebased_path, parsed_url.query, parsed_url.fragment)
+	)
+	return rebased_url
+
+
+#============================================
+def rebase_fragment_links(
+	markdown_text: str,
+	include_path: pathlib.Path,
+	source_path: pathlib.Path,
+	resolved_docs_root: pathlib.Path,
+) -> str:
+	"""Rebase relative Markdown and HTML links from a fragment into its destination page."""
+	def replace_markdown_link(match: re.Match[str]) -> str:
+		"""Rewrite one Markdown link destination while preserving its delimiters."""
+		destination = match.group("destination")
+		uses_angle_brackets = destination.startswith("<") and destination.endswith(">")
+		url = destination[1:-1] if uses_angle_brackets else destination
+		rebased_url = rebase_relative_url(
+			url,
+			include_path,
+			source_path,
+			resolved_docs_root,
+		)
+		if uses_angle_brackets:
+			rebased_url = f"<{rebased_url}>"
+		result = match.group("prefix") + rebased_url
+		return result
+
+	def replace_html_link(match: re.Match[str]) -> str:
+		"""Rewrite one HTML href or src attribute."""
+		rebased_url = rebase_relative_url(
+			match.group("destination"),
+			include_path,
+			source_path,
+			resolved_docs_root,
+		)
+		result = match.group("prefix") + rebased_url + match.group("suffix")
+		return result
+
+	rebased_markdown = MARKDOWN_LINK_PATTERN.sub(replace_markdown_link, markdown_text)
+	rebased_content = HTML_LINK_PATTERN.sub(replace_html_link, rebased_markdown)
+	return rebased_content
+
+
+#============================================
 def read_include(
 	include_name: str,
 	source_path: pathlib.Path,
@@ -62,7 +139,12 @@ def read_include(
 		raise ValueError(f"{include_path}: Markdown include must not be empty")
 	if INCLUDE_MARKER in include_markdown:
 		raise ValueError(f"{include_path}: nested Markdown includes are not supported")
-	content = include_markdown.strip()
+	content = rebase_fragment_links(
+		include_markdown.strip(),
+		include_path,
+		source_path,
+		resolved_docs_root,
+	)
 	return content
 
 

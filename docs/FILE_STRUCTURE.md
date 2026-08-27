@@ -39,7 +39,7 @@ site_docs/
 |       |-- IMPORTANT_DATES.md       Public wrapper for synchronized dates
 |       |-- INSTRUCTOR_INFORMATION.md
 |       |-- STUDENT_RESOURCES.md
-|       |-- fragments/               Include-only edit-once content
+|       |-- fragments/               Edit-once term courses, contact details, and goals
 |       `-- policies/                Canonical Dr. Voss policy topics
 |-- generated/                       Ignored synchronized fragments
 `-- downloads/                       Ignored generated PDF and DOCX files

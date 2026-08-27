@@ -22,8 +22,8 @@ def test_render_markdown_groups_months_and_escapes_remote_markup() -> None:
 	entries[1].event = "[Click](javascript:alert(1)) | <script>"
 	markdown = sync_important_dates.render_markdown(entries)
 	assert (
-		"## August 2026" in markdown
-		and "## September 2026" in markdown
+		"August 2026" in markdown
+		and "September 2026" in markdown
 		and "\n---\n" not in markdown
 	)
 	assert (

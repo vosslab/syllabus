@@ -14,9 +14,13 @@ shared_sections:
   - ../shared/policies/index.md
   - ../shared/policies/COURSE_DELIVERY.md
   - ../shared/policies/ASSESSMENT.md
+  - ../shared/policies/DISCUSSION_MARKS.md
+  - ../shared/policies/EXTRA_CREDIT.md
+  - ../shared/policies/EXTRA_CREDIT_MOVIES.md
   - ../shared/policies/ATTENDANCE_AND_ACCOMMODATIONS.md
   - ../shared/policies/ACADEMIC_INTEGRITY.md
   - ../shared/policies/COURSE_EXPECTATIONS.md
   - ../shared/policies/INCLUSION_AND_SAFETY.md
   - ../shared/policies/COURSE_ENROLLMENT.md
+  - ../shared/IMPORTANT_DATES.md
   - ../shared/STUDENT_RESOURCES.md
