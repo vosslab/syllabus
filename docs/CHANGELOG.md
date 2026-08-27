@@ -2,6 +2,11 @@
 
 ### Additions and New Features
 
+- Added Dr. Voss's current portrait to the shared instructor-information table so students can
+  recognize him outside class. The website uses coordinated light- and dark-mode portraits, while
+  the PDF and DOCX use the light-background portrait from the same tracked public asset pair.
+  Added descriptive alternative text and a visible 2026 date note, and documented the
+  one-image-source and website-only theme-substitution strategy as a durable design decision.
 - Added a Fall 2026 syllabus rubric review with a prioritized maintainer todo list, covered
   components, accessibility applicability notes, and links to the three live course authorities.
 - Added shared department and program leadership information for Dr. Robert Seiser and Dr. Neil

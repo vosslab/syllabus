@@ -321,6 +321,20 @@
 	background-color: var(--md-default-fg-color--lightest);
 }
 
+/* Keep the instructor portrait recognizable while preserving the compact infobox table. */
+.md-typeset .instructor-portrait {
+	border: 0.08rem solid var(--md-default-fg-color--lightest);
+	border-radius: 0.35rem;
+	display: block;
+	height: auto;
+	margin-inline: auto;
+	max-width: min(11rem, 100%);
+}
+
+[data-md-color-scheme="slate"] .md-typeset .instructor-portrait {
+	content: url("../images/neil_profile_pastel_black_2026.png");
+}
+
 .course-page-links li {
 	margin-block: 0.65rem;
 }

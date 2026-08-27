@@ -30,7 +30,7 @@ site_docs/
 |-- EXTRA_CREDIT_MOVIES.md           Global website-only approved movie catalog
 |-- assets/
 |   |-- fonts/                       Self-hosted text/icon fonts and licenses
-|   |-- images/favicon.svg           Protein-themed favicon and header logo
+|   |-- images/                      Protein logo and light/dark instructor portraits
 |   |-- javascripts/accessibility.js Accessible table behavior
 |   `-- stylesheets/                 Website and PDF presentation
 |-- fall_2026/

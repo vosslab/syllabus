@@ -238,6 +238,14 @@ blockquote {
 	margin-block: 0.45rem 0.75rem;
 }
 
+.instructor-portrait {
+	border: 0.75pt solid #ddd;
+	border-radius: 4pt;
+	display: block;
+	height: auto;
+	max-width: 1.55in;
+}
+
 #syllabus-content > p {
 	hyphens: manual;
 	text-align: justify;

@@ -70,6 +70,10 @@ the fragment's own directory. During expansion, the engine rebases them for the 
 one linked fragment can render correctly at different page depths. A relative target that escapes
 `site_docs/` fails the build.
 
+The instructor-contact fragment references the tracked light-background portrait as its one
+canonical Markdown image. Keep both portrait variants under `site_docs/assets/images/`; the
+cross-format rendering strategy is recorded in [DESIGN_DECISIONS.md](DESIGN_DECISIONS.md).
+
 Absolute paths, `..` traversal, remote URLs, symlink escapes, nested includes, single-quoted or
 unquoted paths, block form, section selection, and alternate marker lengths are invalid. Any line
 containing `--8<--` that does not match the exact form fails the build. Authorized Markdown remains

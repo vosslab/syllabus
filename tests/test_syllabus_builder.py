@@ -208,6 +208,7 @@ def test_markdown_html_uses_site_extension_stack(tmp_path: pathlib.Path) -> None
 	)
 	html_text = html_path.read_text(encoding="utf-8")
 	assert '<html lang="en-US">' in html_text
+	assert f'<base href="{tmp_path.as_uri()}/">' in html_text
 	assert 'style="--syllabus-page-accent: #007849"' in html_text
 	assert (
 		'<h2 id="course-overview">Course overview</h2>\n'
