@@ -168,6 +168,10 @@
 
 ### Fixes and Maintenance
 
+- Applied the six-pass pre-merge audit's consistency fixes: expanded the default live-link scan
+  from the Fall term tree to all public `site_docs/` Markdown, separated the global website-only
+  movie catalog from policy topics promised inside complete syllabi, aligned the primary authority
+  wording, and made new source-file references clickable.
 - Corrected the public-content build boundary so an ignored local `raw/` directory may hold public
   university reference material without blocking the syllabus build. The build still fails closed
   if Git tracks anything under `raw/`, and it continues scanning the actual `site_docs/` publication

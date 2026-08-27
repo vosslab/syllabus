@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Check external links in the active syllabus Markdown sources."""
+"""Check external links in the public syllabus Markdown sources."""
 
 # Standard Library
 import re
@@ -15,7 +15,7 @@ import concurrent.futures
 from dataclasses import dataclass
 
 
-DEFAULT_SOURCE = pathlib.Path("site_docs/fall_2026")
+DEFAULT_SOURCE = pathlib.Path("site_docs")
 MAX_SOURCE_BYTES = 2_000_000
 MAX_RESPONSE_BYTES = 128_000
 DEFAULT_TIMEOUT_SECONDS = 20.0
@@ -62,7 +62,7 @@ def parse_args() -> argparse.Namespace:
 		nargs="*",
 		type=pathlib.Path,
 		default=[DEFAULT_SOURCE],
-		help="Markdown file or directory to scan (default: site_docs/fall_2026)",
+		help="Markdown file or directory to scan (default: site_docs)",
 	)
 	parser.add_argument(
 		"--timeout",

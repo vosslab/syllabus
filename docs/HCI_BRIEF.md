@@ -64,7 +64,7 @@ then choose the page that matches their question. Each subsection belongs to one
 | `ASSESSMENT.md` | Grades and graded work | How are assignments, quizzes, exams, and grades handled? |
 | `DISCUSSION_MARKS.md` | Discussion marks | How is live participation recognized and scored? |
 | `EXTRA_CREDIT.md` | Extra credit write-ups | What can earn extra credit, and how do I submit it? |
-| `site_docs/EXTRA_CREDIT_MOVIES.md` | Approved science movies | Which movies may I use for extra credit? |
+| [site_docs/EXTRA_CREDIT_MOVIES.md](../site_docs/EXTRA_CREDIT_MOVIES.md) | Approved science movies | Which movies may I use for extra credit? |
 | `ATTENDANCE_AND_ACCOMMODATIONS.md` | Attendance, absences, and accommodations | What happens if I miss class or need an accommodation? |
 | `ACADEMIC_INTEGRITY.md` | Academic integrity and AI | What work must be my own, and how may I use AI? |
 | `COURSE_EXPECTATIONS.md` | What students and instructors can expect | What responsibilities and classroom behavior are expected? |

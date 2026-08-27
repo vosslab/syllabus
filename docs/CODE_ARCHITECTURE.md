@@ -41,8 +41,9 @@ sync_important_dates.py              |      build_syllabi.py
 The live course-content authority is `site_docs/fall_2026/`. Course directories contain
 course-specific pages and one `syllabus.yml` manifest. Shared course information lives under
 `shared/`, with directly navigable pages separated from include-only fragments. The niche,
-term-independent approved-science-movies catalog lives at `site_docs/EXTRA_CREDIT_MOVIES.md` as a
-global website-only reference and is not listed in course manifests.
+term-independent approved-science-movies catalog lives at
+[site_docs/EXTRA_CREDIT_MOVIES.md](../site_docs/EXTRA_CREDIT_MOVIES.md) as a global website-only
+reference and is not listed in course manifests.
 
 The active term is intentionally singular. `templates/`, future-term copies, and historical-term
 copies cannot become parallel content authorities during Fall 2026. Generated directories are

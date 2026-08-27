@@ -97,8 +97,9 @@ site_docs/fall_2026/
 `-- ...
 ```
 
-The website-only approved movie catalog lives at `site_docs/EXTRA_CREDIT_MOVIES.md`, outside the
-term tree and complete-document manifests.
+The website-only approved movie catalog lives at
+[site_docs/EXTRA_CREDIT_MOVIES.md](site_docs/EXTRA_CREDIT_MOVIES.md), outside the term tree and
+complete-document manifests.
 
 For Fall 2026, `site_docs/fall_2026/` is the only live course-content authority. Add new course
 pages directly there, using the listed file structure and a current course as a structural guide.

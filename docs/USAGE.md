@@ -25,9 +25,9 @@ Each term keeps its public term-wide pages under `shared/`: important dates, ins
 information, policies, and student resources. The short policy topic index and the canonical
 policy categories live together under `shared/policies/`. Every course links to those shared
 branches. Its manifest adds the policy overview as a section heading, then appends each policy
-topic, the synchronized important dates, and the student-resource source once to the complete
-syllabus. Important dates sit near the end, between course enrollment and student resources. The
-overview's web-only topic links are omitted from document exports.
+manifest-included topic, the synchronized important dates, and the student-resource source once to
+the complete syllabus. Important dates sit near the end, between course enrollment and student
+resources. The overview's web-only topic links are omitted from document exports.
 
 Include-only Markdown under `shared/fragments/` holds facts that students need in more than one
 context but the instructor should edit once. The current fragments provide the shared term course
@@ -52,7 +52,9 @@ access-controlled material there; transfer only public facts into the tracked Ma
 
 ## Source and generated boundary
 
-- Edit syllabus content only under the active `site_docs/<term>/` tree.
+- Edit course and complete-syllabus content only under the active `site_docs/<term>/` tree. Edit
+  the one global website-only movie catalog at
+  [site_docs/EXTRA_CREDIT_MOVIES.md](../site_docs/EXTRA_CREDIT_MOVIES.md).
 - Keep course-specific facts in their course folder and each shared fact or policy in one canonical
   term-level file. Link or embed that source wherever students need it.
 - Do not create Markdown or YAML syllabus content under `templates/`; the build rejects that second
@@ -97,8 +99,8 @@ the website publishes neither stale dates nor download links without their gener
 - Edit extra-credit categories, write-up rules, submission requirements, deductions, and FAQs in
   `site_docs/<term>/shared/policies/EXTRA_CREDIT.md`.
 - Edit approved, excluded, and pending movie choices in
-  `site_docs/EXTRA_CREDIT_MOVIES.md`. This global website page is deliberately excluded from the
-  complete PDF and DOCX syllabi.
+  [site_docs/EXTRA_CREDIT_MOVIES.md](../site_docs/EXTRA_CREDIT_MOVIES.md). This global website page
+  is deliberately excluded from the complete PDF and DOCX syllabi.
 - Edit office hours and instructor facts in
   `site_docs/<term>/shared/fragments/INSTRUCTOR_CONTACT_DETAILS.md`. The public
   `shared/INSTRUCTOR_INFORMATION.md` page embeds this canonical body.
@@ -112,7 +114,8 @@ Course pages link to these sources; they do not keep policy or grade-scale copie
 
 ## Live-term lifecycle
 
-For Fall 2026, `site_docs/fall_2026/` is the only live syllabus authority. Do not maintain a
+For Fall 2026, `site_docs/fall_2026/` is the only live course and complete-syllabus authority. The
+global movie catalog is the deliberate website-only exception. Do not maintain a
 parallel Markdown template tree, archived-term tree, or future-term copy. To add a course, create
 the standard course files listed under [Content organization](#content-organization) directly
 below that term, use a current course only as a structural guide, and add the new pages to
@@ -234,7 +237,8 @@ human-controlled manifest state.
 
 ## Validate
 
-Check every external HTTP(S) link in the active Fall 2026 Markdown authority:
+Check every external HTTP(S) link in the public Markdown authority, including global website-only
+pages:
 
 ```bash
 source source_me.sh
