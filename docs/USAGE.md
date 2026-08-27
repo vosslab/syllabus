@@ -66,6 +66,20 @@ python3 pipeline/build_syllabi.py
 
 Use `--archive` with that command to package current generated documents under `output/archive/`.
 
+## Build department checklists
+
+Generate one evidence-linked Markdown and DOCX checklist for each Fall 2026 course:
+
+```bash
+source source_me.sh
+python3 pipeline/build_department_checklists.py
+```
+
+The files are written under `output/department_checklists/`. Each checklist follows the university
+rubric, links to the published evidence, and keeps unresolved questions visibly unchecked. Edit the
+tracked [pipeline/department_checklists.yml](../pipeline/department_checklists.yml) evidence and
+course overrides, then regenerate; do not edit the output files.
+
 ## Validate
 
 Check public external HTTP(S) links as an explicit live maintainer task:

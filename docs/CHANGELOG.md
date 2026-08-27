@@ -1,3 +1,29 @@
+## 2026-08-27
+
+### Additions and New Features
+
+- Added a Fall 2026 syllabus rubric review with a prioritized maintainer todo list, covered
+  components, accessibility applicability notes, and links to the three live course authorities.
+- Added shared department and program leadership information for Dr. Robert Seiser and Dr. Neil
+  Voss, including their Roosevelt profiles and Dr. Voss's Bioinformatics and Computational Biology
+  director role.
+- Restored explicit course textbook and technology sections: Genetics uses Dr. Voss's required
+  free LibreTexts website, Biostatistics lists optional open resources and the former commercial
+  reference, and Biotechnology clearly labels the current third-edition Clark text as optional.
+- Added a department-checklist generator and tracked rubric evidence model. It produces separate
+  Markdown and DOCX checklists for Biostatistics, General Genetics, and Applications of
+  Biotechnology, with public evidence links, explicit not-applicable rationales, and unresolved
+  doubts left unchecked for department or instructor review.
+
+### Fixes and Maintenance
+
+- Recorded the durable owner requirement that syllabus content address students directly as its
+  audience, even though students may be the least likely readers of the complete syllabus.
+- Corrected the rubric review so documenting one program role does not count as proof that every
+  course has the applicable program director. Removed an unsupported claim that the department
+  chair directs unspecified larger programs; Allied Health and other programs remain excluded
+  unless their applicability to a particular course is established.
+
 ## 2026-08-26
 
 ### Additions and New Features
@@ -45,6 +71,15 @@
   the source-only `X` formula used to gray past spreadsheet rows are omitted.
 
 ### Behavior or Interface Changes
+
+- Added page numbers and dotted leaders to the generated PDF and DOCX contents lists. Contents
+  labels now derive automatically from source page filenames in Title Case, while visible headings
+  keep their student-facing titles. Added format-native three-part footers with course and term on
+  the left, the current student-facing section in the center, and `Page X of Y` on the right.
+- Expanded the Biostatistics optional references with two subject-specific LibreTexts OER books.
+  Clarified that the course intentionally emphasizes Google Sheets over R to lower the barrier for
+  students meeting a program requirement and make the statistical methods more reusable after the
+  course. Addressed students directly rather than describing them in the third person.
 
 - Moved the approved science-movie catalog from the Fall 2026 policy branch to the global
   website-only `site_docs/EXTRA_CREDIT_MOVIES.md` route. Extra credit still links students to the

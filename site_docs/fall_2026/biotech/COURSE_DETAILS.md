@@ -17,6 +17,23 @@
 Research, medical, environmental, and industrial uses of biotechnology. Lectures by biotechnology
 faculty and industrial researchers address current and future trends in the field.
 
+## Textbook and technology
+
+There is no required textbook for this course. The following current edition is an optional
+background reference:
+
+*Biotechnology: The Technological Applications of Genetics and Genomics*, third edition, by
+David P. Clark, Nanette J. Pazdernik, Michelle R. McGehee, and Bethany A. Rader (Academic Press,
+2025). The hardback ISBN is 978-0-443-18484-0 and the ebook ISBN is 978-0-443-18485-7. See the
+[publisher's third-edition record](https://shop.elsevier.com/books/biotechnology/clark/978-0-443-18484-0).
+Students do not need to purchase or use this book.
+
+Students need regular access to Blackboard and the online presentation and response tools
+identified in Blackboard. A computer is strongly recommended for preparing and presenting course
+projects.
+
 ## Instructor information
 
 --8<-- "fall_2026/shared/fragments/INSTRUCTOR_CONTACT_DETAILS.md"
+
+--8<-- "fall_2026/shared/fragments/DEPARTMENT_LEADERSHIP.md"

@@ -398,6 +398,22 @@ def verify_download_links(
 
 
 #============================================
+def get_instructor_page_title(section_path: pathlib.Path, is_overview: bool = False) -> str:
+	"""Derive a concise Title Case document-navigation label from a source page name."""
+	if is_overview:
+		return "Course Overview"
+	if section_path.name == "index.md" and section_path.parent.name == "policies":
+		return "Course Policies"
+	minor_words = {"and", "for", "in", "of", "or", "the", "to"}
+	words = section_path.stem.lower().split("_")
+	title_words = [
+		word if index > 0 and word in minor_words else word.capitalize()
+		for index, word in enumerate(words)
+	]
+	return " ".join(title_words)
+
+
+#============================================
 def compose_markdown(manifest: build_lib.syllabus_model.SyllabusManifest) -> str:
 	"""Compose course and shared sources in manifest order."""
 	parts = []
@@ -423,7 +439,7 @@ def compose_markdown(manifest: build_lib.syllabus_model.SyllabusManifest) -> str
 		)
 		markdown = rewrite_document_links(markdown, section_path, document_anchors)
 		anchor = document_anchors[section_path.resolve()]
-		title = "Course overview" if index == 0 else get_section_title(markdown, section_path)
+		title = get_instructor_page_title(section_path, is_overview=index == 0)
 		contents.append(f"- [{title}](#{anchor})")
 		parts.append(prepare_section(markdown, is_overview=index == 0, anchor=anchor))
 	for section_path in manifest.shared_sections:
@@ -438,7 +454,7 @@ def compose_markdown(manifest: build_lib.syllabus_model.SyllabusManifest) -> str
 		if is_policy_index:
 			markdown = remove_heading_sections(markdown, ("Policy topics", "Student support"))
 		anchor = document_anchors[section_path.resolve()]
-		title = get_section_title(markdown, section_path)
+		title = get_instructor_page_title(section_path)
 		contents.append(f"- [{title}](#{anchor})")
 		parts.append(prepare_section(markdown, is_overview=False, anchor=anchor))
 	contents.append("")

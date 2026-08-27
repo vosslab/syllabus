@@ -161,6 +161,10 @@ Markdown source rather than linking a course page or manifest to `raw/`.
   [pipeline/](../pipeline/) as small coordinators.
 - Use [pipeline/check_links.py](../pipeline/check_links.py) for an on-demand live audit of every
   external URL in `site_docs/`. It is a maintainer command, not a fast pytest dependency.
+- Use [pipeline/build_department_checklists.py](../pipeline/build_department_checklists.py) to
+  render the tracked rubric and course-specific doubts from
+  [pipeline/department_checklists.yml](../pipeline/department_checklists.yml) as separate
+  department-submission Markdown and DOCX files under `output/department_checklists/`.
 - Add deterministic unit and integration checks under [tests/](../tests/); place production
   builds in [tests/e2e/](../tests/e2e/) and browser checks in
   [tests/playwright/](../tests/playwright/).

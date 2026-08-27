@@ -15,8 +15,10 @@ import importlib.util
 import docx
 import pypdf
 import markdown
+import docx.enum.text
 import docx.oxml
 import docx.oxml.ns
+import docx.shared
 
 # local repo modules
 import build_lib.syllabus_model
@@ -79,6 +81,112 @@ def set_document_language(document: object, language_code: str) -> None:
 
 
 #============================================
+def append_word_field(paragraph: object, instruction_text: str, fallback_text: str) -> None:
+	"""Append one standard Word field with a readable fallback value."""
+	run = paragraph.add_run()
+	field_begin = docx.oxml.OxmlElement("w:fldChar")
+	field_begin.set(docx.oxml.ns.qn("w:fldCharType"), "begin")
+	instruction = docx.oxml.OxmlElement("w:instrText")
+	instruction.set(docx.oxml.ns.qn("xml:space"), "preserve")
+	instruction.text = f" {instruction_text} "
+	field_separator = docx.oxml.OxmlElement("w:fldChar")
+	field_separator.set(docx.oxml.ns.qn("w:fldCharType"), "separate")
+	fallback = docx.oxml.OxmlElement("w:t")
+	fallback.text = fallback_text
+	field_end = docx.oxml.OxmlElement("w:fldChar")
+	field_end.set(docx.oxml.ns.qn("w:fldCharType"), "end")
+	for element in (field_begin, instruction, field_separator, fallback, field_end):
+		run._r.append(element)
+	return None
+
+
+#============================================
+def configure_docx_footer(
+	document: object,
+	manifest: build_lib.syllabus_model.SyllabusManifest,
+) -> None:
+	"""Add course, current-section, and Page X of Y fields to every footer."""
+	for section in document.sections:
+		footer = section.footer
+		footer.paragraphs[0].clear()
+		footer.paragraphs[0].paragraph_format.space_after = docx.shared.Pt(0)
+		usable_width = section.page_width - section.left_margin - section.right_margin
+		table = footer.add_table(rows=1, cols=3, width=usable_width)
+		table.autofit = False
+		cell_width = usable_width // 3
+		for cell in table.rows[0].cells:
+			cell.width = cell_width
+		borders = docx.oxml.OxmlElement("w:tblBorders")
+		for edge in ("top", "left", "bottom", "right", "insideH", "insideV"):
+			border = docx.oxml.OxmlElement(f"w:{edge}")
+			border.set(docx.oxml.ns.qn("w:val"), "nil")
+			borders.append(border)
+		table._tbl.tblPr.append(borders)
+		left, center, right = [cell.paragraphs[0] for cell in table.rows[0].cells]
+		left.alignment = docx.enum.text.WD_ALIGN_PARAGRAPH.LEFT
+		left.add_run(f"{manifest.course_code} - {manifest.term}")
+		center.alignment = docx.enum.text.WD_ALIGN_PARAGRAPH.CENTER
+		append_word_field(center, 'STYLEREF "Heading 2"', "Current section")
+		right.alignment = docx.enum.text.WD_ALIGN_PARAGRAPH.RIGHT
+		right.add_run("Page ")
+		append_word_field(right, "PAGE", "1")
+		right.add_run(" of ")
+		append_word_field(right, "NUMPAGES", "1")
+		for paragraph in (left, center, right):
+			paragraph.paragraph_format.space_after = docx.shared.Pt(0)
+			for run in paragraph.runs:
+				run.font.name = "Arial"
+				run.font.size = docx.shared.Pt(8)
+	settings = document.settings.element
+	update_fields = settings.find(docx.oxml.ns.qn("w:updateFields"))
+	if update_fields is None:
+		update_fields = docx.oxml.OxmlElement("w:updateFields")
+		settings.append(update_fields)
+	update_fields.set(docx.oxml.ns.qn("w:val"), "true")
+	return None
+
+
+#============================================
+def configure_docx_contents(document: object) -> None:
+	"""Add dotted leaders and page-reference fields to the linked contents list."""
+	contents_started = False
+	# LibreOffice cannot resolve these two Pandoc section bookmarks as page references. Their first
+	# subsection bookmarks occupy the same starting page and remain interoperable with Word.
+	page_reference_aliases = {
+		"course-details": "course-overview",
+		"student-resources": "academic-progress-and-learning",
+	}
+	usable_width = (
+		document.sections[0].page_width
+		- document.sections[0].left_margin
+		- document.sections[0].right_margin
+	)
+	for paragraph in document.paragraphs:
+		if paragraph.style.name == "Heading 1" and paragraph.text.strip() == "Contents":
+			contents_started = True
+			continue
+		if not contents_started:
+			continue
+		if paragraph.style.name.startswith("Heading "):
+			break
+		hyperlink = paragraph._p.find(docx.oxml.ns.qn("w:hyperlink"))
+		if hyperlink is None:
+			continue
+		anchor = hyperlink.get(docx.oxml.ns.qn("w:anchor"))
+		if not anchor:
+			continue
+		page_anchor = page_reference_aliases.get(anchor, anchor)
+		paragraph.paragraph_format.tab_stops.add_tab_stop(
+			usable_width,
+			docx.enum.text.WD_TAB_ALIGNMENT.RIGHT,
+			docx.enum.text.WD_TAB_LEADER.DOTS,
+		)
+		paragraph.add_run("\t")
+		append_word_field(paragraph, f"PAGEREF {page_anchor} \\h", "1")
+	return None
+
+
+#============================================
 def postprocess_docx(
 	docx_path: pathlib.Path,
 	manifest: build_lib.syllabus_model.SyllabusManifest,
@@ -90,6 +198,8 @@ def postprocess_docx(
 	document.core_properties.subject = "Complete course syllabus"
 	document.core_properties.language = manifest.language
 	set_document_language(document, manifest.language)
+	configure_docx_footer(document, manifest)
+	configure_docx_contents(document)
 	for table in document.tables:
 		table.style = "Table"
 		table.autofit = True

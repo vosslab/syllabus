@@ -168,6 +168,17 @@ def test_compose_markdown_links_to_embedded_instructor_section(tmp_path: pathlib
 
 
 #============================================
+def test_instructor_page_titles_derive_from_source_names(tmp_path: pathlib.Path) -> None:
+	"""Document navigation uses Title Case page names rather than student headings."""
+	assert build_lib.syllabus_content.get_instructor_page_title(
+		tmp_path / "ASSIGNMENTS_AND_GRADING.md"
+	) == "Assignments and Grading"
+	assert build_lib.syllabus_content.get_instructor_page_title(
+		tmp_path / "policies" / "index.md"
+	) == "Course Policies"
+
+
+#============================================
 def test_markdown_html_uses_site_extension_stack(tmp_path: pathlib.Path) -> None:
 	"""PDF HTML preserves native admonitions and explicit heading anchors."""
 	manifest = build_lib.syllabus_model.SyllabusManifest(

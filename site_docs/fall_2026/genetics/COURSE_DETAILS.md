@@ -21,6 +21,17 @@ interactions, mapping, DNA structure and replication, transcription, translation
 genome organization, extrachromosomal inheritance, mutagenesis, and gene expression. Examples span
 plants, insects, vertebrates, fungi, bacteria, and viruses.
 
+## Required textbook and technology
+
+The required textbook is Dr. Voss's free LibreTexts OER website,
+[Advanced Genetics: Mechanisms of Inheritance and Analysis](https://bio.libretexts.org/Courses/Roosevelt_University/Advanced_Genetics%3A_Mechanisms_of_Inheritance_and_Analysis).
+Students use the book online. A physical copy is neither required nor recommended.
+
+Students need regular Blackboard access and a computer or mobile device capable of reading the
+online textbook and completing Blackboard assignments.
+
 ## Instructor information
 
 --8<-- "fall_2026/shared/fragments/INSTRUCTOR_CONTACT_DETAILS.md"
+
+--8<-- "fall_2026/shared/fragments/DEPARTMENT_LEADERSHIP.md"

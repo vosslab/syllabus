@@ -108,6 +108,24 @@ Each manifest creates two files under `site_docs/downloads/` using `download_bas
 - `<download_basename>.docx` from Pandoc and `pipeline/syllabus_reference.docx`.
 - `<download_basename>.pdf` from Python-Markdown HTML and WeasyPrint.
 
+Complete syllabi include a linked, page-numbered contents list. Its concise instructor labels are
+derived mechanically from source page filenames in Title Case, while the visible section headings
+retain their student-facing wording. PDF footers use running strings and page counters; DOCX
+footers use standard Word fields. Both place course and term information on the left, the current
+student-facing section heading in the center, and `Page X of Y` on the right.
+
 The builder verifies that all expected files exist before publishing them and removes obsolete
 managed downloads. `--archive` packages the current generated documents as ZIP files under
 `output/archive/`; it does not create a historical Markdown source tree.
+
+## Department checklist data
+
+[pipeline/department_checklists.yml](../pipeline/department_checklists.yml) is the tracked source
+for department-review checklists. It contains the published site base URL, the complete ordered
+rubric, and course-specific overrides. Every item has a unique ID, group, label, one of three
+statuses (`covered`, `needs_review`, or `not_applicable`), a list of site-relative evidence links,
+and an explanatory note. Covered items require at least one evidence link.
+
+The generator validates the complete schema, allows only the three documented statuses, resolves
+evidence within the published syllabus site, and restricts writes to
+`output/department_checklists/`. Generated Markdown and DOCX files remain ignored output.

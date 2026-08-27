@@ -1,0 +1,492 @@
+site_base: https://vosslab.github.io/syllabus/
+
+items:
+  - id: institutional_identifier
+    group: Required - Instructor and program information
+    label: Institutional logo or identifier
+    status: covered
+    evidence:
+      - label: Published course page
+        path: ./
+    note: The published syllabus uses Roosevelt identification and branding.
+  - id: instructor
+    group: Required - Instructor and program information
+    label: Instructor
+    status: covered
+    evidence:
+      - label: Instructor information
+        path: COURSE_DETAILS/#instructor-information
+    note: Dr. Voss's name, title, experience, and Roosevelt profile are provided.
+  - id: course_type
+    group: Required - Instructor and program information
+    label: Course type
+    status: covered
+    evidence:
+      - label: Section information
+        path: COURSE_DETAILS/#section-information
+    note: The format is listed for each section.
+  - id: office_location
+    group: Required - Instructor and program information
+    label: Office location
+    status: covered
+    evidence:
+      - label: Instructor information
+        path: COURSE_DETAILS/#instructor-information
+    note: The Schaumburg office and secure online meeting location are identified.
+  - id: primary_contact
+    group: Required - Instructor and program information
+    label: Primary contact
+    status: covered
+    evidence:
+      - label: How to contact Dr. Voss
+        path: COURSE_DETAILS/#how-to-contact-me
+    note: Primary and alternative contact methods are explained.
+  - id: department_chair
+    group: Required - Instructor and program information
+    label: Department chair information
+    status: covered
+    evidence:
+      - label: Department and program leadership
+        path: COURSE_DETAILS/#department-and-program-leadership
+    note: Dr. Robert Seiser is identified and linked to his Roosevelt profile.
+  - id: program_director
+    group: Required - Instructor and program information
+    label: Program director information, if applicable
+    status: needs_review
+    evidence:
+      - label: Department and program leadership
+        path: COURSE_DETAILS/#department-and-program-leadership
+    note: Dr. Voss's Bioinformatics director role is documented, but the applicable program for this course has not been established. Roosevelt does not consistently publish separate director listings.
+  - id: course_meetings
+    group: Required - Course information
+    label: Course meetings
+    status: covered
+    evidence:
+      - label: Section information
+        path: COURSE_DETAILS/#section-information
+    note: Meeting day, time, location, and format are listed by section.
+  - id: course_dates
+    group: Required - Course information
+    label: Course dates
+    status: covered
+    evidence:
+      - label: Section information
+        path: COURSE_DETAILS/#section-information
+    note: Fall 2026 session dates are listed by section.
+  - id: course_hours
+    group: Required - Course information
+    label: Course hours
+    status: covered
+    evidence:
+      - label: Section information
+        path: COURSE_DETAILS/#section-information
+    note: Credit hours and scheduled meeting times are listed.
+  - id: contact_expectations
+    group: Required - Course information
+    label: Course contact expectations
+    status: covered
+    evidence:
+      - label: How to contact Dr. Voss
+        path: COURSE_DETAILS/#how-to-contact-me
+    note: Contact channel priorities and response times are explained.
+  - id: office_hours
+    group: Required - Course information
+    label: Student drop-in hours or office hours
+    status: covered
+    evidence:
+      - label: Instructor information
+        path: COURSE_DETAILS/#instructor-information
+    note: Weekly office hours and appointment availability are listed.
+  - id: required_texts
+    group: Required - Course information
+    label: Required texts
+    status: covered
+    evidence:
+      - label: Textbooks and technology
+        path: COURSE_DETAILS/#textbooks-and-technology
+    note: The syllabus explicitly identifies the required text or states that no textbook is required.
+  - id: required_materials
+    group: Required - Course information
+    label: Other required materials or technology
+    status: covered
+    evidence:
+      - label: Textbooks and technology
+        path: COURSE_DETAILS/#textbooks-and-technology
+      - label: Course format and online tools
+        path: ../shared/policies/COURSE_DELIVERY/
+    note: Required course platforms, devices, and software are identified.
+  - id: prerequisites
+    group: Required - Course information
+    label: Course prerequisites
+    status: covered
+    evidence:
+      - label: Section information
+        path: COURSE_DETAILS/#section-information
+    note: Prerequisites are listed separately for each section.
+  - id: description
+    group: Required - Course information
+    label: Course description
+    status: covered
+    evidence:
+      - label: Catalog description
+        path: COURSE_DETAILS/#catalog-description
+    note: The catalog description appears in the syllabus.
+  - id: schedule
+    group: Required - Course information
+    label: Course schedule
+    status: covered
+    evidence:
+      - label: Dates and topics
+        path: SCHEDULE/
+    note: A dated weekly schedule is provided.
+  - id: core_attributes
+    group: Required - Course information
+    label: CORE attributes, as applicable
+    status: needs_review
+    evidence: []
+    note: Confirm whether an official CORE attribute applies to this course and use the university's exact wording.
+  - id: university_goals
+    group: Required - Learning goals and outcomes
+    label: University learning goals
+    status: covered
+    evidence:
+      - label: Learning framework
+        path: COURSE_LEARNING_FRAMEWORK/#roosevelt-university-learning-goals
+    note: Roosevelt University learning goals are included.
+  - id: course_outcomes
+    group: Required - Learning goals and outcomes
+    label: Program or course learning outcomes and objectives
+    status: covered
+    evidence:
+      - label: Learning framework
+        path: COURSE_LEARNING_FRAMEWORK/
+    note: Learning objectives, course outcomes, and course goals are listed.
+  - id: assignments
+    group: Required - Assignments and grading
+    label: Assignments
+    status: covered
+    evidence:
+      - label: Coursework and grades
+        path: ASSIGNMENTS_AND_GRADING/
+    note: The course's assessment types are identified.
+  - id: assignment_points
+    group: Required - Assignments and grading
+    label: Assignment points or weights
+    status: covered
+    evidence:
+      - label: Coursework and grades
+        path: ASSIGNMENTS_AND_GRADING/
+    note: A course point plan gives possible points and approximate shares.
+  - id: ai_policy
+    group: Required - Assignments and grading
+    label: AI policy
+    status: covered
+    evidence:
+      - label: Academic integrity and AI
+        path: ../shared/policies/ACADEMIC_INTEGRITY/#how-to-get-the-most-out-of-this-class-in-the-age-of-ai
+    note: The shared policy explains responsible AI use and the course honor system.
+  - id: grading_policy
+    group: Required - Assignments and grading
+    label: Grading policy
+    status: covered
+    evidence:
+      - label: Grades and graded work
+        path: ../shared/policies/ASSESSMENT/#grades
+    note: Percentage calculation, rounding, and letter-grade thresholds are provided.
+  - id: incomplete_policy
+    group: Required - Assignments and grading
+    label: Incomplete grade policy
+    status: covered
+    evidence:
+      - label: Incomplete grade policy
+        path: ../shared/policies/ASSESSMENT/#incomplete-grade-policy
+    note: The Roosevelt incomplete-grade conditions and process are provided.
+  - id: major_due_dates
+    group: Required - Assignments and grading
+    label: Major due dates
+    status: covered
+    evidence:
+      - label: Dates and topics
+        path: SCHEDULE/
+    note: Major assessments and milestones appear on dated schedule rows; Blackboard holds exact submission times.
+  - id: feedback_dates
+    group: Required - Assignments and grading
+    label: Assignment feedback dates
+    status: needs_review
+    evidence:
+      - label: Coursework and grades
+        path: ASSIGNMENTS_AND_GRADING/
+      - label: Instructor feedback commitment
+        path: ../shared/policies/COURSE_EXPECTATIONS/#what-you-can-expect-from-me
+    note: The syllabus promises feedback and points to assignment-specific windows, but it does not give a general turnaround interval or fixed feedback dates.
+  - id: withdrawal_date
+    group: Required - University deadlines
+    label: Withdrawal date
+    status: covered
+    evidence:
+      - label: Important dates and deadlines
+        path: ../shared/IMPORTANT_DATES/
+      - label: Withdrawal instructions
+        path: ../shared/policies/COURSE_ENROLLMENT/
+    note: The synchronized university calendar supplies the Fall 2026 withdrawal deadline.
+  - id: policies_resources
+    group: Required - Policies and resources
+    label: Updated policies and resources information
+    status: covered
+    evidence:
+      - label: Course policies
+        path: ../shared/policies/
+      - label: Help and student services
+        path: ../shared/STUDENT_RESOURCES/
+    note: Shared Fall 2026 policies and Roosevelt resources are provided once for every course.
+  - id: policy_acknowledgment
+    group: Required - Policies and resources
+    label: Student acknowledgment of policies and resources
+    status: needs_review
+    evidence: []
+    note: No syllabus acknowledgment activity is currently documented. Confirm whether a Blackboard acknowledgment or orientation quiz will be used.
+  - id: accessible_format
+    group: Required - Accessibility
+    label: Accessible electronic format
+    status: covered
+    evidence:
+      - label: Course download page
+        path: ./
+    note: The course page provides a generated DOCX download in addition to HTML and PDF.
+  - id: accessible_headings
+    group: Required - Accessibility
+    label: Accessible headings and document structure
+    status: covered
+    evidence:
+      - label: Published course page
+        path: ./
+    note: The HTML and generated documents use semantic heading levels and structured sections.
+  - id: descriptive_links
+    group: Required - Accessibility
+    label: Descriptive hyperlink text
+    status: covered
+    evidence:
+      - label: Published course page
+        path: ./
+    note: Student-facing links use destination or task names instead of raw URLs.
+  - id: accessible_color
+    group: Required - Accessibility
+    label: Accessible use of color
+    status: covered
+    evidence:
+      - label: Published course page
+        path: ./
+    note: Color reinforces labels and links; it is not the sole carrier of meaning.
+  - id: accessible_tables
+    group: Required - Accessibility
+    label: Accessible tables
+    status: covered
+    evidence:
+      - label: Section information table
+        path: COURSE_DETAILS/#section-information
+    note: Tables have named header rows and consistent column structure.
+  - id: alt_text
+    group: Required - Accessibility
+    label: Alt text for images
+    status: not_applicable
+    evidence:
+      - label: Published course page
+        path: ./
+    note: The syllabus body currently contains no instructional content images. The site logo has an accessible home-link name.
+  - id: captioned_videos
+    group: Required - Accessibility
+    label: Captioned videos
+    status: not_applicable
+    evidence:
+      - label: Published course page
+        path: ./
+    note: The public syllabus currently embeds no instructional videos. Recheck this item if video is added.
+  - id: other_contact
+    group: Suggested - Course information
+    label: Other contact information
+    status: covered
+    evidence:
+      - label: Instructor information
+        path: COURSE_DETAILS/#instructor-information
+    note: Telephone, mailbox, community contact, email, and follow-up instructions are provided.
+  - id: teaching_assistant
+    group: Suggested - Course information
+    label: Teaching assistant information
+    status: needs_review
+    evidence: []
+    note: Confirm whether a teaching assistant is assigned. Do not mark this not applicable without that confirmation.
+  - id: optional_resources
+    group: Suggested - Course information
+    label: Optional texts or resources
+    status: covered
+    evidence:
+      - label: Textbooks and technology
+        path: COURSE_DETAILS/#textbooks-and-technology
+    note: Optional references are identified separately from required materials.
+  - id: teaching_methodology
+    group: Suggested - Course design
+    label: Teaching methodology
+    status: covered
+    evidence:
+      - label: Learning framework
+        path: COURSE_LEARNING_FRAMEWORK/
+      - label: Coursework and grades
+        path: ASSIGNMENTS_AND_GRADING/
+    note: The learning framework and assessment approach describe how students learn and demonstrate learning.
+  - id: active_learning
+    group: Suggested - Course design
+    label: Active or experiential learning
+    status: covered
+    evidence:
+      - label: Learning framework
+        path: COURSE_LEARNING_FRAMEWORK/
+      - label: Coursework and grades
+        path: ASSIGNMENTS_AND_GRADING/
+    note: Analysis, discussion, projects, presentations, or applied work are built into the course.
+  - id: competencies
+    group: Suggested - Course design
+    label: Professional or disciplinary competencies
+    status: covered
+    evidence:
+      - label: Course learning outcomes
+        path: COURSE_LEARNING_FRAMEWORK/#course-learning-outcomes
+    note: Course outcomes identify disciplinary analysis, communication, and application skills.
+  - id: attendance
+    group: Suggested - Course policies
+    label: Attendance and participation
+    status: covered
+    evidence:
+      - label: Attendance and accommodations
+        path: ../shared/policies/ATTENDANCE_AND_ACCOMMODATIONS/
+    note: Attendance, absence communication, and participation expectations are explained.
+  - id: civility
+    group: Suggested - Course policies
+    label: Civility
+    status: covered
+    evidence:
+      - label: Academic integrity and classroom conduct
+        path: ../shared/policies/ACADEMIC_INTEGRITY/#classroom-conduct
+    note: Respectful discussion and classroom conduct expectations are provided.
+  - id: devices
+    group: Suggested - Course policies
+    label: Electronic devices
+    status: covered
+    evidence:
+      - label: Classroom conduct
+        path: ../shared/policies/ACADEMIC_INTEGRITY/#classroom-conduct
+    note: Appropriate and distracting device use is addressed.
+  - id: extra_credit
+    group: Suggested - Course policies
+    label: Extra credit
+    status: covered
+    evidence:
+      - label: Extra credit
+        path: ../shared/policies/EXTRA_CREDIT/
+    note: Categories, eligibility, submission, and grading are explained.
+  - id: in_class_behavior
+    group: Suggested - Course policies
+    label: In-class behavior
+    status: covered
+    evidence:
+      - label: Classroom conduct
+        path: ../shared/policies/ACADEMIC_INTEGRITY/#classroom-conduct
+    note: Classroom discussion, conduct, and device expectations are addressed.
+  - id: assignment_formatting
+    group: Suggested - Course policies
+    label: Assignment formatting
+    status: needs_review
+    evidence: []
+    note: Formatting expectations remain in individual Blackboard instructions rather than the public syllabus. Confirm whether a general statement is useful.
+  - id: assignment_submission
+    group: Suggested - Course policies
+    label: Assignment submission
+    status: covered
+    evidence:
+      - label: Course expectations
+        path: ../shared/policies/COURSE_EXPECTATIONS/
+      - label: Coursework and grades
+        path: ASSIGNMENTS_AND_GRADING/
+    note: Blackboard is identified as the authoritative submission and grade record.
+  - id: late_work
+    group: Suggested - Course policies
+    label: Late assignments or missed exams
+    status: covered
+    evidence:
+      - label: Grades and graded work
+        path: ../shared/policies/ASSESSMENT/#late-assignments-and-exams
+    note: Late work, resets, missed exams, and make-up expectations are provided.
+  - id: detailed_schedule
+    group: Suggested - Course schedule
+    label: Detailed weekly course schedule
+    status: covered
+    evidence:
+      - label: Dates and topics
+        path: SCHEDULE/
+    note: The schedule gives weekly dates, topics, and work due.
+  - id: schedule_disclaimer
+    group: Suggested - Course schedule
+    label: Schedule-change disclaimer
+    status: covered
+    evidence:
+      - label: Dates and topics
+        path: SCHEDULE/
+    note: The schedule explains why it may change and identifies Blackboard as the current deadline source.
+
+courses:
+  - directory: biostats
+    overrides:
+      assignment_points:
+        status: needs_review
+        note: The page identifies assessment types but does not yet provide the Fall 2026 point total or weights. Blackboard is currently authoritative.
+      major_due_dates:
+        status: needs_review
+        note: Weekly work is dated, but the final project and other major deadlines need more precise public dates.
+      optional_resources:
+        note: Two LibreTexts biostatistics OER books, OpenIntro, OpenStax, and the former Triola text are listed as optional.
+      teaching_methodology:
+        note: The assessment approach and Google Sheets rationale explain the course's applied, accessible teaching method.
+  - directory: genetics
+    overrides:
+      required_texts:
+        evidence:
+          - label: Required textbook and technology
+            path: COURSE_DETAILS/#required-textbook-and-technology
+        note: The required text is Dr. Voss's free LibreTexts OER website; a physical copy is neither required nor recommended.
+      required_materials:
+        evidence:
+          - label: Required textbook and technology
+            path: COURSE_DETAILS/#required-textbook-and-technology
+          - label: Course format and online tools
+            path: ../shared/policies/COURSE_DELIVERY/
+        note: Blackboard and a device capable of reading the OER and completing assignments are identified.
+      core_attributes:
+        status: needs_review
+        evidence:
+          - label: Section information
+            path: COURSE_DETAILS/#section-information
+        note: BIOL 351 is identified with the Natural Science attribute, but the complete official CORE wording still needs confirmation.
+      optional_resources:
+        status: needs_review
+        evidence:
+          - label: Required textbook and technology
+            path: COURSE_DETAILS/#required-textbook-and-technology
+        note: The required free LibreTexts OER is documented, but no separate optional resources are currently listed.
+  - directory: biotech
+    overrides:
+      required_texts:
+        evidence:
+          - label: Textbook and technology
+            path: COURSE_DETAILS/#textbook-and-technology
+        note: The syllabus explicitly states that no textbook is required.
+      required_materials:
+        evidence:
+          - label: Textbook and technology
+            path: COURSE_DETAILS/#textbook-and-technology
+          - label: Course format and online tools
+            path: ../shared/policies/COURSE_DELIVERY/
+        note: Blackboard, online presentation and response tools, and a suitable computer are identified.
+      optional_resources:
+        evidence:
+          - label: Textbook and technology
+            path: COURSE_DETAILS/#textbook-and-technology
+        note: The current third edition of Clark et al. is clearly labeled as an optional background reference.

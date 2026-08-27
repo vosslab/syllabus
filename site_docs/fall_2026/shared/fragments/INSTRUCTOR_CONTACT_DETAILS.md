@@ -1,7 +1,8 @@
 | Field | Information |
 | --- | --- |
-| Instructor | Associate Professor Neil R. Voss |
+| Instructor | [Associate Professor Neil R. Voss](https://www.roosevelt.edu/profile/nvoss) |
 | Experience | Instructor at Roosevelt since Fall 2010 |
+| Program role | Director, Bioinformatics and Computational Biology |
 | Office locations | SCH 600E, Schaumburg campus; secure Zoom link in Blackboard |
 | Course community | Secure invitation link in Blackboard |
 | Email | *nvoss [a] roosevelt.edu* |

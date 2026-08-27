@@ -34,9 +34,25 @@
 	size: letter;
 	margin: 0.8in;
 
+	@bottom-left {
+		border-top: 0.5pt solid #888;
+		content: string(course-title) " - " string(course-term);
+		font-size: 8pt;
+		padding-top: 0.08in;
+	}
+
 	@bottom-center {
-		content: counter(page);
-		font-size: 9pt;
+		border-top: 0.5pt solid #888;
+		content: string(section-title);
+		font-size: 8pt;
+		padding-top: 0.08in;
+	}
+
+	@bottom-right {
+		border-top: 0.5pt solid #888;
+		content: "Page " counter(page) " of " counter(pages);
+		font-size: 8pt;
+		padding-top: 0.08in;
 	}
 }
 
@@ -82,9 +98,14 @@ body {
 	margin-block: 0.15rem;
 }
 
+#title-block-header h1 {
+	string-set: course-title content(text);
+}
+
 #title-block-header .subtitle {
 	font-size: 14pt;
 	font-weight: 700;
+	string-set: course-term content(text);
 }
 
 h1,
@@ -107,6 +128,25 @@ h1 {
 	margin-block: 1.35rem 0.6rem;
 }
 
+#contents {
+	string-set: section-title content(text);
+}
+
+#contents + ul {
+	list-style: none;
+	padding-left: 0;
+}
+
+#contents + ul a {
+	color: #111;
+	display: block;
+	text-decoration: none;
+}
+
+#contents + ul a::after {
+	content: leader(".") target-counter(attr(href), page);
+}
+
 #syllabus-content > h2#course-overview,
 #syllabus-content > h2#policies,
 #syllabus-content > h2#important-dates {
@@ -125,6 +165,7 @@ h2 {
 	margin-block: 1.35rem 0.55rem;
 	margin-left: -0.08in;
 	padding-bottom: 0.18rem;
+	string-set: section-title content(text);
 }
 
 h3 {

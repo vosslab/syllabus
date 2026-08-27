@@ -34,4 +34,3 @@
 * Arriving on time and staying for the full class shows respect for the learning process and your classmates.
 * Participate actively in discussions to help create a dynamic and engaging class environment.
   * Respect the opinions of others during discussions, even when they differ from your own.
-

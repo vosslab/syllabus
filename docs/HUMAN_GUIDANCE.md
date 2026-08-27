@@ -9,6 +9,11 @@ history. Those belong in the appropriate technical documentation or changelog.
 
 - This website is for my students. Favor student-facing language and navigation over maintainer or
   publication-system concepts.
+- Direct the syllabus to students as its audience, even though they are the people least likely to
+  read it.
+- Treat source page filenames as the concise instructor titles used for generated-document
+  navigation. Keep the Markdown headings as student-facing titles, and derive the instructor
+  titles mechanically instead of maintaining a separate mapping.
 - Make the repository reflect my actual syllabi and teaching practice, not a generic university
   course template.
 - Keep the repository and public website free of credentials, private meeting information, student
