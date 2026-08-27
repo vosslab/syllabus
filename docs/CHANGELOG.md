@@ -2,6 +2,9 @@
 
 ### Additions and New Features
 
+- Added a bounded live HTTP(S) link checker for the active Markdown syllabus authority. It follows
+  validated public redirects, detects HTTP failures and common soft-error pages, and reports every
+  failure with its source file and line while keeping the fast pytest lane offline.
 - Added one canonical `TERM_COURSES.md` fragment for the Fall 2026 course summaries and complete
   PDF/DOCX links. Both the main page and term overview now expand that source.
 - Added repository-owned `EXTRA_CREDIT.md` and `EXTRA_CREDIT_MOVIES.md` pages from the two public
@@ -39,6 +42,10 @@
 
 ### Behavior or Interface Changes
 
+- Restructured Help and student services for consistent scanning: explanatory prose now introduces
+  each service, parallel campuses and contact methods use sibling labeled bullets, and tutoring,
+  coaching, and Disability Services are grouped beneath Learning Commons. Corrected the pantry's
+  broken mixed paragraph/list structure and the accidental nesting of Schaumburg beneath Chicago.
 - Added the same compact, icon-labeled PDF and DOCX links beneath every course on the main student
   homepage. Fragment-relative Markdown and HTML links now rebase for each receiving page while
   remaining contained under `site_docs/`, so shared linked content works at different route depths.
@@ -139,6 +146,11 @@
 
 ### Fixes and Maintenance
 
+- Replaced four failed live-syllabus destinations found by the new checker: two retired catalog
+  academic-integrity routes now use the current policy PDF and student guide, the obsolete Maxient
+  accommodations form now uses Roosevelt's AIM request form, and the blocked pandemic-era Illinois
+  volunteer page now uses Serve Illinois. Added the current Disability Services page while
+  explicitly retaining the newest university template's Schaumburg room, specialist, and phone.
 - Expanded the document builder's landing-page link verifier before checking generated targets, so
   moving the term links into their canonical fragment does not hide them from the build contract.
   Replaced the term page's former raw `index.md` course URLs with working directory routes, and
@@ -307,6 +319,11 @@
 
 ### Developer Tests and Notes
 
+- Verified all 49 unique HTTP(S) links in the active Fall 2026 authority and all 39 links in the
+  supplied 2026-2027 university reference with zero failures. All 989 fast tests passed. The full
+  `all_test.sh` then stopped at the public-source boundary before document rendering because the
+  locally present ignored `raw/` directory is explicitly prohibited by the production builder;
+  the reference was preserved for the owner rather than moved or deleted.
 - Passed the shared term-course fragment through the complete material-tree `all_test.sh` gate:
   all 984 pytest checks, both live Google Sheets build cycles, all three DOCX/PDF pairs,
   export/include parity, both strict site builds, and the all-route Playwright accessibility audit

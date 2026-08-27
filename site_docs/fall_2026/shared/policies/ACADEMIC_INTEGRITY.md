@@ -2,7 +2,12 @@
 
 ## Academic integrity
 
-The university's policies on issues such as plagiarism, recycling, cheating and other forms of academic dishonesty can be found in the undergraduate catalog at [http://catalog.roosevelt.edu/undergraduate/policies/academic-integrity-policy/](http://catalog.roosevelt.edu/undergraduate/policies/academic-integrity-policy/) and the graduate catalog at [http://catalog.roosevelt.edu/graduate/policies/academic-integrity/](http://catalog.roosevelt.edu/graduate/policies/academic-integrity/) Additional guidelines for avoiding plagiarism are available here: [https://www.roosevelt.edu/current-students/academics/academic-integrity](https://www.roosevelt.edu/current-students/academics/academic-integrity) .
+The university's rules for plagiarism, repurposing, cheating, unauthorized AI use, and other forms
+of academic dishonesty are in the
+[Academic Integrity Policy and Appeals Procedure (PDF)](https://www.roosevelt.edu/sites/default/files/files/pdfs/policies/Academic/ru-policy-no-0-1-academic-integrity-policy-and-appeals-procedure-rev-08-15-18.pdf){ .file-link .file-link--pdf }.
+The university also provides an
+[Academic Integrity Guide for Students](https://www.roosevelt.edu/current-students/academics/register-classes/academic-integrity)
+with practical guidance for avoiding plagiarism.
 
 Dishonesty of any kind including cheating and plagiarism will not be tolerated. Every semester, I encounter plagiarism and the student says that they did not know it was wrong. If you copy and paste something and turn it in, it is plagiarism. I and the university do not care that you did not know it was wrong, so educate yourself on the meaning of plagiarism and you will be better off.
 
@@ -58,6 +63,5 @@ Students enrolled in the university are expected to conduct themselves in a mann
 [Roosevelt University complaint and conflict resolution](https://www.roosevelt.edu/current-students/support-services/complaint/conflict-resolution)
 
 Using music devices either in the classroom or in the laboratory is not permitted. Reading materials other than assigned for teaching are not allowed. No children allowed in the classroom. Cellular phones must be set either to the silent/vibration mode or turned off completely before coming into the classroom. Eating or drinking in classrooms is discouraged, but allowed if you do not create a disturbance. Do not bring loud food packaging to class as they will be disruptive. Examples of unacceptable items include, anything that has condiments, fried chicken, french fries, cereal with milk, and salads. Most things from the vending machine are fine. Rude or disruptive behavior will not be tolerated. If you must leave class for any reason, do not distract your classmates. Courtesy and respect are expected of all our students. Any deviation from such an expectation will be a clear violation of the students code of conduct; an act that will neither be tolerated by the instructor nor the department.
-
 
 

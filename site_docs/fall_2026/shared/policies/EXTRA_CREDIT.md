@@ -63,7 +63,7 @@ Past Science Club opportunities include:
 Volunteer resources include:
 
 - [VolunteerMatch](https://www.volunteermatch.org/).
-- [Illinois volunteer opportunities](https://coronavirus.illinois.gov/s/volunteer-opportunities).
+- [Serve Illinois volunteer opportunities](https://serve.illinois.gov/volunteer-opportunities.html).
 - [Illinois disaster volunteers](https://www2.illinois.gov/sites/serve/Disaster/Pages/default.aspx).
 - [American Red Cross volunteer roles](https://www.redcross.org/volunteer/volunteer-role-finder.html).
 

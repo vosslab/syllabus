@@ -232,6 +232,18 @@ human-controlled manifest state.
 
 ## Validate
 
+Check every external HTTP(S) link in the active Fall 2026 Markdown authority:
+
+```bash
+source source_me.sh
+python3 pipeline/check_links.py
+```
+
+The checker follows redirects, detects HTTP failures and common HTTP-200 error pages, and reports
+each failing URL with its source file and line. It intentionally remains a live, explicit
+maintainer check rather than part of the offline pytest lane. Pass one or more Markdown files or
+directories to inspect a separately held reference source.
+
 Run every local semantic-validation lane in dependency order:
 
 ```bash

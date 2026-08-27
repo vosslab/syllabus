@@ -55,6 +55,7 @@ Each course directory contains an `index.md`, `COURSE_DETAILS.md`,
 pipeline/
 |-- build_site.py                       Production build front door
 |-- build_syllabi.py                    Complete DOCX and PDF entry point
+|-- check_links.py                      Live external-link audit with source locations
 |-- mkdocs_hooks.py                     Website metadata/include adapter loaded by MkDocs
 |-- sync_important_dates.py             Google Sheets fragment importer
 |-- create_syllabus_reference_docx.py   Intentional DOCX style-asset generator

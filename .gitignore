@@ -14,6 +14,7 @@ _temp*.?*
 # === LOCAL REPOSITORY RULES === [ADD CUSTOM IGNORES HERE]
 # Propagation preserves this section.
 # Template-only ignores.
+/raw/
 # === PYTHON === [PROPAGATED - LOCAL EDITS OVERWRITTEN]
 build/
 dist/

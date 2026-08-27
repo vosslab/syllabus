@@ -5,31 +5,43 @@ appended once to every complete syllabus download.
 
 ## Academic advising
 
-Advisors help students review degree options and curriculum requirements for most undergraduate programs; assist undecided students in identifying career goals and academic major; interpret University policies and procedures; and guide students experiencing academic difficulty or academic probation.
+Advisors help students review degree options and curriculum requirements, identify career goals and
+an academic major, interpret university policies, and respond to academic difficulty or probation.
 
-Chicago campus: room 1M10, Mezzanine, Wabash Building, (312) 341-4340. Schaumburg campus: SCH 125; (847) 619-7930 Advising@roosevelt.edu
+- **Chicago campus:** Room 1M10, Mezzanine, Wabash Building; (312) 341-4340.
+- **Schaumburg campus:** Room SCH 125; (847) 619-7930.
+- **Email:** Advising@roosevelt.edu.
 
-Some students are advised within their college and/or in their individual programs. Graduate students work directly with their academic department. You can schedule an appointment with an academic advisor through the Navigate App or Desktop: [https://www.roosevelt.edu/eab-navigate](https://www.roosevelt.edu/eab-navigate)
+Some students are advised within their college or individual program. Graduate students work
+directly with their academic department. Schedule an appointment through
+[Navigate](https://www.roosevelt.edu/eab-navigate).
 
 ## Technology
 
-* The [STUDENT TECHNOLOGY GUIDE](https://mobile.roosevelt.edu/new_student_orientation/new_student_tech_guide/index?_gl=1*zp8k3v*_gcl_au*MTA5NDMwMTk1Mi4xNzE4MDQ5MzE1) on the Roosevelt mobile app is intended to provide you with a quick and easy-to-understand overview of many of the tools and resources provided to help you get things done. Find out about technology essentials, on-campus technology such as computer labs, printing, software, and more.
-
-* Blackboard Support, Training and Quick Guides: The Blackboard course management system is supported by the Academic Technology Solutions staff. A student tutorial is available in the Blackboard Help and Resources for Students section of [Blackboard](https://blackboard.roosevelt.edu/). For additional help, submit a [help desk ticket](https://roosevelt.service-now.com/sp). You may also search the knowledge base for a wide variety of helpful articles.
-
-* Help Desk: The University Help Desk is available to assist with login and other account issues. Open a help ticket on the [IT Help Desk](https://roosevelt.service-now.com/sp).
+- **Student technology guide:** Use the
+  [Student Technology Guide](https://mobile.roosevelt.edu/new_student_orientation/new_student_tech_guide/index?_gl=1*zp8k3v*_gcl_au*MTA5NDMwMTk1Mi4xNzE4MDQ5MzE1)
+  in the Roosevelt mobile app for information about computer labs, printing, software, and other
+  technology essentials.
+- **Blackboard support:** Find tutorials and quick guides in the Help and Resources for Students
+  section of [Blackboard](https://blackboard.roosevelt.edu/).
+- **IT Help Desk:** For login, account, Blackboard, or other technology problems, submit an
+  [IT Help Desk ticket](https://roosevelt.service-now.com/sp) or search the knowledge base.
 
 ## Campus safety
 
-Chicago Campus: (312) 341-2020 and Schaumburg campus: (847) 619-8989
+- **Chicago campus:** (312) 341-2020.
+- **Schaumburg campus:** (847) 619-8989.
 
 ## Career services
 
-The Office of Career Services supports student career readiness through personalized advising, internship search assistance, and job preparation coaching. Our services include resume and cover letter development, interview practice and preparation, career exploration, skill-building workshops, and graduate school planning. We connect students with employers through career fairs, networking events, and on campus recruitment opportunities. Through Handshake, students have 24/7 access to job and internship listings including on campus employment as well as a wide range of career resources. Appointments can be scheduled via Handshake at [roosevelt.joinhandshake.com](https://roosevelt.joinhandshake.com/login), or students may contact us by email, phone, or by visiting our office.
+The Office of Career Services provides career advising, internship-search assistance, resume and
+cover-letter development, interview preparation, workshops, career fairs, and graduate-school
+planning. Use [Handshake](https://roosevelt.joinhandshake.com/login) to find job and internship
+listings or schedule an appointment.
 
-Location: 3rd Floor, Wabash Building, WB 324
-
-Phone: (312) 341-3560 Email: career@roosevelt.edu
+- **Location:** Room WB 324, third floor, Wabash Building.
+- **Phone:** (312) 341-3560.
+- **Email:** career@roosevelt.edu.
 
 ## Counseling services
 
@@ -39,21 +51,27 @@ TimelyCare offers access to licensed therapists and medical providers through "T
 
 ## Financial aid services
 
-Apply for financial aid, set up payment plans, and answer questions regarding your Roosevelt bill. Chicago campus: Mezzanine, Wabash Building, (866) 421-0935; FAS@roosevelt.edu. Zoom hours are between 10 a.m. and 3 p.m. Monday-Friday. Send an email for a link.
+Financial Aid Services helps students apply for financial aid, set up payment plans, and answer
+questions about Roosevelt bills.
+
+- **Chicago campus:** Mezzanine, Wabash Building.
+- **Phone:** (866) 421-0935.
+- **Email:** FAS@roosevelt.edu.
+- **Zoom hours:** Monday-Friday, 10 a.m.-3 p.m. Email Financial Aid Services for the link.
 
 ## Food and hygiene pantry
 
-The Laker Union Pantry provides free food and hygiene products to students in need. Below are campus-specific details and resources:
+The Laker Union Pantry provides free food and hygiene products to students in need.
 
-* Chicago Campus: The Laker Union Pantry is located in WB309. Students can visit during posted hours or place orders online anytime using the ordering tool available on the [pantry website](https://lakerunionpantry.company.site/).
-
-Schaumburg Campus: Schaumburg students can access pantry items from the Chicago campus by using the online ordering tool, with the ability to pick-up their order during pantry operational hours. Visit the pantry website for more details (Additional Resources and Support:
-
-* Students seeking connections to additional food and hygiene resources in Chicago or the surrounding suburbs can email HFI@roosevelt.edu for tailored assistance.
-
-* To see if you qualify for SNAP benefits (formerly known as food stamps), use the MRelief eligibility tool linked on the Food and Hygiene Pantry on the Roosevelt Website.
-
-Get Involved: Interested in supporting the pantry? Email lakerunionpantry@roosevelt.edu or head to our website to learn about volunteer opportunities or how to make a donation.
+- **Chicago campus:** Visit the pantry in Room WB 309 during posted hours, or place an order at
+  any time through the [pantry website](https://lakerunionpantry.company.site/).
+- **Schaumburg campus:** Place an order through the pantry website and pick it up during pantry
+  hours.
+- **Additional assistance:** Email HFI@roosevelt.edu for help finding food and hygiene resources
+  in Chicago or the surrounding suburbs.
+- **SNAP benefits:** Use the MRelief eligibility tool linked from the pantry website to see whether
+  you qualify.
+- **Volunteer or donate:** Email lakerunionpantry@roosevelt.edu or visit the pantry website.
 
 ## Laker Connect
 
@@ -61,27 +79,31 @@ Laker Connect is the central hub for student involvement at Roosevelt University
 
 ## Learning commons
 
-The Learning Commons offers tutoring in writing, math, and other subjects; peer mentors; and disability services. Visit our webpage for more information on hours, appointments, and available services: [Learning Commons Website](https://www.roosevelt.edu/current-students/get-help/learning-commons)
+The Learning Commons offers tutoring, peer success coaching, and disability services. Visit the
+[Learning Commons website](https://www.roosevelt.edu/current-students/get-help/learning-commons)
+for current hours, appointments, and available services.
 
-## Tutoring
+### Tutoring
 
-Chicago campus: In-person and virtual peer tutoring in writing, math, and other subjects is available in the Learning Commons on the Chicago campus. Use Navigate within the Roosevelt app to make an appointment. If you are in need of tutoring, please email learningcommons@roosevelt.edu for assistance.
+- **Chicago campus:** In-person and virtual peer tutoring is available in writing, math, and other
+  subjects. Use Navigate in the Roosevelt app to make an appointment.
+- **Chicago and Schaumburg campuses:** Online tutoring is available 24/7 through Brainfuse in
+  Blackboard.
+- **Help:** Email learningcommons@roosevelt.edu.
 
-Students on both the Chicago and Schaumburg campuses have 24/7 access to online tutoring via Brainfuse on Blackboard.
+### Peer success coaching
 
-## Peer success coaching
+In-person and virtual peer success coaching is available on both campuses. Use Navigate in the
+Roosevelt app to make an appointment, or email learningcommons@roosevelt.edu for assistance.
 
-In-person and virtual Peer Success Coaching is available in the Learning Commons on both the Chicago and Schaumburg campuses. Use Navigate within the Roosevelt app to make an appointment. If you need help with success coaching, please email learningcommons@roosevelt.edu for assistance.
+### Disability services
 
-## Disability services
+Disability Services helps students register for private academic accommodations in and out of the
+classroom.
 
-The Learning Commons is also the home of Disability Services. If you have a disability, it is in your interest to register with the Learning Commons. Using our services is private. We aim to teach you the skills you need to be a strong, independent learner, while offering accommodations both in and out of the classroom where necessary.
-
-* Chicago campus: Auditorium Building 1050 (inside the Library), (312) 341-3811.
-
-  * Schaumburg campus: room 517A, 847-619-7978.
-
-  * Via email: Nicole Yoon [nyoon@roosevelt.edu](mailto:nyoon@roosevelt.edu)
+- **Chicago campus:** Room AUD 1050, Auditorium Building, inside the Library; (312) 341-3811.
+- **Schaumburg campus:** Room SCH 517A; (847) 619-7978.
+- **Email:** Nicole Yoon at [nyoon@roosevelt.edu](mailto:nyoon@roosevelt.edu).
 
 ## Laker grant (student emergency fund)
 
@@ -97,7 +119,12 @@ Roosevelt University will honor a student's request to select a preferred name o
 
 ## Registrar
 
-We are available to answer questions about registration, drop/add, withdrawal, transcripts, credit evaluation, or graduation. Chicago campus: Mezzanine floor, Wabash Building, (312) 341-3535; registrar@roosevelt.edu
+The Registrar answers questions about registration, adding or dropping courses, withdrawal,
+transcripts, credit evaluation, and graduation.
+
+- **Chicago campus:** Mezzanine, Wabash Building.
+- **Phone:** (312) 341-3535.
+- **Email:** registrar@roosevelt.edu.
 
 ## Roosevelt mobile app
 
