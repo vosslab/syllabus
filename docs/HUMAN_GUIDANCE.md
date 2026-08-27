@@ -21,6 +21,7 @@ history. Those belong in the appropriate technical documentation or changelog.
 - Use Roosevelt University's green palette for the main website and favicon because Roosevelt is
   my employer.
 - Keep the favicon protein-themed and use the three greens from Roosevelt University's R logo.
+- Use the protein favicon as the MkDocs header logo and place it at the upper-right edge.
 - Provide a student-accessible light and dark theme toggle.
 - Avoid CSS specificity arms races. Keep style ownership and the cascade easy to understand.
 - Use subtle course color themes across headings and tables. Keep level-one headings left-aligned,

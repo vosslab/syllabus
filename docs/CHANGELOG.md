@@ -35,6 +35,8 @@
 
 ### Behavior or Interface Changes
 
+- Replaced Material's default book logo with the protein favicon and moved the home-link mark to
+  the upper-right edge of the MkDocs header on desktop and mobile layouts.
 - Moved the Fall 2026 PDF and DOCX links into a compact row directly below each course on the term
   overview. Visible file-format labels now include small, self-hosted Font Awesome PDF or Word
   icons on both the term overview and course landing pages, and the oversized standalone download
@@ -226,6 +228,11 @@
 
 ### Developer Tests and Notes
 
+- Passed the complete `all_test.sh` gate after moving the protein mark: all 962 pytest checks, the
+  live dates refresh, all three DOCX/PDF pairs, export/include parity, both strict site builds, and
+  the Playwright accessibility/browser audit. One-time rendered review covered the home header in
+  light and dark modes at 1280 and 390 pixels and the blue General Genetics header at desktop and
+  mobile widths; the temporary position checker was removed rather than added to the suite.
 - After removing rebuild-only assertions, passed all 962 pytest checks, the live Google Sheets
   refresh, all three DOCX/PDF pairs, export/include parity, and both strict site builds through
   `all_test.sh`. Its Chromium launch was denied by the macOS sandbox before assertions ran; the

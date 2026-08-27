@@ -1,7 +1,7 @@
 // Selector contract:
 // - The homepage heading comes from site_docs/index.md:1.
 // - The General Genetics heading comes from site_docs/fall_2026/genetics/index.md:1.
-// - System-aware palette state comes from mkdocs.yml:15.
+// - System-aware palette state comes from mkdocs.yml:18.
 // - The production-shaped static root is generated at site/ by mkdocs.yml:5.
 
 import assert from "node:assert/strict";

@@ -79,6 +79,18 @@
 	background-color: var(--course-header-color, var(--syllabus-roosevelt-green));
 }
 
+/* Use the protein favicon as a compact home link at the right edge of the header. */
+.md-header .md-logo {
+	display: block;
+	flex: 0 0 auto;
+	order: 1;
+}
+
+.md-header .md-logo img {
+	height: 1.55rem;
+	width: 1.55rem;
+}
+
 /* Keep the desktop search field readable on the middle-green brand header. */
 @media screen and (min-width: 60em) {
 	.md-search__form,

@@ -1,20 +1,21 @@
 // Selector contract:
-// - Material theme markup comes from mkdocs.yml:10; navigation labels and routes come from
-//   mkdocs.yml:80.
+// - Material theme markup comes from mkdocs.yml:12; navigation labels and routes come from
+//   mkdocs.yml:77.
 // - Current-course links and Blackboard context come from site_docs/index.md:1; term download
 //   access comes from site_docs/fall_2026/index.md:7.
 // - The important-dates wrapper comes from site_docs/fall_2026/shared/IMPORTANT_DATES.md:1;
 //   its generated month tables come from pipeline/sync_important_dates.py:386.
 // - Main headings, prose, tables, course-page links, and download links come from
 //   site_docs/fall_2026/genetics/index.md:1.
-// - Typography and focus-visible behavior come from site_docs/assets/stylesheets/site.css:17.
-// - System-aware palette toggles come from mkdocs.yml:15; dark color roles come from
-//   site_docs/assets/stylesheets/site.css:38.
+// - Typography and focus-visible behavior come from site_docs/assets/stylesheets/site.css:109 and
+//   site_docs/assets/stylesheets/site.css:321.
+// - System-aware palette toggles come from mkdocs.yml:18; dark color roles come from
+//   site_docs/assets/stylesheets/site.css:55.
 // - Course-header metadata comes from each course .meta.yml, overrides/main.html:5, and
-//   site_docs/assets/stylesheets/site.css:52.
-// - The shared protein favicon comes from mkdocs.yml:13 and
-//   site_docs/assets/images/favicon.svg:1.
-// - Footer social-link names and destinations come from mkdocs.yml:61.
+//   site_docs/assets/stylesheets/site.css:78.
+// - The shared protein favicon and header logo come from mkdocs.yml:15,
+//   mkdocs.yml:16, and site_docs/assets/images/favicon.svg:1.
+// - Footer social-link names and destinations come from mkdocs.yml:58.
 
 import assert from "node:assert/strict";
 import fs from "node:fs";
