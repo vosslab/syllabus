@@ -50,6 +50,10 @@
 	--syllabus-calendar-month-10-table-surface: #fce5cd;
 	--syllabus-calendar-month-11-table-surface: #d9d2e9;
 	--syllabus-calendar-month-12-table-surface: #d9ead3;
+	--extra-credit-category-1: #1c61db;
+	--extra-credit-category-2: #745aae;
+	--extra-credit-category-3: #9f560a;
+	--extra-credit-category-4: #477337;
 	--syllabus-content-font-size: 0.85rem;
 	--syllabus-content-line-height: 1.25;
 	--syllabus-content-gap: 0.65em;
@@ -81,6 +85,10 @@
 	--syllabus-calendar-month-10-table-surface: #42473e;
 	--syllabus-calendar-month-11-table-surface: #3c4443;
 	--syllabus-calendar-month-12-table-surface: #3c483f;
+	--extra-credit-category-1: #c9daf8;
+	--extra-credit-category-2: #d9d2e9;
+	--extra-credit-category-3: #fce5cd;
+	--extra-credit-category-4: #d9ead3;
 }
 
 /* Use wide desktop viewports while preserving comfortable text and navigation widths. */
@@ -365,6 +373,46 @@
 
 .file-link--docx::before {
 	content: "\f1c2";
+}
+
+.extra-credit-category--1,
+.extra-credit-submit--1 {
+	--extra-credit-category-color: var(--extra-credit-category-1);
+}
+
+.extra-credit-category--2,
+.extra-credit-submit--2 {
+	--extra-credit-category-color: var(--extra-credit-category-2);
+}
+
+.extra-credit-category--3,
+.extra-credit-submit--3 {
+	--extra-credit-category-color: var(--extra-credit-category-3);
+}
+
+.extra-credit-category--4,
+.extra-credit-submit--4 {
+	--extra-credit-category-color: var(--extra-credit-category-4);
+}
+
+.md-typeset .extra-credit-category {
+	border-block-end-color: var(--extra-credit-category-color);
+	color: var(--extra-credit-category-color);
+}
+
+.md-typeset a.extra-credit-submit {
+	border: 0.1rem solid var(--extra-credit-category-color);
+	border-radius: 0.25rem;
+	color: var(--extra-credit-category-color);
+	display: inline-block;
+	font-weight: 700;
+	padding: 0.35rem 0.55rem;
+	text-decoration: none;
+}
+
+.md-typeset a.extra-credit-submit:hover,
+.md-typeset a.extra-credit-submit:focus-visible {
+	text-decoration: underline;
 }
 
 /* Distinguish Roosevelt destinations from other websites in syllabus content. */

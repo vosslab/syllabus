@@ -241,6 +241,14 @@ def check_url(url: str, timeout: float) -> LinkResult:
 			return LinkResult(url, status, final_url, soft_error, False)
 		return LinkResult(url, status, final_url, "", status < 400)
 	except urllib.error.HTTPError as error:
+		if error.code == 401:
+			return LinkResult(
+				url,
+				error.code,
+				error.geturl(),
+				"authentication required",
+				True,
+			)
 		return LinkResult(url, error.code, error.geturl(), str(error.reason), False)
 	except (OSError, ValueError, urllib.error.URLError) as error:
 		return LinkResult(url, None, url, f"{type(error).__name__}: {error}", False)
@@ -280,10 +288,15 @@ def main() -> int:
 		results = [future.result() for future in concurrent.futures.as_completed(future_results)]
 	failures = 0
 	redirects = 0
+	authenticated = 0
 	for result in sorted(results, key=lambda item: item.url):
 		if result.final_url != result.url:
 			redirects += 1
 		if result.ok:
+			if result.status == 401:
+				authenticated += 1
+				print(f"AUTH 401: {result.url}")
+				print(f"  source: {format_sources(links[result.url])}")
 			continue
 		failures += 1
 		status = str(result.status) if result.status is not None else "NETWORK"
@@ -294,7 +307,8 @@ def main() -> int:
 		print(f"  source: {format_sources(links[result.url])}")
 	print(
 		f"Checked {len(links)} links: {len(links) - failures} passed, "
-		f"{failures} failed, {redirects} redirected."
+		f"{failures} failed, {authenticated} require authentication, "
+		f"{redirects} redirected."
 	)
 	return 1 if failures else 0
 

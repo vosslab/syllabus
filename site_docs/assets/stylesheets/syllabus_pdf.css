@@ -56,6 +56,10 @@
 	--syllabus-calendar-month-10-table-surface: #fce5cd;
 	--syllabus-calendar-month-11-table-surface: #d9d2e9;
 	--syllabus-calendar-month-12-table-surface: #d9ead3;
+	--extra-credit-category-1: #1c61db;
+	--extra-credit-category-2: #745aae;
+	--extra-credit-category-3: #9f560a;
+	--extra-credit-category-4: #477337;
 	color: #111;
 	font-family: "Atkinson Hyperlegible Next", sans-serif;
 	font-kerning: normal;
@@ -212,6 +216,36 @@ a {
 	text-decoration: underline;
 	text-decoration-thickness: 0.08em;
 	text-underline-offset: 0.12em;
+}
+
+.extra-credit-category--1,
+.extra-credit-submit--1 {
+	--extra-credit-category-color: var(--extra-credit-category-1);
+}
+
+.extra-credit-category--2,
+.extra-credit-submit--2 {
+	--extra-credit-category-color: var(--extra-credit-category-2);
+}
+
+.extra-credit-category--3,
+.extra-credit-submit--3 {
+	--extra-credit-category-color: var(--extra-credit-category-3);
+}
+
+.extra-credit-category--4,
+.extra-credit-submit--4 {
+	--extra-credit-category-color: var(--extra-credit-category-4);
+}
+
+.extra-credit-category {
+	border-bottom-color: var(--extra-credit-category-color);
+	color: var(--extra-credit-category-color);
+}
+
+a.extra-credit-submit {
+	color: var(--extra-credit-category-color);
+	font-weight: 700;
 }
 
 .headerlink {

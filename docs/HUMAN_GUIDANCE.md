@@ -60,6 +60,9 @@ history. Those belong in the appropriate technical documentation or changelog.
   pytest, export E2E, and Playwright.
 - Treat implementation-time and rebuild-only probes as one-time evidence. Keep a test permanently
   only when it satisfies the durable-test checklist in `PYTEST_STYLE.md`; when in doubt, remove it.
+- I do not actively monitor agent chats. Finish obvious, safe, evidence-backed follow-through and
+  validation without waiting for routine confirmation. Stop only when the next action is risky,
+  requires new authority, or would materially change the requested outcome.
 
 ## Code architecture
 

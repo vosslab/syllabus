@@ -3,7 +3,7 @@
 You may earn 3 extra-credit points in each of four categories, for a maximum of 12 points. Complete
 each activity during the current semester and submit no more than one response in each category.
 
-## Category 1: Live seminar
+## Category 1: Live seminar { .extra-credit-category .extra-credit-category--1 }
 
 Attend a live seminar that uses the scientific method or addresses a science-related subject.
 
@@ -21,9 +21,9 @@ Attend a live seminar that uses the scientific method or addresses a science-rel
 - [Research Seminars](https://researchseminars.org/) may help you find live online seminars.
 - Submit the form within two weeks of the seminar unless the instructor grants an extension.
 
-[Submit Category 1: Live seminar](https://forms.gle/fJzgmkYfDZThgNmN8)
+[Submit Category 1: Live seminar](https://forms.gle/fJzgmkYfDZThgNmN8){ .extra-credit-submit .extra-credit-submit--1 }
 
-## Category 2: Creative science project
+## Category 2: Creative science project { .extra-credit-category .extra-credit-category--2 }
 
 Make something related to the course material.
 
@@ -35,9 +35,9 @@ Make something related to the course material.
 - A project completed for any course in which you are enrolled does not count as extra credit.
 - Photograph the build process so you can provide evidence in the submission form.
 
-[Submit Category 2: Creative science project](https://forms.gle/PhatGitf2cCFAJ7B9)
+[Submit Category 2: Creative science project](https://forms.gle/PhatGitf2cCFAJ7B9){ .extra-credit-submit .extra-credit-submit--2 }
 
-## Category 3: Science movie
+## Category 3: Science movie { .extra-credit-category .extra-credit-category--3 }
 
 Watch a scientific documentary or science-related movie.
 
@@ -50,9 +50,9 @@ Watch a scientific documentary or science-related movie.
 - Record the title, release year, viewing date, IMDb score, Rotten Tomatoes range, and Roger Ebert
   rating when available.
 
-[Submit Category 3: Science movie](https://forms.gle/FSbWLhRf4ccLvTsS6)
+[Submit Category 3: Science movie](https://forms.gle/FSbWLhRf4ccLvTsS6){ .extra-credit-submit .extra-credit-submit--3 }
 
-## Category 4: Science-related volunteering
+## Category 4: Science-related volunteering { .extra-credit-category .extra-credit-category--4 }
 
 Volunteer for something new or report volunteer work you are actively doing. The volunteering must
 occur during the current semester.
@@ -73,11 +73,12 @@ Volunteer resources include:
 - [Illinois disaster volunteers](https://www2.illinois.gov/sites/serve/Disaster/Pages/default.aspx).
 - [American Red Cross volunteer roles](https://www.redcross.org/volunteer/volunteer-role-finder.html).
 
-[Submit Category 4: Science-related volunteering](https://forms.gle/U5WEcxXbwSMMtxJCA)
+[Submit Category 4: Science-related volunteering](https://forms.gle/U5WEcxXbwSMMtxJCA){ .extra-credit-submit .extra-credit-submit--4 }
 
 ## What the forms collect
 
-The Google Forms divide the former write-up into short, labeled responses. Every form collects:
+The Google Forms divide the former write-up into short, labeled responses. Depending on the
+category, be ready to provide:
 
 - identifying information and every current Dr. Voss course that should receive credit;
 - the activity date and enough detail to verify the seminar, project, movie, or volunteering;
@@ -86,10 +87,10 @@ The Google Forms divide the former write-up into short, labeled responses. Every
 - a personal reflection of no more than 200 words; and
 - five relevant difficult words, each with a definition of no more than 100 characters.
 
-Depending on the category, the form also asks for a recommendation, a motivation or outside-review
-response of no more than 60 words, photographs, ratings from external sources, or other evidence.
-Read the selected form carefully because category-specific questions differ. The form enforces its
-own word, character, date, and number limits.
+The form may also ask for a recommendation, a motivation or outside-review response of no more than
+60 words, photographs, ratings from external sources, or other evidence. Read the selected form
+carefully because category-specific questions differ. The form enforces its own word, character,
+date, and number limits.
 
 ## Submission and grading
 

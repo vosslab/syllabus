@@ -42,11 +42,19 @@
 
 ### Behavior or Interface Changes
 
+- Reorganized Help and student services into four explicit student-task groups: academic progress
+  and learning; technology and campus life; money and essential needs; and health, identity, and
+  safety. General academic services now lead, personal services come later, and Campus Safety leads
+  the final group so emergency contacts remain easy to find. Preserved every Chicago and Schaumburg
+  contact while shortening repetitive descriptions and clarifying the table-of-contents hierarchy.
 - Replaced the obsolete extra-credit document, SafeAssign, total-word-count, similarity-score, and
   heading workflow with four category-specific Google Forms. Recast the former write-up as the
   forms' actual structured fields: activity evidence, rating, short focus and reflection responses,
   five brief definitions, and category-specific questions. Retained current-semester eligibility,
   the shared deadline, grading timing, and activity-specific requirements.
+- Color-coded all four Extra credit category headings and matching Google Form actions with distinct
+  accessible blue, purple, orange, and green accents on the website and PDF. Category numbers and
+  names remain visible so color reinforces rather than replaces the category labels.
 - Added separate self-hosted Font Awesome link marks within syllabus content: Roosevelt-owned
   destinations use the building-columns mark, other HTTP(S) destinations use the external-link
   mark, and internal syllabus navigation remains unmarked. The distinction inherits the existing
@@ -255,6 +263,9 @@
 
 ### Decisions and Failures
 
+- Recorded the owner's durable autonomy rule: assume the chat is not actively monitored, finish
+  obvious safe follow-through and validation without routine confirmation, and stop only for risk,
+  new authority, or a material change in outcome.
 - The first full gate failed because the download verifier scanned the term wrapper before include
   expansion. Fixed the verifier to inspect the same expanded source model as MkDocs instead of
   duplicating links in the wrapper. Kept the two fragment-rebasing unit tests and the two-entry-page
@@ -328,6 +339,11 @@
 
 ### Developer Tests and Notes
 
+- Rebuilt the strict site and reviewed the reordered Help and student services page at 1440 by 900
+  light and 390 by 844 dark viewports. Both rendered the four groups in the intended order with no
+  horizontal overflow; all 15 page links passed, and all 1,012 fast tests passed. A focused axe scan
+  found no content-specific serious or critical violation; its one serious finding in both views
+  was the pre-existing unnamed Material `.md-search` dialog, outside this content-ordering change.
 - Audited the five offline link-checker tests against every permanent-test criterion in
   `PYTEST_STYLE.md`. They remain permanent because they cover durable parser, encoding, soft-error,
   source-location, and input-boundary behavior with inline `tmp_path` data, no network, no timing,
@@ -339,6 +355,14 @@
   that the first two originally supplied short links resolve to the same Category 4 form, so the
   duplicate is omitted, and verified the later Category 1 link against its live seminar title and
   field structure.
+- Classified HTTP 401 as a reachable, authentication-required link in the live checker while
+  retaining failures for forbidden, missing, and soft-error destinations. This lets the restricted
+  Category 2 course form report its access boundary without being mislabeled as a dead link.
+- Rebuilt the strict website and reviewed the revised Extra credit guide at 1440 by 900 light and
+  390 by 844 dark viewports with no horizontal overflow. Rendered a one-time four-page letter-size
+  PDF through the production Markdown extensions and print stylesheet and visually confirmed all
+  four category colors and matching form actions. The active tree passed all 53 live links with
+  zero failures and one expected authentication boundary; all 1,012 fast tests passed.
 - Rebuilt the strict site and verified the domain marks on Help and student services at 1440 by 900
   in light mode and 390 by 844 in dark mode. Computed pseudo-element inspection confirmed the
   building-columns glyph on `roosevelt.edu` and its subdomains, the external-link glyph on
