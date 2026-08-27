@@ -7,14 +7,14 @@
 //   its generated month tables come from pipeline/sync_important_dates.py:386.
 // - Main headings, prose, tables, course-page links, and download links come from
 //   site_docs/fall_2026/genetics/index.md:1.
-// - Typography and focus-visible behavior come from site_docs/assets/stylesheets/site.css:109 and
-//   site_docs/assets/stylesheets/site.css:321.
+// - Typography and focus-visible behavior come from site_docs/assets/stylesheets/site.css:97 and
+//   site_docs/assets/stylesheets/site.css:309.
 // - System-aware palette toggles come from mkdocs.yml:18; dark color roles come from
 //   site_docs/assets/stylesheets/site.css:55.
 // - Course-header metadata comes from each course .meta.yml, overrides/main.html:5, and
 //   site_docs/assets/stylesheets/site.css:78.
-// - The shared protein favicon and header logo come from mkdocs.yml:15,
-//   mkdocs.yml:16, and site_docs/assets/images/favicon.svg:1.
+// - The protein favicon exercised here comes from mkdocs.yml:15 and
+//   site_docs/assets/images/favicon.svg:1.
 // - Footer social-link names and destinations come from mkdocs.yml:58.
 
 import assert from "node:assert/strict";

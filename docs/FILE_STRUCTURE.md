@@ -27,7 +27,7 @@ site_docs/
 |-- index.md                         Student homepage
 |-- assets/
 |   |-- fonts/                       Self-hosted text/icon fonts and licenses
-|   |-- images/favicon.svg           Protein-themed site icon
+|   |-- images/favicon.svg           Protein-themed favicon and header logo
 |   |-- javascripts/accessibility.js Accessible table behavior
 |   `-- stylesheets/                 Website and PDF presentation
 |-- fall_2026/

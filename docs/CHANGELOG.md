@@ -35,8 +35,8 @@
 
 ### Behavior or Interface Changes
 
-- Replaced Material's default book logo with the protein favicon and moved the home-link mark to
-  the upper-right edge of the MkDocs header on desktop and mobile layouts.
+- Replaced Material's default book logo with the protein favicon in the standard upper-left
+  home-link position.
 - Moved the Fall 2026 PDF and DOCX links into a compact row directly below each course on the term
   overview. Visible file-format labels now include small, self-hosted Font Awesome PDF or Word
   icons on both the term overview and course landing pages, and the oversized standalone download
@@ -107,6 +107,10 @@
 
 ### Fixes and Maintenance
 
+- Corrected the header-logo placement after the public-site review clarified that the protein mark
+  should replace Material's book mark in its original upper-left position. Removed the custom
+  display, sizing, and flex-order rules so Material owns the header layout and the logo no longer
+  depends on a separately cached stylesheet to appear in the requested position.
 - Audited the rebuild's new browser assertions against the permanent-test checklist. Removed
   computed CSS layout and font-size checks, exact course/link counts, old-heading absence, and
   Font Awesome family, load, and pseudo-element content probes from the permanent Playwright suite.
@@ -228,11 +232,11 @@
 
 ### Developer Tests and Notes
 
-- Passed the complete `all_test.sh` gate after moving the protein mark: all 962 pytest checks, the
-  live dates refresh, all three DOCX/PDF pairs, export/include parity, both strict site builds, and
-  the Playwright accessibility/browser audit. One-time rendered review covered the home header in
-  light and dark modes at 1280 and 390 pixels and the blue General Genetics header at desktop and
-  mobile widths; the temporary position checker was removed rather than added to the suite.
+- The initial right-edge implementation passed 962 pytest checks, the live builds, export/include
+  parity, and local Playwright. Its one-time review used a root-served local site at 1280 and 390
+  pixels rather than the deployed `/syllabus/` path; public review then exposed both the unwanted
+  right-edge interpretation and the transient HTML/CSS cache mismatch. The temporary position
+  checker was removed rather than added to the suite.
 - After removing rebuild-only assertions, passed all 962 pytest checks, the live Google Sheets
   refresh, all three DOCX/PDF pairs, export/include parity, and both strict site builds through
   `all_test.sh`. Its Chromium launch was denied by the macOS sandbox before assertions ran; the
