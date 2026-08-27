@@ -33,6 +33,7 @@ REQUIRED_LEARNING_MARKERS = (
 	"Overall, this course aims to accomplish:",
 )
 ASSESSMENT_FRAGMENT_MARKER = "<!-- assessments from syllabus.yml -->"
+ASSESSMENT_EXAMPLES_MARKER = "<!-- assessment examples from syllabus.yml -->"
 DISCUSSION_FRAGMENT_MARKER = "<!-- discussion from syllabus.yml -->"
 
 
@@ -229,16 +230,27 @@ def apply_assessment_fragments(
 	for fragment_path in manifest.assessment_fragments:
 		relative_path = fragment_path.relative_to(manifest.docs_root).as_posix()
 		include_lines.append(f'--8<-- "{relative_path}"')
-	replacement_parts = include_lines
-	if manifest.assessment_examples_url is not None:
-		examples_link = (
-			"Practice with [sample assessment problems on my Biology Problems OER]"
-			f"({manifest.assessment_examples_url})."
-		)
-		replacement_parts.insert(0, examples_link)
-	replacement = "\n\n".join(replacement_parts)
+	replacement = "\n\n".join(include_lines)
 	selected = markdown.replace(ASSESSMENT_FRAGMENT_MARKER, replacement)
 	return selected
+
+
+#============================================
+def apply_assessment_examples_link(
+	markdown: str,
+	manifest: build_lib.syllabus_model.SyllabusManifest,
+) -> str:
+	"""Place the course OER practice link inside its Assignments section."""
+	marker_count = markdown.count(ASSESSMENT_EXAMPLES_MARKER)
+	if marker_count == 0:
+		return markdown
+	if marker_count != 1 or manifest.assessment_examples_url is None:
+		raise ValueError("expanded coursework must contain one configured assessment examples link")
+	examples_link = (
+		"Practice with [sample assessment problems on my Biology Problems OER]"
+		f"({manifest.assessment_examples_url}){{ .assessment-practice }}."
+	)
+	return markdown.replace(ASSESSMENT_EXAMPLES_MARKER, examples_link)
 
 
 #============================================
@@ -494,6 +506,7 @@ def compose_markdown(manifest: build_lib.syllabus_model.SyllabusManifest) -> str
 			section_path,
 			manifest.docs_root,
 		)
+		markdown = apply_assessment_examples_link(markdown, manifest)
 		markdown = rewrite_document_links(markdown, section_path, document_anchors)
 		anchor = document_anchors[section_path.resolve()]
 		title = get_instructor_page_title(section_path, is_overview=index == 0)

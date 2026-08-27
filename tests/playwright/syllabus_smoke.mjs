@@ -42,7 +42,6 @@ const ROUTES = [
 	"/fall_2026/shared/INSTRUCTOR_INFORMATION/",
 	"/fall_2026/shared/policies/COURSE_DELIVERY/",
 	"/fall_2026/shared/policies/ASSESSMENT/",
-	"/fall_2026/biostats/DISCUSSION_MARKS/",
 	"/fall_2026/genetics/DISCUSSION_MARKS/",
 	"/fall_2026/biotech/DISCUSSION_MARKS/",
 	"/fall_2026/shared/policies/EXTRA_CREDIT/",

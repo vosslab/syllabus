@@ -392,21 +392,25 @@
 .extra-credit-category--1,
 .extra-credit-submit--1 {
 	--extra-credit-category-color: var(--extra-credit-category-1);
+	--syllabus-action-color: var(--extra-credit-category-1);
 }
 
 .extra-credit-category--2,
 .extra-credit-submit--2 {
 	--extra-credit-category-color: var(--extra-credit-category-2);
+	--syllabus-action-color: var(--extra-credit-category-2);
 }
 
 .extra-credit-category--3,
 .extra-credit-submit--3 {
 	--extra-credit-category-color: var(--extra-credit-category-3);
+	--syllabus-action-color: var(--extra-credit-category-3);
 }
 
 .extra-credit-category--4,
 .extra-credit-submit--4 {
 	--extra-credit-category-color: var(--extra-credit-category-4);
+	--syllabus-action-color: var(--extra-credit-category-4);
 }
 
 .md-typeset .extra-credit-category {
@@ -414,18 +418,25 @@
 	color: var(--extra-credit-category-color);
 }
 
-.md-typeset a.extra-credit-submit {
-	border: 0.1rem solid var(--extra-credit-category-color);
+.md-typeset a.extra-credit-submit,
+.md-typeset a.assessment-practice {
+	border: 0.1rem solid var(--syllabus-action-color);
 	border-radius: 0.25rem;
-	color: var(--extra-credit-category-color);
+	color: var(--syllabus-action-color);
 	display: inline-block;
 	font-weight: 700;
 	padding: 0.35rem 0.55rem;
 	text-decoration: none;
 }
 
+.md-typeset a.assessment-practice {
+	--syllabus-action-color: var(--syllabus-page-accent);
+}
+
 .md-typeset a.extra-credit-submit:hover,
-.md-typeset a.extra-credit-submit:focus-visible {
+.md-typeset a.extra-credit-submit:focus-visible,
+.md-typeset a.assessment-practice:hover,
+.md-typeset a.assessment-practice:focus-visible {
 	text-decoration: underline;
 }
 

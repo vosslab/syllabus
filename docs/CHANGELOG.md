@@ -92,6 +92,15 @@
 
 ### Behavior or Interface Changes
 
+- Promoted "Memorization is not learning" to a visible subsection heading on every assessment page.
+- Moved each course's Biology Problems sample-assessment link into its Assignments section while
+  retaining the course manifest as the URL authority.
+- Converted the Group quizzes rules from nested bullets to compact paragraphs while preserving the
+  format, timing, grouping, scoring, submission, and reset rules.
+- Changed `no_discussion` from a visible "No discussion marks" page to true omission. Biostatistics
+  no longer includes that topic in its navigation, course links, website, PDF, or DOCX.
+- Styled each Biology Problems practice link as a compact course-colored action button using the
+  established Extra credit link pattern, with format-appropriate emphasis in PDF and DOCX.
 - Replaced the one shared Discussion marks page containing every delivery mode with a closed
   course-level manifest choice. Biostatistics now selects no discussion marks, Genetics selects
   face-to-face discussion with poker-chip tracking, and Biotechnology selects remote/video-

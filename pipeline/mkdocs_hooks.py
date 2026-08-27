@@ -54,4 +54,10 @@ def on_page_markdown(
 		source_path,
 		docs_root,
 	)
+	if build_lib.syllabus_content.ASSESSMENT_EXAMPLES_MARKER in expanded:
+		manifest = build_lib.syllabus_model.load_manifest(
+			source_path.parent / "syllabus.yml",
+			docs_root,
+		)
+		expanded = build_lib.syllabus_content.apply_assessment_examples_link(expanded, manifest)
 	return expanded

@@ -51,9 +51,10 @@ selected fragments through the shared include engine. Missing, duplicate, or mis
 fail explicitly.
 
 `discussion` is exactly one of `no_discussion`, `f2f_discussion`, or `remote_discussion`. Each
-course's `DISCUSSION_MARKS.md` contains one `<!-- discussion from syllabus.yml -->` marker. The
-selected mode controls the course-specific format fragment; face-to-face and remote discussion
-also include the shared criticism, scoring, and no-make-up fragment.
+participating course's `DISCUSSION_MARKS.md` contains one
+`<!-- discussion from syllabus.yml -->` marker. `no_discussion` omits that page and content;
+face-to-face and remote discussion include the selected format plus the shared criticism, scoring,
+and no-make-up fragment.
 
 `sections` and `shared_sections` are non-empty ordered lists of local source paths. Every path must
 resolve to an existing file below `site_docs/`. The order becomes the section order in complete

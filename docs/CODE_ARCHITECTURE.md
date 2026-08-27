@@ -50,11 +50,11 @@ assignments, group quizzes, face-to-face exams, and online exams. The model maps
 vocabulary to canonical shared fragments. The website hook and complete-document composer
 materialize the selection at the coursework marker before calling the shared include engine, so
 one YAML decision controls all three formats. The same manifest owns the validated official
-Biology Problems subject URL shown immediately before those selected assessment descriptions.
+Biology Problems subject URL shown inside the selected Assignments section.
 
 Discussion marks use a parallel closed manifest choice: no discussion, face-to-face discussion,
-or remote/video-conference discussion. Each course owns a thin Discussion marks page. The build
-expands its selected format and adds the shared scoring policy only for modes that award marks.
+or remote/video-conference discussion. Participating courses own a thin Discussion marks page; no
+discussion omits the topic. The build adds shared scoring only for modes that award marks.
 
 The active term is intentionally singular. `templates/`, future-term copies, and historical-term
 copies cannot become parallel content authorities during Fall 2026. Generated directories are

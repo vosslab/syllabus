@@ -20,7 +20,7 @@ ASSESSMENT_FRAGMENT_PATHS = {
 }
 
 DISCUSSION_FRAGMENT_PATHS = {
-	"no_discussion": (pathlib.PurePosixPath("shared/fragments/discussions/NO_DISCUSSION.md"),),
+	"no_discussion": (),
 	"f2f_discussion": (
 		pathlib.PurePosixPath("shared/fragments/discussions/FACE_TO_FACE.md"),
 		pathlib.PurePosixPath("shared/fragments/discussions/COMMON.md"),

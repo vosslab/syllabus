@@ -49,8 +49,9 @@ site_docs/
 ```
 
 Each course directory contains an `index.md`, `COURSE_DETAILS.md`,
-`COURSE_LEARNING_FRAMEWORK.md`, `ASSIGNMENTS_AND_GRADING.md`, `DISCUSSION_MARKS.md`, `SCHEDULE.md`,
-a `syllabus.yml` manifest, and `.meta.yml` website/PDF course-theme metadata.
+`COURSE_LEARNING_FRAMEWORK.md`, `ASSIGNMENTS_AND_GRADING.md`, `SCHEDULE.md`, a `syllabus.yml`
+manifest, and `.meta.yml` website/PDF course-theme metadata. Courses that award discussion marks
+also contain `DISCUSSION_MARKS.md`.
 
 ## Pipeline files
 

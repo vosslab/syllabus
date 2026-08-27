@@ -10,7 +10,6 @@ sections:
   - COURSE_DETAILS.md
   - COURSE_LEARNING_FRAMEWORK.md
   - ASSIGNMENTS_AND_GRADING.md
-  - DISCUSSION_MARKS.md
   - SCHEDULE.md
 assessments:
   - assignments

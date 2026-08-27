@@ -297,6 +297,11 @@ a.extra-credit-submit {
 	font-weight: 700;
 }
 
+a.assessment-practice {
+	color: var(--syllabus-page-accent);
+	font-weight: 700;
+}
+
 .headerlink {
 	display: none;
 }
