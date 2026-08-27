@@ -18,6 +18,10 @@ sections:
   - COURSE_LEARNING_FRAMEWORK.md
   - ASSIGNMENTS_AND_GRADING.md
   - SCHEDULE.md
+assessments:
+  - assignments
+  - group_quizzes
+  - exams
 shared_sections:
   - ../shared/policies/index.md
   - ../shared/policies/COURSE_DELIVERY.md
@@ -31,6 +35,16 @@ shared_sections:
 Required scalar fields are `title`, `course_code`, `term`, `author`, `language`, and
 `download_basename`. Each must be a non-empty string. `download_basename` accepts only uppercase
 ASCII letters, digits, and underscores.
+
+`assessments` is a non-empty ordered list containing one or more of `assignments`,
+`group_quizzes`, and `exams`, with no duplicates. These are the only assessment categories across
+Dr. Voss's classes. The model maps them to the three canonical Markdown files under
+`shared/fragments/assessments/`.
+
+Each course's `ASSIGNMENTS_AND_GRADING.md` contains one
+`<!-- assessments from syllabus.yml -->` marker. The website, PDF, and DOCX replace it with the
+selected fragments through the shared include engine. Missing, duplicate, or misplaced markers
+fail explicitly.
 
 `sections` and `shared_sections` are non-empty ordered lists of local source paths. Every path must
 resolve to an existing file below `site_docs/`. The order becomes the section order in complete

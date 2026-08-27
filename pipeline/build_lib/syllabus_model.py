@@ -9,6 +9,13 @@ import dataclasses
 import yaml
 
 
+ASSESSMENT_FRAGMENT_PATHS = {
+	"assignments": pathlib.PurePosixPath("shared/fragments/assessments/ASSIGNMENTS.md"),
+	"group_quizzes": pathlib.PurePosixPath("shared/fragments/assessments/GROUP_QUIZZES.md"),
+	"exams": pathlib.PurePosixPath("shared/fragments/assessments/EXAMS.md"),
+}
+
+
 @dataclasses.dataclass(frozen=True)
 class SyllabusManifest:
 	"""Validated paths and metadata for one complete syllabus."""
@@ -24,6 +31,7 @@ class SyllabusManifest:
 	download_basename: str
 	sections: tuple[pathlib.Path, ...]
 	shared_sections: tuple[pathlib.Path, ...]
+	assessment_fragments: tuple[pathlib.Path, ...] = ()
 
 
 #============================================
@@ -63,20 +71,21 @@ def require_text(data: dict[object, object], key: str, manifest_path: pathlib.Pa
 
 
 #============================================
-def resolve_sources(
-	data: dict[object, object],
-	key: str,
+def resolve_source_list(
+	value: object,
+	field_name: str,
 	manifest_path: pathlib.Path,
 	docs_root: pathlib.Path,
 ) -> tuple[pathlib.Path, ...]:
 	"""Resolve and validate an ordered manifest source list."""
-	value = data[key]
 	if not isinstance(value, list) or not value:
-		raise ValueError(f"{manifest_path}: {key} must be a non-empty list")
+		raise ValueError(f"{manifest_path}: {field_name} must be a non-empty list")
 	resolved_paths = []
 	for item in value:
 		if not isinstance(item, str) or not item.strip():
-			raise ValueError(f"{manifest_path}: {key} entries must be non-empty strings")
+			raise ValueError(
+				f"{manifest_path}: {field_name} entries must be non-empty strings"
+			)
 		candidate = (manifest_path.parent / item).resolve()
 		# ASVS 5.3.2: accept manifest source paths only after containment validation.
 		if not candidate.is_relative_to(docs_root.resolve()):
@@ -86,6 +95,54 @@ def resolve_sources(
 		resolved_paths.append(candidate)
 	sources = tuple(resolved_paths)
 	return sources
+
+
+#============================================
+def resolve_sources(
+	data: dict[object, object],
+	key: str,
+	manifest_path: pathlib.Path,
+	docs_root: pathlib.Path,
+) -> tuple[pathlib.Path, ...]:
+	"""Resolve one required top-level manifest source list."""
+	sources = resolve_source_list(
+		data[key],
+		key,
+		manifest_path,
+		docs_root,
+	)
+	return sources
+
+
+#============================================
+def resolve_assessment_fragments(
+	data: dict[object, object],
+	manifest_path: pathlib.Path,
+	docs_root: pathlib.Path,
+) -> tuple[pathlib.Path, ...]:
+	"""Resolve the ordered closed vocabulary of course assessment categories."""
+	categories = data["assessments"]
+	if not isinstance(categories, list) or not categories:
+		raise ValueError(f"{manifest_path}: assessments must be a non-empty list")
+	if any(not isinstance(category, str) for category in categories):
+		raise ValueError(f"{manifest_path}: assessments entries must be strings")
+	if len(set(categories)) != len(categories):
+		raise ValueError(f"{manifest_path}: assessments must not contain duplicates")
+	unsupported = sorted(set(categories) - set(ASSESSMENT_FRAGMENT_PATHS))
+	if unsupported:
+		unsupported_text = ", ".join(unsupported)
+		raise ValueError(f"{manifest_path}: unsupported assessments: {unsupported_text}")
+	term_root = manifest_path.parent.parent
+	fragments = tuple(
+		(term_root / ASSESSMENT_FRAGMENT_PATHS[category]).resolve()
+		for category in categories
+	)
+	for fragment_path in fragments:
+		if not fragment_path.is_relative_to(docs_root.resolve()):
+			raise ValueError(f"{manifest_path}: assessment fragment escapes site_docs")
+		if not fragment_path.is_file():
+			raise FileNotFoundError(f"{manifest_path}: missing assessment fragment: {fragment_path}")
+	return fragments
 
 
 #============================================
@@ -108,6 +165,7 @@ def load_manifest(
 		raise ValueError(f"{manifest_path}: download_basename must use A-Z, 0-9, and underscores")
 	sections = resolve_sources(loaded, "sections", manifest_path, docs_root)
 	shared_sections = resolve_sources(loaded, "shared_sections", manifest_path, docs_root)
+	assessment_fragments = resolve_assessment_fragments(loaded, manifest_path, docs_root)
 	manifest = SyllabusManifest(
 		path=manifest_path,
 		docs_root=docs_root.resolve(),
@@ -120,5 +178,6 @@ def load_manifest(
 		download_basename=download_basename,
 		sections=sections,
 		shared_sections=shared_sections,
+		assessment_fragments=assessment_fragments,
 	)
 	return manifest

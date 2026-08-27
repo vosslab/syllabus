@@ -9,8 +9,7 @@ this same policy set, and every complete syllabus download includes each topic o
   response time, and what to do when something feels urgent.
 - [Course format and online tools](COURSE_DELIVERY.md): syllabus changes, Blackboard,
   Zoom, Discord, and course formats.
-- [Grades and graded work](ASSESSMENT.md): letter grades, assignments, quizzes, exams,
-  make-up work, and Blackboard percentages.
+- [Grades and graded work](ASSESSMENT.md): letter grades, make-up work, and Blackboard percentages.
 - [Discussion marks](DISCUSSION_MARKS.md): Zoom participation, in-person poker chips,
   common concerns, scoring, and the no-make-up policy.
 - [Extra credit write-ups](EXTRA_CREDIT.md): four eligible categories, write-up requirements,

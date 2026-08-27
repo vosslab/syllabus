@@ -2,6 +2,16 @@
 
 ### Additions and New Features
 
+- Split the three assessment categories - assignments, group quizzes, and exams - into shared
+  fragments. Added a closed `assessments` manifest vocabulary so each course selects its ordered
+  subset consistently across the website, PDF, and DOCX.
+
+### Developer Tests and Notes
+
+- Kept fast permanent tests only for the closed assessment vocabulary, required coursework marker,
+  ordered fragment composition, and existing MkDocs hook-loading contract. Treated the exact
+  rendered course-matrix inspection and six-reviewer audit as one-time implementation evidence;
+  added no new export E2E or Playwright scenario.
 - Added Dr. Voss's current portrait to the shared instructor-information table so students can
   recognize him outside class. The website uses coordinated light- and dark-mode portraits, while
   the PDF and DOCX use the light-background portrait from the same tracked public asset pair.

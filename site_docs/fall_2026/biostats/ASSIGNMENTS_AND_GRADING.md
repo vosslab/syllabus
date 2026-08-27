@@ -13,3 +13,5 @@ Final percentages, rounding, and letter-grade thresholds follow the shared
 
 Assignment instructions identify the grading criteria and expected feedback window. Blackboard is
 the authoritative record for submissions, scores, and feedback.
+
+<!-- assessments from syllabus.yml -->

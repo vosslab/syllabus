@@ -29,6 +29,8 @@ See [FILE_FORMATS.md](FILE_FORMATS.md) for manifest, Markdown table, and restric
 - Edit shared support information in `site_docs/fall_2026/shared/STUDENT_RESOURCES.md`.
 - Edit dates as literal Markdown in course details and schedules. Confirm calendar changes before
   publishing; the build never shifts dates automatically.
+- Select `assignments`, `group_quizzes`, and `exams` in each course manifest's ordered
+  `assessments` list. Edit their shared wording under `shared/fragments/assessments/`.
 
 Use the exact, full-line include form when a public fact must appear in more than one place:
 

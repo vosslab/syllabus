@@ -45,6 +45,12 @@ term-independent approved-science-movies catalog lives at
 [site_docs/EXTRA_CREDIT_MOVIES.md](../site_docs/EXTRA_CREDIT_MOVIES.md) as a global website-only
 reference and is not listed in course manifests.
 
+Each course manifest selects an ordered subset of the three assessment categories Dr. Voss uses:
+assignments, group quizzes, and exams. The model maps that closed vocabulary to canonical shared
+fragments. The website hook and complete-document composer materialize the selection at the
+coursework marker before calling the shared include engine, so one YAML decision controls all
+three formats.
+
 The active term is intentionally singular. `templates/`, future-term copies, and historical-term
 copies cannot become parallel content authorities during Fall 2026. Generated directories are
 ignored and must be rebuilt from the tracked source.

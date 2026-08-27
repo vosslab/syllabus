@@ -46,122 +46,14 @@ required. A student may only receive an Incomplete grade if:
 For more information, see Roosevelt University's
 [course and credit policies](https://catalog.roosevelt.edu/undergraduate/policies/course-and-credit/).
 
-## Graded work
-
-**Assignments**: Tasks completed outside of class.
-
-* Aims to reinforce learning or explore new topics.
-* Assigned weekly, 5-15 points
-* Unlimited retakes allowed.
-* Teamwork and requesting help is encouraged.
-
-**Group Quizzes**: Short assessments to test knowledge on recent topics.
-
-* Aims to quickly assess understanding of recent material.
-* 20 points, 30 min, individual, taken before class
-* Followed by a group quiz during class. Optional.
-
-**Exams**: Cumulative assessments covering course material.
-
-* Cumulative, mid-term/final.
-* 100 points total (50 points/75 minutes each part).
-* Completed individually.
-
-## Group quiz rules and format
-
-**Format of the Quiz**
-
-* 20 points total in 20-34 questions
-  * 1 point for each multiple-choice
-  * ½ point for each choice in a matching question
-  * Limited calculations; not testing calculator usage
-* Approximately 20-30 minutes for the quiz (time varies by content)
-  * About 1-1½ minutes per question to prevent collaboration or excessive research
-  * Not designed to be rushed
-  * Backtracking allowed (may change if cheating suspected)
-  * Questions are in random order
-
-**Individual Quiz**
-
-* Conducted electronically via Blackboard
-* Opens 20 hours before the start of class
-* Must be completed BEFORE class
-
-**Group Quiz**
-
-* Form groups of 3-4 students
-  * Sometimes students pick, sometimes random
-  * May take a while to organize break out groups
-  * I try to maintain the same groups if they are working well
-  * Contact me if there are other students you want in your group
-* Collaboration over Zoom Breakout Room/Face-to-Face
-* Quiz done electronically over Blackboard
-  * Same or similar questions to the Individual Quiz
-  * Only one student per group will submit the group's answers
-* The minimum group score is 18 out of 20 points
-* Group scores are curved for hard quizzes
-
-**Final Score**: Average of Individual and Group Scores (e.g., (14 \+ 20)/2 \= 17 points)
-
-## Remote exam rules
-
-*Some class exams will be different from these base rules*
-
-Two separate parts of about 50 questions each
-
-* Similar format and questions to the quizzes
-* Random question order
-* Not all questions will be the same between students
-* About 1½ minutes per question to prevent collaboration or excessive research
-* Backtracking allowed (subject to change if cheating suspected)
-
-**Remote Course Exam Time Period**
-
-* Exam review session during class time over Zoom the week of the exam
-* Exam opens on Blackboard 1 hour after the in-class review session begins
-* 36-hour window to complete both parts of the exam
-* Take anytime in the 36-hour window (e.g., the first night for part 2, the second day morning for part 1\)
-* Each part must be completed in one session
-* Clock starts once the part of the exam is open, must finish within the time-limit
-
-## Online quiz and exam reset policy
-
-I make it a point to remind students of this policy during lecture before each exam. If you
-experience internet issues, technical difficulties, accidentally open the exam, or face other
-non-academic distractions during a quiz or exam, follow these steps:
-
-1. **Don't Panic**: Stay calm and do not rush.
-2. **Stop and Exit:** Close the quiz or exam without viewing additional questions.
-3. **Contact Me Immediately**: Preferably via Discord, but email is also fine. Do not expect an
-   immediate response; I will contact you when I am available.
-
-**How I Handle Different Situations**
-
-1. **Less than 10% of the questions**: I can reset the quiz or exam for a fresh start.
-2. **Between 10% and 90% of the questions**: I will likely create a custom quiz or exam covering
-   only the questions you haven't seen.
-3. **100% of the questions (rushed to complete)**: I can offer a second attempt, but your final
-   score will be the average of both attempts.
-
-## Exam submission bonus and penalty policy
-
-**Early Exam Completion Bonus:**
-
-* Earn \+1 extra point by finishing either part of the exam one to two days before the due date.
-* Earn an additional point, for a total of \+2 points, by completing both parts of the exam in the afternoon on the due date, before the late night deadline.
-
-**Late Submission Penalty:**
-
-* A penalty of one point for exams completed after the deadline.
-* Additional penalties apply for significantly late submissions.
-
-***Justification***: Your help in meeting the deadline is essential and appreciated. This policy aims to minimize the stress caused by late submissions and logistical issues that may arise.
-
-## Make-up exams, quizzes, and assignments
+## Make-up work and extensions
 
 In light of the changing needs of students, particularly highlighted by the experiences during the COVID pandemic, I have adopted a more flexible approach to managing make-up exams, quizzes, and assignments.
 
-Currently, all exams, quizzes, and assignments are conducted or submitted online via Blackboard, each with a specified deadline. I understand that unexpected circumstances may arise, such as illness, personal emergencies, or other significant events, which can make it challenging to meet these deadlines. If you find yourself in a situation that may require an extension, **I encourage you to contact me immediately. I am always open to granting extensions based on individual circumstances.**
+Currently, all graded work is conducted or submitted online through Blackboard, with a specified
+deadline. I understand that illness, personal emergencies, and other significant events can make
+it challenging to meet these deadlines. If you may need an extension, **contact me immediately. I
+am always open to granting extensions based on individual circumstances.**
 
 Communication is crucial in these situations. I do not need all the details of your situation. However, being informed about your general circumstances is important, as it allows me to offer the necessary support and accommodations. Please reach out as soon as possible if you anticipate needing an extension. Being proactive and communicating is essential and ensures fairness for all students.
 

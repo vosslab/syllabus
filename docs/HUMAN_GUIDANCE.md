@@ -26,6 +26,9 @@ history. Those belong in the appropriate technical documentation or changelog.
   information, and access-controlled course material. Blackboard is the home for private content.
 - I want shared syllabus information edited once, not copied among courses or maintained in a
   parallel template tree.
+- Assignments, group quizzes, and exams are the only three assessment categories across my
+  classes. Keep them as separate shared fragments, with each course YAML selecting only the
+  categories used in that course.
 - Keep the Zoom and in-person discussion-mark policies, criticism responses, scoring, and
   no-make-up rule together on their own shared page instead of inside the general grading page.
 - Keep the complete extra-credit guide and approved science-movie list in this repository instead

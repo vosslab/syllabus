@@ -234,7 +234,7 @@ def test_mkdocs_loader_keeps_shared_libraries_available_after_restoring_sys_path
 	tmp_path: pathlib.Path,
 	monkeypatch: pytest.MonkeyPatch,
 ) -> None:
-	"""MkDocs loads both shared hook libraries before its temporary import path disappears."""
+	"""MkDocs loads its shared hook libraries before its temporary import path disappears."""
 	docs_root = tmp_path / "site_docs"
 	source_path = write_source(docs_root)
 	write_include(docs_root, "generated/HOOK.md", "Loaded through MkDocs.\n")
@@ -247,6 +247,7 @@ def test_mkdocs_loader_keeps_shared_libraries_available_after_restoring_sys_path
 	monkeypatch.setattr(sys, "path", isolated_sys_path)
 	monkeypatch.delitem(sys.modules, "build_lib.markdown_includes", raising=False)
 	monkeypatch.delitem(sys.modules, "build_lib.syllabus_model", raising=False)
+	monkeypatch.delitem(sys.modules, "build_lib.syllabus_content", raising=False)
 	monkeypatch.delitem(sys.modules, "build_lib", raising=False)
 	mkdocs.config.config_options.Hooks._load_hook.cache_clear()
 	config = mkdocs.config.load_config(

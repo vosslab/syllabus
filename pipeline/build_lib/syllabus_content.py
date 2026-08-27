@@ -32,6 +32,7 @@ REQUIRED_LEARNING_MARKERS = (
 	"## Learning Goals",
 	"Overall, this course aims to accomplish:",
 )
+ASSESSMENT_FRAGMENT_MARKER = "<!-- assessments from syllabus.yml -->"
 
 
 #============================================
@@ -206,6 +207,30 @@ def validate_course_learning_framework(
 	if re.search(r"^[-*+]\s+\S", roosevelt_markdown, re.MULTILINE) is None:
 		raise ValueError(f"{framework_path}: Roosevelt learning goals must be bullet points")
 	return None
+
+
+#============================================
+def apply_assessment_fragments(
+	markdown: str,
+	source_path: pathlib.Path,
+	manifest: build_lib.syllabus_model.SyllabusManifest,
+) -> str:
+	"""Materialize a course's selected assessments on its coursework page."""
+	is_coursework = source_path.name == "ASSIGNMENTS_AND_GRADING.md"
+	marker_count = markdown.count(ASSESSMENT_FRAGMENT_MARKER)
+	if is_coursework and marker_count != 1:
+		raise ValueError(f"{source_path}: expected exactly one assessment fragment marker")
+	if not is_coursework and marker_count:
+		raise ValueError(f"{source_path}: assessment marker is only valid on coursework")
+	if not is_coursework:
+		return markdown
+	include_lines = []
+	for fragment_path in manifest.assessment_fragments:
+		relative_path = fragment_path.relative_to(manifest.docs_root).as_posix()
+		include_lines.append(f'--8<-- "{relative_path}"')
+	replacement = "\n\n".join(include_lines)
+	selected = markdown.replace(ASSESSMENT_FRAGMENT_MARKER, replacement)
+	return selected
 
 
 #============================================
@@ -432,6 +457,7 @@ def compose_markdown(manifest: build_lib.syllabus_model.SyllabusManifest) -> str
 		document_anchors[instructor_route_path.resolve()] = "instructor-information"
 	for index, section_path in enumerate(manifest.sections):
 		markdown = section_path.read_text(encoding="utf-8")
+		markdown = apply_assessment_fragments(markdown, section_path, manifest)
 		markdown = build_lib.markdown_includes.expand_includes(
 			markdown,
 			section_path,

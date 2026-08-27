@@ -323,6 +323,86 @@ def test_compose_markdown_appends_policy_and_resources_once(tmp_path: pathlib.Pa
 
 
 #============================================
+def test_manifest_assessments_control_coursework_content(
+	tmp_path: pathlib.Path,
+) -> None:
+	"""Manifest selection determines assessment content and order."""
+	docs_root = tmp_path / "site_docs"
+	term_path = docs_root / "fall_20xx"
+	course_path = term_path / "course"
+	fragment_path = term_path / "shared" / "fragments" / "assessments"
+	course_path.mkdir(parents=True)
+	fragment_path.mkdir(parents=True)
+	index_path = course_path / "index.md"
+	coursework_path = course_path / "ASSIGNMENTS_AND_GRADING.md"
+	assignments_path = fragment_path / "ASSIGNMENTS.md"
+	exams_path = fragment_path / "EXAMS.md"
+	write_section(index_path, "Course title")
+	coursework_path.write_text(
+		"# Coursework and grades\n\n<!-- assessments from syllabus.yml -->\n",
+		encoding="utf-8",
+	)
+	assignments_path.write_text("## Assignments\n\nAssignment rules.\n", encoding="utf-8")
+	exams_path.write_text("## Exams\n\nExam rules.\n", encoding="utf-8")
+	manifest = build_lib.syllabus_model.SyllabusManifest(
+		path=course_path / "syllabus.yml",
+		docs_root=docs_root,
+		title="Course title",
+		course_code="BIOL 000",
+		term="Fall 20XX",
+		author="Instructor",
+		language="en-US",
+		course_color="#007849",
+		download_basename="BIOL_000_SYLLABUS",
+		sections=(index_path, coursework_path),
+		shared_sections=(),
+		assessment_fragments=(exams_path, assignments_path),
+	)
+	combined = build_lib.syllabus_content.compose_markdown(manifest)
+	assert combined.index("### Exams") < combined.index("### Assignments")
+	assert "assessments from syllabus.yml" not in combined
+
+
+#============================================
+def test_assessment_manifest_rejects_unknown_category(tmp_path: pathlib.Path) -> None:
+	"""The manifest accepts only Dr. Voss's three assessment categories."""
+	manifest_path = tmp_path / "fall_20xx" / "course" / "syllabus.yml"
+	manifest_path.parent.mkdir(parents=True)
+	with pytest.raises(ValueError, match="unsupported assessments"):
+		build_lib.syllabus_model.resolve_assessment_fragments(
+			{"assessments": ["lab_practicals"]},
+			manifest_path,
+			tmp_path,
+		)
+
+
+#============================================
+def test_coursework_requires_one_assessment_marker(tmp_path: pathlib.Path) -> None:
+	"""Configured coursework fails rather than silently omitting its assessments."""
+	coursework_path = tmp_path / "ASSIGNMENTS_AND_GRADING.md"
+	manifest = build_lib.syllabus_model.SyllabusManifest(
+		path=tmp_path / "syllabus.yml",
+		docs_root=tmp_path,
+		title="Course title",
+		course_code="BIOL 000",
+		term="Fall 20XX",
+		author="Instructor",
+		language="en-US",
+		course_color="#007849",
+		download_basename="BIOL_000_SYLLABUS",
+		sections=(coursework_path,),
+		shared_sections=(),
+		assessment_fragments=(tmp_path / "ASSIGNMENTS.md",),
+	)
+	with pytest.raises(ValueError, match="expected exactly one assessment fragment marker"):
+		build_lib.syllabus_content.apply_assessment_fragments(
+			"# Coursework and grades\n",
+			coursework_path,
+			manifest,
+		)
+
+
+#============================================
 def test_publish_downloads_replaces_the_managed_set(tmp_path: pathlib.Path) -> None:
 	"""Validated staged downloads replace current files and remove obsolete siblings."""
 	staged_dir = tmp_path / "staged"

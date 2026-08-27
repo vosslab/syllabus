@@ -5,8 +5,9 @@ import pathlib
 import collections.abc
 
 # local repo modules
-import build_lib.markdown_includes
 import build_lib.syllabus_model
+import build_lib.syllabus_content
+import build_lib.markdown_includes
 
 
 #============================================
@@ -28,6 +29,16 @@ def on_page_markdown(
 		# ASVS 1.1.2 and 1.2.1: templates receive only normalized, allowlisted CSS tokens.
 		page_metadata["course_color"] = course_color
 		page_metadata["course_color_dark"] = course_color_dark
+	if build_lib.syllabus_content.ASSESSMENT_FRAGMENT_MARKER in markdown:
+		manifest = build_lib.syllabus_model.load_manifest(
+			source_path.parent / "syllabus.yml",
+			docs_root,
+		)
+		markdown = build_lib.syllabus_content.apply_assessment_fragments(
+			markdown,
+			source_path,
+			manifest,
+		)
 	expanded = build_lib.markdown_includes.expand_includes(
 		markdown,
 		source_path,

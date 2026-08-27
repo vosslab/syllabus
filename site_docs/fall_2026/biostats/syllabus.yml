@@ -10,6 +10,9 @@ sections:
   - COURSE_LEARNING_FRAMEWORK.md
   - ASSIGNMENTS_AND_GRADING.md
   - SCHEDULE.md
+assessments:
+  - assignments
+  - group_quizzes
 shared_sections:
   - ../shared/policies/index.md
   - ../shared/policies/COURSE_DELIVERY.md
