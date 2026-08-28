@@ -29,6 +29,7 @@ def on_page_markdown(
 		# ASVS 1.1.2 and 1.2.1: templates receive only normalized, allowlisted CSS tokens.
 		page_metadata["course_color"] = course_color
 		page_metadata["course_color_dark"] = course_color_dark
+	manifest = None
 	if build_lib.syllabus_content.ASSESSMENT_FRAGMENT_MARKER in markdown:
 		manifest = build_lib.syllabus_model.load_manifest(
 			source_path.parent / "syllabus.yml",
@@ -39,11 +40,23 @@ def on_page_markdown(
 			source_path,
 			manifest,
 		)
-	if build_lib.syllabus_content.DISCUSSION_FRAGMENT_MARKER in markdown:
-		manifest = build_lib.syllabus_model.load_manifest(
-			source_path.parent / "syllabus.yml",
-			docs_root,
+	if build_lib.syllabus_content.COURSE_POINT_PLAN_MARKER in markdown:
+		if manifest is None:
+			manifest = build_lib.syllabus_model.load_manifest(
+				source_path.parent / "syllabus.yml",
+				docs_root,
+			)
+		markdown = build_lib.syllabus_content.apply_course_point_plan(
+			markdown,
+			source_path,
+			manifest,
 		)
+	if build_lib.syllabus_content.DISCUSSION_FRAGMENT_MARKER in markdown:
+		if manifest is None:
+			manifest = build_lib.syllabus_model.load_manifest(
+				source_path.parent / "syllabus.yml",
+				docs_root,
+			)
 		markdown = build_lib.syllabus_content.apply_discussion_fragments(
 			markdown,
 			source_path,
@@ -55,9 +68,10 @@ def on_page_markdown(
 		docs_root,
 	)
 	if build_lib.syllabus_content.ASSESSMENT_EXAMPLES_MARKER in expanded:
-		manifest = build_lib.syllabus_model.load_manifest(
-			source_path.parent / "syllabus.yml",
-			docs_root,
-		)
+		if manifest is None:
+			manifest = build_lib.syllabus_model.load_manifest(
+				source_path.parent / "syllabus.yml",
+				docs_root,
+			)
 		expanded = build_lib.syllabus_content.apply_assessment_examples_link(expanded, manifest)
 	return expanded

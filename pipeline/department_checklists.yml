@@ -430,7 +430,7 @@ items:
     evidence:
       - label: Dates and topics
         path: SCHEDULE/
-    note: The schedule explains why it may change and identifies Blackboard as the current deadline source.
+    note: The schedule carries the unconditional subject-to-change notice; the shared course-format policy states the instructor's authority and communication process.
 
 courses:
   - directory: biostats

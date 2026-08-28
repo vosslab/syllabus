@@ -3,6 +3,8 @@
 # Standard Library
 import os
 import re
+import html
+import decimal
 import pathlib
 import subprocess
 
@@ -35,6 +37,7 @@ REQUIRED_LEARNING_MARKERS = (
 ASSESSMENT_FRAGMENT_MARKER = "<!-- assessments from syllabus.yml -->"
 ASSESSMENT_EXAMPLES_MARKER = "<!-- assessment examples from syllabus.yml -->"
 DISCUSSION_FRAGMENT_MARKER = "<!-- discussion from syllabus.yml -->"
+COURSE_POINT_PLAN_MARKER = "<!-- course point plan from syllabus.yml -->"
 
 
 #============================================
@@ -209,6 +212,61 @@ def validate_course_learning_framework(
 	if re.search(r"^[-*+]\s+\S", roosevelt_markdown, re.MULTILINE) is None:
 		raise ValueError(f"{framework_path}: Roosevelt learning goals must be bullet points")
 	return None
+
+
+#============================================
+def format_approximate_share(points: int, total_points: int) -> str:
+	"""Return a one-decimal, half-up percentage without an unnecessary zero."""
+	share = (
+		decimal.Decimal(points * 100) / decimal.Decimal(total_points)
+	).quantize(decimal.Decimal("0.1"), rounding=decimal.ROUND_HALF_UP)
+	share_text = f"{share:.1f}".removesuffix(".0")
+	return f"{share_text}%"
+
+
+#============================================
+def render_course_point_plan(
+	point_plan: tuple[build_lib.syllabus_model.CoursePointPlanEntry, ...],
+) -> str:
+	"""Derive one Markdown points table from validated manifest entries."""
+	total_points = sum(entry.points for entry in point_plan)
+	lines = [
+		"| Assessment | Possible points | Approximate share | Your points |",
+		"| --- | ---: | ---: | ---: |",
+	]
+	for entry in point_plan:
+		# ASVS 1.1.2 and 1.2.1: encode the validated label at the final Markdown/HTML
+		# rendering boundary; numeric cells come only from bounded integers.
+		assessment = html.escape(entry.assessment, quote=False)
+		share = format_approximate_share(entry.points, total_points)
+		lines.append(f"| {assessment} | {entry.points} | {share} | |")
+	lines.append(f"| **Total** | **{total_points}** | **100%** | |")
+	table = "\n".join(lines)
+	return table
+
+
+#============================================
+def apply_course_point_plan(
+	markdown: str,
+	source_path: pathlib.Path,
+	manifest: build_lib.syllabus_model.SyllabusManifest,
+) -> str:
+	"""Materialize a manifest-owned point plan on its coursework page."""
+	is_coursework = source_path.name == "ASSIGNMENTS_AND_GRADING.md"
+	marker_count = markdown.count(COURSE_POINT_PLAN_MARKER)
+	if not is_coursework and marker_count:
+		raise ValueError(f"{source_path}: point-plan marker is only valid on coursework")
+	if not is_coursework:
+		return markdown
+	if manifest.course_point_plan and marker_count != 1:
+		raise ValueError(f"{source_path}: expected exactly one course point-plan marker")
+	if not manifest.course_point_plan and marker_count:
+		raise ValueError(f"{source_path}: point-plan marker requires course_point_plan data")
+	if not manifest.course_point_plan:
+		return markdown
+	table = render_course_point_plan(manifest.course_point_plan)
+	selected = markdown.replace(COURSE_POINT_PLAN_MARKER, table)
+	return selected
 
 
 #============================================
@@ -499,6 +557,7 @@ def compose_markdown(manifest: build_lib.syllabus_model.SyllabusManifest) -> str
 		document_anchors[instructor_route_path.resolve()] = "instructor-information"
 	for index, section_path in enumerate(manifest.sections):
 		markdown = section_path.read_text(encoding="utf-8")
+		markdown = apply_course_point_plan(markdown, section_path, manifest)
 		markdown = apply_assessment_fragments(markdown, section_path, manifest)
 		markdown = apply_discussion_fragments(markdown, section_path, manifest)
 		markdown = build_lib.markdown_includes.expand_includes(

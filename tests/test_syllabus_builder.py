@@ -28,6 +28,58 @@ def test_assessment_examples_url_accepts_only_official_subject_routes() -> None:
 
 
 #============================================
+def test_course_point_plan_derives_total_and_approximate_shares() -> None:
+	"""One point edit drives every displayed arithmetic value."""
+	manifest_path = pathlib.Path("syllabus.yml")
+	point_plan = build_lib.syllabus_model.resolve_course_point_plan(
+		{
+			"course_point_plan": [
+				{"assessment": "Research & analysis", "points": 2},
+				{"assessment": "Final exam", "points": 1},
+			]
+		},
+		manifest_path,
+	)
+	rendered = build_lib.syllabus_content.render_course_point_plan(point_plan)
+	expected = (
+		"| Assessment | Possible points | Approximate share | Your points |\n"
+		"| --- | ---: | ---: | ---: |\n"
+		"| Research &amp; analysis | 2 | 66.7% | |\n"
+		"| Final exam | 1 | 33.3% | |\n"
+		"| **Total** | **3** | **100%** | |"
+	)
+	assert rendered == expected
+
+
+#============================================
+def test_course_point_plan_requires_one_coursework_marker(tmp_path: pathlib.Path) -> None:
+	"""Configured point data cannot be silently omitted from coursework."""
+	coursework_path = tmp_path / "ASSIGNMENTS_AND_GRADING.md"
+	manifest = build_lib.syllabus_model.SyllabusManifest(
+		path=tmp_path / "syllabus.yml",
+		docs_root=tmp_path,
+		title="Course title",
+		course_code="BIOL 000",
+		term="Fall 20XX",
+		author="Instructor",
+		language="en-US",
+		course_color="#007849",
+		download_basename="BIOL_000_SYLLABUS",
+		sections=(coursework_path,),
+		shared_sections=(),
+		course_point_plan=(
+			build_lib.syllabus_model.CoursePointPlanEntry("Exam", 100),
+		),
+	)
+	with pytest.raises(ValueError, match="expected exactly one course point-plan marker"):
+		build_lib.syllabus_content.apply_course_point_plan(
+			"# Coursework and grades\n",
+			coursework_path,
+			manifest,
+		)
+
+
+#============================================
 def test_prepare_section_removes_web_only_content() -> None:
 	"""The archival source excludes web controls while retaining extension syntax."""
 	markdown = (

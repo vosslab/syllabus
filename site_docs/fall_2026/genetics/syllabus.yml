@@ -5,6 +5,17 @@ author: Neil R. Voss
 language: en-US
 download_basename: BIOL_351_451_FALL_2026_SYLLABUS
 assessment_examples_url: https://biologyproblems.org/genetics/
+course_point_plan:
+  - assessment: Mid-term exam
+    points: 100
+  - assessment: Final cumulative exam
+    points: 100
+  - assessment: Five group quizzes
+    points: 100
+  - assessment: Assignments
+    points: 116
+  - assessment: Course orientation
+    points: 8
 sections:
   - index.md
   - COURSE_DETAILS.md

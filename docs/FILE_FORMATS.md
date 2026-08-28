@@ -13,6 +13,17 @@ author: Neil R. Voss
 language: en-US
 download_basename: BIOL_351_451_FALL_2026_SYLLABUS
 assessment_examples_url: https://biologyproblems.org/genetics/
+course_point_plan:
+  - assessment: Mid-term exam
+    points: 100
+  - assessment: Final cumulative exam
+    points: 100
+  - assessment: Five group quizzes
+    points: 100
+  - assessment: Assignments
+    points: 116
+  - assessment: Course orientation
+    points: 8
 sections:
   - index.md
   - COURSE_DETAILS.md
@@ -39,6 +50,24 @@ Required scalar fields are `title`, `course_code`, `term`, `author`, `language`,
 `download_basename` accepts only uppercase ASCII letters, digits, and underscores.
 `assessment_examples_url` accepts only an HTTPS `biologyproblems.org` subject route with one safe
 lowercase slug, such as `https://biologyproblems.org/biochemistry/`.
+
+`course_point_plan` is an optional ordered list for courses whose point values are confirmed. Each
+entry contains exactly one unique `assessment` label and one integer `points` value. Labels are
+plain ASCII text from 1 through 100 characters. Point values range from 1 through 1,000,000, and a
+plan contains at most 100 entries. Include only work that counts toward the final-percentage
+denominator; extra credit remains outside this list.
+
+The builder sums the point values for the **Total** row and calculates each **Approximate share**
+against that derived total. Shares use half-up rounding to one decimal place and omit a trailing
+`.0`; because each detail row is rounded independently, displayed detail shares need not sum to
+exactly 100%. The derived Total row always displays `100%`, is visually emphasized as the sum, and
+leaves its **Your points** cell blank with the other rows so students can calculate their grade on
+screen or in print. A course with `course_point_plan` data must place this marker exactly once in
+`ASSIGNMENTS_AND_GRADING.md`:
+
+```markdown
+<!-- course point plan from syllabus.yml -->
+```
 
 `assessments` is a non-empty ordered list containing one or more of `assignments`,
 `group_quizzes`, `f2f_exams`, and `online_exams`, with no duplicates. These are the only assessment
@@ -70,6 +99,10 @@ catalog does not enter PDF or DOCX syllabi.
 Every complete-document source starts with one level-one heading. The website may add Material
 admonitions, attributes, tables, and repository-owned restricted includes. The document renderer
 converts supported web-only constructs into portable linear content.
+
+The coursework source retains the student-facing prose around a manifest-derived point table. It
+uses the exact course-point-plan marker documented above instead of duplicating totals and
+percentages in Markdown.
 
 Tables use a named header in every column, a valid separator row, and the same cell count in every
 row. Hidden line-breaking controls are rejected. Links between manifest-included Markdown pages are
@@ -120,9 +153,10 @@ must also reach at least 5.5:1 there. DOCX output retains its format-native neut
 
 ## Synchronized dates
 
-`pipeline/sync_important_dates.py` reads a fixed six-column Google Sheets CSV source. The source
-columns are date, confirmation, week, `X`, event, and notes. The generated Markdown publishes only
-the date, event, and inferred event type; the remaining columns are validated maintainer metadata.
+`pipeline/sync_important_dates.py` reads a fixed six-column Google Sheets CSV source. Its normalized
+headers are `date`, `confirmed`, `wk`, `x`, `event`, and `notes`; a `Confirmed for YYYY` header
+normalizes to `confirmed`. The generated Markdown publishes only the date, event, and inferred event
+type; the remaining columns are validated maintainer metadata.
 
 The generated fragment lives at `site_docs/generated/FALL_2026_IMPORTANT_DATES.md`. It is ignored
 output included by the tracked `site_docs/fall_2026/shared/IMPORTANT_DATES.md` wrapper. Edit the

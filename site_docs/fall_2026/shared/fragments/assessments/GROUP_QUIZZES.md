@@ -1,41 +1,50 @@
 ### Group quizzes
 
-Group quizzes are short assessments of your understanding of recent material. Each quiz begins
-with an individual attempt before class and is followed by an optional group attempt during class.
+Group quizzes give you two chances to work with recent material. You first complete an individual
+attempt before class. During class, you may complete an optional group attempt and compare your
+reasoning with classmates.
 
-#### Quiz format
+#### Two-stage format
 
 Each quiz is worth 20 points across 20-34 questions. Multiple-choice questions are worth 1 point,
-and each choice in a matching question is worth 1/2 point. Calculations are limited because the
-quiz does not test calculator usage. You will have approximately 20-30 minutes, depending on the
-content. The allowance of about 1-1/2 minutes per question prevents collaboration or excessive
-research; the quiz is not designed to be rushed. Questions appear in random order, and backtracking
-is allowed unless suspected cheating requires a change.
+and each response in a matching question is worth 1/2 point. You may encounter simple
+calculations, but the quiz does not test calculator speed.
 
-#### Individual quiz
+You will have approximately 20-30 minutes, depending on the content. The limit allows about
+1-1/2 minutes per question: enough time to read and think when you are prepared, but not enough to
+research every answer or collaborate during the individual attempt. Questions normally appear in
+random order, and you can normally move backward to review earlier answers. I may change these
+settings if quiz security requires it.
 
-The individual quiz is conducted electronically through Blackboard. It opens 20 hours before the
-start of class and must be completed before class.
+#### Individual attempt
 
-#### Group quiz
+The individual attempt is completed independently through Blackboard. It opens 20 hours before
+the start of class and closes when class begins. Complete and submit it before class so you are
+ready to discuss the reasoning during the group attempt.
 
-Groups contain 3-4 students. Sometimes you choose your group, and sometimes groups are random. I
-try to maintain groups that are working well; contact me if there are students you want in your
-group. Collaboration occurs in a video-conference breakout room or face-to-face. The group answers
-questions that are the same as or similar to the individual quiz, and one student submits the
-group's electronic response through Blackboard. The minimum group score is 18 out of 20 points,
-and group scores are curved for difficult quizzes.
+#### Optional group attempt
 
-Your final quiz score is the average of the individual and group scores. For example, individual
-and group scores of 14 and 20 produce a final score of 17 points.
+Groups contain 3-4 students and work together face-to-face or in a video-conference breakout room.
+Sometimes you choose your group, and sometimes I assign one. I try to keep productive groups
+together; tell me when there are classmates you work especially well with.
 
-#### Online quiz reset policy
+The group receives questions that are the same as or similar to the individual attempt. Discuss
+why each answer makes sense instead of merely voting. One group member records and submits the
+group's answers through Blackboard. The recorded group score will be at least 18 out of 20 points,
+and I may curve group scores upward when a quiz is unusually difficult.
 
-If you experience internet issues, technical difficulties, accidentally open a quiz, or face
-another non-academic distraction, stay calm, close the quiz without viewing more questions, and
-contact me immediately. Discord is preferred, but email is also fine. I will respond when I am
-available.
+#### Final quiz score
 
-If you viewed less than 10% of the questions, I can reset the quiz for a fresh start. If you viewed
-between 10% and 90%, I will likely create a custom quiz covering only unseen questions. If you
-rushed through 100%, I can offer a second attempt, with the two scores averaged.
+If you complete both attempts, your final quiz score is their average. For example, an individual
+score of 14 and a group score of 20 produce a final score of 17 points. If you skip the optional
+group attempt, your individual score remains your final quiz score.
+
+#### If technology interrupts you
+
+If an internet problem, technical failure, accidental opening, or other non-academic interruption
+affects your individual attempt, close the quiz without viewing additional questions and contact
+me immediately. Discord is preferred, but email is also fine. I will respond when I am available.
+
+The recovery depends on how much of the quiz you viewed. If you saw less than 10%, I can reset the
+quiz for a fresh start. If you saw 10-90%, I will usually create a replacement containing only
+unseen questions. If you reached the end, I can offer a second attempt and average the two scores.

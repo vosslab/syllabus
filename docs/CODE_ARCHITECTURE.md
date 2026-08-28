@@ -52,6 +52,12 @@ materialize the selection at the coursework marker before calling the shared inc
 one YAML decision controls all three formats. The same manifest owns the validated official
 Biology Problems subject URL shown inside the selected Assignments section.
 
+For courses with confirmed point plans, the same manifest owns an ordered `course_point_plan` of
+assessment labels and possible points. The website and complete-document composer replace one
+coursework marker with a derived Markdown table, calculating the denominator and approximate
+shares once for the website, PDF, and DOCX paths. The authored coursework page retains the
+student-facing explanation around that generated table.
+
 Discussion marks use a parallel closed manifest choice: no discussion, face-to-face discussion,
 or remote/video-conference discussion. Participating courses own a thin Discussion marks page; no
 discussion omits the topic. The build adds shared scoring only for modes that award marks.
@@ -152,7 +158,9 @@ the detailed separation is documented in
 
 Only public-safe content belongs in the repository. The document builder scans source and generated
 text for common meeting URLs, passwords, passcodes, and invitation patterns. Private links,
-student information, assignments, grades, and access-controlled materials remain in Blackboard.
+student information, grades, and access-controlled materials remain outside the public repository.
+Assignment-specific directions may be communicated through course links or in class; public
+expectations belong in the authoritative course Markdown.
 
 The ignored local `raw/` directory may hold public reference material that supports authoring. It
 is outside the content pipeline, never supplies a published page or complete-syllabus section, and

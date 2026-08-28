@@ -50,10 +50,11 @@ For more information, see Roosevelt University's
 
 In light of the changing needs of students, particularly highlighted by the experiences during the COVID pandemic, I have adopted a more flexible approach to managing make-up exams, quizzes, and assignments.
 
-Currently, all graded work is conducted or submitted online through Blackboard, with a specified
-deadline. I understand that illness, personal emergencies, and other significant events can make
-it challenging to meet these deadlines. If you may need an extension, **contact me immediately. I
-am always open to granting extensions based on individual circumstances.**
+Graded work has a specified deadline and identifies whether you complete it in class, through
+Blackboard, or with another course link. I understand that illness, personal emergencies, and
+other significant events can make it challenging to meet these deadlines. If you may need an
+extension, **contact me immediately. I am always open to granting extensions based on individual
+circumstances.**
 
 Communication is crucial in these situations. I do not need all the details of your situation. However, being informed about your general circumstances is important, as it allows me to offer the necessary support and accommodations. Please reach out as soon as possible if you anticipate needing an extension. Being proactive and communicating is essential and ensures fairness for all students.
 

@@ -39,9 +39,9 @@ taking Biostatistics to meet a program requirement rather than to specialize in 
 Google Sheets gives you a familiar, accessible way to apply course methods. The goal is for you to
 keep using what you learn after the course.
 
-Students need regular Blackboard access, a computer capable of running Google Sheets, and an
-account that can access it. Course software and submission instructions are provided through
-Blackboard.
+You need regular Blackboard access, a computer capable of running Google Sheets, and an account
+that can access it. Follow each assignment's directions or links for any additional software and
+its submission method.
 
 ## Instructor information
 

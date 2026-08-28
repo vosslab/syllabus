@@ -1,19 +1,19 @@
 # Related projects
 
-Visitors use this repository to publish one authoritative set of higher-education course sources
-as a student-friendly website and complete PDF and DOCX syllabi. The projects below offer useful
+Visitors use this repository to maintain higher-education course content once and publish it as a
+student-facing website plus complete PDF and DOCX syllabi. The projects below offer useful
 comparisons, adjacent authoring workflows, or guidance for that work.
 
 ## Confirmed related projects
 
 ### Biological Networks course site
 
-- Relationship: prior art and inspiration
-- Link: [Biological Networks course-site source](https://github.com/aaronclauset/aaronclauset.github.io/tree/master/courses/3352)
+- Relationship: domain standard, guide, dataset, or other visitor resource
+- Link: [Biological Networks course site](https://aaronclauset.github.io/courses/3352/)
 - Why visitors may care: The repository is another instructor-maintained, public course site with
   a public syllabus, schedule, and teaching resources.
-- Evidence: This repository's academic-integrity policy cites Aaron Clauset's Biological Networks
-  syllabus, and the cited course site is published from this GitHub source tree.
+- Evidence: [ACADEMIC_INTEGRITY.md](../site_docs/fall_2026/shared/policies/ACADEMIC_INTEGRITY.md)
+  explicitly cites its syllabus as a course-policy source.
 - Confidence: confirmed
 
 ## Possible related projects
@@ -52,11 +52,11 @@ comparisons, adjacent authoring workflows, or guidance for that work.
 
 - Relationship: domain guide and visitor resource
 - Link: [Accessible Syllabus](https://www.accessiblesyllabus.com/)
-- Why visitors may care: It helps instructors evaluate wording, organization, images, and policy
-  presentation for students with diverse abilities before publishing a syllabus.
-- Evidence: The project describes its purpose as helping instructors create accessible, inclusive
-  syllabi and provides practical guidance organized around common syllabus-design decisions.
-- Confidence: likely
+- Why visitors may care: It offers focused guidance on the policy, rhetoric, text, and images that
+  make course materials more usable and engaging for students.
+- Evidence: Its public site organizes accessible-classroom guidance around policy, rhetoric, text,
+  and image decisions.
+- Confidence: possible
 
 ### CAST UDL Guidelines
 
@@ -69,10 +69,19 @@ comparisons, adjacent authoring workflows, or guidance for that work.
   accessible materials.
 - Confidence: likely
 
+### Course Site Quarto
+
+- Relationship: same-workflow project or independent implementation
+- Link: [Course Site Quarto](https://github.com/berkeley-cdss/course-site-quarto)
+- Why visitors may care: It gives instructors a Git-backed course-site template that renders
+  Markdown or Quarto content, PDF downloads, and a YAML-defined schedule.
+- Evidence: The project documentation describes a forkable course-website template with repository
+  authoring, HTML or PDF rendering, and schedule data in YAML.
+- Confidence: possible
+
 ## Evidence notes
 
-The candidate set came from repository citations and two bounded search rounds focused on syllabus
-authoring, publication, accessibility, and instructor workflows. Project documentation and the
-CAST guidelines provide the purpose evidence. Implementation dependencies were used only to
-understand this repository and were excluded from the candidate list. No possible project claims
-lineage from, or a reciprocal link to, this repository.
+The candidate set came from the repository's course-policy citation and two bounded discovery
+rounds focused on syllabus authoring, course-site publication, accessibility, and instructor
+workflows. Official project documentation and the CAST guidelines provide the purpose evidence.
+No listed project claims lineage from, or a reciprocal link to, this repository.

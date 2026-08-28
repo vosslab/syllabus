@@ -32,6 +32,13 @@ const CAPTURES = [
 		name: "general_genetics_dark.png",
 		route: "/fall_2026/genetics/",
 	},
+	{
+		colorScheme: "light",
+		heading: "Biotechnology company projects",
+		materialScheme: "default",
+		name: "biotech_project_expectations.png",
+		route: "/fall_2026/biotech/PROJECTS/",
+	},
 ];
 
 assert.ok(fs.existsSync(SITE_ROOT), "site/ is missing; run the strict MkDocs build first");

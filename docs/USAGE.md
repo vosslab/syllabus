@@ -33,6 +33,9 @@ See [FILE_FORMATS.md](FILE_FORMATS.md) for manifest, Markdown table, and restric
   ordered `assessments` list. Edit their shared wording under `shared/fragments/assessments/`.
 - Set `assessment_examples_url` to the matching official `https://biologyproblems.org/<subject>/`
   route. The coursework page publishes that practice-problem link inside its Assignments section.
+- For a course with a confirmed point plan, edit only the ordered `course_point_plan` assessment
+  names and integer `points` in its `syllabus.yml`. The build derives the total and approximate
+  shares at the coursework marker; omit extra credit because it does not enter the denominator.
 - Set `discussion` to `no_discussion`, `f2f_discussion`, or `remote_discussion`. Edit mode-specific
   and shared discussion wording under `shared/fragments/discussions/`.
 

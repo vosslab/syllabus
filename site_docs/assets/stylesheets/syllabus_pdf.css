@@ -354,6 +354,18 @@ tbody tr:nth-child(even) {
 	background: #f7f8f7;
 }
 
+/* Repeat the header hierarchy for the point-plan sum and leave room to write. */
+#course-point-plan + table tbody tr:last-child td {
+	background: #edf2ef;
+	border-bottom: 1.5pt solid var(--syllabus-page-accent);
+	border-top: 1.5pt solid var(--syllabus-page-accent);
+	font-weight: 700;
+}
+
+#course-point-plan + table :is(th, td):last-child {
+	min-width: 0.8in;
+}
+
 .important-dates-month-01 + table {
 	--important-dates-table-accent: var(--syllabus-calendar-month-01);
 	--important-dates-table-surface: var(--syllabus-calendar-month-01-table-surface);

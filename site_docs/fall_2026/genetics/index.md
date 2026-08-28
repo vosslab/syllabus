@@ -26,6 +26,8 @@ The syllabus is divided into shorter pages so you can go directly to the informa
 
 </div>
 
+--8<-- "fall_2026/shared/fragments/SYLLABUS_CHANGE_NOTICE.md"
+
 ## Course at a glance
 
 | Course summary | Fall 2026 |

@@ -19,5 +19,4 @@
 | 14 | Thu, Dec 10 | Group presentations, part 1 | Presentation materials |
 | 15 | Thu, Dec 17 | Group presentations, part 2 | Business plan |
 
-The schedule may change in response to university decisions, invited-speaker availability, class
-progress, or student learning needs. Blackboard contains the current assignment deadlines.
+--8<-- "fall_2026/shared/fragments/SYLLABUS_CHANGE_NOTICE.md"

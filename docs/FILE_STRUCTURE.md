@@ -51,7 +51,10 @@ site_docs/
 Each course directory contains an `index.md`, `COURSE_DETAILS.md`,
 `COURSE_LEARNING_FRAMEWORK.md`, `ASSIGNMENTS_AND_GRADING.md`, `SCHEDULE.md`, a `syllabus.yml`
 manifest, and `.meta.yml` website/PDF course-theme metadata. Courses that award discussion marks
-also contain `DISCUSSION_MARKS.md`.
+also contain `DISCUSSION_MARKS.md`. Biotechnology additionally has
+[site_docs/fall_2026/biotech/PROJECTS.md](../site_docs/fall_2026/biotech/PROJECTS.md) and
+[site_docs/fall_2026/biotech/TALKING_POINTS.md](../site_docs/fall_2026/biotech/TALKING_POINTS.md)
+for its course-specific project and presentation expectations.
 
 ## Pipeline files
 

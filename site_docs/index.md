@@ -22,4 +22,4 @@ grading information, learning framework, policies, and complete syllabus downloa
 
 This public site contains syllabi and general course information. Use
 [Roosevelt Blackboard](https://blackboard.roosevelt.edu/) for private Zoom or meeting links, class
-invitations, assignments, grades, and instructor announcements.
+invitations, grades, and instructor announcements.

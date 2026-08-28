@@ -13,15 +13,9 @@ Biostatistics, General Genetics, and Applications of Biotechnology, plus shared 
 support resources, and complete syllabus downloads.
 
 <!-- screenshots:begin (managed by screenshot-docs) -->
-![Fall 2026 syllabus homepage with three courses and direct PDF and DOCX links](docs/screenshots/fall_2026_home_light.png)
-
-*The student homepage puts current courses, shared policies, support, and Blackboard context on one
-screen.*
-
-![General Genetics course page in dark mode with navigation and course summary](docs/screenshots/general_genetics_dark.png)
-
-*Course pages keep task links and the course summary visible while preserving the course-specific
-header identity.*
+![Fall 2026 course-syllabus home page with course cards and support links](docs/screenshots/fall_2026_home_light.png)
+![General Genetics course page shown in the dark color scheme](docs/screenshots/general_genetics_dark.png)
+![Biotechnology project page showing individual and group project expectations](docs/screenshots/biotech_project_expectations.png)
 <!-- screenshots:end -->
 
 ## What students receive
@@ -29,6 +23,7 @@ header identity.*
 - A short, navigable course page for the next task, deadline, policy, or support service.
 - Complete PDF and DOCX syllabi for students who need an offline or archival copy.
 - One shared set of policies and resources, so the same guidance does not drift among courses.
+- Dedicated Biotechnology pages that make project and talking-point expectations easy to find.
 
 ## One source, three student-ready forms
 

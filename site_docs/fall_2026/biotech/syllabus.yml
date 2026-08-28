@@ -5,11 +5,24 @@ author: Neil R. Voss
 language: en-US
 download_basename: BIOL_480_FALL_2026_SYLLABUS
 assessment_examples_url: https://biologyproblems.org/biotechnology/
+course_point_plan:
+  - assessment: Individual biotechnology project
+    points: 88
+  - assessment: Group biotechnology project
+    points: 91
+  - assessment: In-class discussion
+    points: 100
+  - assessment: Talking-point assignments
+    points: 72
+  - assessment: Course orientation and response forms
+    points: 11
 sections:
   - index.md
   - COURSE_DETAILS.md
   - COURSE_LEARNING_FRAMEWORK.md
   - ASSIGNMENTS_AND_GRADING.md
+  - PROJECTS.md
+  - TALKING_POINTS.md
   - DISCUSSION_MARKS.md
   - SCHEDULE.md
 assessments:

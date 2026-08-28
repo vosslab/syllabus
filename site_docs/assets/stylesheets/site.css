@@ -321,6 +321,46 @@
 	background-color: var(--md-default-fg-color--lightest);
 }
 
+/* Make the derived sum read like the point-plan header in screen and print views. */
+.md-typeset #course-point-plan + table:not([class]) tbody tr:last-child td,
+.md-typeset #course-point-plan + .md-typeset__scrollwrap tbody tr:last-child td {
+	background-color: var(--md-default-fg-color--lightest);
+	border-block-end: 0.12rem solid var(--syllabus-page-accent);
+	border-block-start: 0.12rem solid var(--syllabus-page-accent);
+	font-weight: 700;
+}
+
+.md-typeset #course-point-plan + table:not([class]) :is(th, td):last-child,
+.md-typeset #course-point-plan + .md-typeset__scrollwrap :is(th, td):last-child {
+	min-width: 6rem;
+}
+
+.md-typeset #course-point-plan + table:not([class]),
+.md-typeset #course-point-plan + .md-typeset__scrollwrap table:not([class]) {
+	min-width: 36rem;
+	table-layout: fixed;
+}
+
+.md-typeset #course-point-plan + table:not([class]) :is(th, td):first-child,
+.md-typeset #course-point-plan + .md-typeset__scrollwrap :is(th, td):first-child {
+	width: 28%;
+}
+
+.md-typeset #course-point-plan + table:not([class]) :is(th, td):nth-child(2),
+.md-typeset #course-point-plan + .md-typeset__scrollwrap :is(th, td):nth-child(2) {
+	width: 24%;
+}
+
+.md-typeset #course-point-plan + table:not([class]) :is(th, td):nth-child(3),
+.md-typeset #course-point-plan + .md-typeset__scrollwrap :is(th, td):nth-child(3) {
+	width: 28%;
+}
+
+.md-typeset #course-point-plan + table:not([class]) :is(th, td):last-child,
+.md-typeset #course-point-plan + .md-typeset__scrollwrap :is(th, td):last-child {
+	width: 20%;
+}
+
 /* Keep the instructor portrait recognizable while preserving the compact infobox table. */
 .md-typeset .instructor-portrait {
 	border: 0.08rem solid var(--md-default-fg-color--lightest);

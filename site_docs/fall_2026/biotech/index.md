@@ -15,6 +15,10 @@ The syllabus is divided into shorter pages so you can go directly to the informa
   goals, learning objectives, course learning outcomes, and overall learning goals.
 - [**Coursework and grades**](ASSIGNMENTS_AND_GRADING.md): assignments, points, and the letter-grade
   scale.
+- [**Projects**](PROJECTS.md): the individual company proposal, group presentation, and business
+  plan.
+- [**Talking points**](TALKING_POINTS.md): how to prepare, present, and earn points for short
+  biotechnology explanations.
 - [**Discussion marks**](DISCUSSION_MARKS.md): remote and video-conference participation and
   scoring.
 - [**Dates and topics**](SCHEDULE.md): the week-by-week course schedule.
@@ -24,6 +28,8 @@ The syllabus is divided into shorter pages so you can go directly to the informa
   disability services, counseling, and other support.
 
 </div>
+
+--8<-- "fall_2026/shared/fragments/SYLLABUS_CHANGE_NOTICE.md"
 
 ## Course at a glance
 

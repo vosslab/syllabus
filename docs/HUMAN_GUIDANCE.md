@@ -29,6 +29,14 @@ history. Those belong in the appropriate technical documentation or changelog.
 - Assignments, group quizzes, face-to-face exams, and online exams are my four assessment
   categories. Keep them as separate shared fragments, with each course YAML selecting only the
   categories used in that course.
+- I want each course point plan authored as assessment names and point values in its YAML. Derive
+  the total points and approximate shares instead of maintaining table arithmetic in Markdown.
+- I want syllabus assignment pages to state concrete deliverables, expectations, and evaluation
+  criteria while remaining enthusiastic about learning. Avoid promotional or explanatory fluff.
+- Keep assignment-specific directions and links platform-neutral unless I explicitly confirm where
+  I will post them.
+- Use "assignments," not "homework," in college course materials. Students do not necessarily
+  complete assignments at home.
 - Keep group-quiz rules in compact paragraph form; bullets take up too much space on assessment
   pages.
 - Put my "memorization is not learning" pedagogy on every assessment page. Emphasize using
@@ -44,9 +52,16 @@ history. Those belong in the appropriate technical documentation or changelog.
 - Keep the approved science-movie list in a global website-only location outside the active term.
   Link to it from Extra credit, but exclude the niche, verbose catalog from course PDF and DOCX
   syllabi.
+- Use the exact notice "this and other syllabus documents are subject to change at any time."
+  prominently in every course. It preserves my unrestricted authority to change any syllabus
+  document at any time and must not be narrowed to a list of reasons.
 
 ## Presentation
 
+- Keep a blank "Your points" column in course point plans so students can calculate their own
+  grades.
+- Make the Total row in a course point plan visually prominent like the table header because it is
+  a sum.
 - Use Roosevelt University's green palette for the main website and favicon because Roosevelt is
   my employer.
 - Keep the favicon protein-themed and use the three greens from Roosevelt University's R logo.

@@ -31,6 +31,21 @@ DISCUSSION_FRAGMENT_PATHS = {
 	),
 }
 
+COURSE_POINT_PLAN_KEYS = frozenset(("assessment", "points"))
+COURSE_POINT_PLAN_LABEL_PATTERN = re.compile(
+	r"[A-Za-z0-9][A-Za-z0-9 &'()+,./:-]{0,99}"
+)
+MAX_COURSE_POINT_PLAN_ENTRIES = 100
+MAX_COURSE_POINT_VALUE = 1_000_000
+
+
+@dataclasses.dataclass(frozen=True)
+class CoursePointPlanEntry:
+	"""One validated assessment label and denominator point value."""
+
+	assessment: str
+	points: int
+
 
 @dataclasses.dataclass(frozen=True)
 class SyllabusManifest:
@@ -47,6 +62,7 @@ class SyllabusManifest:
 	download_basename: str
 	sections: tuple[pathlib.Path, ...]
 	shared_sections: tuple[pathlib.Path, ...]
+	course_point_plan: tuple[CoursePointPlanEntry, ...] = ()
 	assessment_fragments: tuple[pathlib.Path, ...] = ()
 	assessment_examples_url: str | None = None
 	discussion_fragments: tuple[pathlib.Path, ...] = ()
@@ -184,6 +200,55 @@ def resolve_assessment_fragments(
 
 
 #============================================
+def resolve_course_point_plan(
+	data: dict[object, object],
+	manifest_path: pathlib.Path,
+) -> tuple[CoursePointPlanEntry, ...]:
+	"""Validate the optional ordered point plan used to derive the course table."""
+	value = data.get("course_point_plan")
+	if value is None:
+		return ()
+	if not isinstance(value, list) or not value:
+		raise ValueError(f"{manifest_path}: course_point_plan must be a non-empty list")
+	if len(value) > MAX_COURSE_POINT_PLAN_ENTRIES:
+		raise ValueError(
+			f"{manifest_path}: course_point_plan may contain at most "
+			f"{MAX_COURSE_POINT_PLAN_ENTRIES} entries"
+		)
+	entries = []
+	seen_assessments = set()
+	for index, item in enumerate(value, start=1):
+		entry_label = f"course_point_plan entry {index}"
+		# ASVS 2.1.1, 2.2.1, 2.2.3: require the documented closed row schema,
+		# plain-text label grammar, unique labels, and bounded positive integer points.
+		if not isinstance(item, dict) or set(item) != COURSE_POINT_PLAN_KEYS:
+			raise ValueError(
+				f"{manifest_path}: {entry_label} must contain exactly assessment and points"
+			)
+		assessment = item["assessment"]
+		if (
+			not isinstance(assessment, str)
+			or assessment != assessment.strip()
+			or COURSE_POINT_PLAN_LABEL_PATTERN.fullmatch(assessment) is None
+		):
+			raise ValueError(
+				f"{manifest_path}: {entry_label} assessment must be 1-100 plain ASCII characters"
+			)
+		if assessment in seen_assessments:
+			raise ValueError(f"{manifest_path}: duplicate point-plan assessment: {assessment}")
+		points = item["points"]
+		if type(points) is not int or not 1 <= points <= MAX_COURSE_POINT_VALUE:
+			raise ValueError(
+				f"{manifest_path}: {entry_label} points must be an integer from 1 to "
+				f"{MAX_COURSE_POINT_VALUE}"
+			)
+		seen_assessments.add(assessment)
+		entries.append(CoursePointPlanEntry(assessment=assessment, points=points))
+	point_plan = tuple(entries)
+	return point_plan
+
+
+#============================================
 def resolve_discussion_fragments(
 	data: dict[object, object],
 	manifest_path: pathlib.Path,
@@ -214,6 +279,7 @@ def load_manifest(
 	docs_root: pathlib.Path,
 ) -> SyllabusManifest:
 	"""Load one YAML manifest and reject incomplete or unsafe values."""
+	# ASVS 1.5.2: deserialize authored YAML without permitting custom object construction.
 	loaded = yaml.safe_load(manifest_path.read_text(encoding="utf-8"))
 	if not isinstance(loaded, dict):
 		raise ValueError(f"{manifest_path}: manifest root must be a mapping")
@@ -228,6 +294,7 @@ def load_manifest(
 		raise ValueError(f"{manifest_path}: download_basename must use A-Z, 0-9, and underscores")
 	sections = resolve_sources(loaded, "sections", manifest_path, docs_root)
 	shared_sections = resolve_sources(loaded, "shared_sections", manifest_path, docs_root)
+	course_point_plan = resolve_course_point_plan(loaded, manifest_path)
 	assessment_fragments = resolve_assessment_fragments(loaded, manifest_path, docs_root)
 	discussion_fragments = resolve_discussion_fragments(loaded, manifest_path, docs_root)
 	assessment_examples_url = validate_assessment_examples_url(
@@ -246,6 +313,7 @@ def load_manifest(
 		download_basename=download_basename,
 		sections=sections,
 		shared_sections=shared_sections,
+		course_point_plan=course_point_plan,
 		assessment_fragments=assessment_fragments,
 		assessment_examples_url=assessment_examples_url,
 		discussion_fragments=discussion_fragments,
