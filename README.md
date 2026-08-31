@@ -93,7 +93,7 @@ site_docs/fall_2026/
 |   |-- INSTRUCTOR_INFORMATION.md
 |   |-- STUDENT_RESOURCES.md
 |   |-- fragments/
-|   |   |-- assessments/             Four assessment formats
+|   |   |-- assessments/             Assessment sections and selected policy topics
 |   |   |-- discussions/             Three course-selected discussion modes
 |   |   |-- labs/                    Manifest-selected lab attendance policy
 |   |   |-- INSTRUCTOR_CONTACT_DETAILS.md

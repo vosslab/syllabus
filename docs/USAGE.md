@@ -25,7 +25,8 @@ See [FILE_FORMATS.md](FILE_FORMATS.md) for manifest, Markdown table, and restric
 - Edit dates as literal Markdown in course schedules and details; confirm calendar changes before
   publishing because the build never shifts them automatically.
 - Edit assessment choices, discussion mode, lab status, and confirmed point-plan names and values
-  in the course `syllabus.yml`. The build derives point totals and approximate shares.
+  in the course `syllabus.yml`. The build derives point totals, approximate shares, applicable
+  interruption guidance, and notices when the course has no quizzes or exams.
 
 ## Build and preview
 

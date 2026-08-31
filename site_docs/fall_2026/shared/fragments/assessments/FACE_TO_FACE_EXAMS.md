@@ -1,6 +1,6 @@
-### Face-to-face exam details
+## Face-to-face exam details
 
-#### Question packet and ZipGrade form
+### Question packet and ZipGrade form
 
 You will receive an exam question packet and a separate ZipGrade bubble form. Record each answer
 assigned to ZipGrade on the bubble form. For those questions, the bubble form is your submitted
@@ -12,10 +12,3 @@ beside the intended question number.
 If an exam includes short-answer or worked problems, write those answers in the designated spaces
 instead of on the ZipGrade form. Before each exam, I will identify any written section, approved
 paper aids, and other instructions that vary by exam.
-
-#### Before you hand in the exam
-
-Check that you completed the requested identification fields, transferred every intended answer,
-matched your responses to the correct question numbers, and left only one clear response for each
-question. Keep the ZipGrade form clean and flat, without stray marks. Follow the exam-day directions
-for which materials to return.

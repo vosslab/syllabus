@@ -271,6 +271,57 @@ def apply_course_point_plan(
 
 
 #============================================
+def validate_assessment_section_fragment(fragment_path: pathlib.Path) -> None:
+	"""Require one H2 section root with optional H3 subsections."""
+	markdown_text = fragment_path.read_text(encoding="utf-8")
+	lines = markdown_text.splitlines()
+	first_content = next((line for line in lines if line.strip()), "")
+	# ASVS 2.1.1 and 2.2.1: enforce the documented fragment schema before composition.
+	if re.fullmatch(r"##(?!#)\s+\S.*", first_content) is None:
+		raise ValueError(f"{fragment_path}: assessment fragment must begin with a level-two heading")
+	headings = []
+	for line_number, line in enumerate(lines, start=1):
+		match = re.match(r"^(#{1,6})\s+\S", line)
+		if match is None:
+			continue
+		headings.append((line_number, len(match.group(1))))
+	level_two_count = sum(level == 2 for _, level in headings)
+	if level_two_count != 1:
+		raise ValueError(f"{fragment_path}: assessment fragment must contain exactly one H2")
+	invalid_heading = next(
+		((line_number, level) for line_number, level in headings if level not in (2, 3)),
+		None,
+	)
+	if invalid_heading is not None:
+		line_number, level = invalid_heading
+		raise ValueError(
+			f"{fragment_path}:{line_number}: assessment fragments allow only H2 and H3; "
+			f"found H{level}"
+		)
+	return None
+
+
+#============================================
+def validate_assessment_topic_fragment(fragment_path: pathlib.Path) -> None:
+	"""Require one H3 topic that can follow its separately authored H2 root."""
+	markdown_text = fragment_path.read_text(encoding="utf-8")
+	lines = markdown_text.splitlines()
+	first_content = next((line for line in lines if line.strip()), "")
+	# ASVS 2.1.1 and 2.2.1: keep composed policy topics inside their H2 section.
+	if re.fullmatch(r"###(?!#)\s+\S.*", first_content) is None:
+		raise ValueError(f"{fragment_path}: assessment topic must begin with a level-three heading")
+	headings = []
+	for line_number, line in enumerate(lines, start=1):
+		match = re.match(r"^(#{1,6})\s+\S", line)
+		if match is None:
+			continue
+		headings.append((line_number, len(match.group(1))))
+	if len(headings) != 1 or headings[0][1] != 3:
+		raise ValueError(f"{fragment_path}: assessment topic must contain exactly one H3")
+	return None
+
+
+#============================================
 def apply_assessment_fragments(
 	markdown: str,
 	source_path: pathlib.Path,
@@ -285,10 +336,17 @@ def apply_assessment_fragments(
 		raise ValueError(f"{source_path}: assessment marker is only valid on coursework")
 	if not is_coursework:
 		return markdown
+	if not manifest.assessment_sections:
+		raise ValueError(f"{manifest.path}: assessment sections are not configured")
 	include_lines = []
-	for fragment_path in manifest.assessment_fragments:
-		relative_path = fragment_path.relative_to(manifest.docs_root).as_posix()
-		include_lines.append(f'--8<-- "{relative_path}"')
+	for section in manifest.assessment_sections:
+		validate_assessment_section_fragment(section.root_fragment)
+		fragment_paths = (section.root_fragment,) + section.topic_fragments
+		for topic_path in section.topic_fragments:
+			validate_assessment_topic_fragment(topic_path)
+		for fragment_path in fragment_paths:
+			relative_path = fragment_path.relative_to(manifest.docs_root).as_posix()
+			include_lines.append(f'--8<-- "{relative_path}"')
 	replacement = "\n\n".join(include_lines)
 	selected = markdown.replace(ASSESSMENT_FRAGMENT_MARKER, replacement)
 	return selected

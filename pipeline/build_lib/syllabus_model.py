@@ -10,6 +10,35 @@ import urllib.parse
 import yaml
 
 
+ASSESSMENT_OVERVIEW_FRAGMENT_PATH = pathlib.PurePosixPath(
+	"shared/fragments/assessments/OVERVIEW.md"
+)
+ASSESSMENT_AVAILABILITY_ROOT_FRAGMENT_PATH = pathlib.PurePosixPath(
+	"shared/fragments/assessments/ASSESSMENT_AVAILABILITY.md"
+)
+ASSESSMENT_NO_QUIZZES_FRAGMENT_PATH = pathlib.PurePosixPath(
+	"shared/fragments/assessments/ASSESSMENT_AVAILABILITY_NO_QUIZZES.md"
+)
+ASSESSMENT_NO_EXAMS_FRAGMENT_PATH = pathlib.PurePosixPath(
+	"shared/fragments/assessments/ASSESSMENT_AVAILABILITY_NO_EXAMS.md"
+)
+ASSESSMENT_TECHNOLOGY_ROOT_FRAGMENT_PATH = pathlib.PurePosixPath(
+	"shared/fragments/assessments/TECHNOLOGY_INTERRUPTION.md"
+)
+ASSESSMENT_TECHNOLOGY_TOPIC_RULES = (
+	(
+		frozenset(("assignments",)),
+		pathlib.PurePosixPath(
+			"shared/fragments/assessments/TECHNOLOGY_INTERRUPTION_ASSIGNMENTS.md"
+		),
+	),
+	(
+		frozenset(("group_quizzes", "online_exams")),
+		pathlib.PurePosixPath(
+			"shared/fragments/assessments/TECHNOLOGY_INTERRUPTION_TIMED_ASSESSMENTS.md"
+		),
+	),
+)
 ASSESSMENT_FRAGMENT_PATHS = {
 	"assignments": pathlib.PurePosixPath("shared/fragments/assessments/ASSIGNMENTS.md"),
 	"group_quizzes": pathlib.PurePosixPath("shared/fragments/assessments/GROUP_QUIZZES.md"),
@@ -55,6 +84,14 @@ class CoursePointPlanEntry:
 
 
 @dataclasses.dataclass(frozen=True)
+class AssessmentSection:
+	"""One H2 assessment section with optional separately authored H3 topics."""
+
+	root_fragment: pathlib.Path
+	topic_fragments: tuple[pathlib.Path, ...] = ()
+
+
+@dataclasses.dataclass(frozen=True)
 class SyllabusManifest:
 	"""Validated paths and metadata for one complete syllabus."""
 
@@ -72,7 +109,7 @@ class SyllabusManifest:
 	shared_sections: tuple[pathlib.Path, ...]
 	lab_status: str
 	course_point_plan: tuple[CoursePointPlanEntry, ...] = ()
-	assessment_fragments: tuple[pathlib.Path, ...] = ()
+	assessment_sections: tuple[AssessmentSection, ...] = ()
 	assessment_examples_url: str | None = None
 	discussion_fragments: tuple[pathlib.Path, ...] = ()
 	lab_fragments: tuple[pathlib.Path, ...] = ()
@@ -179,12 +216,12 @@ def resolve_sources(
 
 
 #============================================
-def resolve_assessment_fragments(
+def resolve_assessment_sections(
 	data: dict[object, object],
 	manifest_path: pathlib.Path,
 	docs_root: pathlib.Path,
-) -> tuple[pathlib.Path, ...]:
-	"""Resolve the ordered closed vocabulary of course assessment categories."""
+) -> tuple[AssessmentSection, ...]:
+	"""Resolve ordered H2 sections and category-selected H3 policy topics."""
 	categories = data["assessments"]
 	if not isinstance(categories, list) or not categories:
 		raise ValueError(f"{manifest_path}: assessments must be a non-empty list")
@@ -197,16 +234,63 @@ def resolve_assessment_fragments(
 		unsupported_text = ", ".join(unsupported)
 		raise ValueError(f"{manifest_path}: unsupported assessments: {unsupported_text}")
 	term_root = manifest_path.parent.parent
-	fragments = tuple(
+	detail_fragments = tuple(
 		(term_root / ASSESSMENT_FRAGMENT_PATHS[category]).resolve()
 		for category in categories
 	)
+	selected_categories = frozenset(categories)
+	technology_topic_fragments = tuple(
+		(term_root / relative_path).resolve()
+		for supported_categories, relative_path in ASSESSMENT_TECHNOLOGY_TOPIC_RULES
+		if selected_categories & supported_categories
+	)
+	technology_fragments = ()
+	if technology_topic_fragments:
+		technology_root = (term_root / ASSESSMENT_TECHNOLOGY_ROOT_FRAGMENT_PATH).resolve()
+		technology_fragments = (technology_root,) + technology_topic_fragments
+	overview_fragment = (term_root / ASSESSMENT_OVERVIEW_FRAGMENT_PATH).resolve()
+	sections = [AssessmentSection(root_fragment=overview_fragment)]
+	availability_topic_fragments = []
+	if "group_quizzes" not in selected_categories:
+		availability_topic_fragments.append(
+			(term_root / ASSESSMENT_NO_QUIZZES_FRAGMENT_PATH).resolve()
+		)
+	if not selected_categories & {"f2f_exams", "online_exams"}:
+		availability_topic_fragments.append(
+			(term_root / ASSESSMENT_NO_EXAMS_FRAGMENT_PATH).resolve()
+		)
+	if availability_topic_fragments:
+		sections.append(
+			AssessmentSection(
+				root_fragment=(
+					term_root / ASSESSMENT_AVAILABILITY_ROOT_FRAGMENT_PATH
+				).resolve(),
+				topic_fragments=tuple(availability_topic_fragments),
+			)
+		)
+	if technology_fragments:
+		sections.append(
+			AssessmentSection(
+				root_fragment=technology_fragments[0],
+				topic_fragments=technology_fragments[1:],
+			)
+		)
+	sections.extend(
+		AssessmentSection(root_fragment=fragment_path)
+		for fragment_path in detail_fragments
+	)
+	fragments = tuple(
+		fragment_path
+		for section in sections
+		for fragment_path in (section.root_fragment,) + section.topic_fragments
+	)
+	# ASVS 5.3.2: construct paths from repository-owned constants and enforce containment.
 	for fragment_path in fragments:
 		if not fragment_path.is_relative_to(docs_root.resolve()):
 			raise ValueError(f"{manifest_path}: assessment fragment escapes site_docs")
 		if not fragment_path.is_file():
 			raise FileNotFoundError(f"{manifest_path}: missing assessment fragment: {fragment_path}")
-	return fragments
+	return tuple(sections)
 
 
 #============================================
@@ -334,7 +418,7 @@ def load_manifest(
 	sections = resolve_sources(loaded, "sections", manifest_path, docs_root)
 	shared_sections = resolve_sources(loaded, "shared_sections", manifest_path, docs_root)
 	course_point_plan = resolve_course_point_plan(loaded, manifest_path)
-	assessment_fragments = resolve_assessment_fragments(loaded, manifest_path, docs_root)
+	assessment_sections = resolve_assessment_sections(loaded, manifest_path, docs_root)
 	discussion_fragments = resolve_discussion_fragments(loaded, manifest_path, docs_root)
 	lab_status, lab_fragments = resolve_lab_fragments(loaded, manifest_path, docs_root)
 	assessment_examples_url = validate_assessment_examples_url(
@@ -356,7 +440,7 @@ def load_manifest(
 		shared_sections=shared_sections,
 		lab_status=lab_status,
 		course_point_plan=course_point_plan,
-		assessment_fragments=assessment_fragments,
+		assessment_sections=assessment_sections,
 		assessment_examples_url=assessment_examples_url,
 		discussion_fragments=discussion_fragments,
 		lab_fragments=lab_fragments,

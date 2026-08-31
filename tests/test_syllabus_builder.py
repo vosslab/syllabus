@@ -438,11 +438,44 @@ def test_manifest_assessments_control_coursework_content(
 		sections=(index_path, coursework_path),
 		shared_sections=(),
 		lab_status="no_lab",
-		assessment_fragments=(exams_path, assignments_path),
+		assessment_sections=(
+			build_lib.syllabus_model.AssessmentSection(root_fragment=exams_path),
+			build_lib.syllabus_model.AssessmentSection(root_fragment=assignments_path),
+		),
 	)
 	combined = build_lib.syllabus_content.compose_markdown(manifest)
-	assert combined.index("### Exams") < combined.index("### Assignments")
+	assert combined.index("\n### Exams\n") < combined.index("\n### Assignments\n")
 	assert "assessments from syllabus.yml" not in combined
+
+
+#============================================
+def test_assessment_fragment_requires_level_two_root(tmp_path: pathlib.Path) -> None:
+	"""Assessment fragments fail before a section root can be visually flattened."""
+	fragment_path = tmp_path / "ASSIGNMENTS.md"
+	fragment_path.write_text("### Assignment details\n\nRules.\n", encoding="utf-8")
+	with pytest.raises(ValueError, match="must begin with a level-two heading"):
+		build_lib.syllabus_content.validate_assessment_section_fragment(fragment_path)
+
+
+#============================================
+def test_assessment_fragment_rejects_heading_level_skips(tmp_path: pathlib.Path) -> None:
+	"""Assessment subsections remain H3 children of their H2 section."""
+	fragment_path = tmp_path / "ASSIGNMENTS.md"
+	fragment_path.write_text(
+		"## Assignment details\n\n#### Practice until it makes sense\n",
+		encoding="utf-8",
+	)
+	with pytest.raises(ValueError, match="allow only H2 and H3"):
+		build_lib.syllabus_content.validate_assessment_section_fragment(fragment_path)
+
+
+#============================================
+def test_assessment_topic_requires_level_three_root(tmp_path: pathlib.Path) -> None:
+	"""Selected policy topics remain H3 children of their shared H2 section."""
+	fragment_path = tmp_path / "TECHNOLOGY_INTERRUPTION_ASSIGNMENTS.md"
+	fragment_path.write_text("## Assignments\n\nRecovery.\n", encoding="utf-8")
+	with pytest.raises(ValueError, match="must begin with a level-three heading"):
+		build_lib.syllabus_content.validate_assessment_topic_fragment(fragment_path)
 
 
 #============================================
@@ -451,7 +484,7 @@ def test_assessment_manifest_rejects_unknown_category(tmp_path: pathlib.Path) ->
 	manifest_path = tmp_path / "fall_20xx" / "course" / "syllabus.yml"
 	manifest_path.parent.mkdir(parents=True)
 	with pytest.raises(ValueError, match="unsupported assessments"):
-		build_lib.syllabus_model.resolve_assessment_fragments(
+		build_lib.syllabus_model.resolve_assessment_sections(
 			{"assessments": ["lab_practicals"]},
 			manifest_path,
 			tmp_path,
@@ -476,7 +509,11 @@ def test_coursework_requires_one_assessment_marker(tmp_path: pathlib.Path) -> No
 		sections=(coursework_path,),
 		shared_sections=(),
 		lab_status="no_lab",
-		assessment_fragments=(tmp_path / "ASSIGNMENTS.md",),
+		assessment_sections=(
+			build_lib.syllabus_model.AssessmentSection(
+				root_fragment=tmp_path / "ASSIGNMENTS.md"
+			),
+		),
 	)
 	with pytest.raises(ValueError, match="expected exactly one assessment fragment marker"):
 		build_lib.syllabus_content.apply_assessment_fragments(

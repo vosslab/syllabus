@@ -24,6 +24,30 @@ authoritative code or contract document, rather than a person.
 
 ## Software design
 
+### Compose shared and selected assessment hierarchy from one marker
+
+**Decision.** Resolve the manifest's assessment categories into ordered composite sections. Each
+section owns one H2 root and may attach separately authored, manifest-derived H3 topic fragments.
+Topics may follow selected categories or the absence of quizzes or exams. Materialize the overview,
+availability notices, applicable interruption guidance, and selected assessment details from the
+coursework marker. Use bold paragraph lead-ins for compact policy cases and the overview's short
+glossary labels.
+
+**Why.** The website page H1 needs major assessment sections as H2 peers. Manually including the
+overview while injecting only the details split ownership. Policies used by multiple assessment
+types also need one core owner rather than copies inside selected detail fragments. Styling global
+H3 elements to repair one flattened page would change unrelated syllabus pages without correcting
+the content hierarchy.
+
+**Consequence.** Course pages retain one assessment marker and no direct assessment-fragment
+includes. The manifest resolver, not the renderer, owns which composite sections and topics apply.
+The composition boundary rejects malformed H2 roots, H3 topic fragments, and heading-level skips
+before website, PDF, or DOCX rendering. The shared global heading styles remain renderer-wide rather
+than acquiring page-specific exceptions.
+
+**Owner.** `pipeline/build_lib/syllabus_model.py`, `pipeline/build_lib/syllabus_content.py`, and
+`docs/FILE_FORMATS.md`.
+
 ### Select lab attendance by course manifest
 
 **Decision.** Require each course manifest to declare `lab_status` as `no_lab` or `has_lab`.

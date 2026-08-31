@@ -16,6 +16,13 @@
 
 ### Behavior or Interface Changes
 
+- Rebuilt the Coursework and grades hierarchy without changing global heading styles. The one
+  assessment marker now composes ordered H2 section roots with manifest-derived H3 topics; compact
+  overview labels remain bold paragraph lead-ins. Added explicit No quizzes and No exams topics when
+  those categories are absent. Consolidated duplicated quiz and online-exam interruption recovery
+  under one composite section, with separate selected guidance for timed, unlimited-retry
+  assignments and timed Blackboard quizzes or online exams. Removed the exam hand-in checklist
+  because it is exam-day direction rather than syllabus content.
 - Prose-heavy columns now receive room in proportion to their content, short numeric columns stay
   compact, content-small tables no longer fill the page, and narrow screens retain deliberate
   horizontal scrolling rather than crushing descriptive text.
@@ -38,6 +45,9 @@
   `CHANGELOG-2026-08b.md` after the active changelog crossed its 800-line threshold.
 - Pruned implementation-specific table-layout assertions and corrected required manifest access,
   import grouping, and helper docstrings after the six-pass code audit.
+- Removed the audit-driven assessment-category scenario matrix from permanent pytest coverage.
+  Retained the compact ordered-composition test and one-assertion heading-contract tests; full
+  rebuild, browser, and rendered-PDF checks remain separate integration and review evidence.
 - Refreshed the complete documentation set from current repository evidence. Tightened the README
   newcomer path, install and usage workflows, manifest format contract, roadmap, troubleshooting,
   related-project guide, and concise `AGENTS.md` pointers. Retained the course-schedule Google
@@ -48,6 +58,21 @@
 
 ### Developer Tests and Notes
 
+- A fresh six-pass structural audit found no code, test, style, legacy, or comment issues and one
+  low-severity documentation mismatch. Updated the architecture, decision, format, and changelog
+  wording to distinguish selected-category topics from absence-derived No quizzes and No exams
+  topics, then reran the 1,269-test fast lane.
+- `./all_test.sh` passed all 1,269 fast tests, the live Google Sheets refresh, complete PDF/DOCX
+  exports, strict MkDocs and include parity, and the Playwright accessibility audit after the
+  composite assessment-section redesign. The first restricted-sandbox run reached Chromium but
+  macOS denied process-port registration; each subsequent complete gate passed outside that sandbox
+  boundary.
+- Captured and visually reviewed the rebuilt Coursework and grades policy on all three course
+  websites, then rendered the affected Biostatistics, Genetics, and Biotechnology PDF pages. H2
+  section boundaries, H3 topics, derived No quizzes and No exams notices, timed assignment retries,
+  and limited-attempt recovery remained clear without clipping or footer overlap. Duplicated
+  recovery text, the superseded manual Biotechnology absence sentence, and the exam hand-in
+  checklist were absent from source and rendered output.
 - `./all_test.sh` passed all 1,236 fast tests, the live Google Sheets refresh, complete PDF/DOCX
   exports, strict MkDocs and include parity, and the production Playwright accessibility and
   responsive-overflow audit.

@@ -80,8 +80,26 @@ categories across Dr. Voss's classes. The model maps them to the four canonical 
 
 Each course's `ASSIGNMENTS_AND_GRADING.md` contains one
 `<!-- assessments from syllabus.yml -->` marker. The website, PDF, and DOCX replace it with the
-selected fragments through the shared include engine. Missing, duplicate, or misplaced markers
-fail explicitly.
+ordered composite assessment sections through the shared include engine. Each section has one H2
+root and may attach manifest-derived H3 topic fragments based on category presence or absence. The
+resolver includes the overview, explicit notices when a course has no quizzes or no exams,
+applicable technology-interruption topics, and the manifest-selected detail sections. Course pages
+do not include these fragments separately. Missing, duplicate, or misplaced markers fail
+explicitly.
+
+Every assessment section-root fragment begins with exactly one level-two heading and may contain
+level-three headings. A separately authored topic fragment begins with exactly one level-three
+heading and remains attached to its section root. Level skips and additional roots fail before
+rendering. Short assessment-type labels in the overview use bold paragraph lead-ins rather than
+headings. The website therefore presents each selected assessment as a major page section, while
+complete-document composition demotes the same hierarchy one level beneath Coursework and grades.
+
+Cross-assessment guidance belongs in a composite section, not inside one selected assessment type.
+`TECHNOLOGY_INTERRUPTION.md` owns the shared H2 introduction. Its assignment topic appears only when
+`assignments` is selected; its timed-assessment topic appears when `group_quizzes` or `online_exams`
+is selected and describes limited-attempt Blackboard work without naming an unused category. The
+availability section derives `No quizzes` and `No exams` topics from categories that are absent.
+Assignment attempts remain timed even though students may retry without a set limit.
 
 The shared `ASSIGNMENTS.md` fragment contains one
 `<!-- assessment examples from syllabus.yml -->` marker. After the selected assessment fragments
