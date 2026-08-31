@@ -176,92 +176,12 @@
 
 ### Developer Tests and Notes
 
-- `./all_test.sh` passed all 1,316 fast tests, live-date refresh, strict website and PDF/DOCX
-  builds, include parity, and the Playwright browser audit after restoring the course-format
-  sections. Focused browser checks confirmed Course information, Course format, and Catalog
-  description in order on all three pages; desktop/mobile captures and the rebuilt PDF pages were
-  visually reviewed, including Genetics' restored face-to-face paragraph.
-- `./all_test.sh` passed all 1,316 fast tests, live-date refresh, strict website and PDF/DOCX
-  builds, include parity, and the Playwright browser audit after normalizing the email links. A
-  source audit found no remaining bare public email addresses. Focused browser captures confirmed
-  the local Font Awesome envelope glyph, inherited link color, and stable placement in desktop and
-  mobile light/dark states.
-- `./all_test.sh` passed all 1,316 fast tests, live-date refresh, strict website and PDF/DOCX
-  builds, include parity, and the Playwright browser audit for the shared course-information spans.
-  The width calculator retained each table's content-derived proportions; the 26-table review
-  captured four browser states, and all three course-information tables were visually reviewed in
-  those states and in PDF. The DOCX files contain 5 Biostatistics, 5 Genetics, and 8 Biotechnology
-  two-column grid spans, matching the built HTML.
-- `./all_test.sh` passed all 1,314 fast tests, live-date refresh, strict website and PDF/DOCX
-  builds, include parity, and the Playwright browser audit after removing the empty laboratory rows.
-  Recalculated all three course-information tables and visually confirmed the rebuilt PDF tables
-  close cleanly while Genetics retains its separate-laboratory explanation.
-- `./all_test.sh` passed all 1,314 fast tests, live-date refresh, strict website and PDF/DOCX
-  builds, include parity, and the Playwright browser audit after restoring the Genetics course-focus
-  explanation. Confirmed its order in rendered HTML and visually reviewed its complete two-page PDF
-  transition into the required-textbook section.
-- `./all_test.sh` passed all 1,314 fast tests, live-date refresh, strict website and PDF/DOCX
-  builds, include parity, and the Playwright browser audit after documenting the Week 3 online-
-  homework delay. Recalculated all three schedule tables with `tools/calculate_table_widths.py` and
-  visually confirmed the two new in-class labels in the rebuilt Biostatistics and BIOL 480 PDFs.
-- Passed all 1,314 fast tests, rebuilt the strict website and all three PDF/DOCX syllabi, passed
-  cross-format include parity, and passed the Playwright browser accessibility audit. Visually
-  reviewed pages 5-7 of each rebuilt PDF; all three canonical learning sections remain distinct,
-  readable, and free of clipping or footer overlap.
-- Passed all 1,314 fast tests through a disposable projected Git index without changing the real
-  index. Rebuilt the strict website and all PDF/DOCX syllabi, passed cross-format include parity and
-  the Playwright accessibility audit, and visually reviewed the Genetics schedule in four browser
-  states plus both rendered PDF pages. `tools/calculate_table_widths.py` reported a 75ch schedule
-  with 11/20/40/29 percent Week, Date, Topic, and Due-this-date columns.
-- Passed all 1,284 fast tests, including department-checklist, Markdown-link, include,
-  syllabus-builder, ASCII, and whitespace coverage. Rebuilt the strict website and all three PDF
-  and DOCX syllabi, passed cross-format include parity, and regenerated all three department
-  checklists.
-- Confirmed that the complete six-area Biology competency reference is absent from MkDocs while the
-  BIOL 318 and BIOL 351 labels appear in their website, PDF, and DOCX course-information tables.
-  Confirmed graduate not-applicable labels in BIOL 418, BIOL 451, and BIOL 480 and verified the
-  Natural Science CORE label in the Genetics outputs.
-- Regenerated all three department checklists after documenting feedback timing. BIOL 318/418 now
-  has 48 of 53 items resolved with five open, BIOL 351/451 has 49 resolved with four open, and
-  BIOL 480 has 51 resolved with two open.
-- Passed 492 focused Markdown-link, include, syllabus-builder, ASCII, and whitespace tests. Rebuilt
-  the strict website and all three PDF and DOCX syllabi, passed cross-format include parity, and
-  confirmed Joshua Campbell's listing in every generated syllabus document.
-- Regenerated all three Markdown and DOCX department checklists, confirmed each contains all 53
-  source items, verified the DOCX archives and text extraction, and passed 446 focused checklist,
-  Markdown-link, ASCII, and whitespace tests plus `git diff --check`.
-- A fresh six-pass structural audit found no code, test, style, legacy, or comment issues and one
-  low-severity documentation mismatch. Updated the architecture, decision, format, and changelog
-  wording to distinguish selected-category topics from absence-derived No quizzes and No exams
-  topics, then reran the 1,269-test fast lane.
-- `./all_test.sh` passed all 1,269 fast tests, the live Google Sheets refresh, complete PDF/DOCX
-  exports, strict MkDocs and include parity, and the Playwright accessibility audit after the
-  composite assessment-section redesign. The first restricted-sandbox run reached Chromium but
-  macOS denied process-port registration; each subsequent complete gate passed outside that sandbox
-  boundary.
-- Captured and visually reviewed the rebuilt Coursework and grades policy on all three course
-  websites, then rendered the affected Biostatistics, Genetics, and Biotechnology PDF pages. H2
-  section boundaries, H3 topics, derived No quizzes and No exams notices, timed assignment retries,
-  and limited-attempt recovery remained clear without clipping or footer overlap. Duplicated
-  recovery text, the superseded manual Biotechnology absence sentence, and the exam hand-in
-  checklist were absent from source and rendered output.
-- `./all_test.sh` passed all 1,236 fast tests, the live Google Sheets refresh, complete PDF/DOCX
-  exports, strict MkDocs and include parity, and the production Playwright accessibility and
-  responsive-overflow audit.
-- Captured and visually reviewed all 26 built tables in four browser states (104 renders), plus
-  representative table pages from all three rebuilt PDFs. The calculated widths matched the
-  rendered proportions without clipping, header collisions, or excessive numeric-column space.
-- Confirmed that all seven University important-dates tables use the same Date, Event, and Type
-  widths in the website and in each DOCX, then inspected the three PDF pages containing the series.
-- Rendered and reviewed the footer strip from all 102 pages across the three current PDFs, then
-  rechecked title and assessment-guide pages from the final full-gate build. Short names, current
-  headings, and page counts remained legible and separate without footer/content overlap.
-- Refreshed the coordinated documentation set and passed all 1,231 fast tests, both live build
-  cycles, complete PDF/DOCX export and include parity, strict MkDocs, and Playwright through a
-  disposable alternate index used during the documentation audit. The real Git index remained
-  untouched.
-- Confirmed all eight live links in the README and related-project guide. Recaptured and visually
-  reviewed the three 1440 by 900 README screenshots; a repeat capture produced identical files.
+- Final `./all_test.sh` passed all 1,316 fast tests, the live-date refresh, strict website and
+  PDF/DOCX builds, include parity, and the Playwright browser audit.
+- Focused rendered review covered the three Course information pages, learning frameworks,
+  schedules, coursework hierarchy, table layouts and spans, PDF footers, email-link icons, and the
+  managed README screenshots. Department checklists and DOCX structure were also regenerated and
+  inspected where their source changes required it.
 
 ## 2026-08-30
 
