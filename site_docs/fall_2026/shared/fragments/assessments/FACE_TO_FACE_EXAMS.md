@@ -1,8 +1,4 @@
-### Face-to-face exams
-
-You will complete face-to-face exams individually on paper in the classroom during a scheduled
-exam period. They focus on using course knowledge to reason through and solve questions rather
-than simply recalling facts. The course point plan lists this semester's exams and point values.
+### Face-to-face exam details
 
 #### Question packet and ZipGrade form
 

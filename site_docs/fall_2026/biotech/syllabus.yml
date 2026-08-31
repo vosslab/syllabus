@@ -1,4 +1,5 @@
 title: Applications of Biotechnology
+short_name: Biotechnology
 course_code: BIOL 480
 term: Fall 2026
 author: Neil R. Voss
@@ -28,6 +29,7 @@ sections:
 assessments:
   - assignments
 discussion: remote_discussion
+lab_status: no_lab
 shared_sections:
   - ../shared/policies/index.md
   - ../shared/policies/COURSE_DELIVERY.md

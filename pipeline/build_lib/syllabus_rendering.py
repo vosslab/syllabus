@@ -15,6 +15,7 @@ import importlib.util
 import docx
 import pypdf
 import markdown
+import docx.enum.table
 import docx.enum.text
 import docx.oxml
 import docx.oxml.ns
@@ -23,6 +24,7 @@ import docx.shared
 # local repo modules
 import build_lib.syllabus_model
 import build_lib.syllabus_content
+import build_lib.table_layouts
 
 
 # Generated public artifacts are documents, never executable server-side content (ASVS 5.3.1).
@@ -64,6 +66,40 @@ def prevent_row_split(row: object) -> None:
 	if properties.find(docx.oxml.ns.qn("w:cantSplit")) is None:
 		cant_split = docx.oxml.OxmlElement("w:cantSplit")
 		properties.append(cant_split)
+	return None
+
+
+#============================================
+def configure_docx_table_widths(
+	table: object,
+	document: object,
+	layout_profile: build_lib.table_layouts.TableLayout,
+) -> None:
+	"""Apply the shared content-derived column layout to one Word table."""
+	if not table.rows:
+		return None
+	section = document.sections[0]
+	usable_width = section.page_width - section.left_margin - section.right_margin
+	table_width = usable_width
+	if layout_profile.is_compact:
+		average_character_width = docx.shared.Pt(6.5)
+		table_width = min(
+			usable_width,
+			average_character_width * layout_profile.minimum_width_ch,
+		)
+	table.autofit = False
+	table.alignment = docx.enum.table.WD_TABLE_ALIGNMENT.LEFT
+	properties = table._tbl.tblPr
+	layout = properties.find(docx.oxml.ns.qn("w:tblLayout"))
+	if layout is None:
+		layout = docx.oxml.OxmlElement("w:tblLayout")
+		properties.append(layout)
+	layout.set(docx.oxml.ns.qn("w:type"), "fixed")
+	for column_index, percentage in enumerate(layout_profile.column_percentages):
+		column_width = table_width * percentage // 100
+		table.columns[column_index].width = column_width
+		for cell in table.columns[column_index].cells:
+			cell.width = column_width
 	return None
 
 
@@ -200,9 +236,30 @@ def postprocess_docx(
 	set_document_language(document, manifest.language)
 	configure_docx_footer(document, manifest)
 	configure_docx_contents(document)
+	tables_with_content = []
+	for table in document.tables:
+		if not table.rows:
+			continue
+		headers = tuple(cell.text.strip() for cell in table.rows[0].cells)
+		body_rows = tuple(
+			tuple(cell.text.strip() for cell in row.cells)
+			for row in table.rows[1:]
+		)
+		tables_with_content.append((table, headers, body_rows))
+	layout_profiles = build_lib.table_layouts.calculate_shared_table_layouts(
+		tuple(
+			(headers, body_rows)
+			for _table, headers, body_rows in tables_with_content
+		)
+	)
+	for (table, _headers, _body_rows), layout_profile in zip(
+		tables_with_content,
+		layout_profiles,
+		strict=True,
+	):
+		configure_docx_table_widths(table, document, layout_profile)
 	for table in document.tables:
 		table.style = "Table"
-		table.autofit = True
 		if table.rows:
 			format_table_header(table.rows[0])
 		for row in table.rows:
@@ -309,7 +366,7 @@ def run_markdown_html(
 	)
 	body_html = converter.convert(markdown_text)
 	expected_table_count = build_lib.syllabus_content.count_markdown_tables(markdown_text)
-	rendered_table_count = body_html.count("<table>")
+	rendered_table_count = body_html.count("<table")
 	if rendered_table_count != expected_table_count:
 		raise RuntimeError(
 			f"{html_path}: expected {expected_table_count} tables, found {rendered_table_count}"
@@ -318,6 +375,7 @@ def run_markdown_html(
 	# ASVS 1.1.2 and 1.2.1: escape metadata at the final HTML rendering boundary.
 	escaped_title = html.escape(document_title)
 	escaped_course_title = html.escape(f"{manifest.course_code}: {manifest.title}")
+	escaped_short_name = html.escape(manifest.short_name, quote=True)
 	escaped_term = html.escape(manifest.term)
 	escaped_author = html.escape(manifest.author)
 	escaped_language = html.escape(manifest.language, quote=True)
@@ -339,7 +397,7 @@ def run_markdown_html(
 				f'style="--syllabus-page-accent: {escaped_course_color}">'
 			),
 			'<header id="title-block-header">',
-			f"<h1>{escaped_course_title}</h1>",
+			f'<h1 data-course-short-name="{escaped_short_name}">{escaped_course_title}</h1>',
 			f'<p class="subtitle">{escaped_term}</p>',
 			f'<p class="author">{escaped_author}</p>',
 			"</header>",

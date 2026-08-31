@@ -3,6 +3,7 @@
 	"private": true,
 	"type": "module",
 	"scripts": {
+		"review:tables": "node tests/playwright/capture_table_review.mjs",
 		"test:playwright": "node tests/playwright/syllabus_smoke.mjs"
 	},
 	"devDependencies": {

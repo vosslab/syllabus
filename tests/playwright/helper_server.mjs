@@ -36,7 +36,11 @@ export async function startStaticServer(siteRoot) {
 			return;
 		}
 		const contentType = CONTENT_TYPES.get(path.extname(targetPath)) ?? "application/octet-stream";
-		response.writeHead(200, { "Content-Type": contentType });
+		// ASVS 3.2.1: keep locally served review assets in their declared content context.
+		response.writeHead(200, {
+			"Content-Type": contentType,
+			"X-Content-Type-Options": "nosniff",
+		});
 		fs.createReadStream(targetPath).pipe(response);
 	});
 	server.listen(0, "127.0.0.1");

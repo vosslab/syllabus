@@ -13,6 +13,7 @@
 |-- tests/                   Fast, export E2E, and browser validation
 |-- tools/                   Optional repository-analysis utilities
 |-- all_test.sh              Complete local validation front door
+|-- capture_table_review.sh  Build and capture every rendered Markdown table
 |-- mkdocs.yml               Site, navigation, theme, and Markdown configuration
 |-- package.json             Playwright audit dependencies and command
 |-- pip_requirements*.txt    Python runtime and development dependencies
@@ -42,7 +43,7 @@ site_docs/
 |       |-- IMPORTANT_DATES.md       Public wrapper for synchronized dates
 |       |-- INSTRUCTOR_INFORMATION.md
 |       |-- STUDENT_RESOURCES.md
-|       |-- fragments/               Edit-once term, contact, goal, and assessment content
+|       |-- fragments/               Edit-once term, contact, assessment, discussion, and lab content
 |       `-- policies/                Canonical Dr. Voss policy topics
 |-- generated/                       Ignored synchronized fragments
 `-- downloads/                       Ignored generated PDF and DOCX files
@@ -73,7 +74,8 @@ pipeline/
     |-- markdown_includes.py             Shared include grammar and expansion engine
     |-- syllabus_content.py              Source validation and Markdown composition
     |-- syllabus_model.py                Manifest model, loading, and path validation
-    `-- syllabus_rendering.py            DOCX/PDF rendering, checks, and publication
+    |-- syllabus_rendering.py            DOCX/PDF rendering, checks, and publication
+    `-- table_layouts.py                  Content-derived cross-format table sizing
 ```
 
 [pipeline/](../pipeline/) holds runnable or externally loaded entry points.
@@ -93,6 +95,10 @@ composition, validation, or rendering implementations.
 - `tests/playwright/helper_server.mjs` serves the local static build over HTTP.
 - `tests/playwright/capture_readme_screenshots.mjs` captures documentation images from the built
   site.
+- `tests/playwright/capture_table_review.mjs` captures every built table and records its calculated
+  and rendered widths under ignored `output/table_review/`.
+- `tools/calculate_table_widths.py` reports the shared width calculation directly from selected
+  Markdown files or directories.
 
 ## Documentation layout
 

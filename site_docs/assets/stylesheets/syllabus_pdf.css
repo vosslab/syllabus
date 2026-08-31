@@ -35,24 +35,34 @@
 	margin: 0.8in;
 
 	@bottom-left {
-		border-top: 0.5pt solid #888;
-		content: string(course-title) " - " string(course-term);
-		font-size: 8pt;
-		padding-top: 0.08in;
+		color: #555;
+		content: string(course-short-name);
+		font-size: 7.5pt;
+		padding-top: 0.04in;
+		text-align: left;
+		vertical-align: top;
+		width: 20%;
 	}
 
 	@bottom-center {
-		border-top: 0.5pt solid #888;
+		color: #444;
 		content: string(section-title);
-		font-size: 8pt;
-		padding-top: 0.08in;
+		font-size: 7.5pt;
+		font-weight: 700;
+		padding-top: 0.04in;
+		text-align: center;
+		vertical-align: top;
+		width: 60%;
 	}
 
 	@bottom-right {
-		border-top: 0.5pt solid #888;
-		content: "Page " counter(page) " of " counter(pages);
-		font-size: 8pt;
-		padding-top: 0.08in;
+		color: #555;
+		content: "Page " counter(page) " / " counter(pages);
+		font-size: 7.5pt;
+		padding-top: 0.04in;
+		text-align: right;
+		vertical-align: top;
+		width: 20%;
 	}
 }
 
@@ -99,13 +109,12 @@ body {
 }
 
 #title-block-header h1 {
-	string-set: course-title content(text);
+	string-set: course-short-name attr(data-course-short-name);
 }
 
 #title-block-header .subtitle {
 	font-size: 14pt;
 	font-weight: 700;
-	string-set: course-term content(text);
 }
 
 h1,
@@ -173,6 +182,7 @@ h3 {
 	font-size: 14pt;
 	font-weight: 700;
 	margin-block: 1.1rem 0.45rem;
+	string-set: section-title content(text);
 }
 
 h4 {
@@ -200,6 +210,7 @@ h6 {
 	font-style: normal;
 	font-weight: 700;
 	margin-block: 1.1rem 0.45rem;
+	string-set: section-title content(text);
 }
 
 .important-dates-month-01 {
@@ -328,6 +339,14 @@ table {
 	width: 100%;
 }
 
+table.syllabus-table {
+	table-layout: fixed;
+}
+
+table.syllabus-table.table-width--intrinsic {
+	width: var(--table-minimum-width);
+}
+
 thead {
 	display: table-header-group;
 }
@@ -355,18 +374,20 @@ tbody tr:nth-child(even) {
 }
 
 /* Repeat the header hierarchy for the point-plan sum and leave room to write. */
-#course-point-plan + table tbody tr:last-child td {
+#course-point-plan + table tbody tr:last-child td,
+#course-point-plan + .md-typeset__scrollwrap tbody tr:last-child td {
 	background: #edf2ef;
 	border-bottom: 1.5pt solid var(--syllabus-page-accent);
 	border-top: 1.5pt solid var(--syllabus-page-accent);
 	font-weight: 700;
 }
 
-#course-point-plan + table :is(th, td):last-child {
-	min-width: 0.8in;
+.important-dates-month-01 + table {
+	--important-dates-table-accent: var(--syllabus-calendar-month-01);
+	--important-dates-table-surface: var(--syllabus-calendar-month-01-table-surface);
 }
 
-.important-dates-month-01 + table {
+.important-dates-month-01 + .md-typeset__scrollwrap {
 	--important-dates-table-accent: var(--syllabus-calendar-month-01);
 	--important-dates-table-surface: var(--syllabus-calendar-month-01-table-surface);
 }
@@ -376,7 +397,17 @@ tbody tr:nth-child(even) {
 	--important-dates-table-surface: var(--syllabus-calendar-month-05-table-surface);
 }
 
+.important-dates-month-05 + .md-typeset__scrollwrap {
+	--important-dates-table-accent: var(--syllabus-calendar-month-05);
+	--important-dates-table-surface: var(--syllabus-calendar-month-05-table-surface);
+}
+
 .important-dates-month-08 + table {
+	--important-dates-table-accent: var(--syllabus-calendar-month-08);
+	--important-dates-table-surface: var(--syllabus-calendar-month-08-table-surface);
+}
+
+.important-dates-month-08 + .md-typeset__scrollwrap {
 	--important-dates-table-accent: var(--syllabus-calendar-month-08);
 	--important-dates-table-surface: var(--syllabus-calendar-month-08-table-surface);
 }
@@ -386,7 +417,17 @@ tbody tr:nth-child(even) {
 	--important-dates-table-surface: var(--syllabus-calendar-month-09-table-surface);
 }
 
+.important-dates-month-09 + .md-typeset__scrollwrap {
+	--important-dates-table-accent: var(--syllabus-calendar-month-09);
+	--important-dates-table-surface: var(--syllabus-calendar-month-09-table-surface);
+}
+
 .important-dates-month-10 + table {
+	--important-dates-table-accent: var(--syllabus-calendar-month-10);
+	--important-dates-table-surface: var(--syllabus-calendar-month-10-table-surface);
+}
+
+.important-dates-month-10 + .md-typeset__scrollwrap {
 	--important-dates-table-accent: var(--syllabus-calendar-month-10);
 	--important-dates-table-surface: var(--syllabus-calendar-month-10-table-surface);
 }
@@ -396,16 +437,28 @@ tbody tr:nth-child(even) {
 	--important-dates-table-surface: var(--syllabus-calendar-month-11-table-surface);
 }
 
+.important-dates-month-11 + .md-typeset__scrollwrap {
+	--important-dates-table-accent: var(--syllabus-calendar-month-11);
+	--important-dates-table-surface: var(--syllabus-calendar-month-11-table-surface);
+}
+
 .important-dates-month-12 + table {
 	--important-dates-table-accent: var(--syllabus-calendar-month-12);
 	--important-dates-table-surface: var(--syllabus-calendar-month-12-table-surface);
 }
 
-.important-dates-month + table {
+.important-dates-month-12 + .md-typeset__scrollwrap {
+	--important-dates-table-accent: var(--syllabus-calendar-month-12);
+	--important-dates-table-surface: var(--syllabus-calendar-month-12-table-surface);
+}
+
+.important-dates-month + table,
+.important-dates-month + .md-typeset__scrollwrap table {
 	border-top-color: var(--important-dates-table-accent);
 }
 
-.important-dates-month + table th {
+.important-dates-month + table th,
+.important-dates-month + .md-typeset__scrollwrap table th {
 	background: var(--important-dates-table-surface);
 	border-bottom-color: var(--important-dates-table-accent);
 }

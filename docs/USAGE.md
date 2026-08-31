@@ -38,6 +38,9 @@ See [FILE_FORMATS.md](FILE_FORMATS.md) for manifest, Markdown table, and restric
   shares at the coursework marker; omit extra credit because it does not enter the denominator.
 - Set `discussion` to `no_discussion`, `f2f_discussion`, or `remote_discussion`. Edit mode-specific
   and shared discussion wording under `shared/fragments/discussions/`.
+- Set required `lab_status` to `no_lab` unless this syllabus includes a lab taught by Dr. Voss.
+  Use `has_lab` for that future case and edit the shared lab-attendance wording only under
+  `shared/fragments/labs/`; a separately taught co-requisite lab remains `no_lab` here.
 
 Use the exact, full-line include form when a public fact must appear in more than one place:
 
@@ -74,6 +77,31 @@ python3 pipeline/build_syllabi.py
 ```
 
 Use `--archive` with that command to package current generated documents under `output/archive/`.
+
+## Review table widths
+
+Preview the content-derived widths for authored Markdown tables without building outputs:
+
+```bash
+source source_me.sh
+python3 tools/calculate_table_widths.py
+```
+
+Pass one or more Markdown files or directories to narrow the report, or add `--json` for
+machine-readable output. The command is read-only and uses the same calculator as the website,
+PDF, and DOCX renderers. Its `series` value shows how many exact-header tables in that source share
+one width vector; use the generated important-dates file to inspect all monthly tables together.
+
+Build the production site and capture every rendered syllabus table in desktop/mobile and
+light/dark states:
+
+```bash
+./capture_table_review.sh
+```
+
+Open `output/table_review/index.html` to inspect the screenshots, calculated percentages, rendered
+pixel widths, and scroll-area measurements. This is an explicit visual-review lane, not a brittle
+pixel-comparison test.
 
 ## Build department checklists
 

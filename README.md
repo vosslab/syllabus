@@ -87,6 +87,7 @@ site_docs/fall_2026/
 |   |-- fragments/
 |   |   |-- assessments/             Four assessment formats
 |   |   |-- discussions/             Three course-selected discussion modes
+|   |   |-- labs/                    Manifest-selected lab attendance policy
 |   |   |-- INSTRUCTOR_CONTACT_DETAILS.md
 |   |   |-- ROOSEVELT_LEARNING_GOALS.md
 |   |   `-- TERM_COURSES.md
@@ -99,8 +100,9 @@ site_docs/fall_2026/
 `-- ...
 ```
 
-Each course `syllabus.yml` selects its assessment categories and one discussion mode from the
-shared fragments. See [docs/FILE_FORMATS.md](docs/FILE_FORMATS.md) for the exact manifest contract.
+Each course `syllabus.yml` selects its assessment categories, one discussion mode, and whether the
+syllabus includes Dr. Voss's lab attendance policy. See
+[docs/FILE_FORMATS.md](docs/FILE_FORMATS.md) for the exact manifest contract.
 
 The website-only approved movie catalog lives at
 [site_docs/EXTRA_CREDIT_MOVIES.md](site_docs/EXTRA_CREDIT_MOVIES.md), outside the term tree and

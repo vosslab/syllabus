@@ -13,8 +13,8 @@ marks are course-specific and appear with each course's own pages.
 - [Grades and graded work](ASSESSMENT.md): letter grades, make-up work, and Blackboard percentages.
 - [Extra credit write-ups](EXTRA_CREDIT.md): four eligible categories, write-up requirements,
   submission, grading, point deductions, and frequently asked questions.
-- [Attendance, absences, and accommodations](ATTENDANCE_AND_ACCOMMODATIONS.md): class and
-  lab attendance, disability accommodations, religious holidays, caregivers, and student athletes.
+- [Attendance, absences, and accommodations](ATTENDANCE_AND_ACCOMMODATIONS.md): class attendance,
+  disability accommodations, religious holidays, caregivers, and student athletes.
 - [Academic integrity and AI](ACADEMIC_INTEGRITY.md): plagiarism, academic dishonesty,
   course consequences, the honor system, and responsible AI use.
 - [What students and instructors can expect](COURSE_EXPECTATIONS.md): shared

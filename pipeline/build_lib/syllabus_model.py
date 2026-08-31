@@ -31,6 +31,13 @@ DISCUSSION_FRAGMENT_PATHS = {
 	),
 }
 
+LAB_FRAGMENT_PATHS = {
+	"no_lab": (),
+	"has_lab": (
+		pathlib.PurePosixPath("shared/fragments/labs/LAB_ATTENDANCE.md"),
+	),
+}
+
 COURSE_POINT_PLAN_KEYS = frozenset(("assessment", "points"))
 COURSE_POINT_PLAN_LABEL_PATTERN = re.compile(
 	r"[A-Za-z0-9][A-Za-z0-9 &'()+,./:-]{0,99}"
@@ -54,6 +61,7 @@ class SyllabusManifest:
 	path: pathlib.Path
 	docs_root: pathlib.Path
 	title: str
+	short_name: str
 	course_code: str
 	term: str
 	author: str
@@ -62,10 +70,12 @@ class SyllabusManifest:
 	download_basename: str
 	sections: tuple[pathlib.Path, ...]
 	shared_sections: tuple[pathlib.Path, ...]
+	lab_status: str
 	course_point_plan: tuple[CoursePointPlanEntry, ...] = ()
 	assessment_fragments: tuple[pathlib.Path, ...] = ()
 	assessment_examples_url: str | None = None
 	discussion_fragments: tuple[pathlib.Path, ...] = ()
+	lab_fragments: tuple[pathlib.Path, ...] = ()
 
 
 #============================================
@@ -274,6 +284,32 @@ def resolve_discussion_fragments(
 
 
 #============================================
+def resolve_lab_fragments(
+	data: dict[object, object],
+	manifest_path: pathlib.Path,
+	docs_root: pathlib.Path,
+) -> tuple[str, tuple[pathlib.Path, ...]]:
+	"""Resolve whether this syllabus includes Dr. Voss's lab policy."""
+	lab_status = data["lab_status"]
+	# ASVS 2.1.1, 2.2.1, 2.2.3: require one documented status and map it to
+	# repository-owned paths instead of accepting arbitrary fragment input.
+	if not isinstance(lab_status, str) or lab_status not in LAB_FRAGMENT_PATHS:
+		allowed = ", ".join(sorted(LAB_FRAGMENT_PATHS))
+		raise ValueError(f"{manifest_path}: lab_status must be one of: {allowed}")
+	term_root = manifest_path.parent.parent
+	fragments = tuple(
+		(term_root / relative_path).resolve()
+		for relative_path in LAB_FRAGMENT_PATHS[lab_status]
+	)
+	for fragment_path in fragments:
+		if not fragment_path.is_relative_to(docs_root.resolve()):
+			raise ValueError(f"{manifest_path}: lab fragment escapes site_docs")
+		if not fragment_path.is_file():
+			raise FileNotFoundError(f"{manifest_path}: missing lab fragment: {fragment_path}")
+	return lab_status, fragments
+
+
+#============================================
 def load_manifest(
 	manifest_path: pathlib.Path,
 	docs_root: pathlib.Path,
@@ -284,6 +320,9 @@ def load_manifest(
 	if not isinstance(loaded, dict):
 		raise ValueError(f"{manifest_path}: manifest root must be a mapping")
 	title = require_text(loaded, "title", manifest_path)
+	short_name = require_text(loaded, "short_name", manifest_path)
+	if len(short_name) > 40:
+		raise ValueError(f"{manifest_path}: short_name must be at most 40 characters")
 	course_code = require_text(loaded, "course_code", manifest_path)
 	term = require_text(loaded, "term", manifest_path)
 	author = require_text(loaded, "author", manifest_path)
@@ -297,6 +336,7 @@ def load_manifest(
 	course_point_plan = resolve_course_point_plan(loaded, manifest_path)
 	assessment_fragments = resolve_assessment_fragments(loaded, manifest_path, docs_root)
 	discussion_fragments = resolve_discussion_fragments(loaded, manifest_path, docs_root)
+	lab_status, lab_fragments = resolve_lab_fragments(loaded, manifest_path, docs_root)
 	assessment_examples_url = validate_assessment_examples_url(
 		require_text(loaded, "assessment_examples_url", manifest_path),
 		manifest_path,
@@ -305,6 +345,7 @@ def load_manifest(
 		path=manifest_path,
 		docs_root=docs_root.resolve(),
 		title=title,
+		short_name=short_name,
 		course_code=course_code,
 		term=term,
 		author=author,
@@ -313,9 +354,11 @@ def load_manifest(
 		download_basename=download_basename,
 		sections=sections,
 		shared_sections=shared_sections,
+		lab_status=lab_status,
 		course_point_plan=course_point_plan,
 		assessment_fragments=assessment_fragments,
 		assessment_examples_url=assessment_examples_url,
 		discussion_fragments=discussion_fragments,
+		lab_fragments=lab_fragments,
 	)
 	return manifest

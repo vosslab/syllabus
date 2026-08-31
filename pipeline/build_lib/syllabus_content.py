@@ -38,6 +38,7 @@ ASSESSMENT_FRAGMENT_MARKER = "<!-- assessments from syllabus.yml -->"
 ASSESSMENT_EXAMPLES_MARKER = "<!-- assessment examples from syllabus.yml -->"
 DISCUSSION_FRAGMENT_MARKER = "<!-- discussion from syllabus.yml -->"
 COURSE_POINT_PLAN_MARKER = "<!-- course point plan from syllabus.yml -->"
+LAB_FRAGMENT_MARKER = "<!-- lab attendance from syllabus.yml -->"
 
 
 #============================================
@@ -334,6 +335,28 @@ def apply_discussion_fragments(
 
 
 #============================================
+def apply_lab_fragments(
+	markdown: str,
+	source_path: pathlib.Path,
+	manifest: build_lib.syllabus_model.SyllabusManifest,
+) -> str:
+	"""Include lab attendance only for a syllabus that declares a lab."""
+	is_course_details = source_path.name == "COURSE_DETAILS.md"
+	marker_count = markdown.count(LAB_FRAGMENT_MARKER)
+	if is_course_details and marker_count != 1:
+		raise ValueError(f"{source_path}: expected exactly one lab attendance marker")
+	if not is_course_details and marker_count:
+		raise ValueError(f"{source_path}: lab marker is only valid on course details")
+	if not is_course_details:
+		return markdown
+	include_lines = []
+	for fragment_path in manifest.lab_fragments:
+		relative_path = fragment_path.relative_to(manifest.docs_root).as_posix()
+		include_lines.append(f'--8<-- "{relative_path}"')
+	return markdown.replace(LAB_FRAGMENT_MARKER, "\n\n".join(include_lines))
+
+
+#============================================
 def normalize_admonitions(markdown: str) -> str:
 	"""Convert Material admonitions into portable Markdown for Pandoc."""
 	lines = markdown.splitlines()
@@ -560,6 +583,7 @@ def compose_markdown(manifest: build_lib.syllabus_model.SyllabusManifest) -> str
 		markdown = apply_course_point_plan(markdown, section_path, manifest)
 		markdown = apply_assessment_fragments(markdown, section_path, manifest)
 		markdown = apply_discussion_fragments(markdown, section_path, manifest)
+		markdown = apply_lab_fragments(markdown, section_path, manifest)
 		markdown = build_lib.markdown_includes.expand_includes(
 			markdown,
 			section_path,
@@ -573,6 +597,7 @@ def compose_markdown(manifest: build_lib.syllabus_model.SyllabusManifest) -> str
 		parts.append(prepare_section(markdown, is_overview=index == 0, anchor=anchor))
 	for section_path in manifest.shared_sections:
 		markdown = section_path.read_text(encoding="utf-8")
+		markdown = apply_lab_fragments(markdown, section_path, manifest)
 		markdown = build_lib.markdown_includes.expand_includes(
 			markdown,
 			section_path,

@@ -46,6 +46,7 @@ markdown_extensions:
   - attr_list
   - md_in_html
   - tables
+  - pipeline.build_lib.table_layouts
   - toc:
       permalink: true
 

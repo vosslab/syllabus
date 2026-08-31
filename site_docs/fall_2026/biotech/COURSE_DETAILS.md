@@ -32,6 +32,8 @@ You need regular access to Blackboard and to the online presentation and respons
 for each assignment. A computer is strongly recommended for preparing and presenting course
 projects.
 
+<!-- lab attendance from syllabus.yml -->
+
 ## Instructor information
 
 --8<-- "fall_2026/shared/fragments/INSTRUCTOR_CONTACT_DETAILS.md"

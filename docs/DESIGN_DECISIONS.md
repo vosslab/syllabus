@@ -24,9 +24,65 @@ authoritative code or contract document, rather than a person.
 
 ## Software design
 
+### Select lab attendance by course manifest
+
+**Decision.** Require each course manifest to declare `lab_status` as `no_lab` or `has_lab`.
+Materialize the canonical lab-attendance fragment at the course-details marker only for
+`has_lab`; keep the general shared attendance policy lab-neutral.
+
+**Why.** Lab rules belong only to a class Dr. Voss teaches as a lab. A global policy URL cannot
+vary by referring course, and Genetics co-registration does not mean its lecture syllabus owns the
+separately taught lab's attendance policy.
+
+**Consequence.** Every course details page retains one lab marker, every manifest declares an
+allowlisted status, and lab wording is edited only in the lab fragment. New lab states require an
+explicit model and documentation change rather than being inferred from course names or prose.
+
+**Owner.** `site_docs/fall_2026/*/syllabus.yml`,
+`site_docs/fall_2026/shared/fragments/labs/LAB_ATTENDANCE.md`, and
+`pipeline/build_lib/syllabus_model.py`.
+
+### Derive table widths from content through one shared calculator
+
+**Decision.** Classify the supported syllabus table headers fail-closed, but calculate column
+widths from every visible cell through one renderer-neutral Python implementation. CSS consumes
+generated column hints; DOCX post-processing calls the same calculation. Do not maintain
+per-table or per-profile width percentages.
+
+**Why.** Header-only and equal-width layouts routinely over-allocate space to short numbers while
+forcing student-facing explanations to wrap. Content-derived demand adapts when rows change and
+keeps the layout rule testable and inspectable without coupling it to one course's current text.
+
+**Consequence.** New table shapes must register their semantic headers, while width changes belong
+in the generic demand algorithm and must be reviewed through both the calculated report and
+rendered browser/PDF evidence. Authors do not add width markup to Markdown content. Repeated tables
+with exact matching headers form one layout series and share the maximum demand measured for each
+column; tables with different headers remain independent.
+
+**Owner.** `pipeline/build_lib/table_layouts.py`, `docs/FILE_FORMATS.md`, and
+`tests/playwright/capture_table_review.mjs`.
+
 ## Dependencies
 
 ## Generated artifacts
+
+### Use the PDF footer as a compact orientation strip
+
+**Decision.** Use a manifest-owned short course name at the left of every PDF page, the most recent
+meaningful level-two or level-three heading in the wide center position, and a compact page count at
+the right. Keep the full course code, title, and term in the title block. Do not divide the footer
+with repeated line segments.
+
+**Why.** Repeating the complete course identity consumed the footer while adding little after the
+title page. A short identity plus current heading helps students recognize both the document and
+their location, and the wider center position accommodates specific headings without crowding the
+page count.
+
+**Consequence.** Every course manifest owns a concise `short_name`. New heading levels do not enter
+the footer unless they remain useful and legible across a complete rendered-PDF review.
+
+**Owner.** `site_docs/fall_2026/*/syllabus.yml`, `pipeline/build_lib/syllabus_model.py`, and
+`site_docs/assets/stylesheets/syllabus_pdf.css`.
 
 ### Use one instructor image source with a website-only dark-theme substitution
 

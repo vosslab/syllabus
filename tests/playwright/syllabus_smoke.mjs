@@ -387,15 +387,15 @@ try {
 	await accommodationPage.goto(
 		`${staticServer.baseUrl}/fall_2026/shared/policies/ATTENDANCE_AND_ACCOMMODATIONS/`,
 	);
-	const absenceTable = accommodationPage.getByRole("table").filter({
-		hasText: "First communicated",
-	});
-	await absenceTable.waitFor();
-	assert.deepEqual(await absenceTable.getByRole("columnheader").allTextContents(), [
-		"Absence type",
-		"Score",
-		"Included in total points",
-	]);
+	await accommodationPage.getByRole("heading", { name: "Attendance policy" }).waitFor();
+	await accommodationPage.getByRole("heading", { name: "Disability accommodations" }).waitFor();
+	assert.equal(
+		await accommodationPage.getByRole("heading", {
+			name: "Lab attendance and weekly preparation score",
+		}).count(),
+		0,
+	);
+	assert.equal(await accommodationPage.getByRole("table").count(), 0);
 	await accommodationPage.close();
 
 	const gradingPage = await browser.newPage();

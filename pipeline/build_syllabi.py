@@ -2,6 +2,7 @@
 
 # Standard Library
 import re
+import sys
 import pathlib
 import zipfile
 import argparse
@@ -62,6 +63,11 @@ def main() -> None:
 	"""Build all course manifests into complete downloadable files."""
 	args = parse_args()
 	repo_root = get_repo_root()
+	# The shared Markdown configuration names its extension from the repository root so
+	# MkDocs and the standalone document renderer load the same implementation.
+	repo_root_text = str(repo_root)
+	if repo_root_text not in sys.path:
+		sys.path.insert(0, repo_root_text)
 	docs_root = repo_root / "site_docs"
 	downloads_dir = docs_root / "downloads"
 	reference_path = repo_root / "pipeline" / "syllabus_reference.docx"

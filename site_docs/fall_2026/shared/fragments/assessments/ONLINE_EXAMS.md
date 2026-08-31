@@ -1,7 +1,4 @@
-### Online exams
-
-Online exams are cumulative assessments completed individually through Blackboard. A typical
-online exam has two parts of about 50 questions each.
+### Online exam details
 
 #### Online exam format
 

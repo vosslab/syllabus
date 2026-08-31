@@ -43,6 +43,7 @@ def test_render_checklist_keeps_doubt_unchecked(tmp_path: pathlib.Path) -> None:
 		path=tmp_path / "syllabus.yml",
 		docs_root=tmp_path,
 		title="Course title",
+		short_name="Course",
 		course_code="BIOL 000",
 		term="Fall 2026",
 		author="Instructor",
@@ -51,6 +52,7 @@ def test_render_checklist_keeps_doubt_unchecked(tmp_path: pathlib.Path) -> None:
 		download_basename="BIOL_000_SYLLABUS",
 		sections=(),
 		shared_sections=(),
+		lab_status="no_lab",
 	)
 	items = [
 		{

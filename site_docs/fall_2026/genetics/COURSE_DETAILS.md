@@ -30,6 +30,8 @@ Students use the book online. A physical copy is neither required nor recommende
 You need regular Blackboard access and a computer or mobile device capable of reading the online
 textbook and completing course assignments.
 
+<!-- lab attendance from syllabus.yml -->
+
 ## Instructor information
 
 --8<-- "fall_2026/shared/fragments/INSTRUCTOR_CONTACT_DETAILS.md"

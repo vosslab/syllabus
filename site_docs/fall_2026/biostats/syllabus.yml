@@ -1,4 +1,5 @@
 title: Biostatistics
+short_name: Biostatistics
 course_code: BIOL 318/418
 term: Fall 2026
 author: Neil R. Voss
@@ -15,6 +16,7 @@ assessments:
   - assignments
   - group_quizzes
 discussion: no_discussion
+lab_status: no_lab
 shared_sections:
   - ../shared/policies/index.md
   - ../shared/policies/COURSE_DELIVERY.md

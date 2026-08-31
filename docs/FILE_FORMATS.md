@@ -7,6 +7,7 @@ contract for a complete PDF and DOCX syllabus.
 
 ```yaml
 title: General Genetics
+short_name: Genetics
 course_code: BIOL 351/451
 term: Fall 2026
 author: Neil R. Voss
@@ -36,6 +37,7 @@ assessments:
   - group_quizzes
   - f2f_exams
 discussion: f2f_discussion
+lab_status: no_lab
 shared_sections:
   - ../shared/policies/index.md
   - ../shared/policies/COURSE_DELIVERY.md
@@ -45,8 +47,10 @@ shared_sections:
   - ../shared/STUDENT_RESOURCES.md
 ```
 
-Required scalar fields are `title`, `course_code`, `term`, `author`, `language`,
+Required scalar fields are `title`, `short_name`, `course_code`, `term`, `author`, `language`,
 `download_basename`, and `assessment_examples_url`. Each must be a non-empty string.
+`short_name` is the concise course label shown in generated PDF footers and may contain at most 40
+characters.
 `download_basename` accepts only uppercase ASCII letters, digits, and underscores.
 `assessment_examples_url` accepts only an HTTPS `biologyproblems.org` subject route with one safe
 lowercase slug, such as `https://biologyproblems.org/biochemistry/`.
@@ -85,6 +89,13 @@ participating course's `DISCUSSION_MARKS.md` contains one
 face-to-face and remote discussion include the selected format plus the shared criticism, scoring,
 and no-make-up fragment.
 
+`lab_status` is required and is exactly `no_lab` or `has_lab`. It describes whether this syllabus
+includes a lab taught by Dr. Voss; co-registration in a separately taught lab does not make a
+lecture syllabus `has_lab`. Every `COURSE_DETAILS.md` contains one
+`<!-- lab attendance from syllabus.yml -->` marker. `no_lab` removes the marker without adding
+content. `has_lab` replaces it with the canonical lab attendance and preparation policy under
+`shared/fragments/labs/`. The same selection is applied to the website, PDF, and DOCX.
+
 `sections` and `shared_sections` are non-empty ordered lists of local source paths. Every path must
 resolve to an existing file below `site_docs/`. The order becomes the section order in complete
 documents. The course list must contain exactly one `COURSE_LEARNING_FRAMEWORK.md` with the four
@@ -105,8 +116,16 @@ uses the exact course-point-plan marker documented above instead of duplicating 
 percentages in Markdown.
 
 Tables use a named header in every column, a valid separator row, and the same cell count in every
-row. Hidden line-breaking controls are rejected. Links between manifest-included Markdown pages are
-rewritten as internal document anchors in PDF and DOCX output.
+row. Hidden line-breaking controls are rejected. The build classifies the closed set of table
+headers, examines every visible cell, and derives wrap-aware relative column widths for website,
+PDF, and DOCX output. Authors do not add width markup to individual Markdown tables. A new header
+shape must be registered explicitly so an unknown table cannot silently receive arbitrary layout.
+Within one rendered page or document, tables with the exact same headers form a series: the widest
+demand for each column across the full series supplies one shared width vector to every table. The
+monthly University important-dates tables therefore align even when one month has much longer event
+text than another.
+Links between manifest-included Markdown pages are rewritten as internal document anchors in PDF
+and DOCX output.
 
 ## Shared fragments
 

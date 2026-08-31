@@ -43,6 +43,8 @@ You need regular Blackboard access, a computer capable of running Google Sheets,
 that can access it. Follow each assignment's directions or links for any additional software and
 its submission method.
 
+<!-- lab attendance from syllabus.yml -->
+
 ## Instructor information
 
 --8<-- "fall_2026/shared/fragments/INSTRUCTOR_CONTACT_DETAILS.md"

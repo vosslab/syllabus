@@ -59,6 +59,7 @@ def test_course_point_plan_requires_one_coursework_marker(tmp_path: pathlib.Path
 		path=tmp_path / "syllabus.yml",
 		docs_root=tmp_path,
 		title="Course title",
+		short_name="Course",
 		course_code="BIOL 000",
 		term="Fall 20XX",
 		author="Instructor",
@@ -67,6 +68,7 @@ def test_course_point_plan_requires_one_coursework_marker(tmp_path: pathlib.Path
 		download_basename="BIOL_000_SYLLABUS",
 		sections=(coursework_path,),
 		shared_sections=(),
+		lab_status="no_lab",
 		course_point_plan=(
 			build_lib.syllabus_model.CoursePointPlanEntry("Exam", 100),
 		),
@@ -131,6 +133,7 @@ def test_download_links_cover_course_and_term_pages(tmp_path: pathlib.Path) -> N
 		path=course_path / "syllabus.yml",
 		docs_root=docs_root,
 		title="Course title",
+		short_name="Course",
 		course_code="BIOL 000",
 		term="Fall 20XX",
 		author="Instructor",
@@ -139,6 +142,7 @@ def test_download_links_cover_course_and_term_pages(tmp_path: pathlib.Path) -> N
 		download_basename="BIOL_000_SYLLABUS",
 		sections=(overview_path,),
 		shared_sections=(),
+		lab_status="no_lab",
 	)
 	build_lib.syllabus_content.verify_download_links(manifest, downloads_dir)
 	term_courses_path.write_text(
@@ -208,7 +212,9 @@ def test_compose_markdown_links_to_embedded_instructor_section(tmp_path: pathlib
 	instructor_route_path = shared_path / "INSTRUCTOR_INFORMATION.md"
 	write_section(index_path, "Course title")
 	details_path.write_text(
-		"# Meetings and instructor\n\n## Instructor information\n\nContact details.\n",
+		"# Meetings and instructor\n\n"
+		"<!-- lab attendance from syllabus.yml -->\n\n"
+		"## Instructor information\n\nContact details.\n",
 		encoding="utf-8",
 	)
 	policies_path.write_text(
@@ -220,6 +226,7 @@ def test_compose_markdown_links_to_embedded_instructor_section(tmp_path: pathlib
 		path=course_path / "syllabus.yml",
 		docs_root=tmp_path,
 		title="Course title",
+		short_name="Course",
 		course_code="BIOL 000",
 		term="Fall 20XX",
 		author="Instructor",
@@ -228,6 +235,7 @@ def test_compose_markdown_links_to_embedded_instructor_section(tmp_path: pathlib
 		download_basename="BIOL_000_SYLLABUS",
 		sections=(index_path, details_path),
 		shared_sections=(policies_path,),
+		lab_status="no_lab",
 	)
 	combined = build_lib.syllabus_content.compose_markdown(manifest)
 	assert "[Instructor information](#instructor-information)" in combined
@@ -252,6 +260,7 @@ def test_markdown_html_uses_site_extension_stack(tmp_path: pathlib.Path) -> None
 		path=tmp_path / "syllabus.yml",
 		docs_root=tmp_path,
 		title="Course title",
+		short_name="Course",
 		course_code="BIOL 000",
 		term="Fall 20XX",
 		author="Instructor",
@@ -260,6 +269,7 @@ def test_markdown_html_uses_site_extension_stack(tmp_path: pathlib.Path) -> None
 		download_basename="BIOL_000_SYLLABUS",
 		sections=(),
 		shared_sections=(),
+		lab_status="no_lab",
 	)
 	stylesheet_path = tmp_path / "print.css"
 	stylesheet_path.write_text("body { color: black; }\n", encoding="utf-8")
@@ -277,6 +287,7 @@ def test_markdown_html_uses_site_extension_stack(tmp_path: pathlib.Path) -> None
 	assert '<html lang="en-US">' in html_text
 	assert f'<base href="{tmp_path.as_uri()}/">' in html_text
 	assert 'style="--syllabus-page-accent: #007849"' in html_text
+	assert '<h1 data-course-short-name="Course">BIOL 000: Course title</h1>' in html_text
 	assert (
 		'<h2 id="course-overview">Course overview</h2>\n'
 		'<div class="admonition warning">\n<p class="admonition-title">Review</p>'
@@ -375,6 +386,7 @@ def test_compose_markdown_appends_policy_and_resources_once(tmp_path: pathlib.Pa
 		path=tmp_path / "syllabus.yml",
 		docs_root=tmp_path,
 		title="Course title",
+		short_name="Course",
 		course_code="BIOL 000",
 		term="Fall 20XX",
 		author="Instructor",
@@ -383,6 +395,7 @@ def test_compose_markdown_appends_policy_and_resources_once(tmp_path: pathlib.Pa
 		download_basename="BIOL_000_SYLLABUS",
 		sections=(index_path,),
 		shared_sections=(policy_path, resource_path),
+		lab_status="no_lab",
 	)
 	combined = build_lib.syllabus_content.compose_markdown(manifest)
 	assert combined.count("## Policies {#policies}") == 1
@@ -415,6 +428,7 @@ def test_manifest_assessments_control_coursework_content(
 		path=course_path / "syllabus.yml",
 		docs_root=docs_root,
 		title="Course title",
+		short_name="Course",
 		course_code="BIOL 000",
 		term="Fall 20XX",
 		author="Instructor",
@@ -423,6 +437,7 @@ def test_manifest_assessments_control_coursework_content(
 		download_basename="BIOL_000_SYLLABUS",
 		sections=(index_path, coursework_path),
 		shared_sections=(),
+		lab_status="no_lab",
 		assessment_fragments=(exams_path, assignments_path),
 	)
 	combined = build_lib.syllabus_content.compose_markdown(manifest)
@@ -451,6 +466,7 @@ def test_coursework_requires_one_assessment_marker(tmp_path: pathlib.Path) -> No
 		path=tmp_path / "syllabus.yml",
 		docs_root=tmp_path,
 		title="Course title",
+		short_name="Course",
 		course_code="BIOL 000",
 		term="Fall 20XX",
 		author="Instructor",
@@ -459,6 +475,7 @@ def test_coursework_requires_one_assessment_marker(tmp_path: pathlib.Path) -> No
 		download_basename="BIOL_000_SYLLABUS",
 		sections=(coursework_path,),
 		shared_sections=(),
+		lab_status="no_lab",
 		assessment_fragments=(tmp_path / "ASSIGNMENTS.md",),
 	)
 	with pytest.raises(ValueError, match="expected exactly one assessment fragment marker"):
@@ -492,6 +509,7 @@ def test_discussion_marker_materializes_selected_fragments(tmp_path: pathlib.Pat
 		path=tmp_path / "syllabus.yml",
 		docs_root=tmp_path,
 		title="Course title",
+		short_name="Course",
 		course_code="BIOL 000",
 		term="Fall 20XX",
 		author="Instructor",
@@ -500,6 +518,7 @@ def test_discussion_marker_materializes_selected_fragments(tmp_path: pathlib.Pat
 		download_basename="BIOL_000_SYLLABUS",
 		sections=(discussion_path,),
 		shared_sections=(),
+		lab_status="no_lab",
 		discussion_fragments=(mode_path, common_path),
 	)
 	selected = build_lib.syllabus_content.apply_discussion_fragments(
@@ -509,6 +528,91 @@ def test_discussion_marker_materializes_selected_fragments(tmp_path: pathlib.Pat
 	)
 	assert selected.index("FACE_TO_FACE.md") < selected.index("COMMON.md")
 	assert "discussion from syllabus.yml" not in selected
+
+
+#============================================
+def test_lab_manifest_accepts_closed_status_and_rejects_unknown(
+	tmp_path: pathlib.Path,
+) -> None:
+	"""Lab policy inclusion accepts only the documented binary course state."""
+	manifest_path = tmp_path / "fall_20xx" / "course" / "syllabus.yml"
+	manifest_path.parent.mkdir(parents=True)
+	fragment_path = (
+		tmp_path
+		/ "fall_20xx"
+		/ "shared"
+		/ "fragments"
+		/ "labs"
+		/ "LAB_ATTENDANCE.md"
+	)
+	fragment_path.parent.mkdir(parents=True)
+	fragment_path.write_text("## Lab attendance\n", encoding="utf-8")
+	lab_status, fragments = build_lib.syllabus_model.resolve_lab_fragments(
+		{"lab_status": "has_lab"},
+		manifest_path,
+		tmp_path,
+	)
+	assert (lab_status, fragments) == ("has_lab", (fragment_path,))
+	with pytest.raises(ValueError, match="lab_status must be one of"):
+		build_lib.syllabus_model.resolve_lab_fragments(
+			{"lab_status": "maybe_lab"},
+			manifest_path,
+			tmp_path,
+		)
+
+
+#============================================
+def test_lab_status_controls_course_details_content(tmp_path: pathlib.Path) -> None:
+	"""Only a syllabus declaring a lab receives the canonical attendance fragment."""
+	docs_root = tmp_path / "site_docs"
+	term_path = docs_root / "fall_20xx"
+	course_path = term_path / "course"
+	fragment_path = term_path / "shared" / "fragments" / "labs" / "LAB_ATTENDANCE.md"
+	course_path.mkdir(parents=True)
+	fragment_path.parent.mkdir(parents=True)
+	index_path = course_path / "index.md"
+	details_path = course_path / "COURSE_DETAILS.md"
+	write_section(index_path, "Course title")
+	details_path.write_text(
+		"# Meetings and instructor\n\n"
+		"General course details.\n\n"
+		"<!-- lab attendance from syllabus.yml -->\n\n"
+		"## Instructor information\n\nContact details.\n",
+		encoding="utf-8",
+	)
+	fragment_path.write_text(
+		"## Lab attendance\n\nLab-only attendance policy.\n",
+		encoding="utf-8",
+	)
+	common_fields = {
+		"path": course_path / "syllabus.yml",
+		"docs_root": docs_root,
+		"title": "Course title",
+		"short_name": "Course",
+		"course_code": "BIOL 000",
+		"term": "Fall 20XX",
+		"author": "Instructor",
+		"language": "en-US",
+		"course_color": "#007849",
+		"download_basename": "BIOL_000_SYLLABUS",
+		"sections": (index_path, details_path),
+		"shared_sections": (),
+	}
+	no_lab_manifest = build_lib.syllabus_model.SyllabusManifest(
+		**common_fields,
+		lab_status="no_lab",
+	)
+	has_lab_manifest = build_lib.syllabus_model.SyllabusManifest(
+		**common_fields,
+		lab_status="has_lab",
+		lab_fragments=(fragment_path,),
+	)
+	no_lab_markdown = build_lib.syllabus_content.compose_markdown(no_lab_manifest)
+	has_lab_markdown = build_lib.syllabus_content.compose_markdown(has_lab_manifest)
+	assert "General course details." in no_lab_markdown
+	assert "Lab-only attendance policy." not in no_lab_markdown
+	assert "Lab-only attendance policy." in has_lab_markdown
+	assert "lab attendance from syllabus.yml" not in has_lab_markdown
 
 
 #============================================

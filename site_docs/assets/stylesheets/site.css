@@ -204,55 +204,55 @@
 }
 
 /* Carry each code-owned month palette into its immediately following table. */
-.md-typeset .important-dates-month-01 + table:not([class]),
+.md-typeset .important-dates-month-01 + table.syllabus-table,
 .md-typeset .important-dates-month-01 + .md-typeset__scrollwrap {
 	--important-dates-table-accent: var(--syllabus-calendar-month-01);
 	--important-dates-table-surface: var(--syllabus-calendar-month-01-table-surface);
 }
 
-.md-typeset .important-dates-month-05 + table:not([class]),
+.md-typeset .important-dates-month-05 + table.syllabus-table,
 .md-typeset .important-dates-month-05 + .md-typeset__scrollwrap {
 	--important-dates-table-accent: var(--syllabus-calendar-month-05);
 	--important-dates-table-surface: var(--syllabus-calendar-month-05-table-surface);
 }
 
-.md-typeset .important-dates-month-08 + table:not([class]),
+.md-typeset .important-dates-month-08 + table.syllabus-table,
 .md-typeset .important-dates-month-08 + .md-typeset__scrollwrap {
 	--important-dates-table-accent: var(--syllabus-calendar-month-08);
 	--important-dates-table-surface: var(--syllabus-calendar-month-08-table-surface);
 }
 
-.md-typeset .important-dates-month-09 + table:not([class]),
+.md-typeset .important-dates-month-09 + table.syllabus-table,
 .md-typeset .important-dates-month-09 + .md-typeset__scrollwrap {
 	--important-dates-table-accent: var(--syllabus-calendar-month-09);
 	--important-dates-table-surface: var(--syllabus-calendar-month-09-table-surface);
 }
 
-.md-typeset .important-dates-month-10 + table:not([class]),
+.md-typeset .important-dates-month-10 + table.syllabus-table,
 .md-typeset .important-dates-month-10 + .md-typeset__scrollwrap {
 	--important-dates-table-accent: var(--syllabus-calendar-month-10);
 	--important-dates-table-surface: var(--syllabus-calendar-month-10-table-surface);
 }
 
-.md-typeset .important-dates-month-11 + table:not([class]),
+.md-typeset .important-dates-month-11 + table.syllabus-table,
 .md-typeset .important-dates-month-11 + .md-typeset__scrollwrap {
 	--important-dates-table-accent: var(--syllabus-calendar-month-11);
 	--important-dates-table-surface: var(--syllabus-calendar-month-11-table-surface);
 }
 
-.md-typeset .important-dates-month-12 + table:not([class]),
+.md-typeset .important-dates-month-12 + table.syllabus-table,
 .md-typeset .important-dates-month-12 + .md-typeset__scrollwrap {
 	--important-dates-table-accent: var(--syllabus-calendar-month-12);
 	--important-dates-table-surface: var(--syllabus-calendar-month-12-table-surface);
 }
 
-.md-typeset .important-dates-month + table:not([class]),
-.md-typeset .important-dates-month + .md-typeset__scrollwrap table:not([class]) {
+.md-typeset .important-dates-month + table.syllabus-table,
+.md-typeset .important-dates-month + .md-typeset__scrollwrap table.syllabus-table {
 	border-block-start-color: var(--important-dates-table-accent);
 }
 
-.md-typeset .important-dates-month + table:not([class]) th,
-.md-typeset .important-dates-month + .md-typeset__scrollwrap table:not([class]) th {
+.md-typeset .important-dates-month + table.syllabus-table th,
+.md-typeset .important-dates-month + .md-typeset__scrollwrap table.syllabus-table th {
 	background-color: var(--important-dates-table-surface);
 	border-block-end-color: var(--important-dates-table-accent);
 }
@@ -277,7 +277,7 @@
 	margin-block: 0;
 }
 
-.md-typeset table:not([class]) {
+.md-typeset table.syllabus-table {
 	border-block-start: 0.18rem solid var(--syllabus-page-accent);
 	border-collapse: collapse;
 	display: table;
@@ -287,14 +287,9 @@
 	width: 100%;
 }
 
-/* Let wide schedules scroll instead of compressing their prose columns into word stacks. */
-.md-typeset table:not([class]):has(th:nth-child(4)) {
-	min-width: 44rem;
-}
-
 /* Give headings the same gap before paragraphs and Material-wrapped tables. */
 .md-typeset :where(h1, h2, h3, h4, h5, h6) + .md-typeset__scrollwrap,
-.md-typeset :where(h1, h2, h3, h4, h5, h6) + table:not([class]) {
+.md-typeset :where(h1, h2, h3, h4, h5, h6) + table.syllabus-table {
 	margin-block-start: var(--syllabus-content-gap);
 }
 
@@ -303,26 +298,26 @@
 	font-size: 1em;
 }
 
-.md-typeset table:not([class]) td,
-.md-typeset table:not([class]) th {
+.md-typeset table.syllabus-table td,
+.md-typeset table.syllabus-table th {
 	border: 1px solid var(--md-default-fg-color--lightest);
 	padding: 0.55rem 0.7rem;
 	vertical-align: top;
 	white-space: normal;
 }
 
-.md-typeset table:not([class]) th {
+.md-typeset table.syllabus-table th {
 	background-color: var(--md-default-fg-color--lightest);
 	border-block-end: 0.12rem solid var(--syllabus-page-accent);
 	font-weight: 700;
 }
 
-.md-typeset table:not([class]) tbody tr:nth-child(even) {
+.md-typeset table.syllabus-table tbody tr:nth-child(even) {
 	background-color: var(--md-default-fg-color--lightest);
 }
 
 /* Make the derived sum read like the point-plan header in screen and print views. */
-.md-typeset #course-point-plan + table:not([class]) tbody tr:last-child td,
+.md-typeset #course-point-plan + table.syllabus-table tbody tr:last-child td,
 .md-typeset #course-point-plan + .md-typeset__scrollwrap tbody tr:last-child td {
 	background-color: var(--md-default-fg-color--lightest);
 	border-block-end: 0.12rem solid var(--syllabus-page-accent);
@@ -330,35 +325,31 @@
 	font-weight: 700;
 }
 
-.md-typeset #course-point-plan + table:not([class]) :is(th, td):last-child,
-.md-typeset #course-point-plan + .md-typeset__scrollwrap :is(th, td):last-child {
-	min-width: 6rem;
-}
-
-.md-typeset #course-point-plan + table:not([class]),
-.md-typeset #course-point-plan + .md-typeset__scrollwrap table:not([class]) {
-	min-width: 36rem;
+.md-typeset table.syllabus-table {
 	table-layout: fixed;
+	width: 100%;
 }
 
-.md-typeset #course-point-plan + table:not([class]) :is(th, td):first-child,
-.md-typeset #course-point-plan + .md-typeset__scrollwrap :is(th, td):first-child {
-	width: 28%;
+/* Content demand comes from the build extension; narrow screens scroll prose tables. */
+.md-typeset table.syllabus-table:not(.table-width--intrinsic) {
+	min-width: var(--table-minimum-width);
 }
 
-.md-typeset #course-point-plan + table:not([class]) :is(th, td):nth-child(2),
-.md-typeset #course-point-plan + .md-typeset__scrollwrap :is(th, td):nth-child(2) {
-	width: 24%;
+/* Compact tables use their calculated content width instead of filling the page. */
+.md-typeset table.syllabus-table.table-width--intrinsic {
+	max-width: 100%;
+	width: var(--table-minimum-width);
 }
 
-.md-typeset #course-point-plan + table:not([class]) :is(th, td):nth-child(3),
-.md-typeset #course-point-plan + .md-typeset__scrollwrap :is(th, td):nth-child(3) {
-	width: 28%;
-}
-
-.md-typeset #course-point-plan + table:not([class]) :is(th, td):last-child,
-.md-typeset #course-point-plan + .md-typeset__scrollwrap :is(th, td):last-child {
-	width: 20%;
+.md-typeset .table-layout--grade-scale tbody td:first-child,
+.md-typeset .table-layout--important-dates tbody td:first-child,
+.md-typeset .table-layout--rubric tbody td:first-child,
+.md-typeset .table-layout--schedule tbody td:first-child,
+.md-typeset .table-layout--attendance tbody td:nth-child(2),
+.md-typeset .table-layout--point-plan tbody td:nth-child(2),
+.md-typeset .table-layout--point-plan tbody td:nth-child(3),
+.md-typeset .table-layout--project-points tbody td:last-child {
+	font-variant-numeric: tabular-nums;
 }
 
 /* Keep the instructor portrait recognizable while preserving the compact infobox table. */

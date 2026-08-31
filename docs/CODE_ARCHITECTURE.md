@@ -62,6 +62,12 @@ Discussion marks use a parallel closed manifest choice: no discussion, face-to-f
 or remote/video-conference discussion. Participating courses own a thin Discussion marks page; no
 discussion omits the topic. The build adds shared scoring only for modes that award marks.
 
+Lab attendance uses a separate required `lab_status`: `no_lab` or `has_lab`. The status means that
+Dr. Voss's syllabus itself does or does not include a lab; a separately taught co-requisite lab is
+not enough. A course-details marker receives the canonical lab-attendance fragment only for
+`has_lab`, keeping lab rules out of non-lab website pages and complete documents while preserving
+one source for future lab courses.
+
 The active term is intentionally singular. `templates/`, future-term copies, and historical-term
 copies cannot become parallel content authorities during Fall 2026. Generated directories are
 ignored and must be rebuilt from the tracked source.
@@ -94,6 +100,9 @@ own the implementation:
   Markdown.
 - [pipeline/build_lib/syllabus_rendering.py](../pipeline/build_lib/syllabus_rendering.py) renders,
   verifies, stages, and publishes DOCX and PDF artifacts.
+- `pipeline/build_lib/table_layouts.py` classifies the closed set of syllabus tables and calculates
+  wrap-aware column demand from every visible cell. It emits HTML column hints and supplies the
+  same percentages to DOCX post-processing.
 
 ## Rendering branches
 
@@ -105,6 +114,13 @@ colors and expand authorized fragments, applies the Material theme, repository o
 CSS and JavaScript, and copies downloads and assets into `site/`. `mkdocs.yml` owns navigation,
 hook registration, theme configuration, social links, and the public site URL.
 
+The registered table-layout Markdown extension examines all header and body cells before emitting
+a `colgroup`, content-derived minimum width, and semantic profile hook. CSS consumes those values;
+it does not own per-table or per-profile column percentages. Compact tables use their calculated
+content width, while prose-dense tables remain readable through the Material scroll wrapper on
+narrow screens. Repeated tables with identical headers are calculated as one series, so month-by-
+month or otherwise partitioned data keeps the same column boundaries throughout the page.
+
 ### DOCX branch
 
 The content library calls the shared include engine, rewrites links between included pages as
@@ -112,6 +128,9 @@ document anchors, removes web-only controls, and the rendering library sends por
 Pandoc. The tracked
 `pipeline/syllabus_reference.docx` owns Word styles. Python post-processing adds metadata,
 language, and semantic table properties before output verification.
+Table post-processing reruns the shared content calculation over the Word cells so DOCX does not
+maintain a parallel width map. Exact-header series use the same combined demand and therefore the
+same Word column widths as each other.
 
 ### PDF branch
 
@@ -120,6 +139,11 @@ from `mkdocs.yml`. The validated adjacent `.meta.yml` course accent is attached 
 HTML as a CSS custom property so the website and PDF share one color authority. WeasyPrint applies
 `site_docs/assets/stylesheets/syllabus_pdf.css` and creates a tagged PDF. Poppler verifies document
 metadata, text, tables, and required section titles.
+
+Each manifest's `short_name` supplies the compact left PDF footer. CSS running strings place the
+most recent level-two or level-three heading, including important-date month headings, in the wider
+center position; the right position owns the page count. The full course code, title, and term stay
+in the document title block instead of repeating in the footer.
 
 ## Shared includes
 

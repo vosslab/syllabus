@@ -1,8 +1,4 @@
-### Group quizzes
-
-Group quizzes give you two chances to work with recent material. You first complete an individual
-attempt before class. During class, you may complete an optional group attempt and compare your
-reasoning with classmates.
+### Group quiz details
 
 #### Two-stage format
 

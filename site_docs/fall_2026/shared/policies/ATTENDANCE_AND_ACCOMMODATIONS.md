@@ -14,27 +14,6 @@ International students must attend 80% of their courses to maintain their U.S. V
 
 Lastly, please be aware that attendance reporting is a federal requirement for financial aid during the first two weeks of the semester, so make every effort to attend during that critical period.
 
-## Lab attendance and weekly preparation score
-
-**Lab attendance is required.** Regular attendance in lab class is essential for your success in this course. Labs are hands-on, collaborative, and require an extensive, complex, and unique setup. As a result, make-up labs are not offered. Your attendance and preparation will be assessed weekly.
-
-Deductions may be made for not bringing your lab coat, not wearing lab goggles, having exposed ankles, failing to tie back long hair, or violating other safety rules. Points may also be deducted for not having a copy of the lab manual, not preparing your lab notebook, or arriving late. Additional deductions may apply for failing to lock your drawer, leaving out your drawer key, leaving behind an unclean bench, or any other clean-up issues. Students who are fully prepared, follow safety protocols, and participate actively will earn the full preparation score for that week.
-
-**There are no make-up labs**, so attending your scheduled session is the only way to earn credit. To balance fairness, accountability, and the reality that illness, emergencies, and conflicts do occur, the following grading system will be used for missed labs:
-
-| Absence type | Score | Included in total points |
-| --- | ---: | :---: |
-| First communicated | N/A | No |
-| Second communicated | 3/5 | Yes |
-| Third communicated | 1/5 | Yes |
-| Fourth or higher communicated | 0/5 | Yes |
-| First *uncommunicated* | 0/5 | Yes |
-| Second or higher *uncommunicated* | -2/5\* | Yes |
-
-\* Negative scores mean points are deducted from the total earned in other weeks.
-
-Absences fall into two categories: communicated and uncommunicated. A **communicated absence** is when a student contacts the instructor before the start of lab to explain they will not be attending. This includes illness, family emergencies, travel conflicts, or personal matters. While communicated absences still result in a reduced or missing preparation score (see table above), they are treated more leniently than absences with no communication. An **uncommunicated absence** is when a student misses lab class without notifying the instructor in advance. These will result in greater point deductions and may impact your standing in the course (see table above).
-
 ## Disability accommodations
 
 If you have a condition or disability that requires reasonable accommodation, please alert Disability Services (in the Learning Commons) as soon as possible. To be effective, accommodations should be implemented prior to any assignments, quizzes, or tests. In Chicago, Disability Services is located in the Learning Commons, AUD 1038 (inside the Library), the phone number is 312-341-3629, and the email address for the Disability Services Specialist is [nyoon@roosevelt.edu](mailto:nyoon@roosevelt.edu). Staff can offer both in-person and virtual appointments for our students to determine which academic accommodations are feasible and appropriate.
