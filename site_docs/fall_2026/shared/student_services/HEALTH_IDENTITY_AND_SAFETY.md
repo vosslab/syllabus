@@ -31,4 +31,5 @@ pronouns, subject to restrictions on inappropriate requests. Submit a request th
 ## Veterans services
 
 Veterans Services supports veterans and active service members as they transition into the
-university community. Contact the Office of Veterans Services at ovs@roosevelt.edu.
+university community. Contact the Office of Veterans Services at
+[ovs@roosevelt.edu](mailto:ovs@roosevelt.edu).

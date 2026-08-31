@@ -1,4 +1,4 @@
-# Meetings and instructor
+# Course information
 
 ## Section information
 
@@ -9,12 +9,16 @@
 | Meeting | Wednesday, 5:00-5:55 p.m. | Wednesday, 5:00-5:55 p.m. |
 | Location | SCH 612 | SCH 612 |
 | Format | Hybrid: one-hour in-person meeting plus self-paced tutorials | Hybrid: one-hour in-person meeting plus self-paced tutorials |
-| Laboratory component | None | None |
 | CORE attribute | None listed | Not applicable (graduate course) |
 | Biology competencies | Applying the Process of Science; Quantitative Reasoning | Not applicable (graduate course) |
 | Credit hours | 3.0 | 3.0 |
 | Session dates | August 31-December 19, 2026 | August 31-December 19, 2026 |
 | Prerequisites | MATH 217 with C- or better and either BIOL 202 or BIOL 301 with C- or better; instructor consent may substitute | None; prior statistics coursework is recommended |
+
+## Course format (hybrid)
+
+This three-credit hybrid course meets face-to-face for one hour each week. Most instruction is
+delivered through self-paced Google Sheets tutorials completed outside the scheduled meeting.
 
 ## Catalog description
 
@@ -22,9 +26,6 @@ Design, analysis, and interpretation of biological data using statistics.
 
 This course uses statistical analysis from ecology, genetics, and molecular biology experiments and
 therefore assumes a working background in biology.
-
-This three-credit hybrid course meets in person for one hour each week. Most instruction is
-delivered through self-paced Google Sheets tutorials completed outside the scheduled meeting.
 
 ## Textbooks and technology
 

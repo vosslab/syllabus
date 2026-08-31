@@ -7,7 +7,7 @@ an academic major, interpret university policies, and respond to academic diffic
 
 - **Chicago campus:** Room 1M10, Mezzanine, Wabash Building; (312) 341-4340.
 - **Schaumburg campus:** Room SCH 125; (847) 619-7930.
-- **Email:** Advising@roosevelt.edu.
+- **Email:** [Advising@roosevelt.edu](mailto:Advising@roosevelt.edu).
 
 Some students are advised within their college or individual program. Graduate students work
 directly with their academic department. Schedule an appointment through
@@ -29,4 +29,4 @@ transcripts, credit evaluation, and graduation.
 
 - **Chicago campus:** Mezzanine, Wabash Building.
 - **Phone:** (312) 341-3535.
-- **Email:** registrar@roosevelt.edu.
+- **Email:** [registrar@roosevelt.edu](mailto:registrar@roosevelt.edu).

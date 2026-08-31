@@ -43,6 +43,24 @@ def normalize_cell_text(element: xml.etree.ElementTree.Element) -> str:
 
 
 #============================================
+def shared_course_detail_row_indexes(
+	headers: tuple[str, ...],
+	body_rows: tuple[tuple[str, ...], ...],
+) -> tuple[int, ...]:
+	"""Identify course-detail rows that share one visible value across sections."""
+	if classify_table_headers(headers) != "course-details":
+		return ()
+	shared_indexes = []
+	for row_index, row in enumerate(body_rows):
+		left_value = " ".join(row[1].split())
+		right_value = " ".join(row[2].split())
+		if left_value and left_value == right_value:
+			shared_indexes.append(row_index)
+	indexes = tuple(shared_indexes)
+	return indexes
+
+
+#============================================
 def table_headers(element: xml.etree.ElementTree.Element) -> tuple[str, ...]:
 	"""Return the first semantic header row from one HTML table element."""
 	header_row = element.find("./thead/tr")
@@ -196,6 +214,22 @@ def add_column_widths(
 
 
 #============================================
+def merge_shared_course_detail_cells(
+	table: xml.etree.ElementTree.Element,
+	headers: tuple[str, ...],
+	body_rows: tuple[tuple[str, ...], ...],
+) -> None:
+	"""Render each shared course-detail value once across both section columns."""
+	rows = table.findall("./tbody/tr")
+	shared_indexes = shared_course_detail_row_indexes(headers, body_rows)
+	for row_index in shared_indexes:
+		cells = rows[row_index].findall("td")
+		cells[1].set("colspan", "2")
+		rows[row_index].remove(cells[2])
+	return None
+
+
+#============================================
 def wrap_scrollable_table(
 	parent: xml.etree.ElementTree.Element,
 	child_index: int,
@@ -237,7 +271,7 @@ class TableLayoutTreeprocessor(markdown.treeprocessors.Treeprocessor):
 		)
 		layouts = calculate_shared_table_layouts(table_contents)
 		series_sizes = collections.Counter(headers for headers, _body_rows in table_contents)
-		for (parent, child_index, table), layout, (headers, _body_rows) in zip(
+		for (parent, child_index, table), layout, (headers, body_rows) in zip(
 			tables_with_parents,
 			layouts,
 			table_contents,
@@ -250,6 +284,7 @@ class TableLayoutTreeprocessor(markdown.treeprocessors.Treeprocessor):
 			table.set("data-table-profile", layout.profile)
 			table.set("data-table-series-size", str(series_sizes[headers]))
 			add_column_widths(table, layout)
+			merge_shared_course_detail_cells(table, headers, body_rows)
 			wrap_scrollable_table(parent, child_index, table)
 		return root
 

@@ -153,7 +153,8 @@ shape must be registered explicitly so an unknown table cannot silently receive 
 Within one rendered page or document, tables with the exact same headers form a series: the widest
 demand for each column across the full series supplies one shared width vector to every table. The
 monthly University important-dates tables therefore align even when one month has much longer event
-text than another.
+text than another. In a three-column course-information table, two identical non-empty section
+values render once in one cell spanning both section columns. Distinct values remain separate.
 Links between manifest-included Markdown pages are rewritten as internal document anchors in PDF
 and DOCX output.
 

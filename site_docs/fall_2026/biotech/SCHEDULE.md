@@ -3,7 +3,7 @@
 | Week | Date | Topic | Project or work due |
 | ---: | --- | --- | --- |
 | 1 | Thu, Sep 3 | Course introduction; defining biotechnology | Course orientation |
-| 2 | Thu, Sep 10 | Biotechnology basics and the central dogma | Talking point 1 |
+| 2 | Thu, Sep 10 | Biotechnology basics and the central dogma | In-class talking point 1 |
 | 3 | Thu, Sep 17 | DNA and genomics biotechnology | Project ideas |
 | 4 | Thu, Sep 24 | Protein biotechnology | Student profile |
 | 5 | Thu, Oct 1 | Biotechnology case-study discussion | Project response |

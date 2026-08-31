@@ -426,7 +426,7 @@ try {
 	const coursePage = await browser.newPage();
 	await coursePage.goto(`${staticServer.baseUrl}/fall_2026/genetics/`);
 	const courseMain = coursePage.getByRole("article");
-	await courseMain.getByRole("link", { name: "Meetings and instructor" }).waitFor();
+	await courseMain.getByRole("link", { name: "Course information" }).waitFor();
 	await courseMain
 		.getByRole("link", { name: "Learning Objectives, Outcomes, and Goals" })
 		.waitFor();

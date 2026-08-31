@@ -9,9 +9,9 @@ The syllabus is divided into shorter pages so you can go directly to the informa
 
 <nav class="course-page-links" aria-labelledby="course-contents" markdown="1">
 
-- [<span class="course-page-links__title">Meetings and instructor</span>
-  <span class="course-page-links__description">Class time, locations, prerequisites, course
-  description, and instructor contact information.</span>](COURSE_DETAILS.md)
+- [<span class="course-page-links__title">Course information</span>
+  <span class="course-page-links__description">Section details, course format, catalog description,
+  textbook and technology, and instructor information.</span>](COURSE_DETAILS.md)
 - [<span class="course-page-links__title">Learning Objectives, Outcomes, and Goals</span>
   <span class="course-page-links__description">Roosevelt learning goals, learning objectives,
   course learning outcomes, and overall learning goals.</span>](COURSE_LEARNING_FRAMEWORK.md)

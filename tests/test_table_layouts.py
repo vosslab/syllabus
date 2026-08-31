@@ -86,3 +86,25 @@ def test_markdown_repeated_tables_emit_matching_series_widths() -> None:
 	first_widths = next(width_matches).group(1)
 	second_widths = next(width_matches).group(1)
 	assert first_widths == second_widths
+
+
+#============================================
+def test_course_details_render_shared_values_once_across_section_columns() -> None:
+	"""Identical section values span both columns while distinct values stay separate."""
+	markdown_text = (
+		"| Field | BIOL 351 | BIOL 451 |\n"
+		"| --- | --- | --- |\n"
+		"| Meeting | Tuesday afternoon | Tuesday afternoon |\n"
+		"| Course level | Undergraduate | Graduate |\n"
+	)
+	rendered = markdown.markdown(
+		markdown_text,
+		extensions=("tables", "build_lib.table_layouts"),
+	)
+	expected_rows = re.compile(
+		r"<tbody>\s*<tr>\s*<td>Meeting</td>\s*"
+		r'<td colspan="2">Tuesday afternoon</td>\s*</tr>\s*'
+		r"<tr>\s*<td>Course level</td>\s*<td>Undergraduate</td>\s*"
+		r"<td>Graduate</td>\s*</tr>\s*</tbody>"
+	)
+	assert expected_rows.search(rendered) is not None

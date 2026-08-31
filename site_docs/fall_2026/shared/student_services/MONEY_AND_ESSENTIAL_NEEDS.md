@@ -7,7 +7,7 @@ questions about Roosevelt bills.
 
 - **Chicago campus:** Mezzanine, Wabash Building.
 - **Phone:** (866) 421-0935.
-- **Email:** FAS@roosevelt.edu.
+- **Email:** [FAS@roosevelt.edu](mailto:FAS@roosevelt.edu).
 - **Zoom hours:** Monday-Friday, 10 a.m.-3 p.m. Email Financial Aid Services for the link.
 
 ## Laker grant (student emergency fund)
@@ -25,8 +25,10 @@ The Laker Union Pantry provides free food and hygiene products to students in ne
   any time through the [pantry website](https://lakerunionpantry.company.site/).
 - **Schaumburg campus:** Place an order through the pantry website and pick it up during pantry
   hours.
-- **Additional assistance:** Email HFI@roosevelt.edu for help finding food and hygiene resources
-  in Chicago or the surrounding suburbs.
+- **Additional assistance:** Email [HFI@roosevelt.edu](mailto:HFI@roosevelt.edu) for help finding
+  food and hygiene resources in Chicago or the surrounding suburbs.
 - **SNAP benefits:** Use the MRelief eligibility tool linked from the pantry website to see whether
   you qualify.
-- **Volunteer or donate:** Email lakerunionpantry@roosevelt.edu or visit the pantry website.
+- **Volunteer or donate:** Email
+  [lakerunionpantry@roosevelt.edu](mailto:lakerunionpantry@roosevelt.edu) or visit the pantry
+  website.

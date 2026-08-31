@@ -4,6 +4,8 @@
 import pathlib
 
 # PIP3 modules
+import docx
+import docx.oxml.ns
 import pytest
 
 # local repo modules
@@ -162,6 +164,43 @@ def test_normalize_admonitions_for_docx() -> None:
 
 
 #============================================
+def test_docx_course_details_merge_only_shared_section_values(
+	tmp_path: pathlib.Path,
+) -> None:
+	"""DOCX preserves one shared value without merging a real section difference."""
+	document = docx.Document()
+	table = document.add_table(rows=3, cols=3)
+	values = (
+		("Field", "BIOL 351", "BIOL 451"),
+		("Meeting", "Tuesday afternoon", "Tuesday afternoon"),
+		("Course level", "Undergraduate", "Graduate"),
+	)
+	for row, row_values in zip(table.rows, values, strict=True):
+		for cell, value in zip(row.cells, row_values, strict=True):
+			cell.text = value
+	build_lib.syllabus_rendering.merge_shared_docx_course_detail_cells(
+		table,
+		values[0],
+		values[1:],
+	)
+	docx_path = tmp_path / "course_details.docx"
+	document.save(docx_path)
+	rendered_table = docx.Document(docx_path).tables[0]
+	shared_cell = rendered_table.rows[1].cells[1]
+	distinct_cell = rendered_table.rows[2].cells[1]
+	shared_span = shared_cell._tc.tcPr.find(docx.oxml.ns.qn("w:gridSpan"))
+	distinct_span = distinct_cell._tc.tcPr.find(docx.oxml.ns.qn("w:gridSpan"))
+	observed = (
+		shared_span.get(docx.oxml.ns.qn("w:val")),
+		shared_cell.text,
+		distinct_span is None,
+		rendered_table.rows[2].cells[1].text,
+		rendered_table.rows[2].cells[2].text,
+	)
+	assert observed == ("2", "Tuesday afternoon", True, "Undergraduate", "Graduate")
+
+
+#============================================
 def test_remove_heading_sections_omits_web_only_policy_routes() -> None:
 	"""Complete documents keep the policy branch heading without its route lists."""
 	markdown = (
@@ -212,7 +251,7 @@ def test_compose_markdown_links_to_embedded_instructor_section(tmp_path: pathlib
 	instructor_route_path = shared_path / "INSTRUCTOR_INFORMATION.md"
 	write_section(index_path, "Course title")
 	details_path.write_text(
-		"# Meetings and instructor\n\n"
+		"# Course information\n\n"
 		"<!-- lab attendance from syllabus.yml -->\n\n"
 		"## Instructor information\n\nContact details.\n",
 		encoding="utf-8",
@@ -611,7 +650,7 @@ def test_lab_status_controls_course_details_content(tmp_path: pathlib.Path) -> N
 	details_path = course_path / "COURSE_DETAILS.md"
 	write_section(index_path, "Course title")
 	details_path.write_text(
-		"# Meetings and instructor\n\n"
+		"# Course information\n\n"
 		"General course details.\n\n"
 		"<!-- lab attendance from syllabus.yml -->\n\n"
 		"## Instructor information\n\nContact details.\n",

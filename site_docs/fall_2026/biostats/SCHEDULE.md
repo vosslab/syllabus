@@ -3,7 +3,7 @@
 | Week | Date | Topic | Work due |
 | ---: | --- | --- | --- |
 | 1 | Wed, Sep 2 | Course introduction; what is biostatistics? | Course orientation |
-| 2 | Wed, Sep 9 | Types of data and descriptive statistics | Figure analysis |
+| 2 | Wed, Sep 9 | Types of data and descriptive statistics | In-class figure analysis |
 | 3 | Wed, Sep 16 | Measures of center and variation | Assignment |
 | 4 | Wed, Sep 23 | Z-scores, percentiles, and box plots | Student profile |
 | 5 | Wed, Sep 30 | Probability distributions | Assignment |

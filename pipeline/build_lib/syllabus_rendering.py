@@ -104,6 +104,29 @@ def configure_docx_table_widths(
 
 
 #============================================
+def merge_shared_docx_course_detail_cells(
+	table: object,
+	headers: tuple[str, ...],
+	body_rows: tuple[tuple[str, ...], ...],
+) -> None:
+	"""Merge identical section values in a DOCX course-information table."""
+	shared_indexes = build_lib.table_layouts.shared_course_detail_row_indexes(
+		headers,
+		body_rows,
+	)
+	for row_index in shared_indexes:
+		row = table.rows[row_index + 1]
+		left_cell = row.cells[1]
+		right_cell = row.cells[2]
+		right_cell.text = ""
+		merged_cell = left_cell.merge(right_cell)
+		trailing_paragraph = merged_cell.paragraphs[-1]
+		if not trailing_paragraph.text:
+			trailing_paragraph._element.getparent().remove(trailing_paragraph._element)
+	return None
+
+
+#============================================
 def set_document_language(document: object, language_code: str) -> None:
 	"""Set the proofing language on paragraph and character styles."""
 	for style in document.styles:
@@ -252,12 +275,13 @@ def postprocess_docx(
 			for _table, headers, body_rows in tables_with_content
 		)
 	)
-	for (table, _headers, _body_rows), layout_profile in zip(
+	for (table, headers, body_rows), layout_profile in zip(
 		tables_with_content,
 		layout_profiles,
 		strict=True,
 	):
 		configure_docx_table_widths(table, document, layout_profile)
+		merge_shared_docx_course_detail_cells(table, headers, body_rows)
 	for table in document.tables:
 		table.style = "Table"
 		if table.rows:

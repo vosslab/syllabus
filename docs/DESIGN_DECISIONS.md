@@ -104,6 +104,23 @@ column; tables with different headers remain independent.
 **Owner.** `pipeline/build_lib/table_layouts.py`, `docs/FILE_FORMATS.md`, and
 `tests/playwright/capture_table_review.mjs`.
 
+### Span shared course-information values across section columns
+
+**Decision.** In a three-column course-information table, render an identical non-empty value once
+across both section columns. Keep different values side by side and keep the canonical Markdown as
+a complete three-column fallback.
+
+**Why.** Repeating the same meeting, format, credit, or date in adjacent cells suggests a
+difference students need to compare. A real span communicates that the information applies equally
+to both listed sections while leaving section-specific facts visibly comparable.
+
+**Consequence.** The registered `course-details` profile derives shared rows from normalized
+visible values instead of hard-coded field names. Its HTML processor supplies the website and PDF
+`colspan`; DOCX post-processing merges the same cells after applying the shared width calculation.
+
+**Owner.** `pipeline/build_lib/table_layouts.py`,
+`pipeline/build_lib/syllabus_rendering.py`, and `docs/FILE_FORMATS.md`.
+
 ### Pair Genetics schedule colors with quiz and assignment numbers
 
 **Decision.** Mark Genetics topic cells and their corresponding quiz dates with one matching color

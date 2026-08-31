@@ -28,6 +28,8 @@ history. Those belong in the appropriate technical documentation or changelog.
   titles mechanically instead of maintaining a separate mapping.
 - Make the repository reflect my actual syllabi and teaching practice, not a generic university
   course template.
+- Keep each course's catalog description and course-format explanation on its Course information
+  page. A compact format table does not replace the refined format prose from my original syllabi.
 - Target six bullet points each for a first draft under Learning Objectives, Course Learning
   Outcomes, and Learning Goals, and preserve more detailed established lists when they remain
   accurate. Use `raw/` course content as evidence, not public source text.
@@ -37,6 +39,12 @@ history. Those belong in the appropriate technical documentation or changelog.
   `Students completing this course will be able to:`.
 - Preserve `Learning Goals:` followed by `Overall, this course aims to accomplish:`. These pairs
   distinguish the purpose and tone of each section.
+- Delay online homework until Week 3 so students have time to join external platforms.
+  Course-orientation work and in-class activities may occur earlier, especially in BIOL 480.
+- Keep the Genetics of Inheritance explanation directly after the BIOL 351/451 catalog description.
+  Distinguish that course focus from molecular genetics, which Roosevelt covers in BIOL 453.
+- Omit empty laboratory metadata rows such as `Laboratory component: None`. Explain a separately
+  registered laboratory in prose when that information helps students.
 - Biological, Physical and Health Sciences no longer exists. It split into my Department of
   Biological and Physical Sciences (BPS) and the Department of Health Sciences (HS). Use a general
   role description when a public profile still uses the former title.
@@ -74,6 +82,10 @@ history. Those belong in the appropriate technical documentation or changelog.
 - Put known undergraduate Biology competency labels only in course-information tables. Keep the
   full Vision and Change/PULSE framework in tracked repository documentation and separate from
   Roosevelt CORE general-education attributes.
+- In a multi-section course-information table, show an identical value once across both section
+  columns. Keep section-specific values side by side for comparison.
+- Make every public student-contact email address a clickable email link. Show a small Font Awesome
+  envelope beside email links on the website.
 - Treat Roosevelt course numbers 100-399 as undergraduate, 400-499 as graduate, and 500 or above
   as doctoral when applying level-specific attributes or competency mappings.
 - All Fall 2026 syllabi have no laboratory component. The BIOL 351/451 syllabus covers only the

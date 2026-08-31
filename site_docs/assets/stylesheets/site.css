@@ -610,10 +610,10 @@
 	text-decoration: underline;
 }
 
-/* Distinguish Roosevelt destinations from other websites in syllabus content. */
+/* Font Awesome link-purpose icons, https://fontawesome.com/license/free. */
+.md-typeset a[href^="mailto:"]::after,
 .md-typeset a[href^="http://"]::after,
 .md-typeset a[href^="https://"]::after {
-	content: "\f35d";
 	display: inline-block;
 	font-family: "Font Awesome 6 Free";
 	font-size: 0.72em;
@@ -625,6 +625,15 @@
 	text-rendering: auto;
 	vertical-align: 0.08em;
 	-webkit-font-smoothing: antialiased;
+}
+
+.md-typeset a[href^="mailto:"]::after {
+	content: "\f0e0";
+}
+
+.md-typeset a[href^="http://"]::after,
+.md-typeset a[href^="https://"]::after {
+	content: "\f35d";
 }
 
 .md-typeset a[href^="http://roosevelt.edu"]::after,

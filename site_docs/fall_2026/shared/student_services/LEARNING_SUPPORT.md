@@ -23,12 +23,13 @@ for current hours, appointments, and available services.
   subjects. Use Navigate in the Roosevelt app to make an appointment.
 - **Chicago and Schaumburg campuses:** Online tutoring is available 24/7 through Brainfuse in
   Blackboard.
-- **Help:** Email learningcommons@roosevelt.edu.
+- **Help:** Email [learningcommons@roosevelt.edu](mailto:learningcommons@roosevelt.edu).
 
 ### Peer success coaching
 
 In-person and virtual peer success coaching is available on both campuses. Use Navigate in the
-Roosevelt app to make an appointment, or email learningcommons@roosevelt.edu for assistance.
+Roosevelt app to make an appointment, or email
+[learningcommons@roosevelt.edu](mailto:learningcommons@roosevelt.edu) for assistance.
 
 ## Library
 

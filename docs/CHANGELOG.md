@@ -59,9 +59,28 @@
   outcomes, and goals each; Genetics preserves its detailed 17 outcomes and seven goals while
   adding the two objectives needed for six. Restored the canonical colon-bearing section titles
   and their distinct objective, outcome, and goal lead-in sentences.
+- Restored the BIOL 351/451 Genetics of Inheritance course-focus explanation directly after the
+  catalog description. It distinguishes inheritance genetics from molecular genetics, explains
+  why general Genetics textbooks may emphasize different material, and identifies BIOL 453 as
+  Roosevelt's molecular-biology course.
 
 ### Behavior or Interface Changes
 
+- Renamed all three "Meetings and instructor" pages and navigation entries to "Course information"
+  so their section details, delivery format, catalog description, textbooks and technology, and
+  instructor information have an accurate umbrella title. Restored Genetics' established
+  face-to-face format paragraph from the original syllabus, separated Biostatistics' confirmed
+  hybrid-format prose from its catalog entry, and gave Biotechnology's current flipped hybrid
+  format a durable course-format heading.
+- Made every public Fall 2026 contact email an explicit `mailto:` link instead of relying on
+  renderer-specific detection. Website email links now carry the local Font Awesome envelope icon,
+  matching the established link-purpose icon treatment without adding a remote dependency.
+- Course-information rows shared by both listed sections now display one value spanning the two
+  section columns instead of repeating it. Section-specific values remain side by side, and the
+  same rule reaches the website, PDF, and DOCX from the registered table profile.
+- Delayed online homework until Week 3 so students have time to create accounts and learn the
+  external assessment platform. Kept earlier course-orientation work and Week 2 in-class activities,
+  and labeled the Biostatistics figure analysis and BIOL 480 talking point as in-class work.
 - Restored the Genetics schedule's five numbered quiz-coverage groups and Assignments 1-13 due
   labels from the historical online schedule. Matching topic and quiz cells use the original light
   surfaces (`#f4cccc`, `#d9ead3`, `#ffe599`, `#fce5cd`, and `#d9d2e9`) plus measured 7:1 dark-theme
@@ -88,10 +107,11 @@
   not applicable. Updated the Genetics checklist from not applicable to covered without changing
   its resolved-item total. Kept official attribute reporting separate from assumptions about
   students or degree use.
-- Made the Fall 2026 delivery formats explicit: every current syllabus has no laboratory component;
-  Genetics covers the lecture rather than its separately registered laboratory; Biostatistics has
-  a one-hour weekly meeting plus mostly self-paced Google Sheets tutorials; and BIOL 480 is a
-  flipped, discussion-based graduate course rather than an instructor-lecture course.
+- Made the Fall 2026 delivery formats explicit: Genetics covers the lecture rather than its
+  separately registered laboratory; Biostatistics has a one-hour weekly meeting plus mostly
+  self-paced Google Sheets tutorials; and BIOL 480 is a flipped, discussion-based graduate course
+  rather than an instructor-lecture course. Kept the `no_lab` manifest choice as an internal
+  composition decision instead of displaying a none-valued table row.
 - Replaced the proposed fixed feedback-turnaround promise with the actual update schedule.
   Automatically graded assignments return scores on their platform after submission, and those
   grades are transferred manually to the Blackboard gradebook at midterm and semester end. Quiz
@@ -126,6 +146,9 @@
 
 ### Fixes and Maintenance
 
+- Removed the explicit `Laboratory component: None` rows from all three course-information tables.
+  The Genetics page retains its useful prose explaining that the separately registered laboratory
+  is outside the lecture syllabus.
 - Updated department references after the former Biological, Physical and Health Sciences unit
   split into Biological and Physical Sciences and Health Sciences. Current Biology leadership now
   names Biological and Physical Sciences, while academic-advisor descriptions stay general rather
@@ -153,6 +176,34 @@
 
 ### Developer Tests and Notes
 
+- `./all_test.sh` passed all 1,316 fast tests, live-date refresh, strict website and PDF/DOCX
+  builds, include parity, and the Playwright browser audit after restoring the course-format
+  sections. Focused browser checks confirmed Course information, Course format, and Catalog
+  description in order on all three pages; desktop/mobile captures and the rebuilt PDF pages were
+  visually reviewed, including Genetics' restored face-to-face paragraph.
+- `./all_test.sh` passed all 1,316 fast tests, live-date refresh, strict website and PDF/DOCX
+  builds, include parity, and the Playwright browser audit after normalizing the email links. A
+  source audit found no remaining bare public email addresses. Focused browser captures confirmed
+  the local Font Awesome envelope glyph, inherited link color, and stable placement in desktop and
+  mobile light/dark states.
+- `./all_test.sh` passed all 1,316 fast tests, live-date refresh, strict website and PDF/DOCX
+  builds, include parity, and the Playwright browser audit for the shared course-information spans.
+  The width calculator retained each table's content-derived proportions; the 26-table review
+  captured four browser states, and all three course-information tables were visually reviewed in
+  those states and in PDF. The DOCX files contain 5 Biostatistics, 5 Genetics, and 8 Biotechnology
+  two-column grid spans, matching the built HTML.
+- `./all_test.sh` passed all 1,314 fast tests, live-date refresh, strict website and PDF/DOCX
+  builds, include parity, and the Playwright browser audit after removing the empty laboratory rows.
+  Recalculated all three course-information tables and visually confirmed the rebuilt PDF tables
+  close cleanly while Genetics retains its separate-laboratory explanation.
+- `./all_test.sh` passed all 1,314 fast tests, live-date refresh, strict website and PDF/DOCX
+  builds, include parity, and the Playwright browser audit after restoring the Genetics course-focus
+  explanation. Confirmed its order in rendered HTML and visually reviewed its complete two-page PDF
+  transition into the required-textbook section.
+- `./all_test.sh` passed all 1,314 fast tests, live-date refresh, strict website and PDF/DOCX
+  builds, include parity, and the Playwright browser audit after documenting the Week 3 online-
+  homework delay. Recalculated all three schedule tables with `tools/calculate_table_widths.py` and
+  visually confirmed the two new in-class labels in the rebuilt Biostatistics and BIOL 480 PDFs.
 - Passed all 1,314 fast tests, rebuilt the strict website and all three PDF/DOCX syllabi, passed
   cross-format include parity, and passed the Playwright browser accessibility audit. Visually
   reviewed pages 5-7 of each rebuilt PDF; all three canonical learning sections remain distinct,

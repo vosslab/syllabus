@@ -23,8 +23,9 @@ Students requesting academic accommodations for the first time can complete the
 Disability Services will follow up by email with information about documentation and next steps.
 
 On the Schaumburg campus, Disability Services is in the Learning Commons, Room SCH 517. The
-Learning Support Specialist is Rebecca Berezin, who can be reached at rberezin@roosevelt.edu or
-847-619-7978. Testing accommodations are also handled through the Learning Commons in Room SCH 517.
+Learning Support Specialist is Rebecca Berezin, who can be reached at
+[rberezin@roosevelt.edu](mailto:rberezin@roosevelt.edu) or 847-619-7978. Testing accommodations are
+also handled through the Learning Commons in Room SCH 517.
 
 Roosevelt University complies fully with the Americans with Disabilities Act. See the
 [Disability Services webpage](https://www.roosevelt.edu/current-students/support-services/learning-commons/disability-services)
