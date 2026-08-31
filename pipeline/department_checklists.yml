@@ -52,11 +52,12 @@ items:
   - id: program_director
     group: Required - Instructor and program information
     label: Program director information, if applicable
-    status: needs_review
-    evidence:
-      - label: Department and program leadership
-        path: COURSE_DETAILS/#department-and-program-leadership
-    note: Dr. Voss's Bioinformatics director role is documented, but the applicable program for this course has not been established. Roosevelt does not consistently publish separate director listings.
+    status: not_applicable
+    evidence: []
+    note: >-
+      The instructor confirmed that no program director overlaps these Biology courses. College
+      deans, unrelated program directors, academic advisors, and coordinators are outside this
+      checklist item.
   - id: course_meetings
     group: Required - Course information
     label: Course meetings
@@ -142,9 +143,11 @@ items:
   - id: core_attributes
     group: Required - Course information
     label: CORE attributes, as applicable
-    status: needs_review
+    status: not_applicable
     evidence: []
-    note: Confirm whether an official CORE attribute applies to this course and use the university's exact wording.
+    note: >-
+      The instructor confirmed that CORE Attributes apply to general-education courses. These are
+      upper-level major courses, so this item does not apply.
   - id: university_goals
     group: Required - Learning goals and outcomes
     label: University learning goals
@@ -288,11 +291,13 @@ items:
   - id: alt_text
     group: Required - Accessibility
     label: Alt text for images
-    status: not_applicable
+    status: covered
     evidence:
-      - label: Published course page
-        path: ./
-    note: The syllabus body currently contains no instructional content images. The site logo has an accessible home-link name.
+      - label: Instructor information
+        path: COURSE_DETAILS/#instructor-information
+    note: >-
+      The instructor portrait has descriptive alternative text, and the site logo has an
+      accessible home-link name.
   - id: captioned_videos
     group: Required - Accessibility
     label: Captioned videos
@@ -459,12 +464,6 @@ courses:
           - label: Course format and online tools
             path: ../shared/policies/COURSE_DELIVERY/
         note: Blackboard and a device capable of reading the OER and completing assignments are identified.
-      core_attributes:
-        status: needs_review
-        evidence:
-          - label: Section information
-            path: COURSE_DETAILS/#section-information
-        note: BIOL 351 is identified with the Natural Science attribute, but the complete official CORE wording still needs confirmation.
       optional_resources:
         status: needs_review
         evidence:
@@ -490,3 +489,13 @@ courses:
           - label: Textbook and technology
             path: COURSE_DETAILS/#textbook-and-technology
         note: The current third edition of Clark et al. is clearly labeled as an optional background reference.
+      assignment_formatting:
+        status: covered
+        evidence:
+          - label: Biotechnology company projects
+            path: PROJECTS/
+          - label: Talking points
+            path: TALKING_POINTS/
+        note: >-
+          The project and talking-point pages provide format, organization, visual, and submission
+          requirements for the course's major assignments.

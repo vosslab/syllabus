@@ -19,6 +19,26 @@ Some students are advised within their college or individual program. Graduate s
 directly with their academic department. Schedule an appointment through
 [Navigate](https://www.roosevelt.edu/eab-navigate).
 
+#### Biological, physical and health sciences advising
+
+Joshua Campbell, M.U.P.P. (he/him), is an academic advisor for Biological, Physical and Health
+Sciences. He is also adjunct science faculty and chairs the College of Science, Health and Pharmacy
+Curriculum Committee.
+
+- **Office:** 425 S. Wabash Ave., Room 1M10G, Chicago, IL 60605.
+- **Phone:** (312) 341-2088.
+- **Email:** [jcampbell14@roosevelt.edu](mailto:jcampbell14@roosevelt.edu).
+- **Appointments:** Log in through [Navigate](https://www.roosevelt.edu/eab-navigate).
+
+### Laboratory support
+
+Students planning laboratory courses, independent study, or research can contact Nathan La Porte,
+the department's laboratory contact, for help with laboratory access and planning, lab-coat
+purchases, safety-document completion, and other laboratory support.
+
+- **Phone:** (312) 341-3681.
+- **Email:** [nlaporte@roosevelt.edu](mailto:nlaporte@roosevelt.edu).
+
 ### Registrar
 
 The Registrar answers questions about registration, adding or dropping courses, withdrawal,
@@ -58,11 +78,67 @@ Study groups help students understand course material and think critically and c
 academic concepts. All Roosevelt students have access to Study Buddies through Navigate in the
 mobile Roosevelt app.
 
-### Student support services STEM
+### STEM Center (Chicago)
 
-SSS STEM supports eligible first-generation, low-income, and disabled STEM students through
-academic advising, career and financial workshops, cultural enrichment, and other proactive
-services. Learn more from the [RU SSS STEM Office](https://www.roosevelt.edu/current-students/support-services/sss-stem).
+The STEM Center in AUD 835 is a place for students to study, work, meet classmates, receive
+academic support, or recharge between classes. The center provides:
+
+- Peer tutoring in multiple STEM subjects.
+- Computer lab access.
+- A relaxed lounge area.
+- Free printing for assignments.
+- Free coffee.
+
+Learn more through Roosevelt's [HSI STEM program](https://www.roosevelt.edu/current-students/hsi-stem)
+and find current activities on the [STEM Center Laker Connect page](https://roosevelt.campuslabs.com/engage/organization/stemcenter).
+
+### TRIO student support services
+
+TRIO Student Support Services provides eligible STEM and non-STEM students with individualized
+support. Students may receive:
+
+- Academic support with study strategies, tutoring, and time management.
+- One-on-one guidance and advising.
+- Help navigating financial aid and campus resources.
+- A strong support system and campus community.
+
+First-generation college students, students from income-eligible backgrounds, and students with a
+documented disability may qualify when they also have an academic need. Review eligibility and
+apply through the [TRIO Student Support Services](https://www.roosevelt.edu/trio-sss) page.
+
+### McNair Scholars Program
+
+McNair is separate from TRIO Student Support Services. It prepares eligible students from any major
+for research-based graduate study. Applicants must want to pursue graduate education, have at least
+60 earned credit hours and a 2.8 cumulative GPA, continue as full-time students, have at least one
+summer before graduation, be U.S. citizens or permanent residents, and be first-generation college
+students with financial need under federal definitions or a documented disability. Applicants must
+also submit an application.
+
+McNair Scholars receive:
+
+- Guided research with a faculty mentor.
+- A paid summer internship of at least $2,800.
+- Graduate-school workshops and preparation resources.
+- Travel opportunities for campus visits and conferences.
+- Help with graduate applications and external funding.
+- Two tuition-free credit hours for UNIV 311, Introduction to Research and Scholarly Activity.
+
+Review the complete eligibility requirements on the
+[McNair Scholars Program](https://www.roosevelt.edu/current-students/academics/mcnair) page or email
+[mcnair@roosevelt.edu](mailto:mcnair@roosevelt.edu).
+
+### English language support
+
+Students who want help with spoken or written English can be connected with an English tutor
+through the Office of International Programs.
+
+- Some international students are referred after placement exams.
+- Any student may tell an instructor that English tutoring would be helpful.
+- An instructor may submit an Early Alert through Navigate to connect a student with support.
+
+Students may ask for this help themselves; a placement referral or an instructor's Early Alert is
+not required before a student can request support.
 
 ### Career services
 

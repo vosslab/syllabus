@@ -2,6 +2,26 @@
 
 ### Additions and New Features
 
+- Added Joshua Campbell's current Biological, Physical and Health Sciences advising role, office,
+  phone, email, and public appointment route to the shared Fall 2026 student resources. The shared
+  source makes the department-specific contact available in all three course syllabi.
+- Added Nathan La Porte as the department laboratory contact for students planning laboratory
+  courses, independent study, or research and seeking access, lab-coat, safety-document, or other
+  laboratory support. Expanded the existing TRIO SSS resource to cover its current STEM and
+  non-STEM services, student benefits, eligibility, and public application page.
+- Added student-facing English language support that explains placement referral, student
+  self-referral, and an instructor's Navigate Early Alert as paths to tutoring through the Office
+  of International Programs.
+- Added separate McNair Scholars and Chicago STEM Center resources. The McNair section distinguishes
+  its research and graduate-school mission from TRIO SSS and summarizes eligibility, services, and
+  contact information; the STEM Center section presents AUD 835 as a tutoring, computer, printing,
+  coffee, study, and community space.
+- Added tracked, public-safe CSHP leadership and DBPS Fall 2026 faculty references under `docs/`.
+  The exact chair memo remains under ignored `raw/` because it contains active access codes and
+  access-controlled links.
+- Refreshed the Fall 2026 department-checklist action report against all three current syllabi and
+  all 53 items in the department source. Selected the updated Markdown file as the working authority
+  after confirming that both Markdown copies and the updated DOCX contain the same item wording.
 - Added one shared Python table-layout calculator that reads every visible header and body cell,
   estimates wrap-aware column demand, and supplies the resulting proportions to website, PDF, and
   DOCX rendering without table-specific width percentages.
@@ -16,6 +36,16 @@
 
 ### Behavior or Interface Changes
 
+- Clarified that the MkDocs site and generated syllabi are the student-facing boundary. Private
+  internal authoring references may remain inside the repository workspace only under ignored
+  `raw/`; the publication pipeline still rejects tracked raw files and never reads that directory.
+- Marked the conditional CORE Attribute checklist item not applicable for all three Fall 2026
+  syllabi after instructor confirmation that CORE applies to general-education courses and these
+  are upper-level major courses.
+- Marked the conditional program-director checklist item not applicable for all three Fall 2026
+  syllabi after instructor confirmation that no program director overlaps those courses. Retained
+  the department chair and did not use deans, unrelated directors, advisors, or coordinators as
+  checklist evidence.
 - Rebuilt the Coursework and grades hierarchy without changing global heading styles. The one
   assessment marker now composes ordered H2 section roots with manifest-derived H3 topics; compact
   overview labels remain bold paragraph lead-ins. Added explicit No quizzes and No exams topics when
@@ -41,6 +71,9 @@
 
 ### Fixes and Maintenance
 
+- Corrected the department-checklist evidence model now that the shared instructor portrait makes
+  image alt text applicable, and recognized Biotechnology's project and talking-point formatting
+  requirements instead of leaving that suggested item unresolved.
 - Rotated the intact 2026-08-28 through 2026-08-26 day blocks into
   `CHANGELOG-2026-08b.md` after the active changelog crossed its 800-line threshold.
 - Pruned implementation-specific table-layout assertions and corrected required manifest access,
@@ -58,6 +91,20 @@
 
 ### Developer Tests and Notes
 
+- Passed 501 focused department-checklist, Markdown-link, include, syllabus-builder, ASCII, and
+  whitespace tests. Rebuilt the strict website and all three PDF and DOCX syllabi, passed
+  cross-format include parity, confirmed the laboratory, TRIO SSS, McNair Scholars, STEM Center,
+  and English-language resources in every generated syllabus, and verified that the chair memo's
+  access codes are absent from tracked and published content.
+- Regenerated all three department checklists after the CORE decision. BIOL 318/418 now has 47 of
+  53 items resolved with six open, BIOL 351/451 has 48 resolved with five open, and BIOL 480 has 50
+  resolved with three open.
+- Passed 492 focused Markdown-link, include, syllabus-builder, ASCII, and whitespace tests. Rebuilt
+  the strict website and all three PDF and DOCX syllabi, passed cross-format include parity, and
+  confirmed Joshua Campbell's listing in every generated syllabus document.
+- Regenerated all three Markdown and DOCX department checklists, confirmed each contains all 53
+  source items, verified the DOCX archives and text extraction, and passed 446 focused checklist,
+  Markdown-link, ASCII, and whitespace tests plus `git diff --check`.
 - A fresh six-pass structural audit found no code, test, style, legacy, or comment issues and one
   low-severity documentation mismatch. Updated the architecture, decision, format, and changelog
   wording to distinguish selected-category topics from absence-derived No quizzes and No exams

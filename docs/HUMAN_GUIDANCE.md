@@ -28,10 +28,33 @@ history. Those belong in the appropriate technical documentation or changelog.
   titles mechanically instead of maintaining a separate mapping.
 - Make the repository reflect my actual syllabi and teaching practice, not a generic university
   course template.
-- Keep the repository and public website free of credentials, private meeting information, student
-  information, and access-controlled course material. Blackboard is the home for private content.
+- Only the MkDocs site and generated student syllabus documents are student-facing. Keep tracked
+  sources and published content free of credentials, private meeting information, student
+  information, and access-controlled course material. Store private department reference documents
+  in the ignored `raw/` directory rather than outside the repository; Blackboard remains the home
+  for private course delivery.
+- Put public-safe leadership and departmental references in tracked `docs/` so they can be
+  committed. Keep exact internal source memos in ignored `raw/` when they contain access codes or
+  access-controlled material.
 - I want shared syllabus information edited once, not copied among courses or maintained in a
   parallel template tree.
+- Do not add CSHP deans, unrelated program directors, academic advisors, or coordinators to a
+  syllabus just to fill a checklist. Keep the applicable department chair, and mark program
+  director not applicable unless a directly overlapping program role is confirmed. Current public
+  contact information for department-specific academic advisors is useful in the shared student
+  resources even though the department checklist does not require it.
+- The department laboratory contact is useful for students planning laboratory courses,
+  independent study, or research and for questions about laboratory access, lab coats, and safety
+  documents.
+- English tutoring through the Office of International Programs is a useful student resource.
+  Translate faculty referral procedures into student-facing language that explains self-referral
+  and an instructor's Navigate Early Alert as two ways to connect with support.
+- Keep McNair Scholars separate from TRIO Student Support Services: McNair prepares eligible
+  upper-level students for research and graduate school, while TRIO SSS supports undergraduate
+  persistence and completion. Include the Chicago STEM Center as a study, tutoring, technology,
+  and community space in AUD 835.
+- CORE Attributes apply to general-education courses. My Fall 2026 courses are upper-level major
+  courses, so the syllabus checklist's conditional CORE Attribute item is not applicable.
 - Assignments, group quizzes, face-to-face exams, and online exams are my four assessment
   categories. Keep them as separate shared fragments, with each course YAML selecting only the
   categories used in that course.

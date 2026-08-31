@@ -183,16 +183,18 @@ the detailed separation is documented in
 
 ## Privacy boundary
 
-Only public-safe content belongs in the repository. The document builder scans source and generated
-text for common meeting URLs, passwords, passcodes, and invitation patterns. Private links,
-student information, grades, and access-controlled materials remain outside the public repository.
-Assignment-specific directions may be communicated through course links or in class; public
-expectations belong in the authoritative course Markdown.
+Only public-safe content belongs in tracked sources and the publication pipeline. The document
+builder scans source and generated text for common meeting URLs, passwords, passcodes, and
+invitation patterns. Private links, student information, grades, and access-controlled materials
+remain outside the public MkDocs source and generated syllabi. Assignment-specific directions may
+be communicated through course links or in class; public expectations belong in the authoritative
+course Markdown.
 
-The ignored local `raw/` directory may hold public reference material that supports authoring. It
-is outside the content pipeline, never supplies a published page or complete-syllabus section, and
-the builder rejects any tracked file below it. Move a verified public fact into the canonical
-Markdown source rather than linking a course page or manifest to `raw/`.
+The ignored local `raw/` directory may hold public or private internal reference material that
+supports authoring. It is outside the content pipeline, never supplies a published page or
+complete-syllabus section, and the builder rejects any tracked file below it. Move a verified
+public fact into the canonical Markdown source rather than linking a course page or manifest to
+`raw/`.
 
 ## Extension points
 

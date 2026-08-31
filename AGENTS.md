@@ -9,7 +9,8 @@
 
 - `site_docs/fall_2026/` is the only live course and complete-syllabus authority.
 - `site_docs/EXTRA_CREDIT_MOVIES.md` is the approved global website-only exception.
-- Keep the repository public-only; private course information belongs in Blackboard.
+- Keep tracked sources and published MkDocs content public-only. Ignored `raw/` may hold private
+  internal references; never track or publish them. Private course delivery belongs in Blackboard.
 - Treat `site/`, `site_docs/downloads/`, `site_docs/generated/`, and `output/` as generated output.
 - Only humans commit.
 

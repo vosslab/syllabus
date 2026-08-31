@@ -113,6 +113,10 @@ The active documentation entry points are:
 - [CODE_ARCHITECTURE.md](CODE_ARCHITECTURE.md) for component and data flow.
 - [FILE_FORMATS.md](FILE_FORMATS.md) for manifest and source contracts.
 - [GITHUB_PAGES_BUILD.md](GITHUB_PAGES_BUILD.md) for publication architecture.
+- [CSHP_LEADERSHIP_REFERENCE.md](CSHP_LEADERSHIP_REFERENCE.md) for the public-safe college
+  leadership, advisor, and laboratory-contact roster used during syllabus review.
+- [DBPS_FALL_2026_REFERENCE.md](DBPS_FALL_2026_REFERENCE.md) for the public-safe department chair
+  update, contacts, Fall 2026 dates, and faculty procedures.
 
 ## Generated boundaries
 
@@ -124,5 +128,6 @@ The following paths are outputs, not editable sources:
 - `output/` - optional local archives and other generated output.
 
 The ignored top-level `raw/` directory is not a generated artifact or a source subtree. It may
-hold local public reference material, but no tracked file may live there and it is never read by
-the publication pipeline. Copy confirmed public facts into the tracked `site_docs/` authority.
+hold local public or private internal reference material, but no tracked file may live there and it
+is never read by the publication pipeline. Copy confirmed public facts into the tracked
+`site_docs/` authority.
