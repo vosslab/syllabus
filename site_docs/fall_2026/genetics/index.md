@@ -4,27 +4,35 @@ General Genetics examines inheritance through classical and molecular genetics, 
 problem solving, experimental evidence, gene interactions, chromosome behavior, and genetic
 mapping.
 
-## Find what you need
+## Find what you need { #course-contents }
 
 The syllabus is divided into shorter pages so you can go directly to the information you need.
 
-<div class="course-page-links" markdown="1">
+<nav class="course-page-links" aria-labelledby="course-contents" markdown="1">
 
-- [**Meetings and instructor**](COURSE_DETAILS.md): class time, location, prerequisites, course
-  description, and instructor contact information.
-- [**Learning Objectives, Outcomes, and Goals**](COURSE_LEARNING_FRAMEWORK.md): Roosevelt learning
-  goals, learning objectives, course learning outcomes, and overall learning goals.
-- [**Coursework and grades**](ASSIGNMENTS_AND_GRADING.md): assignments, points, and the letter-grade
-  scale.
-- [**Discussion marks**](DISCUSSION_MARKS.md): face-to-face participation, poker-chip tracking, and
-  scoring.
-- [**Dates and topics**](SCHEDULE.md): the week-by-week course schedule.
-- [**Dr. Voss course policies**](../shared/policies/index.md): grading, attendance, accommodations,
-  academic integrity, classroom expectations, safety, and withdrawal information.
-- [**Help and student services**](../shared/STUDENT_RESOURCES.md): advising, tutoring, technology,
-  disability services, counseling, and other support.
+- [<span class="course-page-links__title">Meetings and instructor</span>
+  <span class="course-page-links__description">Class time, location, prerequisites, course
+  description, and instructor contact information.</span>](COURSE_DETAILS.md)
+- [<span class="course-page-links__title">Learning Objectives, Outcomes, and Goals</span>
+  <span class="course-page-links__description">Roosevelt learning goals, learning objectives,
+  course learning outcomes, and overall learning goals.</span>](COURSE_LEARNING_FRAMEWORK.md)
+- [<span class="course-page-links__title">Coursework and grades</span>
+  <span class="course-page-links__description">Assignments, points, and the letter-grade
+  scale.</span>](ASSIGNMENTS_AND_GRADING.md)
+- [<span class="course-page-links__title">Discussion marks</span>
+  <span class="course-page-links__description">Face-to-face participation, poker-chip tracking,
+  and scoring.</span>](DISCUSSION_MARKS.md)
+- [<span class="course-page-links__title">Dates and topics</span>
+  <span class="course-page-links__description">The week-by-week course
+  schedule.</span>](SCHEDULE.md)
+- [<span class="course-page-links__title">Dr. Voss course policies</span>
+  <span class="course-page-links__description">Grading, attendance, accommodations, academic
+  integrity, classroom expectations, safety, and withdrawal information.</span>](../shared/policies/index.md)
+- [<span class="course-page-links__title">Help and student services</span>
+  <span class="course-page-links__description">Advising, tutoring, technology, disability
+  services, counseling, and other support.</span>](../shared/STUDENT_RESOURCES.md)
 
-</div>
+</nav>
 
 --8<-- "fall_2026/shared/fragments/SYLLABUS_CHANGE_NOTICE.md"
 

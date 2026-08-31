@@ -19,6 +19,8 @@ history. Those belong in the appropriate technical documentation or changelog.
   publication-system concepts.
 - Direct the syllabus to students as its audience, even though they are the people least likely to
   read it.
+- Give each course landing page a clear, clickable table of contents so students can find what
+  they need quickly.
 - Treat source page filenames as the concise instructor titles used for generated-document
   navigation. Keep the Markdown headings as student-facing titles, and derive the instructor
   titles mechanically instead of maintaining a separate mapping.

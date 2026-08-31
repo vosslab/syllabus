@@ -1,8 +1,20 @@
 ## 2026-08-30
 
+### Behavior or Interface Changes
+
+- Turned each course landing page's "Find what you need" list into a named, responsive contents
+  navigation with full-card links, descriptive text, visible focus, and touch-sized targets.
+
 ### Fixes and Maintenance
 
 - Synchronized shared style guides, tests, and repository support files from the starter template.
+
+### Developer Tests and Notes
+
+- `./all_test.sh` passed 1,180 fast tests, the live Google Sheets refresh, all PDF and DOCX
+  exports, strict MkDocs, include parity, and the Playwright accessibility and interaction audit.
+- A first restricted-sandbox run reached the browser phase but macOS denied Chromium's process
+  port registration. The identical full gate passed outside that sandbox boundary.
 
 ## 2026-08-28
 

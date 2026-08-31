@@ -6,10 +6,10 @@
 //   site_docs/index.md:1.
 // - The important-dates wrapper comes from site_docs/fall_2026/shared/IMPORTANT_DATES.md:1;
 //   its generated month tables come from pipeline/sync_important_dates.py:386.
-// - Main headings, prose, tables, course-page links, and download links come from
-//   site_docs/fall_2026/genetics/index.md:1.
-// - Typography and focus-visible behavior come from site_docs/assets/stylesheets/site.css:110 and
-//   site_docs/assets/stylesheets/site.css:379.
+// - Main headings, prose, tables, course-contents links, and download links come from the three
+//   site_docs/fall_2026/*/index.md course landing pages.
+// - Typography, course-contents cards, and focus-visible behavior come from
+//   site_docs/assets/stylesheets/site.css.
 // - System-aware palette toggles come from mkdocs.yml:18; dark color roles come from
 //   site_docs/assets/stylesheets/site.css:55.
 // - Course-header metadata comes from each course .meta.yml, overrides/main.html:5, and
@@ -151,6 +151,40 @@ async function checkCompleteSyllabusDownloads(page, siteOrigin, siteRoot) {
 	assert.deepEqual(actualDownloadPaths.sort(), expectedDownloadPaths);
 }
 
+async function checkCourseContentsNavigation(page, siteOrigin) {
+	const contentsNavigation = page.getByRole("navigation", {
+		name: "Find what you need",
+	});
+	await contentsNavigation.waitFor({ state: "visible" });
+	const contentsLinks = await contentsNavigation.getByRole("link").all();
+	assert.ok(contentsLinks.length > 0, "Course contents navigation has no links");
+	for (const contentsLink of contentsLinks) {
+		const title = contentsLink.locator(".course-page-links__title");
+		const description = contentsLink.locator(".course-page-links__description");
+		assert.ok((await title.textContent()).trim(), "Course contents link has no title");
+		assert.ok(
+			(await description.textContent()).trim(),
+			"Course contents link has no description",
+		);
+		const linkBox = await contentsLink.boundingBox();
+		assert.ok(linkBox, "Course contents link is not rendered");
+		assert.ok(linkBox.height >= 44, `Course contents link is only ${linkBox.height}px tall`);
+		const destination = new URL(await contentsLink.getAttribute("href"), page.url());
+		assert.equal(destination.origin, siteOrigin);
+		const destinationResponse = await page.request.get(destination.href);
+		assert.equal(destinationResponse.status(), 200, `${destination.pathname} did not load`);
+		await contentsLink.focus();
+		assert.equal(
+			await contentsLink.evaluate((element) => element.matches(":focus-visible")),
+			true,
+		);
+	}
+	const firstLink = contentsLinks[0];
+	const firstDestination = new URL(await firstLink.getAttribute("href"), page.url());
+	await firstLink.click();
+	await page.waitForURL(firstDestination.href);
+}
+
 async function getResponsiveReadingMetrics(page, baseUrl, width) {
 	await page.setViewportSize({ width, height: 900 });
 	const response = await page.goto(
@@ -270,6 +304,14 @@ try {
 			}
 			await context.close();
 		}
+	}
+
+	for (const courseRoute of COURSE_ROUTES) {
+		const contentsPage = await browser.newPage();
+		const contentsResponse = await contentsPage.goto(`${staticServer.baseUrl}${courseRoute}`);
+		assert.equal(contentsResponse?.status(), 200, `${courseRoute} did not load`);
+		await checkCourseContentsNavigation(contentsPage, siteOrigin);
+		await contentsPage.close();
 	}
 
 	const themeContext = await browser.newContext({ colorScheme: "light" });
