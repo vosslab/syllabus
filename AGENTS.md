@@ -1,16 +1,9 @@
 # Required guidance
 
-- docs/REPO_STYLE.md
-- docs/PYTHON_STYLE.md
-- docs/PYTEST_STYLE.md
-- docs/MARKDOWN_STYLE.md
-- docs/HUMAN_GUIDANCE.md
-- docs/CODE_ARCHITECTURE.md
-- docs/FILE_STRUCTURE.md
-- docs/USAGE.md
-- docs/FILE_FORMATS.md
-- docs/GITHUB_PAGES_BUILD.md
-- docs/CHANGELOG.md
+- docs/REPO_STYLE.md, docs/HUMAN_GUIDANCE.md, docs/CHANGELOG.md
+- docs/PYTHON_STYLE.md, docs/PYTEST_STYLE.md, docs/MARKDOWN_STYLE.md
+- docs/CODE_ARCHITECTURE.md, docs/FILE_STRUCTURE.md, docs/USAGE.md
+- docs/FILE_FORMATS.md, docs/GITHUB_PAGES_BUILD.md
 
 # Repository boundaries
 

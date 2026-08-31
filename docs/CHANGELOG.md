@@ -38,6 +38,13 @@
   `CHANGELOG-2026-08b.md` after the active changelog crossed its 800-line threshold.
 - Pruned implementation-specific table-layout assertions and corrected required manifest access,
   import grouping, and helper docstrings after the six-pass code audit.
+- Refreshed the complete documentation set from current repository evidence. Tightened the README
+  newcomer path, install and usage workflows, manifest format contract, roadmap, troubleshooting,
+  related-project guide, and concise `AGENTS.md` pointers. Retained the course-schedule Google
+  Sheets integration in `docs/TODO.md`; the existing importer covers shared University important
+  dates, not the three course schedules.
+- Rebuilt the production site and recaptured the three managed README views: the Fall 2026 home
+  page, dark-mode Genetics navigation, and Biotechnology project expectations.
 
 ### Developer Tests and Notes
 
@@ -52,6 +59,12 @@
 - Rendered and reviewed the footer strip from all 102 pages across the three current PDFs, then
   rechecked title and assessment-guide pages from the final full-gate build. Short names, current
   headings, and page counts remained legible and separate without footer/content overlap.
+- Refreshed the coordinated documentation set and passed all 1,231 fast tests, both live build
+  cycles, complete PDF/DOCX export and include parity, strict MkDocs, and Playwright through a
+  disposable alternate index used during the documentation audit. The real Git index remained
+  untouched.
+- Confirmed all eight live links in the README and related-project guide. Recaptured and visually
+  reviewed the three 1440 by 900 README screenshots; a repeat capture produced identical files.
 
 ## 2026-08-30
 

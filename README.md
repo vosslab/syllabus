@@ -1,29 +1,37 @@
 # Syllabus
 
-An accessibility-focused publishing system that turns separately maintained course pages,
-policies, and resources into a navigable student website plus complete PDF and DOCX syllabi for
-departmental archives.
+An accessibility-focused publishing system that gives biology students a navigable course website
+and complete PDF and DOCX syllabi from the same public course sources.
 
 ## Open the live syllabi
 
 **[Open the Fall 2026 course syllabi on GitHub Pages](https://vosslab.github.io/syllabus/)**
 
 Students can use the public site without installing anything. It provides direct routes to
-Biostatistics, General Genetics, and Applications of Biotechnology, plus shared dates, policies,
+Biostatistics, General Genetics, and Applications of Biotechnology, with shared dates, policies,
 support resources, and complete syllabus downloads.
 
 <!-- screenshots:begin (managed by screenshot-docs) -->
-![Fall 2026 course-syllabus home page with course cards and support links](docs/screenshots/fall_2026_home_light.png)
-![General Genetics course page shown in the dark color scheme](docs/screenshots/general_genetics_dark.png)
-![Biotechnology project page showing individual and group project expectations](docs/screenshots/biotech_project_expectations.png)
+![Fall 2026 syllabus homepage showing three biology course routes and student resource navigation](docs/screenshots/fall_2026_home_light.png)
+![General Genetics course page in dark theme showing the Find what you need navigation cards](docs/screenshots/general_genetics_dark.png)
+![Biotechnology project expectations page showing the project purpose, collaboration, and deliverables](docs/screenshots/biotech_project_expectations.png)
 <!-- screenshots:end -->
 
-## What students receive
+## Find the next thing you need
 
-- A short, navigable course page for the next task, deadline, policy, or support service.
-- Complete PDF and DOCX syllabi for students who need an offline or archival copy.
-- One shared set of policies and resources, so the same guidance does not drift among courses.
-- Dedicated Biotechnology pages that make project and talking-point expectations easy to find.
+The website is the practical front door for the semester; the complete documents remain available
+when you need an offline or archival copy.
+
+| If you need to... | Use the public site to... |
+| --- | --- |
+| Start a course | Open its concise landing page and use the "Find what you need" links. |
+| Check a deadline | Open **Important dates and deadlines** from the Fall 2026 navigation. |
+| Understand a policy or find support | Use the shared course-policy and student-services pages. |
+| Save or print the full syllabus | Download the complete PDF or DOCX from your course page. |
+
+The three course routes share one public policy and resource set, so the same guidance does not
+drift between courses. Applications of Biotechnology also has dedicated project and talking-point
+pages for work students revisit throughout the term.
 
 ## One source, three student-ready forms
 
@@ -45,16 +53,16 @@ course Markdown + shared policies + student resources
 - Credential scanning rejects common meeting links, passcodes, and private invitations.
 - Every successful build produces complete student-facing candidates without draft-state banners.
 
-## Quick start
+## Build the student-ready site
 
-The primary local workflow uses macOS, Homebrew, and Python 3.12. Install the document tools and
-Python dependencies, then build all downloads and the strict static site:
+Students can begin at the live site above. The following is the primary maintainer path for editing
+the public Fall 2026 source, producing all downloadable syllabi, and building the strict static
+site. It uses macOS, Homebrew, and Python 3.12:
 
 ```bash
 brew bundle
-source source_me.sh
-python3 -m pip install -r pip_requirements.txt -r pip_requirements-dev.txt
-python3 pipeline/build_site.py
+source source_me.sh && python3 -m pip install -r pip_requirements.txt -r pip_requirements-dev.txt
+source source_me.sh && python3 pipeline/build_site.py
 ```
 
 A successful build refreshes important dates from Google Sheets, creates `site/index.html`, and
@@ -144,11 +152,14 @@ python3 tests/e2e/e2e_include_parity.py
 
 Accessibility findings guide improvement but do not claim legal or PDF/UA compliance.
 
-## Current development
+## Status and validation
 
-`VERSION` identifies 26.08 as the current development version. Its notes remain unreleased until a
-human creates the release and tag. See [docs/NEWS.md](docs/NEWS.md) for the student and maintainer
-summary, or [docs/RELEASE_HISTORY.md](docs/RELEASE_HISTORY.md) for highlights.
+Fall 2026 is the active public course authority. `VERSION` identifies 26.08 as the current
+development version; it remains unreleased until a human creates the release and tag. The local
+validation lane checks source behavior, document exports, the strict site build, and the rendered
+Pages-shaped interface. Accessibility findings guide improvement but do not claim legal or PDF/UA
+compliance. See [docs/NEWS.md](docs/NEWS.md) for the current summary and
+[docs/RELEASE_HISTORY.md](docs/RELEASE_HISTORY.md) for released highlights.
 
 ## Documentation
 
@@ -160,6 +171,8 @@ summary, or [docs/RELEASE_HISTORY.md](docs/RELEASE_HISTORY.md) for highlights.
 - [docs/FILE_FORMATS.md](docs/FILE_FORMATS.md) - syllabus manifest and Markdown include contracts.
 - [docs/GITHUB_PAGES_BUILD.md](docs/GITHUB_PAGES_BUILD.md) - artifact-build and deployment boundary,
   local-only semantic tests, and deployment failure triage.
+- [docs/TROUBLESHOOTING.md](docs/TROUBLESHOOTING.md) - focused recovery steps for build, export,
+  browser, links, and Pages publication failures.
 - [docs/HCI_BRIEF.md](docs/HCI_BRIEF.md) - student navigation and accessibility design rationale.
 - [docs/RELATED_PROJECTS.md](docs/RELATED_PROJECTS.md) - direct publishing, document, deployment,
   and validation foundations.

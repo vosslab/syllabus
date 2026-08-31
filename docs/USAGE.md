@@ -1,144 +1,112 @@
 # Usage
 
-Maintain the public Fall 2026 syllabus sources, then rebuild the student website and complete
-documents. Students only use the published site; these commands are for maintainers.
+Maintain public Fall 2026 syllabus sources, then regenerate the student website and complete PDF
+and DOCX documents. Students use the published site; these commands are for maintainers.
 
 ## Source ownership
 
 - `site_docs/fall_2026/` is the only live course and complete-syllabus authority.
-- Each course contains `index.md`, course-specific Markdown, `syllabus.yml`, and `.meta.yml`.
-- Term-wide policies, dates, instructor information, and student resources live under
+- Each course owns its Markdown pages, `syllabus.yml`, and `.meta.yml`.
+- Shared policies, dates, instructor information, and student resources live in
   `site_docs/fall_2026/shared/` and are linked or included rather than copied.
 - [site_docs/EXTRA_CREDIT_MOVIES.md](../site_docs/EXTRA_CREDIT_MOVIES.md) is the one global,
   website-only exception. It is deliberately omitted from complete PDF and DOCX manifests.
-- `site_docs/downloads/`, `site/`, and `output/` are generated outputs. Regenerate them; do not
-  edit or commit them as content sources.
-
-The ignored local `raw/` tree may hold public reference material. It is never a live authority;
-the build rejects tracked files inside it. Keep private syllabi, credentials, meeting links,
-student information, and access-controlled material in Blackboard.
+- `site/`, `site_docs/downloads/`, `site_docs/generated/`, and `output/` are generated outputs.
+  Regenerate them; do not edit them as content sources.
 
 See [FILE_FORMATS.md](FILE_FORMATS.md) for manifest, Markdown table, and restricted include rules.
 
 ## Edit content
 
-- Edit course-specific details, assignments, and schedules in that course folder.
-- Edit one shared policy in `site_docs/fall_2026/shared/policies/`; do not copy it into courses.
-- Edit shared instructor contact facts in
-  `site_docs/fall_2026/shared/fragments/INSTRUCTOR_CONTACT_DETAILS.md`.
-- Edit shared support information in `site_docs/fall_2026/shared/STUDENT_RESOURCES.md`.
-- Edit dates as literal Markdown in course details and schedules. Confirm calendar changes before
-  publishing; the build never shifts dates automatically.
-- Select `assignments`, `group_quizzes`, `f2f_exams`, and `online_exams` in each course manifest's
-  ordered `assessments` list. Edit their shared wording under `shared/fragments/assessments/`.
-- Set `assessment_examples_url` to the matching official `https://biologyproblems.org/<subject>/`
-  route. The coursework page publishes that practice-problem link inside its Assignments section.
-- For a course with a confirmed point plan, edit only the ordered `course_point_plan` assessment
-  names and integer `points` in its `syllabus.yml`. The build derives the total and approximate
-  shares at the coursework marker; omit extra credit because it does not enter the denominator.
-- Set `discussion` to `no_discussion`, `f2f_discussion`, or `remote_discussion`. Edit mode-specific
-  and shared discussion wording under `shared/fragments/discussions/`.
-- Set required `lab_status` to `no_lab` unless this syllabus includes a lab taught by Dr. Voss.
-  Use `has_lab` for that future case and edit the shared lab-attendance wording only under
-  `shared/fragments/labs/`; a separately taught co-requisite lab remains `no_lab` here.
-
-Use the exact, full-line include form when a public fact must appear in more than one place:
-
-```markdown
---8<-- "fall_2026/shared/fragments/INSTRUCTOR_CONTACT_DETAILS.md"
-```
+- Edit course-specific details, assignments, and schedules in that course's folder.
+- Edit a shared policy once under `shared/policies/`; do not copy it into course folders.
+- Edit shared contact and support facts in `shared/fragments/INSTRUCTOR_CONTACT_DETAILS.md` and
+  `shared/STUDENT_RESOURCES.md`.
+- Edit dates as literal Markdown in course schedules and details; confirm calendar changes before
+  publishing because the build never shifts them automatically.
+- Edit assessment choices, discussion mode, lab status, and confirmed point-plan names and values
+  in the course `syllabus.yml`. The build derives point totals and approximate shares.
 
 ## Build and preview
 
-Build complete DOCX and PDF downloads plus the strict static website:
+Run the production front door to refresh important dates, generate complete downloads, and build
+the strict static site:
 
 ```bash
 source source_me.sh
 python3 pipeline/build_site.py
 ```
 
-The build refreshes the managed important-dates fragment from its fixed Google Sheets source,
-regenerates all downloads, and fails rather than publishing stale date data.
-
-Preview the generated site locally:
+Preview the current source locally. The script refreshes important dates, opens MkDocs in the
+default browser, and stops after five minutes; use `Ctrl-C` to stop it earlier.
 
 ```bash
 ./run_web_server.sh
 ```
 
-The preview refreshes important dates, opens in the default browser, and stops after five minutes.
-Press `Ctrl-C` to stop it sooner.
-
-Build only DOCX and PDF files when the site itself is unchanged:
+To rebuild only the current PDF and DOCX outputs after dates have already been refreshed, run:
 
 ```bash
 source source_me.sh
 python3 pipeline/build_syllabi.py
 ```
 
-Use `--archive` with that command to package current generated documents under `output/archive/`.
+Add `--archive` to also create one ZIP file per term under `output/archive/`.
 
-## Review table widths
+## Review tables and checklists
 
-Preview the content-derived widths for authored Markdown tables without building outputs:
+Inspect the shared table-width calculation without writing outputs:
 
 ```bash
 source source_me.sh
 python3 tools/calculate_table_widths.py
 ```
 
-Pass one or more Markdown files or directories to narrow the report, or add `--json` for
-machine-readable output. The command is read-only and uses the same calculator as the website,
-PDF, and DOCX renderers. Its `series` value shows how many exact-header tables in that source share
-one width vector; use the generated important-dates file to inspect all monthly tables together.
-
-Build the production site and capture every rendered syllabus table in desktop/mobile and
-light/dark states:
+Pass Markdown files or directories to narrow the report, or add `--json` for machine-readable
+output. Capture every rendered table after a production build with:
 
 ```bash
 ./capture_table_review.sh
 ```
 
-Open `output/table_review/index.html` to inspect the screenshots, calculated percentages, rendered
-pixel widths, and scroll-area measurements. This is an explicit visual-review lane, not a brittle
-pixel-comparison test.
+Open `output/table_review/index.html` for desktop/mobile, light/dark screenshots and calculated
+width evidence.
 
-## Build department checklists
-
-Generate one evidence-linked Markdown and DOCX checklist for each Fall 2026 course:
+Generate department-review checklists from the tracked rubric source:
 
 ```bash
 source source_me.sh
 python3 pipeline/build_department_checklists.py
 ```
 
-The files are written under `output/department_checklists/`. Each checklist follows the university
-rubric, links to the published evidence, and keeps unresolved questions visibly unchecked. Edit the
-tracked [pipeline/department_checklists.yml](../pipeline/department_checklists.yml) evidence and
-course overrides, then regenerate; do not edit the output files.
+The generated Markdown and DOCX files belong under `output/department_checklists/`. Edit
+`pipeline/department_checklists.yml`, not those outputs.
 
 ## Validate
-
-Check public external HTTP(S) links as an explicit live maintainer task:
-
-```bash
-source source_me.sh
-python3 pipeline/check_links.py
-```
-
-The checker reports source locations and follows redirects. It remains outside pytest because it
-uses the network; pass Markdown files or directories to check separately held public references.
 
 Run all local validation lanes before publishing a significant change:
 
 ```bash
 ./all_test.sh
 ```
+It runs fast offline pytest, export and include-parity E2E checks, a strict production build, and
+Playwright. For focused diagnosis, use one of these commands:
 
-The runner executes fast offline pytest, export and include-parity E2E checks, a strict production
-build, and Playwright. For focused work, run `source source_me.sh && python3 -m pytest tests/`,
-`source source_me.sh && python3 tests/e2e/e2e_include_parity.py`, or
-`./run_playwright_tests.sh --build`.
+```bash
+source source_me.sh && python3 -m pytest tests/
+source source_me.sh && python3 tests/e2e/e2e_include_parity.py
+./run_playwright_tests.sh --build
+```
+
+Check public external links as a separate live maintainer task:
+
+```bash
+source source_me.sh
+python3 pipeline/check_links.py
+```
+
+It defaults to `site_docs/`; pass Markdown paths or directories to narrow its scope. Use
+`--timeout` and `--workers` only when the checked network workload needs adjustment.
 
 ## Term lifecycle
 

@@ -1,86 +1,83 @@
 # Install
 
-The public student site requires no installation. Open the
-[Fall 2026 course syllabi](https://vosslab.github.io/syllabus/) in a browser. The steps below set up
-a maintainer checkout for authoring, document generation, and validation.
+Students use the published [Fall 2026 course syllabi](https://vosslab.github.io/syllabus/) in a
+browser and do not install this repository. These steps prepare a maintainer checkout for public
+course authoring, PDF and DOCX generation, and local validation.
 
 ## Requirements
 
-- Python 3.12
-- Pandoc for DOCX generation
-- Pango for WeasyPrint text layout
-- Poppler command-line tools
-- Ripgrep
+- Bash, Python 3.12, and a Git work tree.
+- Pandoc for DOCX generation.
+- Pango for WeasyPrint text layout.
+- Poppler command-line tools for PDF verification.
+- Ripgrep for repository checks.
 
-Node.js and Playwright Chromium are optional local dependencies for the browser accessibility
-audit and README screenshot capture. They are not part of PDF or DOCX generation.
+The supported maintainer workflow uses macOS and Homebrew. The repository `Brewfile` declares the
+required system tools. Node.js and Playwright Chromium are optional and are needed only for the
+browser audit.
 
-On macOS with Homebrew, install the system tools from the repository manifest:
+## Install steps
+
+From the repository root, install the declared system tools and Python dependencies:
 
 ```bash
 brew bundle
-```
-
-Install the runtime and local validation dependencies in the repository Python environment:
-
-```bash
 source source_me.sh
 python3 -m pip install -r pip_requirements.txt -r pip_requirements-dev.txt
 ```
 
-Generate the tracked DOCX style reference only after intentionally changing document styles:
+`source_me.sh` must be sourced from Bash before local Python commands. It selects the repository
+environment settings and makes the shared Markdown extension importable.
 
-```bash
-source source_me.sh
-python3 pipeline/create_syllabus_reference_docx.py
-```
-
-The generated reference file is `pipeline/syllabus_reference.docx`. It is a DOCX renderer asset,
-not syllabus content, and routine course editing does not require regenerating it.
-
-Course content is maintained only in the active term under `site_docs/`. The build regenerates
-`site_docs/downloads/` and `site/`; both directories are ignored outputs and are never editing
-sources.
-
-To run the optional browser accessibility audit locally, install its dependencies and Chromium
-once:
+For the optional browser audit, install the locked Node dependencies and Playwright browsers once:
 
 ```bash
 npm ci
 ./devel/setup_playwright.sh
 ```
 
-## Bundled web fonts
+## Renderer asset
 
-The website self-hosts the upright and italic Atkinson Hyperlegible Next variable fonts from the
-[official Google Fonts source](https://github.com/googlefonts/atkinson-hyperlegible-next). The two
-WOFF2 files cover weights 200 through 800. The distribution includes its required SIL Open Font
-License beside the font files.
+The tracked `pipeline/syllabus_reference.docx` file defines DOCX renderer styles. Routine content
+editing does not regenerate it. Regenerate it only after an intentional document-style change:
 
-The website also self-hosts the Font Awesome 6 Free solid font used for the PDF and Word file-type
-icons beside complete-syllabus links. Its WOFF2 file matches the established local installation in
-the Biology Problems website, and its Font Awesome Free license is stored beside the font. The
-Material configuration keeps remote fonts disabled. GitHub Pages serves the fonts and license files
-with the rest of the static site.
+```bash
+source source_me.sh
+python3 pipeline/create_syllabus_reference_docx.py
+```
 
 ## Verify install
+
+Run the fast, offline repository lane:
 
 ```bash
 source source_me.sh
 python3 -m pytest tests/
 ```
 
-This fast, offline lane verifies the installed Python dependencies. Run the production build when
-the document tools and live Google Sheets connection also need verification:
+To verify the document tools and live important-dates source as well, run the production build:
 
 ```bash
 source source_me.sh
 python3 pipeline/build_site.py
 ```
 
-The production build refreshes important dates from Google Sheets, generates DOCX and PDF files,
-and builds the MkDocs site in strict mode. Missing converters or an unavailable spreadsheet fail
-directly so publication cannot use incomplete or stale output.
+The production build refreshes the managed dates fragment, regenerates PDF and DOCX downloads, and
+builds the MkDocs site in strict mode. It fails instead of publishing a stale or incomplete result.
 
-See [CODE_ARCHITECTURE.md](CODE_ARCHITECTURE.md) for the full component flow and
-[USAGE.md](USAGE.md) for authoring and maintenance workflows.
+## Troubleshooting
+
+- If a build reports missing `pandoc`, `pdfinfo`, or `pdftotext`, rerun `brew bundle`.
+- If it reports a missing PDF renderer, reinstall `pip_requirements.txt` and
+  `pip_requirements-dev.txt` in the sourced environment.
+- If it reports a missing `pipeline/syllabus_reference.docx`, run the renderer-asset command above.
+
+See [TROUBLESHOOTING.md](TROUBLESHOOTING.md) for date-sync, source-validation, browser, and
+publication diagnosis.
+
+## Known gaps
+
+- TODO: Verify and document a supported non-macOS maintainer environment before presenting one as
+  an alternative to the Homebrew workflow.
+
+See [USAGE.md](USAGE.md) for authoring, build, review, and validation workflows.

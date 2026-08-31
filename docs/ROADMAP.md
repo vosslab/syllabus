@@ -12,9 +12,13 @@ next deliberate change in the source-tree design.
   services, and external links when their authoritative sources change.
 - Refine course schedules, learning sections, and assessment details only when
   stronger public course information is available.
-- Resolve the open syllabus-rubric findings only when course or university
-  evidence establishes the applicable program role, BIOL 318/418 point plan,
-  feedback timeframe, policy acknowledgment, and major-assignment dates.
+- Resolve required syllabus-rubric findings only when course or university
+  evidence establishes program-director applicability, official CORE wording,
+  the BIOL 318/418 point plan, feedback timing, policy acknowledgment, and
+  major-assignment dates.
+- Review suggested syllabus-rubric items only when they serve the course:
+  assignment-formatting guidance, optional resources, teaching-methodology
+  summaries, and teaching-assistant applicability.
 - Run the complete validation workflow in [USAGE.md](USAGE.md) after a
   material content or pipeline change.
 

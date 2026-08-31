@@ -13,7 +13,8 @@ comparisons, adjacent authoring workflows, or guidance for that work.
 - Why visitors may care: The repository is another instructor-maintained, public course site with
   a public syllabus, schedule, and teaching resources.
 - Evidence: [ACADEMIC_INTEGRITY.md](../site_docs/fall_2026/shared/policies/ACADEMIC_INTEGRITY.md)
-  explicitly cites its syllabus as a course-policy source.
+  explicitly cites its syllabus as a course-policy source; the public course site provides its
+  syllabus, schedule, lecture notes, and readings.
 - Confidence: confirmed
 
 ## Possible related projects
@@ -23,9 +24,9 @@ comparisons, adjacent authoring workflows, or guidance for that work.
 - Relationship: same-workflow project or independent implementation
 - Link: [Living Syllabus](https://github.com/ryanncode/living-syllabus)
 - Why visitors may care: It gives instructors another source-first workflow for turning Markdown
-  or Word course content into accessible HTML, PDF, and DOCX materials, including LMS-ready output.
-- Evidence: The official README describes an educator-facing compiler for Markdown or Word sources
-  and a batch builder that can emit HTML, PDF, and DOCX course materials for LMS publication.
+  or Word course content into LMS-ready HTML, PDF, and DOCX materials.
+- Evidence: Its official README describes an educator-facing compiler for Markdown or Word sources
+  and a batch builder that emits HTML, PDF, and DOCX course materials.
 - Confidence: likely
 
 ### Syllabus Generator
@@ -41,21 +42,21 @@ comparisons, adjacent authoring workflows, or guidance for that work.
 ### Simple Syllabus
 
 - Relationship: direct alternative or competitor
-- Link: [Simple Syllabus accessibility overview](https://simplesyllabus.com/syllabus-accessibility/)
+- Link: [Simple Syllabus](https://simplesyllabus.com/introduction/)
 - Why visitors may care: It provides institutions and instructors a managed service for creating,
-  checking, and publishing student-facing digital syllabi with LMS and SIS integration.
-- Evidence: The vendor describes an all-in-one syllabus platform with an accessibility checker,
-  mobile presentation, and integrated publishing workflow.
+  publishing, and distributing student-facing digital syllabi with LMS and SIS integration.
+- Evidence: The vendor describes an instructor-facing publishing platform that links LMS and SIS
+  data and publishes web, mobile, and print syllabus forms.
 - Confidence: likely
 
-### Accessible Syllabus
+### Duke Accessible Syllabus Project
 
 - Relationship: domain guide and visitor resource
-- Link: [Accessible Syllabus](https://www.accessiblesyllabus.com/)
+- Link: [Duke Accessible Syllabus Project](https://sites.duke.edu/dukeaccessiblesyllabus/designing-the-document/)
 - Why visitors may care: It offers focused guidance on the policy, rhetoric, text, and images that
-  make course materials more usable and engaging for students.
-- Evidence: Its public site organizes accessible-classroom guidance around policy, rhetoric, text,
-  and image decisions.
+  make a student-facing syllabus easier to navigate and use.
+- Evidence: Duke's project recommends clear hierarchy, headings, links, text alternatives, and
+  accessible visual organization for syllabus documents.
 - Confidence: possible
 
 ### CAST UDL Guidelines
@@ -75,13 +76,14 @@ comparisons, adjacent authoring workflows, or guidance for that work.
 - Link: [Course Site Quarto](https://github.com/berkeley-cdss/course-site-quarto)
 - Why visitors may care: It gives instructors a Git-backed course-site template that renders
   Markdown or Quarto content, PDF downloads, and a YAML-defined schedule.
-- Evidence: The project documentation describes a forkable course-website template with repository
-  authoring, HTML or PDF rendering, and schedule data in YAML.
+- Evidence: Its official template documentation describes repository authoring, HTML or PDF
+  rendering, and a schedule rendered from a YAML file.
 - Confidence: possible
 
 ## Evidence notes
 
 The candidate set came from the repository's course-policy citation and two bounded discovery
-rounds focused on syllabus authoring, course-site publication, accessibility, and instructor
-workflows. Official project documentation and the CAST guidelines provide the purpose evidence.
-No listed project claims lineage from, or a reciprocal link to, this repository.
+rounds focused on source-first syllabus authoring, course-site publication, and accessible course
+design. Official project documentation, Duke's Accessible Syllabus Project, and the CAST
+guidelines provide the purpose evidence. No listed project claims lineage from, or a reciprocal
+link to, this repository.

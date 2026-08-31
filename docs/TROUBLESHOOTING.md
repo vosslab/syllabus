@@ -56,11 +56,11 @@ access or Google Sheets availability, then rerun the importer; do not publish an
 
 ## Correct source validation errors
 
-Complete-syllabus content must remain under the active term's `site_docs/` tree, apart from the
-documented global movie catalog. A build error about tracked `raw/` content means a local reference
-file was added to Git; remove it from version control while retaining the ignored local reference
-if needed. A build error about `templates/` means Markdown or YAML syllabus content was placed in a
-second authority tree; move the canonical content into `site_docs/`.
+Complete-syllabus content must remain under `site_docs/fall_2026/`, apart from the documented
+global movie catalog. A build error about tracked `raw/` content means a local reference file was
+added to Git; remove it from version control while retaining the ignored local reference if needed.
+A build error about `templates/` means Markdown or YAML syllabus content was placed in a second
+authority tree; move the canonical content into `site_docs/`.
 
 For an include, table, manifest, or required-learning-section error, correct the named source file
 instead of editing generated DOCX, PDF, download, or site output. The allowed include form, table
@@ -94,6 +94,10 @@ npm ci
 Then rerun `./run_playwright_tests.sh --build`. The `--build` option refreshes dates and creates a
 production-shaped site before the browser opens it. Treat reported accessibility findings as
 maintainer work to review, then confirm the rendered result with the same browser command.
+
+If macOS denies Chromium's test-server port while this runner starts, rerun the browser lane outside
+the restricted sandbox. This is an execution-environment failure, not evidence of a syllabus-site
+failure; the same full local gate has passed outside that boundary.
 
 ## Investigate Pages publication
 

@@ -83,6 +83,12 @@ Each course's `ASSIGNMENTS_AND_GRADING.md` contains one
 selected fragments through the shared include engine. Missing, duplicate, or misplaced markers
 fail explicitly.
 
+The shared `ASSIGNMENTS.md` fragment contains one
+`<!-- assessment examples from syllabus.yml -->` marker. After the selected assessment fragments
+are expanded, the builder replaces it with the manifest's `assessment_examples_url` as the
+course-specific Biology Problems practice link. Keep this marker in the shared Assignments fragment
+instead of copying a subject URL into course Markdown.
+
 `discussion` is exactly one of `no_discussion`, `f2f_discussion`, or `remote_discussion`. Each
 participating course's `DISCUSSION_MARKS.md` contains one
 `<!-- discussion from syllabus.yml -->` marker. `no_discussion` omits that page and content;
