@@ -146,8 +146,8 @@ items:
     status: not_applicable
     evidence: []
     note: >-
-      The instructor confirmed that CORE Attributes apply to general-education courses. These are
-      upper-level major courses, so this item does not apply.
+      Apply this item only when an official Course Finder section lists a CORE attribute. No CORE
+      attribute is listed for the course unless a course override below records one.
   - id: university_goals
     group: Required - Learning goals and outcomes
     label: University learning goals
@@ -215,13 +215,17 @@ items:
   - id: feedback_dates
     group: Required - Assignments and grading
     label: Assignment feedback dates
-    status: needs_review
+    status: covered
     evidence:
       - label: Coursework and grades
         path: ASSIGNMENTS_AND_GRADING/
-      - label: Instructor feedback commitment
-        path: ../shared/policies/COURSE_EXPECTATIONS/#what-you-can-expect-from-me
-    note: The syllabus promises feedback and points to assignment-specific windows, but it does not give a general turnaround interval or fixed feedback dates.
+      - label: Feedback timing
+        path: ../shared/policies/COURSE_EXPECTATIONS/#feedback-timing
+    note: >-
+      Automatically graded assignments return a score on the assignment platform after each
+      submitted attempt. Assignment grades are transferred manually to Blackboard at midterm and
+      semester end. Quiz and exam feedback follows the close of all authorized testing
+      arrangements.
   - id: withdrawal_date
     group: Required - University deadlines
     label: Withdrawal date
@@ -452,6 +456,15 @@ courses:
         note: The assessment philosophy and Google Sheets rationale explain the course's applied, accessible teaching method.
   - directory: genetics
     overrides:
+      core_attributes:
+        status: covered
+        evidence:
+          - label: Section information
+            path: COURSE_DETAILS/#section-information
+        note: >-
+          BIOL 351-24A carries the official Natural Science CORE attribute. BIOL 451-24A is a
+          graduate course, so the undergraduate CORE attribute is not applicable. The syllabus
+          identifies the distinction and links to Roosevelt's Natural Science CORE description.
       required_texts:
         evidence:
           - label: Required textbook and technology
@@ -472,6 +485,25 @@ courses:
         note: The required free LibreTexts OER is documented, but no separate optional resources are currently listed.
   - directory: biotech
     overrides:
+      core_attributes:
+        status: not_applicable
+        evidence:
+          - label: Section information
+            path: COURSE_DETAILS/#section-information
+        note: BIOL 480 is a graduate course, so undergraduate CORE attributes are not applicable.
+      feedback_dates:
+        status: covered
+        evidence:
+          - label: Project feedback sequence
+            path: PROJECTS/#project-feedback-sequence
+          - label: Dated project sequence
+            path: SCHEDULE/
+          - label: Feedback timing
+            path: ../shared/policies/COURSE_EXPECTATIONS/#feedback-timing
+        note: >-
+          The dated BIOL 480 project sequence identifies when initial idea feedback is applied to
+          the response and selection steps and when pitch evaluation informs the group project.
+          Automatically graded work and class-wide assessment feedback follow the shared timing.
       required_texts:
         evidence:
           - label: Textbook and technology

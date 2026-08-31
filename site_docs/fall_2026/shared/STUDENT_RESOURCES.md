@@ -21,9 +21,7 @@ directly with their academic department. Schedule an appointment through
 
 #### Biological, physical and health sciences advising
 
-Joshua Campbell, M.U.P.P. (he/him), is an academic advisor for Biological, Physical and Health
-Sciences. He is also adjunct science faculty and chairs the College of Science, Health and Pharmacy
-Curriculum Committee.
+Joshua Campbell, M.U.P.P. (he/him), is an academic advisor
 
 - **Office:** 425 S. Wabash Ave., Room 1M10G, Chicago, IL 60605.
 - **Phone:** (312) 341-2088.
@@ -83,11 +81,16 @@ mobile Roosevelt app.
 The STEM Center in AUD 835 is a place for students to study, work, meet classmates, receive
 academic support, or recharge between classes. The center provides:
 
-- Peer tutoring in multiple STEM subjects.
+- Peer tutoring for selected introductory and lower-level STEM courses; course coverage and
+  schedules vary by term.
 - Computer lab access.
 - A relaxed lounge area.
 - Free printing for assignments.
 - Free coffee.
+
+Departmental peer tutoring generally does not cover 300- or 400-level courses. Students can still
+use the STEM Center as a study, computer, printing, and community space when their course does not
+have an assigned tutor. Current tutoring assignments and schedules are announced in Blackboard.
 
 Learn more through Roosevelt's [HSI STEM program](https://www.roosevelt.edu/current-students/hsi-stem)
 and find current activities on the [STEM Center Laker Connect page](https://roosevelt.campuslabs.com/engage/organization/stemcenter).
@@ -164,6 +167,12 @@ listings or schedule an appointment.
 - **IT Help Desk:** For login, account, Blackboard, or other technology problems, submit an
   [IT Help Desk ticket](https://roosevelt.service-now.com/sp) or search the knowledge base.
 
+### Fala virtual assistant
+
+Fala answers common Roosevelt questions 24 hours a day. Call or text
+[(872) 324-3038](tel:+18723243038), or open the chat available on Roosevelt University website
+pages.
+
 ### Wi-Fi access
 
 Campus Wi-Fi setup differs by device. Review the appropriate instructions in the
@@ -180,6 +189,12 @@ appointments, and university notifications. It is available for iOS and Android.
 Laker Connect is the central hub for student organizations, involvement, and events on or near
 campus. Open [Laker Connect](https://roosevelt.campuslabs.com/engage/) directly or access it through
 [My Roosevelt](https://login.roosevelt.edu/home/1423).
+
+### Lakers athletics
+
+Roosevelt is an active NCAA Division II member beginning September 1, 2026. Roosevelt students
+receive free admission to home athletic events with an RU ID. Check teams, schedules, locations,
+and ticket information on the [Roosevelt Lakers website](https://rooseveltlakers.com/).
 
 ## Money and essential needs
 

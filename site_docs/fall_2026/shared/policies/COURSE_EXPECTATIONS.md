@@ -25,6 +25,13 @@
 * I will provide feedback on assignments and exams to support your learning and improvement.
 * I will promote a respectful and inclusive classroom environment where all students feel valued and heard.
 
+## Feedback timing
+
+Automatically graded assignments provide a score on the assignment platform after a submitted
+attempt. Assignment grades are transferred manually to Blackboard at midterm and at the end of the
+semester. Quiz and exam scores and review materials are released after the assessment process has
+closed for the class, including any approved make-up and accommodation arrangements.
+
 ## Classroom expectations
 
 * Attend class

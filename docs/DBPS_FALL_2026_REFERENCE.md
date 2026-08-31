@@ -134,8 +134,15 @@ Tutoring may be available through:
 - The Departmental Peer Tutoring Center in the Wabash Building.
 - Online services.
 
-Department tutoring focuses primarily on introductory courses such as CHEM 100, CHEM 201, CHEM
-202, BIOL 201, and BIOL 202. Tutor schedules are distributed separately when finalized.
+Department tutoring focuses primarily on selected introductory and lower-level courses, especially
+organic chemistry, rather than 300- or 400-level courses. Tutors may meet students in WB 716/717,
+the STEM Center in AUD 835, or by Zoom appointment for Chicago and Schaumburg students. Course
+assignments, availability polls, and finalized schedules vary by term and are distributed through
+Blackboard.
+
+When the department recruits peer tutors, faculty may recommend strong upper-level undergraduate
+students. Advertise a specific opening only after the coordinator confirms the course need,
+eligibility, application process, and term.
 
 ### English language support
 

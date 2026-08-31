@@ -113,6 +113,8 @@ The active documentation entry points are:
 - [CODE_ARCHITECTURE.md](CODE_ARCHITECTURE.md) for component and data flow.
 - [FILE_FORMATS.md](FILE_FORMATS.md) for manifest and source contracts.
 - [GITHUB_PAGES_BUILD.md](GITHUB_PAGES_BUILD.md) for publication architecture.
+- [BIOLOGY_MAJOR_COMPETENCIES.md](BIOLOGY_MAJOR_COMPETENCIES.md) for the six undergraduate Biology
+  competency areas and the maintained Fall 2026 course mappings.
 - [CSHP_LEADERSHIP_REFERENCE.md](CSHP_LEADERSHIP_REFERENCE.md) for the public-safe college
   leadership, advisor, and laboratory-contact roster used during syllabus review.
 - [DBPS_FALL_2026_REFERENCE.md](DBPS_FALL_2026_REFERENCE.md) for the public-safe department chair

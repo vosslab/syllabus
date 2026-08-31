@@ -16,6 +16,10 @@
   its research and graduate-school mission from TRIO SSS and summarizes eligibility, services, and
   contact information; the STEM Center section presents AUD 835 as a tutoring, computer, printing,
   coffee, study, and community space.
+- Added Fala's 24-hour call, text, and website-chat route and a Lakers athletics resource covering
+  NCAA Division II membership, free student admission to home events with an RU ID, and the public
+  team and schedule site. Deferred the temporary 30th-anniversary announcements to the planned
+  Schaumburg campus section rather than placing dated events in durable shared resources.
 - Added tracked, public-safe CSHP leadership and DBPS Fall 2026 faculty references under `docs/`.
   The exact chair memo remains under ignored `raw/` because it contains active access codes and
   access-controlled links.
@@ -33,15 +37,37 @@
 - Added a required, closed `lab_status` manifest choice and one canonical lab-attendance fragment.
   All Fall 2026 courses declare `no_lab`; a future `has_lab` syllabus will include the fragment on
   its course-details page and in its complete documents from the same YAML decision.
+- Added [BIOLOGY_MAJOR_COMPETENCIES.md](BIOLOGY_MAJOR_COMPETENCIES.md) as a tracked, non-MkDocs
+  reference for the six Vision and Change/PULSE competency areas, the Roosevelt course-numbering
+  levels, and Fall 2026 mappings. Public course-information tables now contain only the applicable
+  labels: BIOL 318 has Applying the Process of Science and Quantitative Reasoning, and the BIOL 351
+  lecture has Quantitative Reasoning and Communication and Collaboration. Graduate BIOL 418,
+  BIOL 451, and BIOL 480 identify the undergraduate mapping as not applicable.
 
 ### Behavior or Interface Changes
 
+- Qualified the STEM Center's peer-tutoring description: departmental tutoring covers selected
+  introductory and lower-level courses rather than the current 300/400-level courses, while AUD 835
+  remains available for studying, computers, printing, coffee, and community. Kept term-specific
+  schedules in Blackboard and recorded Spring tutor recruitment as a confirmation-dependent task.
 - Clarified that the MkDocs site and generated syllabi are the student-facing boundary. Private
   internal authoring references may remain inside the repository workspace only under ignored
   `raw/`; the publication pipeline still rejects tracked raw files and never reads that directory.
-- Marked the conditional CORE Attribute checklist item not applicable for all three Fall 2026
-  syllabi after instructor confirmation that CORE applies to general-education courses and these
-  are upper-level major courses.
+- Corrected the conditional CORE Attribute review to follow official section listings and course
+  level. BIOL 351-24A identifies and links its Natural Science CORE attribute, BIOL 318 has no CORE
+  attribute listed, and graduate BIOL 418, BIOL 451, and BIOL 480 identify undergraduate CORE as
+  not applicable. Updated the Genetics checklist from not applicable to covered without changing
+  its resolved-item total. Kept official attribute reporting separate from assumptions about
+  students or degree use.
+- Made the Fall 2026 delivery formats explicit: every current syllabus has no laboratory component;
+  Genetics covers the lecture rather than its separately registered laboratory; Biostatistics has
+  a one-hour weekly meeting plus mostly self-paced Google Sheets tutorials; and BIOL 480 is a
+  flipped, discussion-based graduate course rather than an instructor-lecture course.
+- Replaced the proposed fixed feedback-turnaround promise with the actual update schedule.
+  Automatically graded assignments return scores on their platform after submission, and those
+  grades are transferred manually to Blackboard at midterm and semester end. Quiz and exam
+  feedback follows the close of approved testing arrangements. BIOL 480's dated project sequence
+  additionally identifies when students receive and apply project feedback.
 - Marked the conditional program-director checklist item not applicable for all three Fall 2026
   syllabi after instructor confirmation that no program director overlaps those courses. Retained
   the department chair and did not use deans, unrelated directors, advisors, or coordinators as
@@ -86,19 +112,25 @@
   related-project guide, and concise `AGENTS.md` pointers. Retained the course-schedule Google
   Sheets integration in `docs/TODO.md`; the existing importer covers shared University important
   dates, not the three course schedules.
+- Reduced the Fall 2026 syllabus audit to a short unresolved-action list. Removed completed
+  leadership, CORE, competency, and accessibility explanations while retaining current open counts,
+  direct edit targets, and rebuild commands.
 - Rebuilt the production site and recaptured the three managed README views: the Fall 2026 home
   page, dark-mode Genetics navigation, and Biotechnology project expectations.
 
 ### Developer Tests and Notes
 
-- Passed 501 focused department-checklist, Markdown-link, include, syllabus-builder, ASCII, and
-  whitespace tests. Rebuilt the strict website and all three PDF and DOCX syllabi, passed
-  cross-format include parity, confirmed the laboratory, TRIO SSS, McNair Scholars, STEM Center,
-  and English-language resources in every generated syllabus, and verified that the chair memo's
-  access codes are absent from tracked and published content.
-- Regenerated all three department checklists after the CORE decision. BIOL 318/418 now has 47 of
-  53 items resolved with six open, BIOL 351/451 has 48 resolved with five open, and BIOL 480 has 50
-  resolved with three open.
+- Passed all 1,284 fast tests, including department-checklist, Markdown-link, include,
+  syllabus-builder, ASCII, and whitespace coverage. Rebuilt the strict website and all three PDF
+  and DOCX syllabi, passed cross-format include parity, and regenerated all three department
+  checklists.
+- Confirmed that the complete six-area Biology competency reference is absent from MkDocs while the
+  BIOL 318 and BIOL 351 labels appear in their website, PDF, and DOCX course-information tables.
+  Confirmed graduate not-applicable labels in BIOL 418, BIOL 451, and BIOL 480 and verified the
+  Natural Science CORE label in the Genetics outputs.
+- Regenerated all three department checklists after documenting feedback timing. BIOL 318/418 now
+  has 48 of 53 items resolved with five open, BIOL 351/451 has 49 resolved with four open, and
+  BIOL 480 has 51 resolved with two open.
 - Passed 492 focused Markdown-link, include, syllabus-builder, ASCII, and whitespace tests. Rebuilt
   the strict website and all three PDF and DOCX syllabi, passed cross-format include parity, and
   confirmed Joshua Campbell's listing in every generated syllabus document.

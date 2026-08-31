@@ -46,7 +46,7 @@ The syllabus is divided into shorter pages so you can go directly to the informa
 | Course summary | Fall 2026 |
 | --- | --- |
 | Sections | BIOL 480-10 and BIOL 480-24 |
-| Format | Hybrid and videoconferenced |
+| Format | Flipped, hybrid, and videoconferenced discussion |
 | Meeting | Thursday, 6:00-9:00 p.m. |
 | Locations | WB 416, Chicago; SCH 614, Schaumburg |
 | Session | August 31-December 19, 2026 |

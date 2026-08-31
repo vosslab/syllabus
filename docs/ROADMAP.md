@@ -13,9 +13,8 @@ next deliberate change in the source-tree design.
 - Refine course schedules, learning sections, and assessment details only when
   stronger public course information is available.
 - Resolve required syllabus-rubric findings only when course or university
-  evidence establishes program-director applicability, official CORE wording,
-  the BIOL 318/418 point plan, feedback timing, policy acknowledgment, and
-  major-assignment dates.
+  evidence establishes program-director applicability, the BIOL 318/418 point
+  plan, feedback timing, policy acknowledgment, and major-assignment dates.
 - Review suggested syllabus-rubric items only when they serve the course:
   assignment-formatting guidance, optional resources, teaching-methodology
   summaries, and teaching-assistant applicability.

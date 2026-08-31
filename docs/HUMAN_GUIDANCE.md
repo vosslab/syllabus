@@ -28,33 +28,48 @@ history. Those belong in the appropriate technical documentation or changelog.
   titles mechanically instead of maintaining a separate mapping.
 - Make the repository reflect my actual syllabi and teaching practice, not a generic university
   course template.
-- Only the MkDocs site and generated student syllabus documents are student-facing. Keep tracked
-  sources and published content free of credentials, private meeting information, student
-  information, and access-controlled course material. Store private department reference documents
-  in the ignored `raw/` directory rather than outside the repository; Blackboard remains the home
-  for private course delivery.
+- Only the MkDocs site and generated syllabi are student-facing. Keep public content free of private
+  or access-controlled information. Store internal references under ignored `raw/` and deliver
+  private course material in Blackboard.
 - Put public-safe leadership and departmental references in tracked `docs/` so they can be
   committed. Keep exact internal source memos in ignored `raw/` when they contain access codes or
   access-controlled material.
 - I want shared syllabus information edited once, not copied among courses or maintained in a
   parallel template tree.
-- Do not add CSHP deans, unrelated program directors, academic advisors, or coordinators to a
-  syllabus just to fill a checklist. Keep the applicable department chair, and mark program
-  director not applicable unless a directly overlapping program role is confirmed. Current public
-  contact information for department-specific academic advisors is useful in the shared student
-  resources even though the department checklist does not require it.
+- Do not add deans or unrelated directors, advisors, or coordinators just to fill a checklist. Keep
+  the department chair and mark program director not applicable unless an overlap is confirmed.
+  Public contact information for department-specific advisors is a useful student resource.
 - The department laboratory contact is useful for students planning laboratory courses,
   independent study, or research and for questions about laboratory access, lab coats, and safety
   documents.
 - English tutoring through the Office of International Programs is a useful student resource.
   Translate faculty referral procedures into student-facing language that explains self-referral
   and an instructor's Navigate Early Alert as two ways to connect with support.
-- Keep McNair Scholars separate from TRIO Student Support Services: McNair prepares eligible
-  upper-level students for research and graduate school, while TRIO SSS supports undergraduate
-  persistence and completion. Include the Chicago STEM Center as a study, tutoring, technology,
-  and community space in AUD 835.
-- CORE Attributes apply to general-education courses. My Fall 2026 courses are upper-level major
-  courses, so the syllabus checklist's conditional CORE Attribute item is not applicable.
+- Keep McNair Scholars separate from TRIO SSS: McNair supports research and graduate-school
+  preparation, while TRIO SSS supports undergraduate persistence. Include the Chicago STEM Center
+  as a study, tutoring, technology, and community space in AUD 835.
+- Create a dedicated Schaumburg campus section later. Build it from durable student services,
+  spaces, contacts, transportation, and campus-life information; do not mix temporary anniversary
+  event announcements into the shared resources before deciding their term-specific scope.
+- Departmental peer tutoring supports selected introductory and lower-level sciences, not my
+  current 300- or 400-level courses. Keep schedules in Blackboard and advertise confirmed Spring
+  tutor openings to strong upper-level undergraduates.
+- Use each section's official Course Finder listing to decide CORE applicability. BIOL 351-24A
+  carries the Natural Science CORE attribute. State official attributes without assumptions about
+  what type of student takes the course or how an individual applies the credit.
+- Put known undergraduate Biology competency labels only in course-information tables. Keep the
+  full Vision and Change/PULSE framework in tracked repository documentation and separate from
+  Roosevelt CORE general-education attributes.
+- Treat Roosevelt course numbers 100-399 as undergraduate, 400-499 as graduate, and 500 or above
+  as doctoral when applying level-specific attributes or competency mappings.
+- All Fall 2026 syllabi have no laboratory component. The BIOL 351/451 syllabus covers only the
+  lecture even though students register separately for its corresponding laboratory.
+- BIOL 318/418 meets in person for one hour of its three-credit hybrid format and uses mostly
+  self-paced Google Sheets tutorials. BIOL 480 is a graduate, flipped, discussion-based course;
+  scheduled meetings are not instructor lectures.
+- Automatically graded assignments return scores on their platform after submission. Transfer
+  grades manually to Blackboard at midterm and semester end. Release quiz and exam feedback after
+  all authorized testing arrangements close; BIOL 480 also uses its dated project sequence.
 - Assignments, group quizzes, face-to-face exams, and online exams are my four assessment
   categories. Keep them as separate shared fragments, with each course YAML selecting only the
   categories used in that course.

@@ -37,7 +37,7 @@ The syllabus is divided into shorter pages so you can go directly to the informa
 | Course summary | Fall 2026 |
 | --- | --- |
 | Sections | BIOL 318-20 and BIOL 418-20 |
-| Format | Hybrid and videoconferenced |
+| Format | Hybrid: one-hour meeting plus self-paced tutorials |
 | Meeting | Wednesday, 5:00-5:55 p.m. |
 | Location | SCH 612, Schaumburg campus |
 | Session | August 31-December 19, 2026 |

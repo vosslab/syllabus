@@ -5,9 +5,13 @@
 | Field | BIOL 318-20 | BIOL 418-20 |
 | --- | --- | --- |
 | CRN | 14466 | 14471 |
+| Course level | Undergraduate | Graduate |
 | Meeting | Wednesday, 5:00-5:55 p.m. | Wednesday, 5:00-5:55 p.m. |
 | Location | SCH 612 | SCH 612 |
-| Format | Hybrid; videoconferenced | Hybrid; videoconferenced |
+| Format | Hybrid: one-hour in-person meeting plus self-paced tutorials | Hybrid: one-hour in-person meeting plus self-paced tutorials |
+| Laboratory component | None | None |
+| CORE attribute | None listed | Not applicable (graduate course) |
+| Biology competencies | Applying the Process of Science; Quantitative Reasoning | Not applicable (graduate course) |
 | Credit hours | 3.0 | 3.0 |
 | Session dates | August 31-December 19, 2026 | August 31-December 19, 2026 |
 | Prerequisites | MATH 217 with C- or better and either BIOL 202 or BIOL 301 with C- or better; instructor consent may substitute | None; prior statistics coursework is recommended |
@@ -18,6 +22,9 @@ Design, analysis, and interpretation of biological data using statistics.
 
 This course uses statistical analysis from ecology, genetics, and molecular biology experiments and
 therefore assumes a working background in biology.
+
+This three-credit hybrid course meets in person for one hour each week. Most instruction is
+delivered through self-paced Google Sheets tutorials completed outside the scheduled meeting.
 
 ## Textbooks and technology
 
@@ -34,10 +41,8 @@ explanations and practice:
 - *Biostatistics for the Biological and Health Sciences*, second edition, by Marc M. Triola,
   Mario F. Triola, and Jason Roy (ISBN 978-0-13-403901-5). This commercial book is optional.
 
-Many statistics courses use R. In this course, you will primarily use Google Sheets. You may be
-taking Biostatistics to meet a program requirement rather than to specialize in statistics, and
-Google Sheets gives you a familiar, accessible way to apply course methods. The goal is for you to
-keep using what you learn after the course.
+Many statistics courses use R. This course primarily uses Google Sheets so that its statistical
+methods remain accessible and reusable after the course.
 
 You need regular Blackboard access, a computer capable of running Google Sheets, and an account
 that can access it. Follow each assignment's directions or links for any additional software and

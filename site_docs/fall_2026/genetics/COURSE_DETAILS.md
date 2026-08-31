@@ -5,14 +5,21 @@
 | Field | BIOL 351-24A | BIOL 451-24A |
 | --- | --- | --- |
 | CRN | 11427 | 11444 |
+| Course level | Undergraduate | Graduate |
 | Meeting | Tuesday, 1:30-4:25 p.m. | Tuesday, 1:30-4:25 p.m. |
 | Location | SCH 612 | SCH 612 |
-| Format | Face-to-face; Natural Science attribute | Face-to-face |
+| Format | Face-to-face lecture | Face-to-face lecture |
+| Laboratory in this syllabus | None | None |
+| CORE attribute | [Natural Science](https://catalog.roosevelt.edu/undergraduate/general-education/roosevelt-core-requirements/#natural-science) | Not applicable (graduate course) |
+| Biology competencies | Quantitative Reasoning; Communication and Collaboration | Not applicable (graduate course) |
 | Credit hours | 3.0 | 3.0 |
 | Session dates | August 31-December 19, 2026 | August 31-December 19, 2026 |
 | Prerequisites | BIOL 201, BIOL 202, and BIOL 301 with C- or better | No formal prerequisite; BIOL 201 and BIOL 301 or equivalent preparation are recommended |
 
+The Natural Science designation is the undergraduate section's official CORE attribute.
+
 Students must register for the corresponding BIOL 351 or BIOL 451 laboratory in the same semester.
+That laboratory is a separate course component and is not part of this lecture syllabus.
 
 ## Catalog description
 

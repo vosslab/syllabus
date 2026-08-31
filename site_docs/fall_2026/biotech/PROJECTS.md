@@ -9,6 +9,13 @@ Follow the directions and links provided for each project component for its dead
 method, format limits, and any required forms or detailed rubric. The expectations on this page
 remain the same throughout the project.
 
+## Project feedback sequence
+
+Feedback is built into the dated project sequence. Initial feedback on the three proposed ideas is
+provided before the project-response and project-selection steps. Evaluation of the individual
+pitch informs the later group-company work. The [course schedule](SCHEDULE.md) identifies the dated
+steps where students receive, respond to, and apply project feedback.
+
 ## Individual company project
 
 Your individual project is worth 88 points. It moves from several possible ideas to one supported
