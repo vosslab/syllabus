@@ -29,6 +29,16 @@ REQUIRED_DECISION_FIELDS = ("**Decision.**", "**Why.**")
 # An ordered-list item, which counts as an entry the same way a bullet does.
 ORDERED_ITEM_PATTERN = re.compile(r"^\d+\.\s")
 
+# Closing prompt on a HUMAN_GUIDANCE failure. The formatting rules are a proxy for
+# the real question, so the failure asks it directly: length and prose are how
+# agent narration gives itself away.
+PROVENANCE_PROMPT = (
+	"-> are we sure this guidance came from the human, and not from an agent or an "
+	"LLM reviewer? Long prose usually means it did not. Keep what the human said "
+	f"here in his own words as short bullets, and record the reasoning in {DECISIONS_DOC}. "
+	f"Rearrange aggressively: when a line's origin is uncertain, move it to {DECISIONS_DOC}."
+)
+
 
 #============================================
 def keep_header_docs(rel: str) -> bool:
@@ -251,8 +261,10 @@ def check_guidance_is_bulleted(rel: str, lines: list[str]) -> list[str]:
 		if stripped.startswith('#'):
 			in_bullet = False
 			continue
+		# A blank line alone does not close a bullet: Markdown allows a bullet to
+		# carry a blank-line-separated continuation, and the indent on the next
+		# line is what actually says whether the bullet continued.
 		if not stripped:
-			in_bullet = False
 			continue
 		if stripped.startswith('- ') or stripped.startswith('* '):
 			in_bullet = True
@@ -261,7 +273,7 @@ def check_guidance_is_bulleted(rel: str, lines: list[str]) -> list[str]:
 		if ORDERED_ITEM_PATTERN.match(stripped):
 			in_bullet = True
 			continue
-		# An indented line continues the bullet above it.
+		# An indented line continues the bullet above it, blank line or not.
 		if in_bullet and line.startswith((' ', '\t')):
 			continue
 		# Table rows are structure, not narration.
@@ -274,9 +286,7 @@ def check_guidance_is_bulleted(rel: str, lines: list[str]) -> list[str]:
 			# Report the paragraph once, at its opening line.
 			if reported_line != line_number - 1:
 				violations.append(
-					f"{rel}:{line_number}: prose paragraph under a section; "
-					f"state it as a bullet in the human's words, and move the "
-					f"reasoning to {DECISIONS_DOC}: {stripped[:50]}"
+					f"{rel}:{line_number}: prose paragraph under a section: {stripped[:60]}"
 				)
 			reported_line = line_number
 	return violations
@@ -331,6 +341,11 @@ def check_file(rel: str) -> list[str]:
 	if rel == GUIDANCE_DOC:
 		violations.extend(check_guidance_bullets(rel, lines))
 		violations.extend(check_guidance_is_bulleted(rel, lines))
+		# Close a guidance failure with the question the formatting rules stand in
+		# for. It rides on the last violation rather than becoming its own entry,
+		# so the reported violation count stays accurate.
+		if violations:
+			violations[-1] = f"{violations[-1]}\n  {PROVENANCE_PROMPT}"
 	if rel == DECISIONS_DOC:
 		violations.extend(check_decision_entries(rel, lines))
 	return violations

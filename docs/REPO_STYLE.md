@@ -55,6 +55,9 @@ vendored header in each file restates it, and `AGENTS.md` points here.
 - Material the human supplies as a source keeps its own authorship: forwarded reviewer output,
   consultant notes, issue reports, and quoted documentation may inform `docs/DESIGN_DECISIONS.md`
   once settled. The sentences he writes himself belong in `docs/HUMAN_GUIDANCE.md`.
+- Rearrange aggressively, and let `docs/DESIGN_DECISIONS.md` win the tie: when an entry's origin is
+  uncertain, move it there. A design decision filed as human guidance misrepresents who decided it;
+  the reverse only files it one document away.
 - Three states, three homes: open discussion in `docs/active_plans/decisions/`, settled direction in
   `docs/DESIGN_DECISIONS.md`, set-aside or failed approaches in `docs/CHANGELOG.md` under
   `### Decisions and Failures`.
