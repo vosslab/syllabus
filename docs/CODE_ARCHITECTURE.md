@@ -80,6 +80,10 @@ The active term is intentionally singular. `templates/`, future-term copies, and
 copies cannot become parallel content authorities during Fall 2026. Generated directories are
 ignored and must be rebuilt from the tracked source.
 
+The complete-document builder selects manifests directly from `site_docs/fall_2026/`. It does not
+scan all of `site_docs/` for alternate term trees or turn unused directories into build failures.
+This closed selection keeps authority in one place without adding a parallel-content gate.
+
 ## Build pipeline
 
 `pipeline/build_site.py` is the production front door. It runs three fail-fast stages:

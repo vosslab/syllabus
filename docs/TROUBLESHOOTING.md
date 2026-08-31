@@ -59,8 +59,8 @@ access or Google Sheets availability, then rerun the importer; do not publish an
 Complete-syllabus content must remain under `site_docs/fall_2026/`, apart from the documented
 global movie catalog. A build error about tracked `raw/` content means a local reference file was
 added to Git; remove it from version control while retaining the ignored local reference if needed.
-A build error about `templates/` means Markdown or YAML syllabus content was placed in a second
-authority tree; move the canonical content into `site_docs/`.
+The builder selects complete-document manifests directly from the Fall 2026 tree; it does not scan
+other directories for alternate syllabus copies.
 
 For an include, table, manifest, or required-learning-section error, correct the named source file
 instead of editing generated DOCX, PDF, download, or site output. The allowed include form, table

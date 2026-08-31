@@ -169,19 +169,6 @@ def require_public_only_repository(repo_root: pathlib.Path) -> None:
 
 
 #============================================
-def require_single_content_authority(repo_root: pathlib.Path) -> None:
-	"""Reject a parallel Markdown or manifest tree below templates."""
-	templates_root = repo_root / "templates"
-	for suffix in ("*.md", "*.yml", "*.yaml"):
-		for source_path in sorted(templates_root.rglob(suffix)):
-			# ASVS 2.1.1: enforce the documented site_docs-only source boundary.
-			raise RuntimeError(
-				f"{source_path}: live syllabus content belongs only under site_docs"
-			)
-	return None
-
-
-#============================================
 def validate_course_learning_framework(
 	sections: tuple[pathlib.Path, ...],
 	docs_root: pathlib.Path,

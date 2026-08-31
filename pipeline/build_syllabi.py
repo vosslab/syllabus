@@ -15,6 +15,9 @@ import build_lib.syllabus_content
 import build_lib.syllabus_rendering
 
 
+ACTIVE_TERM_DIRECTORY = "fall_2026"
+
+
 #============================================
 def get_repo_root() -> pathlib.Path:
 	"""Return the repository root reported by Git."""
@@ -60,7 +63,7 @@ def parse_args() -> argparse.Namespace:
 
 #============================================
 def main() -> None:
-	"""Build all course manifests into complete downloadable files."""
+	"""Build active course manifests into complete downloadable files."""
 	args = parse_args()
 	repo_root = get_repo_root()
 	# The shared Markdown configuration names its extension from the repository root so
@@ -69,6 +72,8 @@ def main() -> None:
 	if repo_root_text not in sys.path:
 		sys.path.insert(0, repo_root_text)
 	docs_root = repo_root / "site_docs"
+	# ASVS 2.1.1 and 2.2.1: select the documented source authority directly.
+	active_term_root = docs_root / ACTIVE_TERM_DIRECTORY
 	downloads_dir = docs_root / "downloads"
 	reference_path = repo_root / "pipeline" / "syllabus_reference.docx"
 	pdf_stylesheet_path = docs_root / "assets" / "stylesheets" / "syllabus_pdf.css"
@@ -83,14 +88,15 @@ def main() -> None:
 		raise FileNotFoundError(f"Missing MkDocs configuration: {mkdocs_config_path}")
 	build_lib.syllabus_rendering.check_tools()
 	build_lib.syllabus_content.require_public_only_repository(repo_root)
-	build_lib.syllabus_content.require_single_content_authority(repo_root)
 	build_lib.syllabus_content.scan_public_sources(docs_root)
 	markdown_extensions, markdown_extension_configs = (
 		build_lib.syllabus_content.load_markdown_configuration(mkdocs_config_path)
 	)
-	manifest_paths = sorted(docs_root.rglob("syllabus.yml"))
+	manifest_paths = sorted(active_term_root.rglob("syllabus.yml"))
 	if not manifest_paths:
-		raise RuntimeError("No syllabus.yml manifests found under site_docs")
+		raise RuntimeError(
+			f"No syllabus.yml manifests found under site_docs/{ACTIVE_TERM_DIRECTORY}"
+		)
 	manifests = [
 		build_lib.syllabus_model.load_manifest(manifest_path, docs_root)
 		for manifest_path in manifest_paths

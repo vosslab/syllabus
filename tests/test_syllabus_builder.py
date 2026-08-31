@@ -734,13 +734,3 @@ def test_publish_downloads_rejects_an_incomplete_stage(tmp_path: pathlib.Path) -
 			{"COURSE.docx", "COURSE.pdf"},
 		)
 	assert current_path.read_text(encoding="utf-8") == "current PDF"
-
-
-#============================================
-def test_single_content_authority_rejects_markdown_templates(tmp_path: pathlib.Path) -> None:
-	"""Live syllabus content cannot compete with a parallel template tree."""
-	templates_path = tmp_path / "templates"
-	templates_path.mkdir()
-	(templates_path / "POLICIES.md").write_text("# Competing policies\n", encoding="utf-8")
-	with pytest.raises(RuntimeError, match="content belongs only under site_docs"):
-		build_lib.syllabus_content.require_single_content_authority(tmp_path)

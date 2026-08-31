@@ -56,6 +56,8 @@ history. Those belong in the appropriate technical documentation or changelog.
   access-controlled material.
 - I want shared syllabus information edited once, not copied among courses or maintained in a
   parallel template tree.
+- Keep one canonical syllabus source tree. The website, PDF, and DOCX are generated views, not
+  parallel syllabus copies.
 - Divide Help and student services into task-focused subpages behind one overview, like the policy
   topics, so students do not have to scroll through one long page.
 - Do not add deans or unrelated directors, advisors, or coordinators just to fill a checklist. Keep
@@ -167,6 +169,8 @@ history. Those belong in the appropriate technical documentation or changelog.
 - I want GitHub Pages builds to succeed when the production artifact can be generated, uploaded,
   and deployed. Do not make pytest, export E2E, Playwright, or their semantic findings CI release
   gates; enforce those expectations through local maintainer checks.
+- Prefer direct ownership and source selection over adding gates that can make working code fail.
+- This repository is a rolling publication, not an official tagged-release project.
 - `all_test.sh` means all local validation. It must include the live Google Sheets build as well as
   pytest, export E2E, and Playwright.
 - Treat implementation-time and rebuild-only probes as one-time evidence. Keep a test permanently

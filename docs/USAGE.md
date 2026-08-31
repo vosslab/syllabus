@@ -6,6 +6,7 @@ and DOCX documents. Students use the published site; these commands are for main
 ## Source ownership
 
 - `site_docs/fall_2026/` is the only live course and complete-syllabus authority.
+- The document builder selects this tree directly rather than searching for other syllabus copies.
 - Each course owns its Markdown pages, `syllabus.yml`, and `.meta.yml`.
 - Shared policies, dates, instructor information, and student resources live in
   `site_docs/fall_2026/shared/` and are linked or included rather than copied.

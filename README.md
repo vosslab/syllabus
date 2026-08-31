@@ -156,11 +156,11 @@ Accessibility findings guide improvement but do not claim legal or PDF/UA compli
 ## Status and validation
 
 Fall 2026 is the active public course authority. `VERSION` identifies 26.08 as the current
-development version; it remains unreleased until a human creates the release and tag. The local
+rolling publication series; this repository does not require a formal release or tag. The local
 validation lane checks source behavior, document exports, the strict site build, and the rendered
 Pages-shaped interface. Accessibility findings guide improvement but do not claim legal or PDF/UA
 compliance. See [docs/NEWS.md](docs/NEWS.md) for the current summary and
-[docs/RELEASE_HISTORY.md](docs/RELEASE_HISTORY.md) for released highlights.
+[docs/RELEASE_HISTORY.md](docs/RELEASE_HISTORY.md) for rolling publication milestones.
 
 ## Documentation
 

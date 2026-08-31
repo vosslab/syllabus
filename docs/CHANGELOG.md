@@ -66,6 +66,11 @@
 
 ### Behavior or Interface Changes
 
+- Selected complete-document manifests directly from the one canonical `site_docs/fall_2026/`
+  source tree instead of scanning all public content and rejecting possible parallel directories.
+  Removed the redundant template-content failure gate and its pytest.
+- Defined 26.08 as the current rolling publication series rather than an unreleased formal version.
+  Updated the README, News, and publication history so no tag or official release is implied.
 - Renamed all three "Meetings and instructor" pages and navigation entries to "Course information"
   so their section details, delivery format, catalog description, textbooks and technology, and
   instructor information have an accurate umbrella title. Restored Genetics' established
@@ -176,7 +181,7 @@
 
 ### Developer Tests and Notes
 
-- Final `./all_test.sh` passed all 1,316 fast tests, the live-date refresh, strict website and
+- Final `./all_test.sh` passed all 1,315 fast tests, the live-date refresh, strict website and
   PDF/DOCX builds, include parity, and the Playwright browser audit.
 - Focused rendered review covered the three Course information pages, learning frameworks,
   schedules, coursework hierarchy, table layouts and spans, PDF footers, email-link icons, and the
