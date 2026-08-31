@@ -91,7 +91,8 @@ site_docs/fall_2026/
 |-- shared/
 |   |-- IMPORTANT_DATES.md
 |   |-- INSTRUCTOR_INFORMATION.md
-|   |-- STUDENT_RESOURCES.md
+|   |-- STUDENT_RESOURCES.md          Student-services overview
+|   |-- student_services/             Task-focused service pages
 |   |-- fragments/
 |   |   |-- assessments/             Assessment sections and selected policy topics
 |   |   |-- discussions/             Three course-selected discussion modes

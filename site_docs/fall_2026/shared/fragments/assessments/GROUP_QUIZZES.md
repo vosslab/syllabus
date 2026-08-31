@@ -14,9 +14,9 @@ settings if quiz security requires it.
 
 ### Individual attempt
 
-The individual attempt is completed independently through Blackboard. It opens 20 hours before
-the start of class and closes when class begins. Complete and submit it before class so you are
-ready to discuss the reasoning during the group attempt.
+The individual attempt is completed independently through the current course assessment platform.
+It opens 20 hours before the start of class and closes when class begins. Complete and submit it
+before class so you are ready to discuss the reasoning during the group attempt.
 
 ### Optional group attempt
 
@@ -26,8 +26,8 @@ together; tell me when there are classmates you work especially well with.
 
 The group receives questions that are the same as or similar to the individual attempt. Discuss
 why each answer makes sense instead of merely voting. One group member records and submits the
-group's answers through Blackboard. The recorded group score will be at least 18 out of 20 points,
-and I may curve group scores upward when a quiz is unusually difficult.
+group's answers through the current course assessment platform. The recorded group score will be at
+least 18 out of 20 points, and I may curve group scores upward when a quiz is unusually difficult.
 
 ### Final quiz score
 

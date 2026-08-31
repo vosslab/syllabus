@@ -16,8 +16,11 @@ for updates or modifications.
 ## Online course tools
 
 * **Zoom:** We will be participating in lectures via Zoom Video Conferencing software.
-* **Blackboard:** Scores will be posted on Blackboard.
-* **Google Forms:** Assignments will be completed using Google Forms; this requires a Gmail account.
+* **Blackboard:** Course information, announcements, private links, and scores in the gradebook will
+  be available on Blackboard. Assignments, quizzes, and exams are not completed there.
+* **Assessment platform:** The current course information will identify where assignments, quizzes,
+  and online exams are completed before graded work begins.
+* **Google Forms:** Some course forms may use Google Forms; this requires a Gmail account.
 * **Google Slides:** Classroom presentations will be made using Google Slides; this requires a
   Gmail account.
 * **Discord:** Course communication will take place over a Discord server; you will need to sign up.
@@ -35,10 +38,11 @@ when Zoom meetings occur, you must check the course syllabus.
 
 ### Online
 
-Online courses are web-based, run on Blackboard, and are asynchronous. There are no set or required
-meeting days or times. Asynchronous learning occurs through Blackboard without real-time
-interaction. Asynchronous methods may include discussion boards, readings, viewing videos, email
-exchanges, or assignments. As with all classes, there are deadlines for assignments.
+Online courses are web-based and asynchronous, with no set or required meeting days or times.
+Blackboard provides course information and the gradebook. Learning activities and assessments use
+the tools identified in the current course information. Asynchronous methods may include discussion
+boards, readings, viewing videos, email exchanges, or assignments. As with all classes, there are
+deadlines for assignments.
 
 ### Hybrid, including Zoom remote
 

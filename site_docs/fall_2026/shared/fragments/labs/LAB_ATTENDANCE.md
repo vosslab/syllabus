@@ -4,6 +4,17 @@
 
 Deductions may be made for not bringing your lab coat, not wearing lab goggles, having exposed ankles, failing to tie back long hair, or violating other safety rules. Points may also be deducted for not having a copy of the lab manual, not preparing your lab notebook, or arriving late. Additional deductions may apply for failing to lock your drawer, leaving out your drawer key, leaving behind an unclean bench, or any other clean-up issues. Students who are fully prepared, follow safety protocols, and participate actively will earn the full preparation score for that week.
 
+### Loaner personal protective equipment
+
+Students who arrive without required personal protective equipment (PPE) should tell the
+instructor or laboratory assistant immediately. Loaner PPE is available from WB 812. A laboratory
+assistant will hold the student's Roosevelt ID as collateral and accompany the student to collect
+the needed equipment.
+
+Return all loaner PPE at the end of lab to receive the ID back. A student will not be dismissed or
+charged a rental fee solely for forgetting PPE. Using loaner equipment does not remove any weekly
+preparation-score deduction for arriving without the required equipment.
+
 **There are no make-up labs**, so attending your scheduled session is the only way to earn credit. To balance fairness, accountability, and the reality that illness, emergencies, and conflicts do occur, the following grading system will be used for missed labs:
 
 | Absence type | Score | Included in total points |

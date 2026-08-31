@@ -8,9 +8,9 @@ marks are course-specific and appear with each course's own pages.
 
 - [Contacting Dr. Voss](../INSTRUCTOR_INFORMATION.md): contact information, office hours,
   response time, and what to do when something feels urgent.
-- [Course format and online tools](COURSE_DELIVERY.md): syllabus changes, Blackboard,
-  Zoom, Discord, and course formats.
-- [Grades and graded work](ASSESSMENT.md): letter grades, make-up work, and Blackboard percentages.
+- [Course format and online tools](COURSE_DELIVERY.md): syllabus changes, course information,
+  online tools, and course formats.
+- [Grades and graded work](ASSESSMENT.md): letter grades, make-up work, and gradebook percentages.
 - [Extra credit write-ups](EXTRA_CREDIT.md): four eligible categories, write-up requirements,
   submission, grading, point deductions, and frequently asked questions.
 - [Attendance, absences, and accommodations](ATTENDANCE_AND_ACCOMMODATIONS.md): class attendance,

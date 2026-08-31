@@ -1,6 +1,6 @@
-### Limited-attempt Blackboard assessments
+### Limited-attempt online assessments
 
-If a timed Blackboard assessment does not allow unlimited retries and is interrupted, close it
+If a timed online assessment does not allow unlimited retries and is interrupted, close it
 without viewing additional questions and contact me immediately. Discord is preferred, but email is
 also fine. I will respond when I am available. Recovery depends on how much of the assessment was
 viewed.

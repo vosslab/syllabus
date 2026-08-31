@@ -45,6 +45,11 @@ term-independent approved-science-movies catalog lives at
 [site_docs/EXTRA_CREDIT_MOVIES.md](../site_docs/EXTRA_CREDIT_MOVIES.md) as a global website-only
 reference and is not listed in course manifests.
 
+Student services use one directly navigable overview at `shared/STUDENT_RESOURCES.md` and six
+task-focused pages under `shared/student_services/`. Course manifests list the overview followed by
+every topic page, so the website supports quick lookup while PDF and DOCX syllabi retain the
+complete resource set without duplicating content.
+
 Each course manifest selects an ordered subset of the four assessment categories Dr. Voss uses:
 assignments, group quizzes, face-to-face exams, and online exams. The model maps that closed
 vocabulary to an ordered set of composite assessment sections. Each section owns one H2 root and

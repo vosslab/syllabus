@@ -33,6 +33,15 @@ const COURSE_ROUTES = [
 	"/fall_2026/biotech/",
 ];
 
+const STUDENT_SERVICE_ROUTES = [
+	"/fall_2026/shared/student_services/ACADEMIC_ADVISING/",
+	"/fall_2026/shared/student_services/LEARNING_SUPPORT/",
+	"/fall_2026/shared/student_services/PROGRAMS_AND_CAREER/",
+	"/fall_2026/shared/student_services/TECHNOLOGY_AND_CAMPUS/",
+	"/fall_2026/shared/student_services/MONEY_AND_ESSENTIAL_NEEDS/",
+	"/fall_2026/shared/student_services/HEALTH_IDENTITY_AND_SAFETY/",
+];
+
 const ROUTES = [
 	"/",
 	"/fall_2026/",
@@ -52,6 +61,7 @@ const ROUTES = [
 	"/fall_2026/shared/policies/INCLUSION_AND_SAFETY/",
 	"/fall_2026/shared/policies/COURSE_ENROLLMENT/",
 	"/fall_2026/shared/STUDENT_RESOURCES/",
+	...STUDENT_SERVICE_ROUTES,
 ];
 
 const VIEWPORTS = [

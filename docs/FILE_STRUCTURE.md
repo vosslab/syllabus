@@ -42,7 +42,8 @@ site_docs/
 |   `-- shared/
 |       |-- IMPORTANT_DATES.md       Public wrapper for synchronized dates
 |       |-- INSTRUCTOR_INFORMATION.md
-|       |-- STUDENT_RESOURCES.md
+|       |-- STUDENT_RESOURCES.md     Student-services overview
+|       |-- student_services/        Task-focused student-service topics
 |       |-- fragments/               Edit-once term, contact, assessment, discussion, and lab content
 |       `-- policies/                Canonical Dr. Voss policy topics
 |-- generated/                       Ignored synchronized fragments

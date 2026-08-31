@@ -27,11 +27,11 @@ MARKDOWN_TABLE_SEPARATOR_PATTERN = re.compile(r":?-{3,}:?")
 REQUIRED_LEARNING_TITLE = "# Learning Objectives, Outcomes, and Goals"
 REQUIRED_LEARNING_MARKERS = (
 	"## Roosevelt learning goals",
-	"## Learning Objectives",
+	"## Learning Objectives:",
 	"Students completing this course will have achieved:",
-	"## Course Learning Outcomes",
+	"## Course Learning Outcomes:",
 	"Students completing this course will be able to:",
-	"## Learning Goals",
+	"## Learning Goals:",
 	"Overall, this course aims to accomplish:",
 )
 ASSESSMENT_FRAGMENT_MARKER = "<!-- assessments from syllabus.yml -->"

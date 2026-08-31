@@ -37,10 +37,11 @@ then regenerate the ignored Markdown and DOCX submission artifacts under
 
 ### 3. Add a policy-and-resources acknowledgment
 
-- [ ] Choose one Blackboard mechanism for all three courses, such as a syllabus acknowledgment or
-  orientation activity.
+- [ ] Choose one syllabus acknowledgment or orientation activity that works on the selected
+  assessment platform for all three courses.
 - [ ] Add a short public statement that the activity is required.
-- [ ] Keep completion records and student data in Blackboard.
+- [ ] Keep the submitted activity on the assessment platform and transfer its score to the
+  Blackboard gradebook.
 - [ ] Add the public statement as checklist evidence for all three courses.
 
 ## Suggested decisions
@@ -50,8 +51,8 @@ These items may be marked not applicable when that accurately describes the cour
 - [ ] **Teaching assistants, all courses:** confirm whether each course has a teaching assistant.
   Add the applicable contact or mark the item not applicable.
 - [ ] **Assignment formatting, BIOL 318/418 and BIOL 351/451:** add one concise general rule or link
-  to the applicable directions. If formatting is assignment-specific and provided in Blackboard,
-  record that decision instead of inventing a universal rule.
+  to the applicable directions. If formatting is assignment-specific and provided on the current
+  assessment platform, record that decision instead of inventing a universal rule.
 - [ ] **Optional resources, BIOL 351/451:** add a resource only if one is genuinely recommended;
   otherwise mark the suggested item not applicable.
 

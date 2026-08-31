@@ -17,7 +17,8 @@ site, PDF syllabi, or DOCX syllabi.
   rseiser@roosevelt.edu, WB 816 and SCH 600.
 - **Department and college office:** Margaret Braggs, (312) 341-2052,
   mbraggs@roosevelt.edu, WB 816.
-- **Laboratory contact:** Nathan La Porte, (312) 341-3681, nlaporte@roosevelt.edu.
+- **Laboratory contact:** Dr. Nate La Porte (she/her), BCPS Lab Manager, WB 813,
+  (312) 341-3681, nlaporte@roosevelt.edu.
 
 ## Before classes begin
 
@@ -169,9 +170,10 @@ referrals, and report concerns. Its reporting routes cover:
 
 ## Laboratory support
 
-Nathan La Porte is the department laboratory contact for laboratory courses, independent study,
-and research. Students and faculty may contact him about laboratory access and planning, lab-coat
-purchases, safety-document completion, and other laboratory support.
+Dr. Nate La Porte (she/her), BCPS Lab Manager, is the department laboratory contact for laboratory
+courses, independent study, and research. Students and faculty may contact her about laboratory
+access and planning, lab-coat purchases, safety-document completion, and other laboratory support.
+She also hires and coordinates teaching assistants.
 
 All faculty who teach or sponsor students in laboratories must complete laboratory safety training
 at least annually. Part-time faculty are eligible for mandatory-duty pay for required safety

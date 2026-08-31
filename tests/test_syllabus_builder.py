@@ -361,11 +361,11 @@ def test_learning_framework_requires_all_four_ordered_sections(tmp_path: pathlib
 	framework_path.write_text(
 		"# Learning Objectives, Outcomes, and Goals\n\n"
 		"## Roosevelt learning goals\n\n- Communication.\n\n"
-		"## Learning Objectives\n\n"
+		"## Learning Objectives:\n\n"
 		"Students completing this course will have achieved:\n\n- Experience.\n\n"
-		"## Course Learning Outcomes\n\n"
+		"## Course Learning Outcomes:\n\n"
 		"Students completing this course will be able to:\n\n- Apply knowledge.\n\n"
-		"## Learning Goals\n\n"
+		"## Learning Goals:\n\n"
 		"Overall, this course aims to accomplish:\n\n- Growth.\n",
 		encoding="utf-8",
 	)

@@ -66,6 +66,24 @@ explicit model and documentation change rather than being inferred from course n
 `site_docs/fall_2026/shared/fragments/labs/LAB_ATTENDANCE.md`, and
 `pipeline/build_lib/syllabus_model.py`.
 
+### Split student services by task behind one overview
+
+**Decision.** Keep `shared/STUDENT_RESOURCES.md` as the established student-services overview and
+place the service details in task-focused pages under `shared/student_services/`. List the overview
+and every topic page in each course manifest.
+
+**Why.** One 25-heading page forces students to scan unrelated academic, technology, financial,
+health, and identity information. A short task list supports recognition and preserves the familiar
+entry route without creating course-specific copies.
+
+**Consequence.** New durable services belong in the matching topic page. A new topic requires an
+overview link, MkDocs navigation entry, manifest entry for every course, and browser-route coverage.
+Complete PDF and DOCX syllabi retain every service topic once.
+
+**Owner.** `site_docs/fall_2026/shared/STUDENT_RESOURCES.md`,
+`site_docs/fall_2026/shared/student_services/`, `site_docs/fall_2026/*/syllabus.yml`, and
+`mkdocs.yml`.
+
 ### Derive table widths from content through one shared calculator
 
 **Decision.** Classify the supported syllabus table headers fail-closed, but calculate column
@@ -85,6 +103,25 @@ column; tables with different headers remain independent.
 
 **Owner.** `pipeline/build_lib/table_layouts.py`, `docs/FILE_FORMATS.md`, and
 `tests/playwright/capture_table_review.mjs`.
+
+### Pair Genetics schedule colors with quiz and assignment numbers
+
+**Decision.** Mark Genetics topic cells and their corresponding quiz dates with one matching color
+per quiz, while repeating the quiz number in both cells. List assignments by number on their due
+date in the same compact due column as quizzes and exams.
+
+**Why.** The original online schedule let students scan from a quiz to the material it covered and
+from a numbered assignment to its deadline. Color alone excludes some readers, while generic
+"quiz" and "assignment" labels discard the identity needed to make either relationship clear.
+
+**Consequence.** Quiz numbers are the authoritative coverage cue and color is supplementary. The
+website supplies measured light- and dark-theme companions, the PDF retains the light palette, and
+DOCX remains understandable from text alone. The compact four-column table keeps assessment and
+assignment deadlines visible together rather than pushing a second due column off screen.
+
+**Owner.** `site_docs/fall_2026/genetics/SCHEDULE.md`,
+`site_docs/assets/stylesheets/site.css`, `site_docs/assets/stylesheets/syllabus_pdf.css`, and
+`pipeline/build_lib/table_layouts.py`.
 
 ## Dependencies
 

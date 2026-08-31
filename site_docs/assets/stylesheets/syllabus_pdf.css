@@ -82,6 +82,12 @@
 	--syllabus-calendar-month-10-table-surface: #fce5cd;
 	--syllabus-calendar-month-11-table-surface: #d9d2e9;
 	--syllabus-calendar-month-12-table-surface: #d9ead3;
+	--syllabus-quiz-1-surface: #f4cccc;
+	--syllabus-quiz-2-surface: #d9ead3;
+	--syllabus-quiz-3-surface: #ffe599;
+	--syllabus-quiz-4-surface: #fce5cd;
+	--syllabus-quiz-5-surface: #d9d2e9;
+	--syllabus-quiz-text: #111;
 	--extra-credit-category-1: #1c61db;
 	--extra-credit-category-2: #745aae;
 	--extra-credit-category-3: #9f560a;
@@ -371,6 +377,60 @@ th {
 
 tbody tr:nth-child(even) {
 	background: #f7f8f7;
+}
+
+/* Match quiz dates to the topic cells they assess; numbered labels remain the primary cue. */
+.schedule-quiz-key {
+	background: var(--schedule-quiz-surface);
+	border-radius: 2pt;
+	color: var(--syllabus-quiz-text);
+	font-weight: 700;
+	padding: 0.08rem 0.2rem;
+}
+
+.schedule-quiz-key--1 {
+	--schedule-quiz-surface: var(--syllabus-quiz-1-surface);
+}
+
+.schedule-quiz-key--2 {
+	--schedule-quiz-surface: var(--syllabus-quiz-2-surface);
+}
+
+.schedule-quiz-key--3 {
+	--schedule-quiz-surface: var(--syllabus-quiz-3-surface);
+}
+
+.schedule-quiz-key--4 {
+	--schedule-quiz-surface: var(--syllabus-quiz-4-surface);
+}
+
+.schedule-quiz-key--5 {
+	--schedule-quiz-surface: var(--syllabus-quiz-5-surface);
+}
+
+.table-layout--schedule td:nth-child(3):has(.schedule-quiz-key--1) {
+	background: var(--syllabus-quiz-1-surface);
+	color: var(--syllabus-quiz-text);
+}
+
+.table-layout--schedule td:nth-child(3):has(.schedule-quiz-key--2) {
+	background: var(--syllabus-quiz-2-surface);
+	color: var(--syllabus-quiz-text);
+}
+
+.table-layout--schedule td:nth-child(3):has(.schedule-quiz-key--3) {
+	background: var(--syllabus-quiz-3-surface);
+	color: var(--syllabus-quiz-text);
+}
+
+.table-layout--schedule td:nth-child(3):has(.schedule-quiz-key--4) {
+	background: var(--syllabus-quiz-4-surface);
+	color: var(--syllabus-quiz-text);
+}
+
+.table-layout--schedule td:nth-child(3):has(.schedule-quiz-key--5) {
+	background: var(--syllabus-quiz-5-surface);
+	color: var(--syllabus-quiz-text);
 }
 
 /* Repeat the header hierarchy for the point-plan sum and leave room to write. */

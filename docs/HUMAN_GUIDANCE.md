@@ -28,6 +28,18 @@ history. Those belong in the appropriate technical documentation or changelog.
   titles mechanically instead of maintaining a separate mapping.
 - Make the repository reflect my actual syllabi and teaching practice, not a generic university
   course template.
+- Target six bullet points each for a first draft under Learning Objectives, Course Learning
+  Outcomes, and Learning Goals, and preserve more detailed established lists when they remain
+  accurate. Use `raw/` course content as evidence, not public source text.
+- Preserve `Learning Objectives:` followed by
+  `Students completing this course will have achieved:`.
+- Preserve `Course Learning Outcomes:` followed by
+  `Students completing this course will be able to:`.
+- Preserve `Learning Goals:` followed by `Overall, this course aims to accomplish:`. These pairs
+  distinguish the purpose and tone of each section.
+- Biological, Physical and Health Sciences no longer exists. It split into my Department of
+  Biological and Physical Sciences (BPS) and the Department of Health Sciences (HS). Use a general
+  role description when a public profile still uses the former title.
 - Only the MkDocs site and generated syllabi are student-facing. Keep public content free of private
   or access-controlled information. Store internal references under ignored `raw/` and deliver
   private course material in Blackboard.
@@ -36,21 +48,23 @@ history. Those belong in the appropriate technical documentation or changelog.
   access-controlled material.
 - I want shared syllabus information edited once, not copied among courses or maintained in a
   parallel template tree.
+- Divide Help and student services into task-focused subpages behind one overview, like the policy
+  topics, so students do not have to scroll through one long page.
 - Do not add deans or unrelated directors, advisors, or coordinators just to fill a checklist. Keep
   the department chair and mark program director not applicable unless an overlap is confirmed.
   Public contact information for department-specific advisors is a useful student resource.
-- The department laboratory contact is useful for students planning laboratory courses,
-  independent study, or research and for questions about laboratory access, lab coats, and safety
-  documents.
+- Dr. Nate La Porte (she/her), BCPS Lab Manager, supports laboratory access, PPE, safety documents,
+  and planning for laboratory courses, independent study, or research. She also hires and
+  coordinates teaching assistants.
 - English tutoring through the Office of International Programs is a useful student resource.
   Translate faculty referral procedures into student-facing language that explains self-referral
   and an instructor's Navigate Early Alert as two ways to connect with support.
 - Keep McNair Scholars separate from TRIO SSS: McNair supports research and graduate-school
   preparation, while TRIO SSS supports undergraduate persistence. Include the Chicago STEM Center
   as a study, tutoring, technology, and community space in AUD 835.
-- Create a dedicated Schaumburg campus section later. Build it from durable student services,
-  spaces, contacts, transportation, and campus-life information; do not mix temporary anniversary
-  event announcements into the shared resources before deciding their term-specific scope.
+- The future Schaumburg campus section should include Megan Hoppe (they/them), its Research and
+  Instruction Librarian, and their help with materials, research skills, and individual or group
+  research. Keep temporary events out of shared resources until their scope is decided.
 - Departmental peer tutoring supports selected introductory and lower-level sciences, not my
   current 300- or 400-level courses. Keep schedules in Blackboard and advertise confirmed Spring
   tutor openings to strong upper-level undergraduates.
@@ -67,9 +81,11 @@ history. Those belong in the appropriate technical documentation or changelog.
 - BIOL 318/418 meets in person for one hour of its three-credit hybrid format and uses mostly
   self-paced Google Sheets tutorials. BIOL 480 is a graduate, flipped, discussion-based course;
   scheduled meetings are not instructor lectures.
-- Automatically graded assignments return scores on their platform after submission. Transfer
-  grades manually to Blackboard at midterm and semester end. Release quiz and exam feedback after
-  all authorized testing arrangements close; BIOL 480 also uses its dated project sequence.
+- Automatically graded assignments return scores on the assessment platform. Blackboard is only
+  for course information and the gradebook, not graded work; transfer scores there at midterm and
+  semester end. Keep directions neutral until I choose LibreTexts ADAPT or my PLE.
+- Release quiz and exam feedback after all authorized testing arrangements close. BIOL 480 also
+  follows its dated project sequence.
 - Assignments, group quizzes, face-to-face exams, and online exams are my four assessment
   categories. Keep them as separate shared fragments, with each course YAML selecting only the
   categories used in that course.
@@ -128,6 +144,8 @@ history. Those belong in the appropriate technical documentation or changelog.
 - Put the shared important dates near the end of every complete course document, before student
   resources. Use level-three month headings without divider rules, and give each month's table a
   restrained version of its spreadsheet color.
+- Keep Genetics quiz coverage color-coded in the course schedule, with the quiz number repeated as
+  the non-color cue. Number assignments so students can tell when each week's work is due.
 - Use my student-appropriate social links in the footer. Do not include PayPal, Patreon, or other
   donation links.
 - Keep the public GitHub Pages link prominent in the README.

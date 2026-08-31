@@ -44,9 +44,9 @@ explanations and practice:
 Many statistics courses use R. This course primarily uses Google Sheets so that its statistical
 methods remain accessible and reusable after the course.
 
-You need regular Blackboard access, a computer capable of running Google Sheets, and an account
-that can access it. Follow each assignment's directions or links for any additional software and
-its submission method.
+You need regular Blackboard access for course information and the gradebook, a computer capable of
+running Google Sheets, and an account that can access it. Follow each assignment's directions or
+links for the current assessment platform, any additional software, and its submission method.
 
 <!-- lab attendance from syllabus.yml -->
 

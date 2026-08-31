@@ -20,8 +20,9 @@ See [FILE_FORMATS.md](FILE_FORMATS.md) for manifest, Markdown table, and restric
 
 - Edit course-specific details, assignments, and schedules in that course's folder.
 - Edit a shared policy once under `shared/policies/`; do not copy it into course folders.
-- Edit shared contact and support facts in `shared/fragments/INSTRUCTOR_CONTACT_DETAILS.md` and
-  `shared/STUDENT_RESOURCES.md`.
+- Edit shared instructor facts in `shared/fragments/INSTRUCTOR_CONTACT_DETAILS.md`. Edit the
+  student-services route list in `shared/STUDENT_RESOURCES.md` and service details in the matching
+  `shared/student_services/` topic page.
 - Edit dates as literal Markdown in course schedules and details; confirm calendar changes before
   publishing because the build never shifts them automatically.
 - Edit assessment choices, discussion mode, lab status, and confirmed point-plan names and values

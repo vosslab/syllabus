@@ -50,6 +50,12 @@
 	--syllabus-calendar-month-10-table-surface: #fce5cd;
 	--syllabus-calendar-month-11-table-surface: #d9d2e9;
 	--syllabus-calendar-month-12-table-surface: #d9ead3;
+	--syllabus-quiz-1-surface: #f4cccc;
+	--syllabus-quiz-2-surface: #d9ead3;
+	--syllabus-quiz-3-surface: #ffe599;
+	--syllabus-quiz-4-surface: #fce5cd;
+	--syllabus-quiz-5-surface: #d9d2e9;
+	--syllabus-quiz-text: #111;
 	--extra-credit-category-1: #1c61db;
 	--extra-credit-category-2: #745aae;
 	--extra-credit-category-3: #9f560a;
@@ -85,6 +91,12 @@
 	--syllabus-calendar-month-10-table-surface: #42473e;
 	--syllabus-calendar-month-11-table-surface: #3c4443;
 	--syllabus-calendar-month-12-table-surface: #3c483f;
+	--syllabus-quiz-1-surface: #a02222;
+	--syllabus-quiz-2-surface: #395c2c;
+	--syllabus-quiz-3-surface: #6b4f00;
+	--syllabus-quiz-4-surface: #7f4408;
+	--syllabus-quiz-5-surface: #5d4690;
+	--syllabus-quiz-text: #f5f5f5;
 	--extra-credit-category-1: #c9daf8;
 	--extra-credit-category-2: #d9d2e9;
 	--extra-credit-category-3: #fce5cd;
@@ -314,6 +326,62 @@
 
 .md-typeset table.syllabus-table tbody tr:nth-child(even) {
 	background-color: var(--md-default-fg-color--lightest);
+}
+
+/* Match each Genetics quiz to its covered topics; visible numbers carry the same meaning. */
+.md-typeset .schedule-quiz-key {
+	background-color: var(--schedule-quiz-surface);
+	border-radius: 0.2rem;
+	color: var(--syllabus-quiz-text);
+	display: inline-block;
+	font-weight: 750;
+	line-height: 1.15;
+	padding: 0.12em 0.32em;
+}
+
+.md-typeset .schedule-quiz-key--1 {
+	--schedule-quiz-surface: var(--syllabus-quiz-1-surface);
+}
+
+.md-typeset .schedule-quiz-key--2 {
+	--schedule-quiz-surface: var(--syllabus-quiz-2-surface);
+}
+
+.md-typeset .schedule-quiz-key--3 {
+	--schedule-quiz-surface: var(--syllabus-quiz-3-surface);
+}
+
+.md-typeset .schedule-quiz-key--4 {
+	--schedule-quiz-surface: var(--syllabus-quiz-4-surface);
+}
+
+.md-typeset .schedule-quiz-key--5 {
+	--schedule-quiz-surface: var(--syllabus-quiz-5-surface);
+}
+
+.md-typeset .table-layout--schedule td:nth-child(3):has(.schedule-quiz-key--1) {
+	background-color: var(--syllabus-quiz-1-surface);
+	color: var(--syllabus-quiz-text);
+}
+
+.md-typeset .table-layout--schedule td:nth-child(3):has(.schedule-quiz-key--2) {
+	background-color: var(--syllabus-quiz-2-surface);
+	color: var(--syllabus-quiz-text);
+}
+
+.md-typeset .table-layout--schedule td:nth-child(3):has(.schedule-quiz-key--3) {
+	background-color: var(--syllabus-quiz-3-surface);
+	color: var(--syllabus-quiz-text);
+}
+
+.md-typeset .table-layout--schedule td:nth-child(3):has(.schedule-quiz-key--4) {
+	background-color: var(--syllabus-quiz-4-surface);
+	color: var(--syllabus-quiz-text);
+}
+
+.md-typeset .table-layout--schedule td:nth-child(3):has(.schedule-quiz-key--5) {
+	background-color: var(--syllabus-quiz-5-surface);
+	color: var(--syllabus-quiz-text);
 }
 
 /* Make the derived sum read like the point-plan header in screen and print views. */

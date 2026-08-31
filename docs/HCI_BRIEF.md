@@ -20,8 +20,8 @@ offline reading and archival use.
 - Put each complete PDF and DOCX directly below its course on both the homepage and term overview.
   Render both entry points from one shared term fragment so their choices cannot drift apart.
 - Show archive navigation only after an archived syllabus actually exists.
-- Explain Blackboard in terms of the private materials students should expect to find there,
-  rather than using an unexplained security-oriented heading.
+- Explain Blackboard in terms of the private materials, announcements, and gradebook students
+  should expect to find there, rather than presenting it as the assessment platform.
 - Organize navigation by term, course, and task-oriented section.
 - Use subject-based course paths so cross-listed students recognize the course topic without one
   section number appearing to own the shared route.
@@ -32,6 +32,9 @@ offline reading and archival use.
   long policy document into recognizable topic pages without creating course-specific alternatives
   or a second overview. Keep the niche approved-movie catalog as a global website-only reference
   outside the term policy branch and complete documents.
+- Keep one Help and student services overview at its established route, then group the service
+  details into task-focused pages under `shared/student_services/`. Include the overview and every
+  topic once in each complete syllabus so website findability does not reduce document coverage.
 - Use instructor-facing subject names for canonical files and student-facing task language for
   page headings and navigation. Students should recognize the question a page answers without
   knowing terms such as **assessment** or **course delivery**.
@@ -61,7 +64,7 @@ then choose the page that matches their question. Each subsection belongs to one
 | --- | --- | --- |
 | `INSTRUCTOR_INFORMATION.md` | Contacting Dr. Voss | How and when do I contact the instructor? |
 | `COURSE_DELIVERY.md` | Course format and online tools | Where and how does the course operate? |
-| `ASSESSMENT.md` | Grades and graded work | How are grades, extensions, and Blackboard percentages handled? |
+| `ASSESSMENT.md` | Grades and graded work | How are grades, extensions, and gradebook percentages handled? |
 | Course `ASSIGNMENTS_AND_GRADING.md` | Coursework and grades | Which assignments, group quizzes, or exams does this course use? |
 | `DISCUSSION_MARKS.md` | Discussion marks | How is live participation recognized and scored? |
 | `EXTRA_CREDIT.md` | Extra credit write-ups | What can earn extra credit, and how do I submit it? |
@@ -96,7 +99,7 @@ syllabus already includes that policy once.
 1. Enter the course landing page.
 2. Choose a literal, conventional label such as **Learning Objectives, Outcomes, and Goals**,
    **Dr. Voss course policies**, or **Help and student services**.
-3. Use the policy topic list when a narrower question remains.
+3. Use the policy or student-service topic list when a narrower question remains.
 
 The student should encounter one policy authority, not decide whether a generic per-course page or
 Dr. Voss's shared policy branch controls.

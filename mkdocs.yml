@@ -113,5 +113,12 @@ nav:
           - What students and instructors can expect: fall_2026/shared/policies/COURSE_EXPECTATIONS.md
           - Safety, inclusion, and belonging: fall_2026/shared/policies/INCLUSION_AND_SAFETY.md
           - Dropping or withdrawing from class: fall_2026/shared/policies/COURSE_ENROLLMENT.md
-      - Help and student services: fall_2026/shared/STUDENT_RESOURCES.md
+      - Help and student services:
+          - Service overview: fall_2026/shared/STUDENT_RESOURCES.md
+          - Academic advising and records: fall_2026/shared/student_services/ACADEMIC_ADVISING.md
+          - Learning, research, and laboratory support: fall_2026/shared/student_services/LEARNING_SUPPORT.md
+          - Student programs and career support: fall_2026/shared/student_services/PROGRAMS_AND_CAREER.md
+          - Technology and campus life: fall_2026/shared/student_services/TECHNOLOGY_AND_CAMPUS.md
+          - Money and essential needs: fall_2026/shared/student_services/MONEY_AND_ESSENTIAL_NEEDS.md
+          - Health, identity, and safety: fall_2026/shared/student_services/HEALTH_IDENTITY_AND_SAFETY.md
   - Approved science movies: EXTRA_CREDIT_MOVIES.md

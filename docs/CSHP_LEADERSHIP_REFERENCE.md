@@ -8,6 +8,8 @@ in the MkDocs site, PDF syllabi, or DOCX syllabi.
 
 - The department checklist requests department chair information and program director information
   only when a program director is applicable.
+- Biological, Physical and Health Sciences is no longer a current department. It split into the
+  Department of Biological and Physical Sciences (BPS) and the Department of Health Sciences (HS).
 - Robert Seiser, PhD, is the applicable department chair for the Fall 2026 Biology courses.
 - No Allied Health Director or Pre-Professional Program Director is part of the current structure.
 - No listed program director overlaps BIOL 318/418, BIOL 351/451, or BIOL 480.
@@ -28,8 +30,8 @@ in the MkDocs site, PDF syllabi, or DOCX syllabi.
 
 ## Directors and chairs
 
-- Robert Seiser, PhD - Chair, Biological, Physical and Health Sciences.
-- Norbert Cordeiro, PhD - Associate Chair, Biological, Physical and Health Sciences.
+- Robert Seiser, PhD - Chair, Biological and Physical Sciences.
+- Norbert Cordeiro, PhD - Associate Chair, Biological and Physical Sciences.
 - Miriam Anthony - Director of Nursing.
 - Joseph Pellerito - Program Director, Occupational Therapy.
 - Amrendra Kumar - Academic Fieldwork Coordinator, Occupational Therapy.
@@ -47,15 +49,16 @@ in the MkDocs site, PDF syllabi, or DOCX syllabi.
 
 ## Science advisors
 
-The Roosevelt directory lists three academic advisors for Biological, Physical and Health
-Sciences:
+The Roosevelt directory lists three academic advisors whose profile titles still use the former
+combined department name. Because that department no longer exists, the live syllabus identifies
+their advising roles generically.
 
-- Joshua Campbell, M.U.P.P. (he/him) - Academic Advisor, Biological, Physical and Health Sciences;
-  Adjunct Science Faculty; Chair, College of Science, Health and Pharmacy Curriculum Committee.
+- Joshua Campbell, M.U.P.P. (he/him) - Academic Advisor; Adjunct Science Faculty; Chair, College of
+  Science, Health and Pharmacy Curriculum Committee.
   Office: 425 S. Wabash Ave., Room 1M10G, Chicago, IL 60605. Phone: (312) 341-2088. Email:
   jcampbell14@roosevelt.edu.
-- Edward Hernandez - Academic Advisor, Biological, Physical and Health Sciences.
-- Gustavo Giancola - Academic Advisor, Department of Biological, Physical and Health Sciences.
+- Edward Hernandez - Academic Advisor.
+- Gustavo Giancola - Academic Advisor.
 
 Cambren Grimmett does not count as a fourth academic advisor by title. Cambren is the Health
 Professions Program Coordinator and Adjunct Science Faculty in Biology, with a pre-health and
@@ -63,10 +66,12 @@ pre-professional advising focus.
 
 ## Laboratory contact
 
-Nathan La Porte is the department laboratory contact for students planning laboratory courses,
-independent study, or research and seeking help with laboratory access and planning, lab-coat
-purchases, safety-document completion, or other laboratory support.
+Dr. Nate La Porte (she/her) is the BCPS Lab Manager and the department laboratory contact for
+laboratory courses, independent study, and research. She supports laboratory access and planning,
+lab-coat purchases, safety-document completion, and other laboratory needs. She also hires and
+coordinates teaching assistants.
 
+- **Office:** WB 813.
 - **Phone:** (312) 341-3681.
 - **Email:** nlaporte@roosevelt.edu.
 
@@ -87,7 +92,7 @@ Health Professions Program Coordinator for guidance.
 
 - [Roosevelt academic leadership](https://www.roosevelt.edu/about/president/academic-leadership)
 - [College of Science, Health and Pharmacy](https://www.roosevelt.edu/colleges/science-health-pharmacy)
-- [Biological, Physical and Health Sciences directory](https://www.roosevelt.edu/contact/directory?ddlDepartmentSearch=200)
+- [Roosevelt contact directory](https://www.roosevelt.edu/contact/directory?ddlDepartmentSearch=200)
 - [Joshua Campbell profile](https://www.roosevelt.edu/profile/jcampbell14)
 - [Cambren Grimmett profile](https://www.roosevelt.edu/profile/cgrimmett)
 - [Pre-Health Professional Curricula](https://catalog.roosevelt.edu/undergraduate/health-science/pre-health-professional-curricula/)

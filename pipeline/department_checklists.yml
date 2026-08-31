@@ -211,7 +211,9 @@ items:
     evidence:
       - label: Dates and topics
         path: SCHEDULE/
-    note: Major assessments and milestones appear on dated schedule rows; Blackboard holds exact submission times.
+    note: >-
+      Major assessments and milestones appear on dated schedule rows; current course information
+      and the assessment platform provide exact submission times.
   - id: feedback_dates
     group: Required - Assignments and grading
     label: Assignment feedback dates
@@ -223,8 +225,8 @@ items:
         path: ../shared/policies/COURSE_EXPECTATIONS/#feedback-timing
     note: >-
       Automatically graded assignments return a score on the assignment platform after each
-      submitted attempt. Assignment grades are transferred manually to Blackboard at midterm and
-      semester end. Quiz and exam feedback follows the close of all authorized testing
+      submitted attempt. Assignment grades are transferred manually to the Blackboard gradebook at
+      midterm and semester end. Quiz and exam feedback follows the close of all authorized testing
       arrangements.
   - id: withdrawal_date
     group: Required - University deadlines
@@ -251,7 +253,9 @@ items:
     label: Student acknowledgment of policies and resources
     status: needs_review
     evidence: []
-    note: No syllabus acknowledgment activity is currently documented. Confirm whether a Blackboard acknowledgment or orientation quiz will be used.
+    note: >-
+      No syllabus acknowledgment activity is currently documented. Confirm whether a syllabus
+      acknowledgment or orientation activity will be used on the selected assessment platform.
   - id: accessible_format
     group: Required - Accessibility
     label: Accessible electronic format
@@ -323,7 +327,10 @@ items:
     label: Teaching assistant information
     status: needs_review
     evidence: []
-    note: Confirm whether a teaching assistant is assigned. Do not mark this not applicable without that confirmation.
+    note: >-
+      Dr. Nate La Porte hires and coordinates teaching assistants, but each course must still
+      confirm whether a teaching assistant is assigned. Do not mark this not applicable without
+      that confirmation.
   - id: optional_resources
     group: Suggested - Course information
     label: Optional texts or resources
@@ -405,7 +412,10 @@ items:
     label: Assignment formatting
     status: needs_review
     evidence: []
-    note: Formatting expectations remain in individual Blackboard instructions rather than the public syllabus. Confirm whether a general statement is useful.
+    note: >-
+      Formatting expectations remain in individual assignment instructions on the current
+      assessment platform rather than the public syllabus. Confirm whether a general statement is
+      useful.
   - id: assignment_submission
     group: Suggested - Course policies
     label: Assignment submission
@@ -415,7 +425,9 @@ items:
         path: ../shared/policies/COURSE_EXPECTATIONS/
       - label: Coursework and grades
         path: ASSIGNMENTS_AND_GRADING/
-    note: Blackboard is identified as the authoritative submission and grade record.
+    note: >-
+      The current assessment platform owns submission, while the Blackboard gradebook is the
+      authoritative score record.
   - id: late_work
     group: Suggested - Course policies
     label: Late assignments or missed exams
@@ -446,7 +458,9 @@ courses:
     overrides:
       assignment_points:
         status: needs_review
-        note: The page identifies assessment types but does not yet provide the Fall 2026 point total or weights. Blackboard is currently authoritative.
+        note: >-
+          The page identifies assessment types but does not yet provide the Fall 2026 point total
+          or weights. The Blackboard gradebook is currently the authoritative score record.
       major_due_dates:
         status: needs_review
         note: Weekly work is dated, but the final project and other major deadlines need more precise public dates.
@@ -476,7 +490,9 @@ courses:
             path: COURSE_DETAILS/#required-textbook-and-technology
           - label: Course format and online tools
             path: ../shared/policies/COURSE_DELIVERY/
-        note: Blackboard and a device capable of reading the OER and completing assignments are identified.
+        note: >-
+          Blackboard access for course information and the gradebook, the assessment platform, and
+          a device capable of reading the OER are identified.
       optional_resources:
         status: needs_review
         evidence:
@@ -515,7 +531,9 @@ courses:
             path: COURSE_DETAILS/#textbook-and-technology
           - label: Course format and online tools
             path: ../shared/policies/COURSE_DELIVERY/
-        note: Blackboard, online presentation and response tools, and a suitable computer are identified.
+        note: >-
+          Blackboard access for course information and the gradebook, online presentation and
+          response tools, the assessment platform, and a suitable computer are identified.
       optional_resources:
         evidence:
           - label: Textbook and technology

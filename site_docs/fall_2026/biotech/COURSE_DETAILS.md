@@ -38,9 +38,9 @@ David P. Clark, Nanette J. Pazdernik, Michelle R. McGehee, and Bethany A. Rader 
 [publisher's third-edition record](https://shop.elsevier.com/books/biotechnology/clark/978-0-443-18484-0).
 Students do not need to purchase or use this book.
 
-You need regular access to Blackboard and to the online presentation and response tools identified
-for each assignment. A computer is strongly recommended for preparing and presenting course
-projects.
+You need regular Blackboard access for course information and the gradebook, plus access to the
+presentation, response, and assessment tools identified for each assignment. A computer is strongly
+recommended for preparing and presenting course projects.
 
 <!-- lab attendance from syllabus.yml -->
 

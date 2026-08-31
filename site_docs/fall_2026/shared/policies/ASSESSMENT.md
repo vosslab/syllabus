@@ -50,11 +50,11 @@ For more information, see Roosevelt University's
 
 In light of the changing needs of students, particularly highlighted by the experiences during the COVID pandemic, I have adopted a more flexible approach to managing make-up exams, quizzes, and assignments.
 
-Graded work has a specified deadline and identifies whether you complete it in class, through
-Blackboard, or with another course link. I understand that illness, personal emergencies, and
-other significant events can make it challenging to meet these deadlines. If you may need an
-extension, **contact me immediately. I am always open to granting extensions based on individual
-circumstances.**
+Graded work has a specified deadline and identifies whether you complete it in class or through the
+current course assessment link or submission method. I understand that illness, personal
+emergencies, and other significant events can make it challenging to meet these deadlines. If you
+may need an extension, **contact me immediately. I am always open to granting extensions based on
+individual circumstances.**
 
 Communication is crucial in these situations. I do not need all the details of your situation. However, being informed about your general circumstances is important, as it allows me to offer the necessary support and accommodations. Please reach out as soon as possible if you anticipate needing an extension. Being proactive and communicating is essential and ensures fairness for all students.
 
@@ -64,7 +64,12 @@ The goal of this policy is to create a fair, consistent, and equitable learning 
 
 The **Graded Percentage** shows your score based only on the work that has been graded. It does not include assignments that you have not submitted or items that still need grading. This percentage is useful when the instructor has not yet graded items. It gives you an idea of your current grade, focusing only on the work you have completed and that has been scored.
 
-The **Total Percentage** includes all the items in the grade book, as listed on Blackboard. This includes every assignment, quiz, and exam, regardless of whether they are done, not submitted, or still waiting to be graded. In this percentage, any work that you have unfinished or have not submitted is counted as zero until it is completed and graded. The Total Percentage is more representative when you have assignments that you have not yet attempted. It provides an overview of your performance, factoring in both completed and pending assignments.
+The **Total Percentage** includes all the items listed in the Blackboard gradebook. This includes
+every assignment, quiz, and exam, regardless of whether they are done, not submitted, or still
+waiting to be graded. In this percentage, any work that you have unfinished or have not submitted
+is counted as zero until it is completed and graded. The Total Percentage is more representative
+when you have assignments that you have not yet attempted. It provides an overview of your
+performance, factoring in both completed and pending assignments.
 
 In summary, the Total Percentage will be equal to or lower than the Graded Percentage, as it includes unattempted and ungraded assignments. The Graded Percentage is a better measure for students who are up to date with their work, reflecting only graded items. In contrast, the Total Percentage provides a better overview for students with incomplete assignments, as it incorporates all potential grades.
 

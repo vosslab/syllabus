@@ -45,6 +45,12 @@ shared_sections:
   - ../shared/policies/EXTRA_CREDIT.md
   - ../shared/IMPORTANT_DATES.md
   - ../shared/STUDENT_RESOURCES.md
+  - ../shared/student_services/ACADEMIC_ADVISING.md
+  - ../shared/student_services/LEARNING_SUPPORT.md
+  - ../shared/student_services/PROGRAMS_AND_CAREER.md
+  - ../shared/student_services/TECHNOLOGY_AND_CAMPUS.md
+  - ../shared/student_services/MONEY_AND_ESSENTIAL_NEEDS.md
+  - ../shared/student_services/HEALTH_IDENTITY_AND_SAFETY.md
 ```
 
 Required scalar fields are `title`, `short_name`, `course_code`, `term`, `author`, `language`,

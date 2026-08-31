@@ -28,9 +28,10 @@
 ## Feedback timing
 
 Automatically graded assignments provide a score on the assignment platform after a submitted
-attempt. Assignment grades are transferred manually to Blackboard at midterm and at the end of the
-semester. Quiz and exam scores and review materials are released after the assessment process has
-closed for the class, including any approved make-up and accommodation arrangements.
+attempt. Assignment grades are transferred manually to the Blackboard gradebook at midterm and at
+the end of the semester. Quiz and exam scores and review materials are released after the
+assessment process has closed for the class, including any approved make-up and accommodation
+arrangements.
 
 ## Classroom expectations
 

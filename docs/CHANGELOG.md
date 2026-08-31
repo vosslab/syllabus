@@ -2,13 +2,17 @@
 
 ### Additions and New Features
 
-- Added Joshua Campbell's current Biological, Physical and Health Sciences advising role, office,
-  phone, email, and public appointment route to the shared Fall 2026 student resources. The shared
-  source makes the department-specific contact available in all three course syllabi.
-- Added Nathan La Porte as the department laboratory contact for students planning laboratory
-  courses, independent study, or research and seeking access, lab-coat, safety-document, or other
-  laboratory support. Expanded the existing TRIO SSS resource to cover its current STEM and
-  non-STEM services, student benefits, eligibility, and public application page.
+- Added Joshua Campbell's academic advising role, office, phone, email, and public appointment
+  route to the shared Fall 2026 student resources. The shared source makes the advising contact
+  available in all three course syllabi.
+- Added Dr. Nate La Porte (she/her), BCPS Lab Manager, as the department laboratory contact for
+  laboratory access, planning, PPE, safety documents, independent study, and research. Added her
+  responsibility for hiring and coordinating teaching assistants, plus her WB 813 office.
+- Added a lab-only loaner-PPE procedure that sends students to WB 812 with a laboratory assistant
+  and uses a Roosevelt ID as return collateral. Students who forget PPE are no longer dismissed or
+  charged a rental fee solely for that mistake; preparation-score expectations remain in place.
+- Expanded the existing TRIO SSS resource to cover its current STEM and non-STEM services, student
+  benefits, eligibility, and public application page.
 - Added student-facing English language support that explains placement referral, student
   self-referral, and an instructor's Navigate Early Alert as paths to tutoring through the Office
   of International Programs.
@@ -20,6 +24,13 @@
   NCAA Division II membership, free student admission to home events with an RU ID, and the public
   team and schedule site. Deferred the temporary 30th-anniversary announcements to the planned
   Schaumburg campus section rather than placing dated events in durable shared resources.
+- Added Megan Hoppe, the Schaumburg Research and Instruction Librarian, and their student research,
+  materials, and library-instruction support to the requirements for the planned Schaumburg-only
+  page. Kept the campus-specific contact out of the current all-course student-resources page.
+- Split the 25-heading Help and student services page into one recognition-first overview and six
+  task-focused pages for advising, learning, programs, technology, essential needs, and health.
+  Added every topic to MkDocs navigation, all three course manifests, complete PDF/DOCX syllabi,
+  and the browser accessibility route audit.
 - Added tracked, public-safe CSHP leadership and DBPS Fall 2026 faculty references under `docs/`.
   The exact chair memo remains under ignored `raw/` because it contains active access codes and
   access-controlled links.
@@ -43,9 +54,27 @@
   labels: BIOL 318 has Applying the Process of Science and Quantitative Reasoning, and the BIOL 351
   lecture has Quantitative Reasoning and Communication and Collaboration. Graduate BIOL 418,
   BIOL 451, and BIOL 480 identify the undergraduate mapping as not applicable.
+- Expanded every Fall 2026 course learning framework using stable course-specific evidence from
+  ignored `raw/` materials. Biostatistics and Biotechnology now have six substantive objectives,
+  outcomes, and goals each; Genetics preserves its detailed 17 outcomes and seven goals while
+  adding the two objectives needed for six. Restored the canonical colon-bearing section titles
+  and their distinct objective, outcome, and goal lead-in sentences.
 
 ### Behavior or Interface Changes
 
+- Restored the Genetics schedule's five numbered quiz-coverage groups and Assignments 1-13 due
+  labels from the historical online schedule. Matching topic and quiz cells use the original light
+  surfaces (`#f4cccc`, `#d9ead3`, `#ffe599`, `#fce5cd`, and `#d9d2e9`) plus measured 7:1 dark-theme
+  companions; repeated quiz numbers keep color supplementary. Kept assessments and assignments in
+  one compact due column and aligned all five quiz dates with the confirmed point plan.
+- Rewrote the STEM Center, TRIO Student Support Services, McNair Scholars, English language support,
+  and Career Services descriptions as compact paragraphs instead of short bullet lists. Preserved
+  the services, eligibility details, links, and contact information while making the shared page
+  read more like a student guide.
+- Removed Blackboard as an assignment, quiz, and exam delivery platform throughout the live
+  syllabi. Blackboard now owns course information, private links, and the gradebook; assessment
+  directions remain platform-neutral while LibreTexts ADAPT and the Peptidyle Learning Engine are
+  under consideration.
 - Qualified the STEM Center's peer-tutoring description: departmental tutoring covers selected
   introductory and lower-level courses rather than the current 300/400-level courses, while AUD 835
   remains available for studying, computers, printing, coffee, and community. Kept term-specific
@@ -65,9 +94,9 @@
   flipped, discussion-based graduate course rather than an instructor-lecture course.
 - Replaced the proposed fixed feedback-turnaround promise with the actual update schedule.
   Automatically graded assignments return scores on their platform after submission, and those
-  grades are transferred manually to Blackboard at midterm and semester end. Quiz and exam
-  feedback follows the close of approved testing arrangements. BIOL 480's dated project sequence
-  additionally identifies when students receive and apply project feedback.
+  grades are transferred manually to the Blackboard gradebook at midterm and semester end. Quiz
+  and exam feedback follows the close of approved testing arrangements. BIOL 480's dated project
+  sequence additionally identifies when students receive and apply project feedback.
 - Marked the conditional program-director checklist item not applicable for all three Fall 2026
   syllabi after instructor confirmation that no program director overlaps those courses. Retained
   the department chair and did not use deans, unrelated directors, advisors, or coordinators as
@@ -77,7 +106,7 @@
   overview labels remain bold paragraph lead-ins. Added explicit No quizzes and No exams topics when
   those categories are absent. Consolidated duplicated quiz and online-exam interruption recovery
   under one composite section, with separate selected guidance for timed, unlimited-retry
-  assignments and timed Blackboard quizzes or online exams. Removed the exam hand-in checklist
+  assignments and timed online quizzes or exams. Removed the exam hand-in checklist
   because it is exam-day direction rather than syllabus content.
 - Prose-heavy columns now receive room in proportion to their content, short numeric columns stay
   compact, content-small tables no longer fill the page, and narrow screens retain deliberate
@@ -92,11 +121,15 @@
   Date, Event, and Type columns instead of resizing independently from each month's content.
 - Shortened the assessment overview to emphasize the differences among assignments, quizzes, and
   exams. Expanded the Assignments detail with the repeated-practice purpose, unlimited retakes,
-  typical weekly point range, collaboration, and question-asking guidance used in Blackboard,
+  typical weekly point range, collaboration, and question-asking guidance used in online work,
   using the instructor's preferred third-person student language.
 
 ### Fixes and Maintenance
 
+- Updated department references after the former Biological, Physical and Health Sciences unit
+  split into Biological and Physical Sciences and Health Sciences. Current Biology leadership now
+  names Biological and Physical Sciences, while academic-advisor descriptions stay general rather
+  than presenting obsolete directory titles as current.
 - Corrected the department-checklist evidence model now that the shared instructor portrait makes
   image alt text applicable, and recognized Biotechnology's project and talking-point formatting
   requirements instead of leaving that suggested item unresolved.
@@ -120,6 +153,15 @@
 
 ### Developer Tests and Notes
 
+- Passed all 1,314 fast tests, rebuilt the strict website and all three PDF/DOCX syllabi, passed
+  cross-format include parity, and passed the Playwright browser accessibility audit. Visually
+  reviewed pages 5-7 of each rebuilt PDF; all three canonical learning sections remain distinct,
+  readable, and free of clipping or footer overlap.
+- Passed all 1,314 fast tests through a disposable projected Git index without changing the real
+  index. Rebuilt the strict website and all PDF/DOCX syllabi, passed cross-format include parity and
+  the Playwright accessibility audit, and visually reviewed the Genetics schedule in four browser
+  states plus both rendered PDF pages. `tools/calculate_table_widths.py` reported a 75ch schedule
+  with 11/20/40/29 percent Week, Date, Topic, and Due-this-date columns.
 - Passed all 1,284 fast tests, including department-checklist, Markdown-link, include,
   syllabus-builder, ASCII, and whitespace coverage. Rebuilt the strict website and all three PDF
   and DOCX syllabi, passed cross-format include parity, and regenerated all three department
