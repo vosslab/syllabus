@@ -6,7 +6,7 @@ marks are course-specific and appear with each course's own pages.
 
 ## Policy topics
 
-- [Contacting Dr. Voss](../INSTRUCTOR_INFORMATION.md): contact information, office hours,
+- [Instructor information](../INSTRUCTOR_INFORMATION.md): contact information, office hours,
   response time, and what to do when something feels urgent.
 - [Course format and online tools](COURSE_DELIVERY.md): syllabus changes, course information,
   online tools, and course formats.

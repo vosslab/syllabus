@@ -328,6 +328,12 @@
 	background-color: var(--md-default-fg-color--lightest);
 }
 
+/* Keep short identifiers compact so prose and milestones own the schedule hierarchy. */
+.md-typeset table.syllabus-table .syllabus-column--compact {
+	padding-inline: 0.45rem;
+	white-space: nowrap;
+}
+
 /* Match each Genetics quiz to its covered topics; visible numbers carry the same meaning. */
 .md-typeset .schedule-quiz-key {
 	background-color: var(--schedule-quiz-surface);
@@ -384,6 +390,26 @@
 	color: var(--syllabus-quiz-text);
 }
 
+/* Give exam weeks one unmistakable milestone across the two prose columns. */
+.md-typeset .table-layout--schedule .schedule-exam-cell {
+	background-color: color-mix(
+		in srgb,
+		var(--syllabus-page-accent) 12%,
+		var(--md-default-bg-color)
+	);
+	border-block: 0.16rem solid var(--syllabus-page-accent);
+	padding-block: 0.8rem;
+	text-align: center;
+	vertical-align: middle;
+}
+
+.md-typeset .table-layout--schedule .schedule-exam-cell strong {
+	display: block;
+	font-size: 1.15em;
+	font-weight: 800;
+	letter-spacing: 0.08em;
+}
+
 /* Make the derived sum read like the point-plan header in screen and print views. */
 .md-typeset #course-point-plan + table.syllabus-table tbody tr:last-child td,
 .md-typeset #course-point-plan + .md-typeset__scrollwrap tbody tr:last-child td {
@@ -398,9 +424,19 @@
 	width: 100%;
 }
 
-/* Content demand comes from the build extension; narrow screens scroll prose tables. */
+/* Content demand comes from the build extension; wide comparison tables may scroll. */
 .md-typeset table.syllabus-table:not(.table-width--intrinsic) {
 	min-width: var(--table-minimum-width);
+}
+
+/* Two-column reference tables must wrap inside the reading column at every viewport. */
+.md-typeset table.syllabus-table.table-layout--key-value {
+	min-width: 0;
+}
+
+.md-typeset table.table-layout--key-value th,
+.md-typeset table.table-layout--key-value td {
+	overflow-wrap: anywhere;
 }
 
 /* Compact tables use their calculated content width instead of filling the page. */

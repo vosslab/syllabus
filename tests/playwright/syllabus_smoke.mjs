@@ -33,6 +33,15 @@ const COURSE_ROUTES = [
 	"/fall_2026/biotech/",
 ];
 
+const COURSE_INFORMATION_ROUTES = [
+	"/fall_2026/biostats/COURSE_DETAILS/",
+	"/fall_2026/genetics/COURSE_DETAILS/",
+	"/fall_2026/biotech/COURSE_DETAILS/",
+];
+
+const INSTRUCTOR_INFORMATION_ROUTE =
+	"/fall_2026/shared/INSTRUCTOR_INFORMATION/";
+
 const STUDENT_SERVICE_ROUTES = [
 	"/fall_2026/shared/student_services/ACADEMIC_ADVISING/",
 	"/fall_2026/shared/student_services/LEARNING_SUPPORT/",
@@ -47,8 +56,9 @@ const ROUTES = [
 	"/fall_2026/",
 	"/fall_2026/shared/IMPORTANT_DATES/",
 	...COURSE_ROUTES,
+	...COURSE_INFORMATION_ROUTES,
 	"/fall_2026/shared/policies/",
-	"/fall_2026/shared/INSTRUCTOR_INFORMATION/",
+	INSTRUCTOR_INFORMATION_ROUTE,
 	"/fall_2026/shared/policies/COURSE_DELIVERY/",
 	"/fall_2026/shared/policies/ASSESSMENT/",
 	"/fall_2026/genetics/DISCUSSION_MARKS/",
@@ -134,6 +144,30 @@ function checkCourseTypography(typography, viewportName) {
 	);
 }
 
+async function checkCourseInformationTable(page, viewportName) {
+	const table = page.locator("table.table-layout--key-value").first();
+	await table.waitFor({ state: "visible" });
+	assert.deepEqual(await table.getByRole("columnheader").allTextContents(), [
+		"Field",
+		"Information",
+	]);
+	const metrics = await table.evaluate((element) => {
+		const container = element.closest(".md-typeset__table");
+		if (!container) {
+			throw new Error("Course-information table is missing its width owner");
+		}
+		return {
+			clientWidth: container.clientWidth,
+			scrollWidth: container.scrollWidth,
+		};
+	});
+	assert.ok(
+		metrics.scrollWidth <= metrics.clientWidth + 1,
+		`Course-information table scrolls horizontally at ${viewportName}: ` +
+			`${metrics.scrollWidth}px inside ${metrics.clientWidth}px`,
+	);
+}
+
 async function checkCompleteSyllabusDownloads(page, siteOrigin, siteRoot) {
 	const downloadLinks = await page
 		.getByRole("link", {
@@ -168,6 +202,19 @@ async function checkCourseContentsNavigation(page, siteOrigin) {
 	await contentsNavigation.waitFor({ state: "visible" });
 	const contentsLinks = await contentsNavigation.getByRole("link").all();
 	assert.ok(contentsLinks.length > 0, "Course contents navigation has no links");
+	const instructorLink = contentsNavigation.getByRole("link", {
+		name: "Instructor information",
+	});
+	assert.equal(
+		await instructorLink.count(),
+		1,
+		"Course contents must link to one instructor-information page",
+	);
+	const instructorDestination = new URL(
+		await instructorLink.getAttribute("href"),
+		page.url(),
+	);
+	assert.equal(instructorDestination.pathname, INSTRUCTOR_INFORMATION_ROUTE);
 	for (const contentsLink of contentsLinks) {
 		const title = contentsLink.locator(".course-page-links__title");
 		const description = contentsLink.locator(".course-page-links__description");
@@ -299,6 +346,19 @@ try {
 					false,
 					`${route} overflows the ${viewport.name} ${colorScheme.name} viewport`,
 				);
+				if (COURSE_INFORMATION_ROUTES.includes(route)) {
+					await checkCourseInformationTable(
+						page,
+						`${viewport.width}px ${colorScheme.name}`,
+					);
+					assert.equal(
+						await page
+							.getByRole("heading", { name: "Instructor information" })
+							.count(),
+						0,
+						`${route} still embeds instructor information`,
+					);
+				}
 				if (COURSE_ROUTES.includes(route)) {
 					checkCourseTypography(
 						await getCourseTypography(page),
@@ -314,6 +374,20 @@ try {
 			}
 			await context.close();
 		}
+	}
+
+	for (const width of [320, 480, 768, 1920]) {
+		const context = await browser.newContext({ viewport: { width, height: 900 } });
+		for (const route of COURSE_INFORMATION_ROUTES) {
+			const page = await context.newPage();
+			const response = await page.goto(`${staticServer.baseUrl}${route}`, {
+				waitUntil: "domcontentloaded",
+			});
+			assert.equal(response?.status(), 200, `${route} did not load at ${width}px`);
+			await checkCourseInformationTable(page, `${width}px`);
+			await page.close();
+		}
+		await context.close();
 	}
 
 	for (const courseRoute of COURSE_ROUTES) {
@@ -427,6 +501,7 @@ try {
 	await coursePage.goto(`${staticServer.baseUrl}/fall_2026/genetics/`);
 	const courseMain = coursePage.getByRole("article");
 	await courseMain.getByRole("link", { name: "Course information" }).waitFor();
+	await courseMain.getByRole("link", { name: "Instructor information" }).waitFor();
 	await courseMain
 		.getByRole("link", { name: "Learning Objectives, Outcomes, and Goals" })
 		.waitFor();

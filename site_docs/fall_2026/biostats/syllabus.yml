@@ -9,6 +9,7 @@ assessment_examples_url: https://biologyproblems.org/biostatistics/
 sections:
   - index.md
   - COURSE_DETAILS.md
+  - ../shared/INSTRUCTOR_INFORMATION.md
   - COURSE_LEARNING_FRAMEWORK.md
   - ASSIGNMENTS_AND_GRADING.md
   - SCHEDULE.md

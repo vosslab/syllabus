@@ -80,6 +80,7 @@ nav:
   - Fall 2026:
       - Overview: fall_2026/index.md
       - Important dates and deadlines: fall_2026/shared/IMPORTANT_DATES.md
+      - Instructor information: fall_2026/shared/INSTRUCTOR_INFORMATION.md
       - BIOL 318/418 - Biostatistics:
           - Start here: fall_2026/biostats/index.md
           - Course information: fall_2026/biostats/COURSE_DETAILS.md
@@ -104,7 +105,6 @@ nav:
           - Dates and topics: fall_2026/biotech/SCHEDULE.md
       - Dr. Voss course policies:
           - Policy overview: fall_2026/shared/policies/index.md
-          - Contacting Dr. Voss: fall_2026/shared/INSTRUCTOR_INFORMATION.md
           - Course format and online tools: fall_2026/shared/policies/COURSE_DELIVERY.md
           - Grades and graded work: fall_2026/shared/policies/ASSESSMENT.md
           - Extra credit write-ups: fall_2026/shared/policies/EXTRA_CREDIT.md

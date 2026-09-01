@@ -30,6 +30,8 @@ history. Those belong in the appropriate technical documentation or changelog.
   course template.
 - Keep each course's catalog description and course-format explanation on its Course information
   page. A compact format table does not replace the refined format prose from my original syllabi.
+- Keep course information and instructor information on separate pages, especially when the course
+  information is already long.
 - Target six bullet points each for a first draft under Learning Objectives, Course Learning
   Outcomes, and Learning Goals, and preserve more detailed established lists when they remain
   accurate. Use `raw/` course content as evidence, not public source text.

@@ -361,12 +361,22 @@ tr {
 	break-inside: avoid;
 }
 
+/* The compact section-information table fits on one page and should read as one unit. */
+#section-information + .md-typeset__scrollwrap {
+	break-inside: avoid;
+}
+
 th,
 td {
 	border: 1px solid #777;
 	padding: 0.3rem 0.4rem;
 	text-align: left;
 	vertical-align: top;
+}
+
+table.syllabus-table .syllabus-column--compact {
+	padding-inline: 0.25rem;
+	white-space: nowrap;
 }
 
 th {
@@ -431,6 +441,22 @@ tbody tr:nth-child(even) {
 .table-layout--schedule td:nth-child(3):has(.schedule-quiz-key--5) {
 	background: var(--syllabus-quiz-5-surface);
 	color: var(--syllabus-quiz-text);
+}
+
+.table-layout--schedule .schedule-exam-cell {
+	background: #edf2ef;
+	border-bottom: 1.5pt solid var(--syllabus-page-accent);
+	border-top: 1.5pt solid var(--syllabus-page-accent);
+	padding-block: 0.55rem;
+	text-align: center;
+	vertical-align: middle;
+}
+
+.table-layout--schedule .schedule-exam-cell strong {
+	display: block;
+	font-size: 1.1em;
+	font-weight: 700;
+	letter-spacing: 0.06em;
 }
 
 /* Repeat the header hierarchy for the point-plan sum and leave room to write. */

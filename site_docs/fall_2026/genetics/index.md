@@ -12,7 +12,10 @@ The syllabus is divided into shorter pages so you can go directly to the informa
 
 - [<span class="course-page-links__title">Course information</span>
   <span class="course-page-links__description">Section details, course format, catalog description,
-  required textbook and technology, and instructor information.</span>](COURSE_DETAILS.md)
+  and required textbook and technology.</span>](COURSE_DETAILS.md)
+- [<span class="course-page-links__title">Instructor information</span>
+  <span class="course-page-links__description">Dr. Voss's contact methods, office hours, response
+  times, and department leadership.</span>](../shared/INSTRUCTOR_INFORMATION.md)
 - [<span class="course-page-links__title">Learning Objectives, Outcomes, and Goals</span>
   <span class="course-page-links__description">Roosevelt learning goals, learning objectives,
   course learning outcomes, and overall learning goals.</span>](COURSE_LEARNING_FRAMEWORK.md)

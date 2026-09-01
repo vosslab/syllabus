@@ -28,6 +28,7 @@ course_point_plan:
 sections:
   - index.md
   - COURSE_DETAILS.md
+  - ../shared/INSTRUCTOR_INFORMATION.md
   - COURSE_LEARNING_FRAMEWORK.md
   - ASSIGNMENTS_AND_GRADING.md
   - DISCUSSION_MARKS.md
@@ -128,8 +129,9 @@ content. `has_lab` replaces it with the canonical lab attendance and preparation
 
 `sections` and `shared_sections` are non-empty ordered lists of local source paths. Every path must
 resolve to an existing file below `site_docs/`. The order becomes the section order in complete
-documents. The course list must contain exactly one `COURSE_LEARNING_FRAMEWORK.md` with the four
-required learning-statement sections.
+documents. `sections` owns the opening course flow and may reference the shared instructor page so
+it follows `COURSE_DETAILS.md` without copying its content. The course flow must contain exactly one
+`COURSE_LEARNING_FRAMEWORK.md` with the four required learning-statement sections.
 
 The global [site_docs/EXTRA_CREDIT_MOVIES.md](../site_docs/EXTRA_CREDIT_MOVIES.md) catalog is
 website-only. Extra-credit policy pages may link to it, but course manifests omit it so the verbose
@@ -150,13 +152,24 @@ row. Hidden line-breaking controls are rejected. The build classifies the closed
 headers, examines every visible cell, and derives wrap-aware relative column widths for website,
 PDF, and DOCX output. Authors do not add width markup to individual Markdown tables. A new header
 shape must be registered explicitly so an unknown table cannot silently receive arbitrary layout.
+Short identifier columns are detected from their complete visible content and use compact padding;
+schedule layouts give additional line length to prose columns. Inline HTML styling hooks do not
+count toward visible width demand.
 Within one rendered page or document, tables with the exact same headers form a series: the widest
 demand for each column across the full series supplies one shared width vector to every table. The
 monthly University important-dates tables therefore align even when one month has much longer event
-text than another. In a three-column course-information table, two identical non-empty section
-values render once in one cell spanning both section columns. Distinct values remain separate.
+text than another. Course-information tables use `Field | Information`: shared facts appear once,
+while distinct facts use bold course-section labels and semicolon-separated mappings in the
+Information cell.
+These key-value tables wrap inside the website reading column instead of scrolling horizontally.
+The section-information table stays together as one block in PDF when it fits on a page.
 Links between manifest-included Markdown pages are rewritten as internal document anchors in PDF
 and DOCX output.
+
+A five-column schedule may use `Week | Date | Quiz | Topic | Due this date`. The Quiz cells carry
+the numbered coverage cue while Topic remains course-content prose. A bold Topic with an empty Due
+cell is a major schedule milestone; the renderer spans it across the Topic and Due columns in the
+website, PDF, and DOCX.
 
 ## Shared fragments
 
@@ -179,7 +192,8 @@ one linked fragment can render correctly at different page depths. A relative ta
 
 The instructor-contact fragment references the tracked light-background portrait as its one
 canonical Markdown image. Keep both portrait variants under `site_docs/assets/images/`; the
-cross-format rendering strategy is recorded in [DESIGN_DECISIONS.md](DESIGN_DECISIONS.md).
+cross-format rendering strategy and renderer-owned size constraints are recorded in
+[DESIGN_DECISIONS.md](DESIGN_DECISIONS.md).
 
 Absolute paths, `..` traversal, remote URLs, symlink escapes, nested includes, single-quoted or
 unquoted paths, block form, section selection, and alternate marker lengths are invalid. Any line

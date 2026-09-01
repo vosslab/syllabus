@@ -50,6 +50,11 @@ task-focused pages under `shared/student_services/`. Course manifests list the o
 every topic page, so the website supports quick lookup while PDF and DOCX syllabi retain the
 complete resource set without duplicating content.
 
+Instructor information follows the same edit-once boundary at
+`shared/INSTRUCTOR_INFORMATION.md`. Each course landing page links directly to that route, and each
+manifest lists it immediately after `COURSE_DETAILS.md`, so course logistics and instructor contact
+details remain separate website pages while both appear once in each complete syllabus.
+
 Each course manifest selects an ordered subset of the four assessment categories Dr. Voss uses:
 assignments, group quizzes, face-to-face exams, and online exams. The model maps that closed
 vocabulary to an ordered set of composite assessment sections. Each section owns one H2 root and
@@ -129,9 +134,13 @@ hook registration, theme configuration, social links, and the public site URL.
 The registered table-layout Markdown extension examines all header and body cells before emitting
 a `colgroup`, content-derived minimum width, and semantic profile hook. CSS consumes those values;
 it does not own per-table or per-profile column percentages. Compact tables use their calculated
-content width, while prose-dense tables remain readable through the Material scroll wrapper on
-narrow screens. Repeated tables with identical headers are calculated as one series, so month-by-
-month or otherwise partitioned data keeps the same column boundaries throughout the page.
+content width, while genuinely wide comparison tables remain readable through the Material scroll
+wrapper on narrow screens. Two-column key-value tables instead wrap inside the reading column and
+never require horizontal scrolling. Short identifier columns receive compact cell hooks and remain
+near their intrinsic width; schedule prose receives the remaining line-length budget. Raw HTML
+styling hooks are resolved to visible text before measurement, so markup never inflates a column. Repeated tables
+with identical headers are calculated as one series, so month-by-month or otherwise partitioned
+data keeps the same column boundaries throughout the page.
 
 ### DOCX branch
 

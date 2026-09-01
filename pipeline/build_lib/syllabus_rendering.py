@@ -104,22 +104,42 @@ def configure_docx_table_widths(
 
 
 #============================================
-def merge_shared_docx_course_detail_cells(
-	table: object,
-	headers: tuple[str, ...],
-	body_rows: tuple[tuple[str, ...], ...],
-) -> None:
-	"""Merge identical section values in a DOCX course-information table."""
-	shared_indexes = build_lib.table_layouts.shared_course_detail_row_indexes(
-		headers,
-		body_rows,
-	)
-	for row_index in shared_indexes:
-		row = table.rows[row_index + 1]
-		left_cell = row.cells[1]
-		right_cell = row.cells[2]
-		right_cell.text = ""
-		merged_cell = left_cell.merge(right_cell)
+def configure_docx_instructor_portrait(table: object, headers: tuple[str, ...]) -> None:
+	"""Keep the shared instructor portrait compact in Word's table layout."""
+	if headers != ("Field", "Information") or len(table.rows) < 2:
+		return None
+	portrait_row = table.rows[1]
+	if portrait_row.cells[0].text.strip() != "Photograph":
+		return None
+	for inline_element in portrait_row.cells[1]._tc.xpath(".//wp:inline"):
+		shape = docx.shape.InlineShape(inline_element)
+		original_width = shape.width
+		original_height = shape.height
+		if original_width <= 0:
+			continue
+		target_width = docx.shared.Inches(1.55)
+		shape.width = target_width
+		shape.height = round(original_height * target_width / original_width)
+	return None
+
+
+#============================================
+def merge_docx_schedule_exam_cells(table: object, headers: tuple[str, ...]) -> None:
+	"""Span bold exam milestones across the Topic and Due columns in Word."""
+	if len(headers) != 5 or headers[2:4] != ("Quiz", "Topic"):
+		return None
+	for row in table.rows[1:]:
+		topic_cell = row.cells[3]
+		due_cell = row.cells[4]
+		has_bold_milestone = any(
+			run.bold and run.text.strip()
+			for paragraph in topic_cell.paragraphs
+			for run in paragraph.runs
+		)
+		if not has_bold_milestone or due_cell.text.strip():
+			continue
+		due_cell.text = ""
+		merged_cell = topic_cell.merge(due_cell)
 		trailing_paragraph = merged_cell.paragraphs[-1]
 		if not trailing_paragraph.text:
 			trailing_paragraph._element.getparent().remove(trailing_paragraph._element)
@@ -281,7 +301,8 @@ def postprocess_docx(
 		strict=True,
 	):
 		configure_docx_table_widths(table, document, layout_profile)
-		merge_shared_docx_course_detail_cells(table, headers, body_rows)
+		configure_docx_instructor_portrait(table, headers)
+		merge_docx_schedule_exam_cells(table, headers)
 	for table in document.tables:
 		table.style = "Table"
 		if table.rows:

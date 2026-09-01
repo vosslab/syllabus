@@ -104,22 +104,41 @@ column; tables with different headers remain independent.
 **Owner.** `pipeline/build_lib/table_layouts.py`, `docs/FILE_FORMATS.md`, and
 `tests/playwright/capture_table_review.mjs`.
 
-### Span shared course-information values across section columns
+### Use one information column for multi-section course facts
 
-**Decision.** In a three-column course-information table, render an identical non-empty value once
-across both section columns. Keep different values side by side and keep the canonical Markdown as
-a complete three-column fallback.
+**Decision.** Course-information tables use `Field | Information`. State a fact once when it
+applies to every listed section. When values differ, prefix each value with the applicable bold
+course-section label and divide the mappings with a semicolon.
 
-**Why.** Repeating the same meeting, format, credit, or date in adjacent cells suggests a
-difference students need to compare. A real span communicates that the information applies equally
-to both listed sections while leaving section-specific facts visibly comparable.
+**Why.** Parallel section columns make shared values look comparative, consume scarce reading
+width, and force horizontal scrolling on narrow screens. One information column gives the facts
+visual priority while preserving an explicit section-to-value mapping only where students need it.
 
-**Consequence.** The registered `course-details` profile derives shared rows from normalized
-visible values instead of hard-coded field names. Its HTML processor supplies the website and PDF
-`colspan`; DOCX post-processing merges the same cells after applying the shared width calculation.
+**Consequence.** The canonical GFM is already the portable two-column representation used by the
+website, PDF, and DOCX; the renderers do not reconstruct or merge section columns. Website
+key-value tables wrap inside the reading column at every supported viewport rather than owning a
+horizontal scrollbar. The source does not need HTML line-break tags.
 
-**Owner.** `pipeline/build_lib/table_layouts.py`,
-`pipeline/build_lib/syllabus_rendering.py`, and `docs/FILE_FORMATS.md`.
+**Owner.** `site_docs/fall_2026/*/COURSE_DETAILS.md`,
+`site_docs/assets/stylesheets/site.css`, and `docs/FILE_FORMATS.md`.
+
+### Separate course facts from instructor information
+
+**Decision.** Keep course logistics, format, catalog description, textbooks, and technology on each
+course's `COURSE_DETAILS.md`. Keep contact methods, office hours, response expectations, and
+department leadership on the one shared `INSTRUCTOR_INFORMATION.md` route. Link that route directly
+from every course landing page and list it explicitly in every complete-document manifest.
+
+**Why.** Students looking for course facts and students trying to contact the instructor have
+different goals. Combining both makes long course-information pages harder to scan and duplicates
+the same instructor material across courses.
+
+**Consequence.** Instructor facts remain editable once in shared fragments, course-information pages
+end after their course-specific content, and PDF/DOCX composition includes the shared page as a
+normal ordered section rather than using an embedded-heading link exception.
+
+**Owner.** `site_docs/fall_2026/shared/INSTRUCTOR_INFORMATION.md`, the three course landing pages and
+manifests, `mkdocs.yml`, and `pipeline/build_lib/syllabus_content.py`.
 
 ### Pair Genetics schedule colors with quiz and assignment numbers
 
@@ -177,7 +196,9 @@ therefore do not need the dark variant.
 **Consequence.** Preserve both tracked portrait assets, the canonical light-image reference, and
 the website's scoped dark-theme substitution as one unit. A future presentation change must still
 embed only the light portrait in PDF and DOCX, expose one meaningful text alternative, and avoid
-duplicating the portrait in document source.
+duplicating the portrait in document source. Website and PDF CSS retain the same maximum width;
+DOCX post-processing recognizes the semantic Photograph row and constrains its image to `1.55in`
+because HTML image-width attributes are not portable to the browser.
 
 **Owner.** `docs/FILE_FORMATS.md`,
 `site_docs/fall_2026/shared/fragments/INSTRUCTOR_CONTACT_DETAILS.md`, and

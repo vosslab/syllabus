@@ -39,8 +39,8 @@ offline reading and archival use.
   page headings and navigation. Students should recognize the question a page answers without
   knowing terms such as **assessment** or **course delivery**.
 - Embed instructor contact details and Roosevelt learning goals from canonical term-level
-  fragments. Keep the directly navigable instructor-information page as a student-facing wrapper
-  around the same contact fragment used by course-details pages.
+  fragments. Link each course landing page directly to the shared instructor-information wrapper;
+  do not repeat that material on course-details pages.
 - Keep the letter-grade scale once in the shared grading policy; course grading pages link to it.
 - Place task-oriented course links immediately after the introduction.
 - Place secondary complete PDF and DOCX links after the course summary and label them as complete
@@ -54,15 +54,16 @@ offline reading and archival use.
 - Keep private meeting links and credentials in Blackboard.
 - Present complete student-facing candidates; keep editorial uncertainty outside published pages.
 
-## Policy information architecture
+## Student-facing information architecture
 
-The policy overview supports recognition rather than recall: students scan visible task labels,
-then choose the page that matches their question. Each subsection belongs to one subject category;
-`shared/policies/index.md` is the only overview and the policy branch has no catch-all FAQ.
+Course landing pages and the policy overview support recognition rather than recall: students scan
+visible task labels, then choose the page that matches their question. Instructor information is a
+direct course link outside the policy branch; `shared/policies/index.md` remains the only policy
+overview and the policy branch has no catch-all FAQ.
 
 | Canonical category | Student-facing page | Student question answered |
 | --- | --- | --- |
-| `INSTRUCTOR_INFORMATION.md` | Contacting Dr. Voss | How and when do I contact the instructor? |
+| `INSTRUCTOR_INFORMATION.md` | Instructor information | How and when do I contact the instructor? |
 | `COURSE_DELIVERY.md` | Course format and online tools | Where and how does the course operate? |
 | `ASSESSMENT.md` | Grades and graded work | How are grades, extensions, and gradebook percentages handled? |
 | Course `ASSIGNMENTS_AND_GRADING.md` | Coursework and grades | Which assignments, group quizzes, or exams does this course use? |
@@ -75,10 +76,11 @@ then choose the page that matches their question. Each subsection belongs to one
 | `INCLUSION_AND_SAFETY.md` | Safety, inclusion, and belonging | What protections, reporting routes, and community commitments apply? |
 | `COURSE_ENROLLMENT.md` | Dropping or withdrawing from class | How do withdrawal, late withdrawal, and tuition refunds work? |
 
-The inspection scenario starts at the policy overview with one of those questions. Success means
-the matching link is recognizable without opening competing pages, its target contains the answer,
-and ordinary policy categories appear once in each complete syllabus. The approved-movie catalog
-is intentionally website-only because its length would overwhelm the complete syllabus.
+The inspection scenario starts at a course landing page or the policy overview with one of those
+questions. Success means the matching link is recognizable without opening competing pages, its
+target contains the answer, and each listed complete-syllabus source appears once. The
+approved-movie catalog is intentionally website-only because its length would overwhelm the
+complete syllabus.
 
 ## Task models
 

@@ -15,7 +15,7 @@ items:
     status: covered
     evidence:
       - label: Instructor information
-        path: COURSE_DETAILS/#instructor-information
+        path: ../shared/INSTRUCTOR_INFORMATION/
     note: Dr. Voss's name, title, experience, and Roosevelt profile are provided.
   - id: course_type
     group: Required - Instructor and program information
@@ -31,7 +31,7 @@ items:
     status: covered
     evidence:
       - label: Instructor information
-        path: COURSE_DETAILS/#instructor-information
+        path: ../shared/INSTRUCTOR_INFORMATION/
     note: The Schaumburg office and secure online meeting location are identified.
   - id: primary_contact
     group: Required - Instructor and program information
@@ -39,7 +39,7 @@ items:
     status: covered
     evidence:
       - label: How to contact Dr. Voss
-        path: COURSE_DETAILS/#how-to-contact-me
+        path: ../shared/INSTRUCTOR_INFORMATION/#how-to-contact-me
     note: Primary and alternative contact methods are explained.
   - id: department_chair
     group: Required - Instructor and program information
@@ -47,7 +47,7 @@ items:
     status: covered
     evidence:
       - label: Department and program leadership
-        path: COURSE_DETAILS/#department-and-program-leadership
+        path: ../shared/INSTRUCTOR_INFORMATION/#department-and-program-leadership
     note: Dr. Robert Seiser is identified and linked to his Roosevelt profile.
   - id: program_director
     group: Required - Instructor and program information
@@ -88,7 +88,7 @@ items:
     status: covered
     evidence:
       - label: How to contact Dr. Voss
-        path: COURSE_DETAILS/#how-to-contact-me
+        path: ../shared/INSTRUCTOR_INFORMATION/#how-to-contact-me
     note: Contact channel priorities and response times are explained.
   - id: office_hours
     group: Required - Course information
@@ -96,7 +96,7 @@ items:
     status: covered
     evidence:
       - label: Instructor information
-        path: COURSE_DETAILS/#instructor-information
+        path: ../shared/INSTRUCTOR_INFORMATION/
     note: Weekly office hours and appointment availability are listed.
   - id: required_texts
     group: Required - Course information
@@ -302,7 +302,7 @@ items:
     status: covered
     evidence:
       - label: Instructor information
-        path: COURSE_DETAILS/#instructor-information
+        path: ../shared/INSTRUCTOR_INFORMATION/
     note: >-
       The instructor portrait has descriptive alternative text, and the site logo has an
       accessible home-link name.
@@ -320,7 +320,7 @@ items:
     status: covered
     evidence:
       - label: Instructor information
-        path: COURSE_DETAILS/#instructor-information
+        path: ../shared/INSTRUCTOR_INFORMATION/
     note: Telephone, mailbox, community contact, email, and follow-up instructions are provided.
   - id: teaching_assistant
     group: Suggested - Course information

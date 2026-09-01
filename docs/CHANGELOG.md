@@ -66,23 +66,35 @@
 
 ### Behavior or Interface Changes
 
+- Rebalanced the Genetics schedule around course content. Moved quiz coverage into a compact,
+  numbered Quiz column; replaced the filler synthesis labels with prominent MID-TERM EXAM and
+  CUMULATIVE FINAL EXAM milestones spanning the Topic and Due columns; and narrowed Week and Date
+  from 11% and 20% to 8% and 15%. The schedule width model now keeps short identifier columns near
+  their intrinsic size and gives the remaining line length to topic prose.
 - Selected complete-document manifests directly from the one canonical `site_docs/fall_2026/`
   source tree instead of scanning all public content and rejecting possible parallel directories.
   Removed the redundant template-content failure gate and its pytest.
 - Defined 26.08 as the current rolling publication series rather than an unreleased formal version.
   Updated the README, News, and publication history so no tag or official release is implied.
 - Renamed all three "Meetings and instructor" pages and navigation entries to "Course information"
-  so their section details, delivery format, catalog description, textbooks and technology, and
-  instructor information have an accurate umbrella title. Restored Genetics' established
-  face-to-face format paragraph from the original syllabus, separated Biostatistics' confirmed
-  hybrid-format prose from its catalog entry, and gave Biotechnology's current flipped hybrid
-  format a durable course-format heading.
+  for their section details, delivery format, catalog description, textbooks, and technology.
+  Split shared instructor and contact information onto its own direct page instead of repeating it
+  at the bottom of every course-information page. Course landing pages now link to both
+  destinations, and complete PDF/DOCX manifests include the instructor page once as an explicit
+  section. DOCX post-processing now constrains the shared portrait so its table stays with the
+  section heading, while the website retains valid responsive image markup. Restored Genetics'
+  established face-to-face format paragraph from the original syllabus, separated Biostatistics'
+  confirmed hybrid-format prose from its catalog entry, and gave Biotechnology's current flipped
+  hybrid format a durable course-format heading.
 - Made every public Fall 2026 contact email an explicit `mailto:` link instead of relying on
   renderer-specific detection. Website email links now carry the local Font Awesome envelope icon,
   matching the established link-purpose icon treatment without adding a remote dependency.
-- Course-information rows shared by both listed sections now display one value spanning the two
-  section columns instead of repeating it. Section-specific values remain side by side, and the
-  same rule reaches the website, PDF, and DOCX from the registered table profile.
+- Replaced the three-column course-information comparisons with a stable `Field | Information`
+  layout. Shared facts now appear once; facts that differ use bold course-section labels in plain
+  semicolon-separated GFM mappings. These tables wrap without a horizontal scrollbar on narrow
+  website viewports and use the same portable structure in PDF and DOCX without HTML line-break
+  tags. PDF output keeps the compact section-information table together instead of orphaning one
+  row at the bottom of the preceding page.
 - Delayed online homework until Week 3 so students have time to create accounts and learn the
   external assessment platform. Kept earlier course-orientation work and Week 2 in-class activities,
   and labeled the Biostatistics figure analysis and BIOL 480 talking point as in-class work.
@@ -151,6 +163,9 @@
 
 ### Fixes and Maintenance
 
+- Corrected the table-layout renderer so inline HTML styling hooks are reduced to their visible
+  text before calculating column demand. The built site and `tools/calculate_table_widths.py` now
+  measure the same content instead of allowing hidden placeholder text to widen styled cells.
 - Removed the explicit `Laboratory component: None` rows from all three course-information tables.
   The Genetics page retains its useful prose explaining that the separately registered laboratory
   is outside the lecture syllabus.
@@ -178,15 +193,19 @@
   direct edit targets, and rebuild commands.
 - Rebuilt the production site and recaptured the three managed README views: the Fall 2026 home
   page, dark-mode Genetics navigation, and Biotechnology project expectations.
+- Synchronized shared style guides, tests, and repository support files from the starter template.
 
 ### Developer Tests and Notes
 
-- Final `./all_test.sh` passed all 1,315 fast tests, the live-date refresh, strict website and
+- Final `./all_test.sh` passed all 1,318 fast tests, the live-date refresh, strict website and
   PDF/DOCX builds, include parity, and the Playwright browser audit.
 - Focused rendered review covered the three Course information pages, learning frameworks,
   schedules, coursework hierarchy, table layouts and spans, PDF footers, email-link icons, and the
   managed README screenshots. Department checklists and DOCX structure were also regenerated and
   inspected where their source changes required it.
+- Focused Genetics schedule review covered desktop/mobile and light/dark website captures, PDF page
+  14 at full resolution, and the generated DOCX grid structure. Both exam milestones span two
+  columns without clipping, and the four rendered website states preserve the numbered quiz cue.
 
 ## 2026-08-30
 

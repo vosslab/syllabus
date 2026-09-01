@@ -2,18 +2,18 @@
 
 ## Section information
 
-| Field | BIOL 480-10 | BIOL 480-24 |
-| --- | --- | --- |
-| CRN | 14705 | 11602 |
-| Course level | Graduate | Graduate |
-| Meeting | Thursday, 6:00-9:00 p.m. | Thursday, 6:00-9:00 p.m. |
-| Location | WB 416, Chicago campus | SCH 614, Schaumburg campus |
-| Format | Flipped, hybrid, videoconferenced discussion | Flipped, hybrid, videoconferenced discussion |
-| CORE attribute | Not applicable (graduate course) | Not applicable (graduate course) |
-| Biology competencies | Not applicable (graduate course) | Not applicable (graduate course) |
-| Credit hours | 3.0 | 3.0 |
-| Session dates | August 31-December 19, 2026 | August 31-December 19, 2026 |
-| Prerequisites | None | None |
+| Field | Information |
+| --- | --- |
+| CRN | **BIOL 480-10:** 14705; **BIOL 480-24:** 11602 |
+| Course level | Graduate |
+| Meeting | Thursday, 6:00-9:00 p.m. |
+| Location | **BIOL 480-10:** WB 416, Chicago campus; **BIOL 480-24:** SCH 614, Schaumburg campus |
+| Format | Flipped, hybrid, videoconferenced discussion |
+| CORE attribute | Not applicable (graduate course) |
+| Biology competencies | Not applicable (graduate course) |
+| Credit hours | 3.0 |
+| Session dates | August 31-December 19, 2026 |
+| Prerequisites | None |
 
 ## Course format (flipped hybrid)
 
@@ -43,9 +43,3 @@ presentation, response, and assessment tools identified for each assignment. A c
 recommended for preparing and presenting course projects.
 
 <!-- lab attendance from syllabus.yml -->
-
-## Instructor information
-
---8<-- "fall_2026/shared/fragments/INSTRUCTOR_CONTACT_DETAILS.md"
-
---8<-- "fall_2026/shared/fragments/DEPARTMENT_LEADERSHIP.md"

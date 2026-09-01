@@ -2,18 +2,18 @@
 
 ## Section information
 
-| Field | BIOL 318-20 | BIOL 418-20 |
-| --- | --- | --- |
-| CRN | 14466 | 14471 |
-| Course level | Undergraduate | Graduate |
-| Meeting | Wednesday, 5:00-5:55 p.m. | Wednesday, 5:00-5:55 p.m. |
-| Location | SCH 612 | SCH 612 |
-| Format | Hybrid: one-hour in-person meeting plus self-paced tutorials | Hybrid: one-hour in-person meeting plus self-paced tutorials |
-| CORE attribute | None listed | Not applicable (graduate course) |
-| Biology competencies | Applying the Process of Science; Quantitative Reasoning | Not applicable (graduate course) |
-| Credit hours | 3.0 | 3.0 |
-| Session dates | August 31-December 19, 2026 | August 31-December 19, 2026 |
-| Prerequisites | MATH 217 with C- or better and either BIOL 202 or BIOL 301 with C- or better; instructor consent may substitute | None; prior statistics coursework is recommended |
+| Field | Information |
+| --- | --- |
+| CRN | **BIOL 318-20:** 14466; **BIOL 418-20:** 14471 |
+| Course level | **BIOL 318-20:** Undergraduate; **BIOL 418-20:** Graduate |
+| Meeting | Wednesday, 5:00-5:55 p.m. |
+| Location | SCH 612 |
+| Format | Hybrid: one-hour in-person meeting plus self-paced tutorials |
+| CORE attribute | **BIOL 318-20:** None listed; **BIOL 418-20:** Not applicable (graduate course) |
+| Biology competencies | **BIOL 318-20:** Applying the Process of Science and Quantitative Reasoning; **BIOL 418-20:** Not applicable (graduate course) |
+| Credit hours | 3.0 |
+| Session dates | August 31-December 19, 2026 |
+| Prerequisites | **BIOL 318-20:** MATH 217 with C- or better and either BIOL 202 or BIOL 301 with C- or better; instructor consent may substitute; **BIOL 418-20:** None; prior statistics coursework is recommended |
 
 ## Course format (hybrid)
 
@@ -50,9 +50,3 @@ running Google Sheets, and an account that can access it. Follow each assignment
 links for the current assessment platform, any additional software, and its submission method.
 
 <!-- lab attendance from syllabus.yml -->
-
-## Instructor information
-
---8<-- "fall_2026/shared/fragments/INSTRUCTOR_CONTACT_DETAILS.md"
-
---8<-- "fall_2026/shared/fragments/DEPARTMENT_LEADERSHIP.md"

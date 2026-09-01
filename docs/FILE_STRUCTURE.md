@@ -57,6 +57,9 @@ also contain `DISCUSSION_MARKS.md`. Biotechnology additionally has
 [site_docs/fall_2026/biotech/PROJECTS.md](../site_docs/fall_2026/biotech/PROJECTS.md) and
 [site_docs/fall_2026/biotech/TALKING_POINTS.md](../site_docs/fall_2026/biotech/TALKING_POINTS.md)
 for its course-specific project and presentation expectations.
+The shared `INSTRUCTOR_INFORMATION.md` is linked from every course landing page and listed once in
+each course manifest; instructor facts remain in its include-only fragments rather than in course
+directories.
 
 ## Pipeline files
 

@@ -21,7 +21,7 @@
 * I am committed to working with each of you to meet your needs and goals for the course, and I encourage open communication.
 * Limited PREVIEW versions of lecture slides will be available on Blackboard before class to help you prepare.
 * Full versions of lecture slides will be available on Blackboard within 36 hours after class for your review.
-* I will follow the response time listed in [Contacting Dr. Voss](../INSTRUCTOR_INFORMATION.md).
+* I will follow the response time listed in [Instructor information](../INSTRUCTOR_INFORMATION.md).
 * I will provide feedback on assignments and exams to support your learning and improvement.
 * I will promote a respectful and inclusive classroom environment where all students feel valued and heard.
 

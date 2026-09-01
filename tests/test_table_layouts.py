@@ -2,6 +2,7 @@
 
 # Standard Library
 import re
+import xml.etree.ElementTree
 
 # PIP3 modules
 import markdown
@@ -89,22 +90,57 @@ def test_markdown_repeated_tables_emit_matching_series_widths() -> None:
 
 
 #============================================
-def test_course_details_render_shared_values_once_across_section_columns() -> None:
-	"""Identical section values span both columns while distinct values stay separate."""
-	markdown_text = (
-		"| Field | BIOL 351 | BIOL 451 |\n"
-		"| --- | --- | --- |\n"
-		"| Meeting | Tuesday afternoon | Tuesday afternoon |\n"
-		"| Course level | Undergraduate | Graduate |\n"
+def test_key_value_layout_prioritizes_information_column() -> None:
+	"""A two-column reference table gives most of its width to the information."""
+	headers = ("Field", "Information")
+	body_rows = (
+		("Meeting", "Tuesday, 1:30-4:25 p.m."),
+		("Prerequisites", "BIOL 201, BIOL 202, and BIOL 301 with C- or better"),
 	)
-	rendered = markdown.markdown(
-		markdown_text,
+	layout = build_lib.table_layouts.calculate_table_layout(headers, body_rows)
+	assert layout.profile == "key-value"
+	assert layout.column_percentages[0] < layout.column_percentages[1]
+
+
+#============================================
+def test_inline_html_does_not_inflate_visible_column_demand() -> None:
+	"""Styling hooks do not count as student-visible table content."""
+	plain_markdown = (
+		"| Week | Date | Quiz | Topic | Due this date |\n"
+		"| --- | --- | --- | --- | --- |\n"
+		"| 1 | Tue, Sep 1 | 1 | Genetic disorders | Orientation |\n"
+	)
+	styled_markdown = plain_markdown.replace(
+		"| 1 | Genetic disorders |",
+		'| <span class="schedule-quiz-key">1</span> | Genetic disorders |',
+	)
+	plain_html = markdown.markdown(
+		plain_markdown,
 		extensions=("tables", "build_lib.table_layouts"),
 	)
-	expected_rows = re.compile(
-		r"<tbody>\s*<tr>\s*<td>Meeting</td>\s*"
-		r'<td colspan="2">Tuesday afternoon</td>\s*</tr>\s*'
-		r"<tr>\s*<td>Course level</td>\s*<td>Undergraduate</td>\s*"
-		r"<td>Graduate</td>\s*</tr>\s*</tbody>"
+	styled_html = markdown.markdown(
+		styled_markdown,
+		extensions=("tables", "build_lib.table_layouts"),
 	)
-	assert expected_rows.search(rendered) is not None
+	width_pattern = re.compile(r'data-table-widths="([^"]+)"')
+	plain_widths = width_pattern.search(plain_html).group(1)
+	styled_widths = width_pattern.search(styled_html).group(1)
+	assert styled_widths == plain_widths
+
+
+#============================================
+def test_schedule_exam_spans_topic_and_due_columns() -> None:
+	"""A bold schedule milestone becomes one prominent two-column cell."""
+	headers = ("Week", "Date", "Quiz", "Topic", "Due this date")
+	table = xml.etree.ElementTree.Element("table")
+	table_body = xml.etree.ElementTree.SubElement(table, "tbody")
+	row = xml.etree.ElementTree.SubElement(table_body, "tr")
+	for value in ("8", "Tue, Oct 20", "-", "", ""):
+		cell = xml.etree.ElementTree.SubElement(row, "td")
+		cell.text = value
+	strong = xml.etree.ElementTree.SubElement(row.findall("td")[3], "strong")
+	strong.text = "MID-TERM EXAM"
+	build_lib.table_layouts.merge_schedule_exam_cells(table, headers)
+	cells = table.findall("./tbody/tr/td")
+	observed = (len(cells), cells[3].get("class"), cells[3].get("colspan"))
+	assert observed == (4, "schedule-exam-cell", "2")

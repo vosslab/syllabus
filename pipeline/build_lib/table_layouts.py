@@ -1,6 +1,8 @@
 """Classify syllabus tables and derive wrap-aware widths from their content."""
 
 # Standard Library
+import re
+import html
 import math
 import collections
 import xml.etree.ElementTree
@@ -8,6 +10,7 @@ from dataclasses import dataclass
 
 # PIP3 modules
 import markdown
+import markdown.util
 import markdown.extensions
 import markdown.treeprocessors
 
@@ -20,7 +23,12 @@ MAXIMUM_WORD_DEMAND = 24
 HEADER_WRAP_FACTOR = 6
 BODY_WRAP_FACTOR = 12
 CELL_HORIZONTAL_ALLOWANCE = 3
+COMPACT_CELL_HORIZONTAL_ALLOWANCE = 2
+COMPACT_COLUMN_TEXT_LIMIT = 12
 COMPACT_TABLE_CHARACTER_LIMIT = 32
+FLEXIBLE_COLUMN_GROWTH_FACTOR = 1.25
+HTML_PLACEHOLDER_PATTERN = re.compile(markdown.util.HTML_PLACEHOLDER % r"([0-9]+)")
+HTML_TAG_PATTERN = re.compile(r"<[^>]+>")
 
 
 @dataclass(frozen=True)
@@ -30,54 +38,74 @@ class TableLayout:
 	profile: str
 	column_demands: tuple[int, ...]
 	column_percentages: tuple[int, ...]
+	compact_columns: tuple[bool, ...]
 	minimum_width_ch: int
 	is_compact: bool
 
 
 #============================================
-def normalize_cell_text(element: xml.etree.ElementTree.Element) -> str:
+def restore_stashed_html_text(
+	text: str,
+	raw_html_blocks: tuple[str | xml.etree.ElementTree.Element, ...],
+) -> str:
+	"""Replace Markdown's raw-HTML placeholders with their visible text."""
+	def replace_placeholder(match: re.Match[str]) -> str:
+		block_index = int(match.group(1))
+		if block_index >= len(raw_html_blocks):
+			return ""
+		raw_block = raw_html_blocks[block_index]
+		if isinstance(raw_block, str):
+			raw_text = raw_block
+		else:
+			raw_text = xml.etree.ElementTree.tostring(raw_block, encoding="unicode")
+		restored = HTML_PLACEHOLDER_PATTERN.sub(replace_placeholder, raw_text)
+		visible_text = HTML_TAG_PATTERN.sub(" ", restored)
+		return visible_text
+
+	restored_text = HTML_PLACEHOLDER_PATTERN.sub(replace_placeholder, text)
+	return restored_text
+
+
+#============================================
+def normalize_cell_text(
+	element: xml.etree.ElementTree.Element,
+	raw_html_blocks: tuple[str | xml.etree.ElementTree.Element, ...] = (),
+) -> str:
 	"""Return one table cell as normalized visible text."""
 	text = "".join(element.itertext())
-	normalized = " ".join(text.split())
+	restored = restore_stashed_html_text(text, raw_html_blocks)
+	normalized = " ".join(html.unescape(restored).split())
 	return normalized
 
 
 #============================================
-def shared_course_detail_row_indexes(
-	headers: tuple[str, ...],
-	body_rows: tuple[tuple[str, ...], ...],
-) -> tuple[int, ...]:
-	"""Identify course-detail rows that share one visible value across sections."""
-	if classify_table_headers(headers) != "course-details":
-		return ()
-	shared_indexes = []
-	for row_index, row in enumerate(body_rows):
-		left_value = " ".join(row[1].split())
-		right_value = " ".join(row[2].split())
-		if left_value and left_value == right_value:
-			shared_indexes.append(row_index)
-	indexes = tuple(shared_indexes)
-	return indexes
-
-
-#============================================
-def table_headers(element: xml.etree.ElementTree.Element) -> tuple[str, ...]:
+def table_headers(
+	element: xml.etree.ElementTree.Element,
+	raw_html_blocks: tuple[str | xml.etree.ElementTree.Element, ...] = (),
+) -> tuple[str, ...]:
 	"""Return the first semantic header row from one HTML table element."""
 	header_row = element.find("./thead/tr")
 	if header_row is None:
 		return ()
-	headers = tuple(normalize_cell_text(cell) for cell in header_row.findall("th"))
+	headers = tuple(
+		normalize_cell_text(cell, raw_html_blocks)
+		for cell in header_row.findall("th")
+	)
 	return headers
 
 
 #============================================
 def table_body_rows(
 	element: xml.etree.ElementTree.Element,
+	raw_html_blocks: tuple[str | xml.etree.ElementTree.Element, ...] = (),
 ) -> tuple[tuple[str, ...], ...]:
 	"""Return normalized visible text from every table body row."""
 	rows = []
 	for row in element.findall("./tbody/tr"):
-		cells = tuple(normalize_cell_text(cell) for cell in row.findall("td"))
+		cells = tuple(
+			normalize_cell_text(cell, raw_html_blocks)
+			for cell in row.findall("td")
+		)
 		rows.append(cells)
 	return tuple(rows)
 
@@ -89,6 +117,8 @@ def classify_table_headers(headers: tuple[str, ...]) -> str:
 		return "point-plan"
 	if len(headers) == 4 and headers[:3] == ("Week", "Date", "Topic"):
 		return "schedule"
+	if len(headers) == 5 and headers[:4] == ("Week", "Date", "Quiz", "Topic"):
+		return "schedule"
 	if headers == ("Date", "Event", "Type"):
 		return "important-dates"
 	if headers == ("Required work", "What is expected", "Points"):
@@ -99,8 +129,6 @@ def classify_table_headers(headers: tuple[str, ...]) -> str:
 		return "attendance"
 	if headers == ("Percentage", "Grade"):
 		return "grade-scale"
-	if len(headers) == 3 and headers[0] == "Field":
-		return "course-details"
 	if len(headers) == 2 and headers[0] in ("Course summary", "Field"):
 		return "key-value"
 	header_text = " | ".join(headers)
@@ -140,6 +168,21 @@ def normalize_percentages(demands: tuple[int, ...]) -> tuple[int, ...]:
 
 
 #============================================
+def compact_table_columns(
+	headers: tuple[str, ...],
+	body_rows: tuple[tuple[str, ...], ...],
+) -> tuple[bool, ...]:
+	"""Identify short identifier columns that should not consume prose space."""
+	compact_columns = []
+	for column_index, header in enumerate(headers):
+		visible_values = [header]
+		visible_values.extend(row[column_index] for row in body_rows)
+		longest_value = max(len(value) for value in visible_values)
+		compact_columns.append(longest_value <= COMPACT_COLUMN_TEXT_LIMIT)
+	return tuple(compact_columns)
+
+
+#============================================
 def calculate_table_layout(
 	headers: tuple[str, ...],
 	body_rows: tuple[tuple[str, ...], ...],
@@ -161,19 +204,35 @@ def calculate_table_layout(
 			column_demand = max(column_demand, cell_demand)
 		demands.append(column_demand)
 	column_demands = tuple(demands)
-	minimum_width_ch = sum(column_demands) + CELL_HORIZONTAL_ALLOWANCE * len(headers)
-	# Each column pays its own padding/border cost. Include that fixed cost in the
-	# relative vector so compact numeric columns still fit their visible headers.
+	compact_columns = compact_table_columns(headers, body_rows)
 	column_width_demands = tuple(
-		demand + CELL_HORIZONTAL_ALLOWANCE
-		for demand in column_demands
+		demand + (
+			COMPACT_CELL_HORIZONTAL_ALLOWANCE
+			if compact_columns[column_index]
+			else CELL_HORIZONTAL_ALLOWANCE
+		)
+		for column_index, demand in enumerate(column_demands)
 	)
+	intrinsic_width_ch = sum(column_width_demands)
+	is_compact = intrinsic_width_ch <= COMPACT_TABLE_CHARACTER_LIMIT
+	if not is_compact and profile == "schedule":
+		# Short identifiers need only their intrinsic width. Give the extra line-length
+		# budget to schedule prose, where it materially reduces wrapping without making
+		# unrelated reference tables wider on narrow screens.
+		column_width_demands = tuple(
+			width_demand if compact_columns[column_index] else math.ceil(
+				width_demand * FLEXIBLE_COLUMN_GROWTH_FACTOR
+			)
+			for column_index, width_demand in enumerate(column_width_demands)
+		)
+	minimum_width_ch = sum(column_width_demands)
 	return TableLayout(
 		profile=profile,
 		column_demands=column_demands,
 		column_percentages=normalize_percentages(column_width_demands),
+		compact_columns=compact_columns,
 		minimum_width_ch=minimum_width_ch,
-		is_compact=minimum_width_ch <= COMPACT_TABLE_CHARACTER_LIMIT,
+		is_compact=is_compact,
 	)
 
 
@@ -214,18 +273,41 @@ def add_column_widths(
 
 
 #============================================
-def merge_shared_course_detail_cells(
+def mark_compact_table_cells(
+	table: xml.etree.ElementTree.Element,
+	layout: TableLayout,
+) -> None:
+	"""Mark short identifier columns for reduced padding and no wrapping."""
+	rows = table.findall("./thead/tr") + table.findall("./tbody/tr")
+	for row in rows:
+		cells = row.findall("th") + row.findall("td")
+		for column_index, cell in enumerate(cells):
+			if layout.compact_columns[column_index]:
+				classes = cell.get("class", "").split()
+				classes.append("syllabus-column--compact")
+				cell.set("class", " ".join(dict.fromkeys(classes)))
+	return None
+
+
+#============================================
+def merge_schedule_exam_cells(
 	table: xml.etree.ElementTree.Element,
 	headers: tuple[str, ...],
-	body_rows: tuple[tuple[str, ...], ...],
 ) -> None:
-	"""Render each shared course-detail value once across both section columns."""
-	rows = table.findall("./tbody/tr")
-	shared_indexes = shared_course_detail_row_indexes(headers, body_rows)
-	for row_index in shared_indexes:
-		cells = rows[row_index].findall("td")
-		cells[1].set("colspan", "2")
-		rows[row_index].remove(cells[2])
+	"""Span a prominent exam milestone across the Topic and Due columns."""
+	if len(headers) != 5 or headers[2:4] != ("Quiz", "Topic"):
+		return None
+	for row in table.findall("./tbody/tr"):
+		cells = row.findall("td")
+		if len(cells) != len(headers):
+			continue
+		topic_cell = cells[3]
+		due_cell = cells[4]
+		if topic_cell.find("strong") is None or normalize_cell_text(due_cell):
+			continue
+		topic_cell.set("class", "schedule-exam-cell")
+		topic_cell.set("colspan", "2")
+		row.remove(due_cell)
 	return None
 
 
@@ -265,8 +347,12 @@ class TableLayoutTreeprocessor(markdown.treeprocessors.Treeprocessor):
 			for child_index, child in enumerate(list(parent)):
 				if child.tag == "table":
 					tables_with_parents.append((parent, child_index, child))
+		raw_html_blocks = tuple(self.md.htmlStash.rawHtmlBlocks)
 		table_contents = tuple(
-			(table_headers(table), table_body_rows(table))
+			(
+				table_headers(table, raw_html_blocks),
+				table_body_rows(table, raw_html_blocks),
+			)
 			for _parent, _child_index, table in tables_with_parents
 		)
 		layouts = calculate_shared_table_layouts(table_contents)
@@ -284,7 +370,8 @@ class TableLayoutTreeprocessor(markdown.treeprocessors.Treeprocessor):
 			table.set("data-table-profile", layout.profile)
 			table.set("data-table-series-size", str(series_sizes[headers]))
 			add_column_widths(table, layout)
-			merge_shared_course_detail_cells(table, headers, body_rows)
+			mark_compact_table_cells(table, layout)
+			merge_schedule_exam_cells(table, headers)
 			wrap_scrollable_table(parent, child_index, table)
 		return root
 
