@@ -137,10 +137,12 @@ graduate students with undergraduate-only frameworks.
 website, PDF, and DOCX; the renderers do not reconstruct or merge section columns. Website
 key-value tables wrap inside the reading column at every supported viewport rather than owning a
 horizontal scrollbar. Authors use an explicit `<br>` only when a long section mapping benefits
-from a stable cross-format new line.
+from a stable cross-format new line. The DOCX renderer converts that exact token to a native line
+break instead of passing arbitrary HTML through to Word.
 
 **Owner.** `site_docs/fall_2026/*/COURSE_DETAILS.md`,
-`site_docs/assets/stylesheets/site.css`, and `docs/FILE_FORMATS.md`.
+`site_docs/assets/stylesheets/site.css`, `pipeline/pandoc_filters/docx_line_breaks.lua`, and
+`docs/FILE_FORMATS.md`.
 
 ### Separate course facts from instructor information
 

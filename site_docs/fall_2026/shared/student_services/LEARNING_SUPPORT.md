@@ -5,7 +5,7 @@
 Students planning laboratory courses, independent study, or research can contact Dr. Nate La Porte
 (she/her), the BCPS Lab Manager, for help with laboratory access and planning, lab-coat purchases,
 safety-document completion, and other laboratory support. Dr. La Porte also hires and coordinates
-teaching assistants; students interested in those positions may contact her.
+laboratory teaching assistants; students interested in those positions may contact her.
 
 - **Office:** WB 813.
 - **Phone:** (312) 341-3681.

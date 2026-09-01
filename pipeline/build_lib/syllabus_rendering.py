@@ -350,7 +350,7 @@ def run_pandoc_docx(
 	markdown_path: pathlib.Path,
 	docx_path: pathlib.Path,
 	reference_path: pathlib.Path,
-	image_layout_filter_path: pathlib.Path,
+	docx_filter_paths: tuple[pathlib.Path, ...],
 	manifest: build_lib.syllabus_model.SyllabusManifest,
 ) -> None:
 	"""Generate one complete DOCX through Pandoc."""
@@ -362,13 +362,18 @@ def run_pandoc_docx(
 		"--to=docx",
 		f"--resource-path={manifest.path.parent}",
 		f"--reference-doc={reference_path}",
-		f"--lua-filter={image_layout_filter_path}",
-		f"--metadata=title:{manifest.course_code}: {manifest.title}",
-		f"--metadata=subtitle:{manifest.term}",
-		f"--metadata=author:{manifest.author}",
-		f"--metadata=lang:{manifest.language}",
-		f"--output={docx_path}",
 	]
+	for filter_path in docx_filter_paths:
+		command.append(f"--lua-filter={filter_path}")
+	command.extend(
+		(
+			f"--metadata=title:{manifest.course_code}: {manifest.title}",
+			f"--metadata=subtitle:{manifest.term}",
+			f"--metadata=author:{manifest.author}",
+			f"--metadata=lang:{manifest.language}",
+			f"--output={docx_path}",
+		)
+	)
 	subprocess.run(command, check=True)
 	return None
 
@@ -559,7 +564,7 @@ def build_one_syllabus(
 	manifest: build_lib.syllabus_model.SyllabusManifest,
 	downloads_dir: pathlib.Path,
 	reference_path: pathlib.Path,
-	image_layout_filter_path: pathlib.Path,
+	docx_filter_paths: tuple[pathlib.Path, ...],
 	pdf_stylesheet_path: pathlib.Path,
 	markdown_extensions: tuple[str, ...],
 	markdown_extension_configs: dict[str, dict[object, object]],
@@ -575,7 +580,7 @@ def build_one_syllabus(
 		docx_markdown_path,
 		docx_path,
 		reference_path,
-		image_layout_filter_path,
+		docx_filter_paths,
 		manifest,
 	)
 	postprocess_docx(docx_path, manifest)

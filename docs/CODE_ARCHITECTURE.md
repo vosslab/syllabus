@@ -111,7 +111,7 @@ so the renderer, expected-set validation, and website links share one filename c
 ### Complete-document internals
 
 The runnable `pipeline/build_syllabi.py` file owns orchestration and CLI flow. Four library units
-and one narrow Pandoc adapter own the implementation:
+and two narrow Pandoc adapters own the implementation:
 
 - [pipeline/build_lib/syllabus_model.py](../pipeline/build_lib/syllabus_model.py) loads manifest
   structure, validates shared course-theme metadata and source containment, and defines the
@@ -127,6 +127,8 @@ and one narrow Pandoc adapter own the implementation:
 - `pipeline/pandoc_filters/docx_image_layout.lua` maps an image's validated, portable
   `data-document-width` metadata to Pandoc's native DOCX width without inspecting surrounding
   content.
+- `pipeline/pandoc_filters/docx_line_breaks.lua` maps the documented exact `<br>` token to a native
+  Pandoc line break for DOCX output.
 
 ## Rendering branches
 

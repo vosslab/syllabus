@@ -4,6 +4,13 @@ These are Dr. Voss's shared policies for every Fall 2026 course on this site. Ea
 this same policy set, and every complete syllabus download includes each topic once. Discussion
 marks are course-specific and appear with each course's own pages.
 
+## First-day review
+
+> During our first class meeting, we will review the syllabus, these course policies, and the
+> student resources together. At the end of the review, I will ask you to confirm that you know
+> where to find this information and have had an opportunity to ask questions. You should become
+> familiar with this material and ask me whenever anything is unclear.
+
 ## Policy topics
 
 - [Instructor information](../INSTRUCTOR_INFORMATION.md): contact information, office hours,

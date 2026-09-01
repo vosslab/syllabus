@@ -150,7 +150,9 @@ percentages in Markdown.
 
 Tables use a named header in every column, a valid separator row, and the same cell count in every
 row. Hidden line-breaking controls are rejected. A visible `<br>` may separate long section
-mappings inside a course-information cell. The build classifies the closed set of table
+mappings inside a course-information cell. The website and PDF render the tag directly;
+`pipeline/pandoc_filters/docx_line_breaks.lua` converts that exact token to a native DOCX line
+break. The build classifies the closed set of table
 headers, examines every visible cell, and derives wrap-aware relative column widths for website,
 PDF, and DOCX output. Authors do not add width markup to individual Markdown tables. A new header
 shape must be registered explicitly so an unknown table cannot silently receive arbitrary layout.

@@ -173,7 +173,7 @@ referrals, and report concerns. Its reporting routes cover:
 Dr. Nate La Porte (she/her), BCPS Lab Manager, is the department laboratory contact for laboratory
 courses, independent study, and research. Students and faculty may contact her about laboratory
 access and planning, lab-coat purchases, safety-document completion, and other laboratory support.
-She also hires and coordinates teaching assistants.
+She also hires and coordinates laboratory teaching assistants.
 
 All faculty who teach or sponsor students in laboratories must complete laboratory safety training
 at least annually. Part-time faculty are eligible for mandatory-duty pay for required safety

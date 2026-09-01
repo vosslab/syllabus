@@ -75,7 +75,8 @@ pipeline/
 |-- syllabus_reference.docx             Tracked Pandoc reference document
 |-- department_checklists.yml           Rubric evidence and course-specific doubts
 |-- pandoc_filters/
-|   `-- docx_image_layout.lua            Portable image metadata to native DOCX sizing
+|   |-- docx_image_layout.lua            Portable image metadata to native DOCX sizing
+|   `-- docx_line_breaks.lua             Documented HTML breaks to native DOCX breaks
 `-- build_lib/
     |-- markdown_includes.py             Shared include grammar and expansion engine
     |-- syllabus_content.py              Source validation and Markdown composition

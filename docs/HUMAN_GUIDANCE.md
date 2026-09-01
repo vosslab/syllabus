@@ -33,6 +33,8 @@ history. Those belong in the appropriate technical documentation or changelog.
 - I do not believe students should have to pay extra for course materials after they have already
   paid enough in tuition. Describe my free online OER textbook in that spirit, not with a punitive
   "REQUIRED!!!" tone.
+- Do not invent or require an optional resource to satisfy a suggested checklist item. If a course
+  has no optional resource, mark the item not applicable; a required resource remains required.
 - Keep course information and instructor information on separate pages, especially when the course
   information is already long.
 - Give students a concise sense of who I am on the instructor-information page, but keep it limited
@@ -75,7 +77,8 @@ history. Those belong in the appropriate technical documentation or changelog.
   Public contact information for department-specific advisors is a useful student resource.
 - Dr. Nate La Porte (she/her), BCPS Lab Manager, supports laboratory access, PPE, safety documents,
   and planning for laboratory courses, independent study, or research. She also hires and
-  coordinates teaching assistants.
+  coordinates laboratory teaching assistants.
+- Only laboratory courses have teaching assistants.
 - English tutoring through the Office of International Programs is a useful student resource.
   Translate faculty referral procedures into student-facing language that explains self-referral
   and an instructor's Navigate Early Alert as two ways to connect with support.
@@ -90,8 +93,9 @@ history. Those belong in the appropriate technical documentation or changelog.
   tutor openings to strong upper-level undergraduates.
 - Use each section's official Course Finder listing to decide CORE applicability. BIOL 351-24A
   carries the Natural Science CORE attribute. State official attributes without assumptions about
-  what type of student takes the course or how an individual applies the credit. Omit a graduate
-  section's not-applicable entry, and omit the row when no section has a CORE attribute.
+  what type of student takes the course or how an individual applies the credit.
+- Omit a graduate section's not-applicable CORE entry. Omit the row when no section has a CORE
+  attribute.
 - Put known undergraduate Biology competency labels only in course-information tables. Keep the
   full Vision and Change/PULSE framework in tracked repository documentation and separate from
   Roosevelt CORE general-education attributes. Omit the row from graduate-only course tables.
@@ -109,6 +113,11 @@ history. Those belong in the appropriate technical documentation or changelog.
 - Automatically graded assignments return scores on the assessment platform. Blackboard is only
   for course information and the gradebook, not graded work; transfer scores there at midterm and
   semester end. Keep directions neutral until I choose LibreTexts ADAPT or my PLE.
+- I am still choosing the assignment platform for all three Fall 2026 courses and am trying to
+  build my own. I will not know the platform until after Labor Day at the earliest.
+- I spend about the first hour of each course reviewing the syllabus, shared course policies, and
+  student resources. Use that review and students' confirmation of awareness for the department
+  acknowledgment item; do not turn it into a contract or platform-dependent graded activity.
 - Release quiz and exam feedback after all authorized testing arrangements close. BIOL 480 also
   follows its dated project sequence.
 - Assignments, group quizzes, face-to-face exams, and online exams are my four assessment

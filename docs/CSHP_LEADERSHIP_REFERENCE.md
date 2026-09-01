@@ -69,7 +69,7 @@ pre-professional advising focus.
 Dr. Nate La Porte (she/her) is the BCPS Lab Manager and the department laboratory contact for
 laboratory courses, independent study, and research. She supports laboratory access and planning,
 lab-coat purchases, safety-document completion, and other laboratory needs. She also hires and
-coordinates teaching assistants.
+coordinates laboratory teaching assistants.
 
 - **Office:** WB 813.
 - **Phone:** (312) 341-3681.

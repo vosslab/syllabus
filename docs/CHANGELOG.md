@@ -11,7 +11,8 @@
   available in all three course syllabi.
 - Added Dr. Nate La Porte (she/her), BCPS Lab Manager, as the department laboratory contact for
   laboratory access, planning, PPE, safety documents, independent study, and research. Added her
-  responsibility for hiring and coordinating teaching assistants, plus her WB 813 office.
+  responsibility for hiring and coordinating laboratory teaching assistants, plus her WB 813
+  office.
 - Added a lab-only loaner-PPE procedure that sends students to WB 812 with a laboratory assistant
   and uses a Roosevelt ID as return collateral. Students who forget PPE are no longer dismissed or
   charged a rental fee solely for that mistake; preparation-score expectations remain in place.
@@ -111,7 +112,18 @@
 - Refined the single information column after rendered review. Long section-specific prerequisites
   and locations now place each section on a separate line, while short comparisons remain compact.
   Mixed-level tables omit graduate not-applicable CORE and Biology competency entries, and the
-  graduate-only BIOL 480 table omits both undergraduate-only rows.
+  graduate-only BIOL 480 table omits both undergraduate-only rows. A closed Pandoc filter converts
+  the authored table break to a native DOCX line break so the website, PDF, and Word layouts agree.
+- Marked teaching-assistant information not applicable for every Fall 2026 syllabus after
+  confirming that only laboratory courses have teaching assistants. All three current syllabi
+  declare `no_lab`; the audit now removes this resolved item from its open decisions.
+- Documented the existing first-class syllabus, course-policy, and student-resource review as the
+  common acknowledgment method for all three courses. The shared public page now explains the
+  review and students' confirmation of awareness without requiring a contract, graded activity, or
+  assignment platform. Assignment-formatting decisions remain deferred until platform selection.
+- Marked Genetics optional resources not applicable instead of treating a suggested checklist item
+  as a requirement to invent another resource. The required free OER remains classified as
+  required, and the audit removes the resolved optional-resource decision.
 - Delayed online homework until Week 3 so students have time to create accounts and learn the
   external assessment platform. Kept earlier course-orientation work and Week 2 in-class activities,
   and labeled the Biostatistics figure analysis and BIOL 480 talking point as in-class work.
@@ -217,7 +229,7 @@
 
 ### Developer Tests and Notes
 
-- Final `./all_test.sh` passed all 1,318 fast tests, the live-date refresh, strict website and
+- Final `./all_test.sh` passed all 1,325 fast tests, the live-date refresh, strict website and
   PDF/DOCX builds, include parity, and the Playwright browser audit.
 - Focused rendered review covered the three Course information pages, learning frameworks,
   schedules, coursework hierarchy, table layouts and spans, PDF footers, email-link icons, and the

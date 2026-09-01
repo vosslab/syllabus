@@ -115,7 +115,9 @@ items:
         path: COURSE_DETAILS/#textbooks-and-technology
       - label: Course format and online tools
         path: ../shared/policies/COURSE_DELIVERY/
-    note: Required course platforms, devices, and software are identified.
+    note: >-
+      Required devices, software, and the need for assignment-platform access are identified. The
+      specific assignment platform remains intentionally unnamed while it is being selected.
   - id: prerequisites
     group: Required - Course information
     label: Course prerequisites
@@ -251,11 +253,14 @@ items:
   - id: policy_acknowledgment
     group: Required - Policies and resources
     label: Student acknowledgment of policies and resources
-    status: needs_review
-    evidence: []
+    status: covered
+    evidence:
+      - label: First-day policies and resources review
+        path: ../shared/policies/#first-day-review
     note: >-
-      No syllabus acknowledgment activity is currently documented. Confirm whether a syllabus
-      acknowledgment or orientation activity will be used on the selected assessment platform.
+      During the first class meeting, the instructor reviews the syllabus, shared course policies,
+      and student resources, then asks students to confirm that they know where to find the
+      information and have had an opportunity to ask questions.
   - id: accessible_format
     group: Required - Accessibility
     label: Accessible electronic format
@@ -325,12 +330,11 @@ items:
   - id: teaching_assistant
     group: Suggested - Course information
     label: Teaching assistant information
-    status: needs_review
+    status: not_applicable
     evidence: []
     note: >-
-      Dr. Nate La Porte hires and coordinates teaching assistants, but each course must still
-      confirm whether a teaching assistant is assigned. Do not mark this not applicable without
-      that confirmation.
+      Teaching assistants are used only in laboratory courses. All Fall 2026 syllabi declare
+      no_lab, so this item is not applicable.
   - id: optional_resources
     group: Suggested - Course information
     label: Optional texts or resources
@@ -413,9 +417,9 @@ items:
     status: needs_review
     evidence: []
     note: >-
-      Formatting expectations remain in individual assignment instructions on the current
-      assessment platform rather than the public syllabus. Confirm whether a general statement is
-      useful.
+      Revisit this item after the assignment platform is selected. Use a public general statement
+      only if one rule applies across assignments; otherwise keep formatting in assignment-specific
+      directions.
   - id: assignment_submission
     group: Suggested - Course policies
     label: Assignment submission
@@ -426,8 +430,8 @@ items:
       - label: Coursework and grades
         path: ASSIGNMENTS_AND_GRADING/
     note: >-
-      The current assessment platform owns submission, while the Blackboard gradebook is the
-      authoritative score record.
+      The selected assignment platform will own submission, while the Blackboard gradebook remains
+      the authoritative score record.
   - id: late_work
     group: Suggested - Course policies
     label: Late assignments or missed exams
@@ -493,14 +497,15 @@ courses:
           - label: Course format and online tools
             path: ../shared/policies/COURSE_DELIVERY/
         note: >-
-          Blackboard access for course information and the gradebook, the assessment platform, and
-          a device capable of reading the OER are identified.
+          Blackboard access for course information and the gradebook, a device capable of reading
+          the OER, and the need for assignment-platform access are identified. The specific
+          assignment platform remains under consideration.
       optional_resources:
-        status: needs_review
-        evidence:
-          - label: Textbook and technology
-            path: COURSE_DETAILS/#textbook-and-technology
-        note: The required free LibreTexts OER is documented, but no separate optional resources are currently listed.
+        status: not_applicable
+        evidence: []
+        note: >-
+          No separate optional resource is assigned. The required free LibreTexts OER remains a
+          required text and does not become optional to satisfy this suggested checklist item.
   - directory: biotech
     overrides:
       core_attributes:
@@ -532,7 +537,8 @@ courses:
             path: ../shared/policies/COURSE_DELIVERY/
         note: >-
           Blackboard access for course information and the gradebook, online presentation and
-          response tools, the assessment platform, and a suitable computer are identified.
+          response tools, a suitable computer, and the need for assignment-platform access are
+          identified. The specific assignment platform remains under consideration.
       optional_resources:
         evidence:
           - label: Textbook and technology
