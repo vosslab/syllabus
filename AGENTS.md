@@ -11,7 +11,8 @@
 - `site_docs/EXTRA_CREDIT_MOVIES.md` is the approved global website-only exception.
 - Keep tracked sources and published MkDocs content public-only. Ignored `raw/` may hold private
   internal references; never track or publish them. Private course delivery belongs in Blackboard.
-- Treat `site/`, `site_docs/downloads/`, `site_docs/generated/`, and `output/` as generated output.
+- Treat `site/`, `site_docs/downloads/`, `site_docs/generated/`, `department_checklists/`, and
+  `output/` as generated output.
 - Only humans commit.
 
 # Python runtime

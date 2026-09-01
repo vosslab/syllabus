@@ -314,6 +314,9 @@ def render_checklist_html(
 	# ASVS 1.1.2 and 1.2.1: escape authored text at the final HTML boundary.
 	escaped_title = html.escape(document_title)
 	escaped_course = html.escape(f"{manifest.course_code} - {manifest.title}")
+	escaped_course_code = html.escape(manifest.course_code)
+	escaped_course_title = html.escape(manifest.title)
+	escaped_course_color = html.escape(manifest.course_color, quote=True)
 	escaped_term = html.escape(manifest.term)
 	escaped_author = html.escape(manifest.author)
 	escaped_syllabus_name = html.escape(f"{manifest.download_basename}.pdf")
@@ -328,10 +331,17 @@ def render_checklist_html(
 		f'<meta name="author" content="{escaped_author}">',
 		f'<link rel="stylesheet" href="{escaped_stylesheet}">',
 		"</head>",
-		'<body class="department-checklist">',
+		f'<body class="department-checklist" style="--course-accent: '
+		f'{escaped_course_color}">',
 		'<header class="document-header">',
 		'<p class="document-kind">Fall 2026 department syllabus review</p>',
-		f'<h1 data-course-label="{escaped_course}">{escaped_title}</h1>',
+		f'<h1 data-course-label="{escaped_course}">',
+		f'<span class="course-code">{escaped_course_code}</span>',
+		'<span class="title-stack">',
+		f'<span class="course-name">{escaped_course_title}</span>',
+		'<span class="checklist-name">Syllabus checklist</span>',
+		'</span>',
+		'</h1>',
 		'<dl class="document-facts">',
 		f"<div><dt>Term</dt><dd>{escaped_term}</dd></div>",
 		f"<div><dt>Instructor</dt><dd>{escaped_author}</dd></div>",
@@ -433,9 +443,29 @@ def verify_pdf_output(pdf_path: pathlib.Path, items: list[dict[str, object]]) ->
 		raise RuntimeError(f"{pdf_path}: PDF is not US letter size")
 	if re.search(r"^Tagged:\s+yes\s*$", metadata, re.MULTILINE | re.IGNORECASE) is None:
 		raise RuntimeError(f"{pdf_path}: PDF is not tagged")
+	font_report = subprocess.run(
+		["pdffonts", str(pdf_path)],
+		check=True,
+		capture_output=True,
+		text=True,
+	).stdout
+	hyperlegible_fonts = [
+		line.split()
+		for line in font_report.splitlines()
+		if "Atkinson-Hyperlegible-Next" in line
+	]
+	if not hyperlegible_fonts:
+		raise RuntimeError(f"{pdf_path}: Atkinson Hyperlegible Next is not embedded")
+	if any(font[-5:-2] != ["yes", "yes", "yes"] for font in hyperlegible_fonts):
+		raise RuntimeError(f"{pdf_path}: Hyperlegible font lacks embedded Unicode subsets")
 	reader = pypdf.PdfReader(pdf_path)
 	if not reader.pages:
 		raise RuntimeError(f"{pdf_path}: PDF contains no pages")
+	for page in reader.pages:
+		for annotation_reference in page.get("/Annots", []):
+			annotation = annotation_reference.get_object()
+			if annotation.get("/Subtype") == "/Link":
+				raise RuntimeError(f"{pdf_path}: separate checklist contains a link annotation")
 	text_content = subprocess.run(
 		["pdftotext", str(pdf_path), "-"],
 		check=True,
@@ -457,7 +487,7 @@ def verify_pdf_output(pdf_path: pathlib.Path, items: list[dict[str, object]]) ->
 #============================================
 def check_tools() -> None:
 	"""Require the deterministic document tools used by the checklist generator."""
-	for tool_name in ("pandoc", "pdfinfo", "pdftotext"):
+	for tool_name in ("pandoc", "pdffonts", "pdfinfo", "pdftotext"):
 		if shutil.which(tool_name) is None:
 			raise RuntimeError(f"Required checklist tool is not installed: {tool_name}")
 	if importlib.util.find_spec("weasyprint") is None:
@@ -503,15 +533,23 @@ def build_checklists(repo_root: pathlib.Path, output_dir: pathlib.Path) -> tuple
 	raw_courses = configuration["courses"]
 	if not isinstance(raw_courses, list) or not raw_courses:
 		raise ValueError(f"{config_path}: courses must be a non-empty list")
-	output_root = (repo_root / "output" / "department_checklists").resolve()
+	output_root = (repo_root / "department_checklists").resolve()
 	resolved_output = output_dir.resolve()
-	# ASVS 2.2.1: generated writes stay within the documented output boundary.
+	# ASVS 2.2.1 and 5.3.2: writes stay within the documented output boundary.
 	if not resolved_output.is_relative_to(output_root):
 		raise ValueError(f"Output directory must stay within {output_root}")
 	resolved_output.mkdir(parents=True, exist_ok=True)
 	stylesheet_path = repo_root / "pipeline" / "department_checklist_pdf.css"
 	if not stylesheet_path.is_file():
 		raise FileNotFoundError(f"Missing checklist PDF stylesheet: {stylesheet_path}")
+	font_root = repo_root / "site_docs" / "assets" / "fonts"
+	for font_name in (
+		"atkinson_hyperlegible_next.woff2",
+		"atkinson_hyperlegible_next_italic.woff2",
+	):
+		font_path = font_root / font_name
+		if not font_path.is_file():
+			raise FileNotFoundError(f"Missing checklist PDF font: {font_path}")
 	check_tools()
 	generated_paths = []
 	# ASVS 5.3.2: intermediate files stay inside the validated generated-output root.
@@ -575,8 +613,8 @@ def parse_args(repo_root: pathlib.Path) -> argparse.Namespace:
 	parser.add_argument(
 		"--output-dir",
 		type=pathlib.Path,
-		default=repo_root / "output" / "department_checklists",
-		help="directory below output/department_checklists",
+		default=repo_root / "department_checklists",
+		help="directory at or below repository-root department_checklists",
 	)
 	return parser.parse_args()
 

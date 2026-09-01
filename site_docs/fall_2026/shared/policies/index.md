@@ -15,8 +15,8 @@ marks are course-specific and appear with each course's own pages.
 
 - [Instructor information](../INSTRUCTOR_INFORMATION.md): contact information, office hours,
   response time, and what to do when something feels urgent.
-- [Course format and online tools](COURSE_DELIVERY.md): syllabus changes, course information,
-  online tools, and course formats.
+- [Course format and online tools](COURSE_DELIVERY.md): syllabus changes, the course-format
+  reference, and shared online tools.
 - [Grades and graded work](ASSESSMENT.md): letter grades, make-up work, and gradebook percentages.
 - [Extra credit write-ups](EXTRA_CREDIT.md): four eligible categories, write-up requirements,
   submission, grading, point deductions, and frequently asked questions.

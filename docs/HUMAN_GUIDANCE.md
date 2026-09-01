@@ -96,6 +96,8 @@ history. Those belong in the appropriate technical documentation or changelog.
   what type of student takes the course or how an individual applies the credit.
 - Omit a graduate section's not-applicable CORE entry. Omit the row when no section has a CORE
   attribute.
+- Omit not-applicable course attributes unless students need the distinction. Describe the
+  positive course format and relevant attributes directly.
 - Put known undergraduate Biology competency labels only in course-information tables. Keep the
   full Vision and Change/PULSE framework in tracked repository documentation and separate from
   Roosevelt CORE general-education attributes. Omit the row from graduate-only course tables.
@@ -107,9 +109,9 @@ history. Those belong in the appropriate technical documentation or changelog.
   as doctoral when applying level-specific attributes or competency mappings.
 - All Fall 2026 syllabi have no laboratory component. The BIOL 351/451 syllabus covers only the
   lecture even though students register separately for its corresponding laboratory.
-- BIOL 318/418 meets in person for one hour of its three-credit hybrid format and uses mostly
-  self-paced Google Sheets tutorials. BIOL 480 is a graduate, flipped, discussion-based course;
-  scheduled meetings are not instructor lectures.
+- BIOL 318/418 is a hybrid course based at the Schaumburg campus, with one in-person meeting hour
+  and mostly self-paced Google Sheets tutorials. BIOL 480 is a videoconferenced lecture connecting
+  Chicago and Schaumburg classrooms and uses a discussion-flipped format.
 - Automatically graded assignments return scores on the assessment platform. Blackboard is only
   for course information and the gradebook, not graded work; transfer scores there at midterm and
   semester end. Keep directions neutral until I choose LibreTexts ADAPT or my PLE.

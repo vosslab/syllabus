@@ -5,8 +5,10 @@
 - Added one deterministic PDF department checklist per Fall 2026 course alongside the existing
   Markdown and DOCX outputs. The command rebuilds each separate complete syllabus first, then each
   checked rubric item displays its syllabus filename, one-based page number, source page title,
-  and checklist topic without depending on hyperlinks. Output remains tagged and letter-size with
-  checklist page numbers, status summaries, and visible unresolved-item treatment.
+  and checklist topic without depending on hyperlinks. Output now goes directly to repository-root
+  `department_checklists/`. The tagged letter-size PDFs embed Atkinson Hyperlegible Next and use a
+  course-colored editorial review-sheet design with ruled rows and typographic status labels in
+  place of alternating cards and rounded pills.
 - Added a concise shared About your instructor narrative covering Dr. Voss's interdisciplinary
   training, open-education work, earlier cryo-EM and molecular-geometry research, and Lego art. The
   narrative complements the existing instructor table instead of repeating its professional and
@@ -113,8 +115,8 @@
   remains compact in DOCX without content-specific table detection or invalid browser sizing.
   Restored Genetics'
   established face-to-face format paragraph from the original syllabus, separated Biostatistics'
-  confirmed hybrid-format prose from its catalog entry, and gave Biotechnology's current flipped
-  hybrid format a durable course-format heading.
+  confirmed hybrid-format prose from its catalog entry, and gave Biotechnology's
+  discussion-flipped lecture format a durable course-format heading.
 - Made every public Fall 2026 contact email an explicit `mailto:` link instead of relying on
   renderer-specific detection. Website email links now carry the local Font Awesome envelope icon,
   matching the established link-purpose icon treatment without adding a remote dependency.
@@ -168,10 +170,11 @@
   Genetics checklist from not applicable to covered without changing its resolved-item total. Kept
   official attribute reporting separate from assumptions about students or degree use.
 - Made the Fall 2026 delivery formats explicit: Genetics covers the lecture rather than its
-  separately registered laboratory; Biostatistics has a one-hour weekly meeting plus mostly
-  self-paced Google Sheets tutorials; and BIOL 480 is a flipped, discussion-based graduate course
-  rather than an instructor-lecture course. Kept the `no_lab` manifest choice as an internal
-  composition decision instead of displaying a none-valued table row.
+  separately registered laboratory; Biostatistics is a hybrid course based at Schaumburg, with a
+  one-hour weekly meeting plus mostly self-paced Google Sheets tutorials; and BIOL 480 is a
+  videoconferenced lecture connecting Chicago and Schaumburg through a discussion-flipped format.
+  Kept the `no_lab` manifest choice as an internal composition decision instead of displaying a
+  none-valued table row.
 - Replaced the proposed fixed feedback-turnaround promise with the actual update schedule.
   Automatically graded assignments return scores on their platform after submission, and those
   grades are transferred manually to the Blackboard gradebook at midterm and semester end. Quiz
@@ -206,6 +209,11 @@
 
 ### Fixes and Maintenance
 
+- Corrected the shared course finder to describe BIOL 318/418 as hybrid at Schaumburg and BIOL 480
+  as a videoconferenced lecture with a discussion-flipped format. Removed the unused Biostatistics
+  CORE row instead of displaying a none-valued attribute; the correct face-to-face Genetics listing
+  remains unchanged. Made each course's Course information page the sole delivery-format
+  description; the shared policy now points students there and lists only shared online tools.
 - Revalidated the Fall 2026 syllabus rubric action record against the complete 53-item source,
   current public evidence, and regenerated department checklists. Added resolved counts, mapped
   open actions to checklist IDs, and clarified the existing course-orientation and dated
@@ -250,11 +258,12 @@
 
 ### Developer Tests and Notes
 
-- Department-checklist PDF validation generated all three six-page artifacts, verified tags,
-  letter-size pages, selectable rubric text, and visible syllabus-page references without link
-  annotations, then used Poppler to inspect complete contact sheets plus full-size open-item and
-  page-transition views.
-- Final `./all_test.sh` passed all 1,329 fast tests, the live-date refresh, strict website and
+- Department-checklist PDF validation generated all three five-page artifacts, verified embedded
+  and subsetted Atkinson Hyperlegible Next fonts, tags, letter-size pages, selectable rubric text,
+  and visible syllabus-page references without link annotations. Poppler review covered complete
+  contact sheets, each course-color variant, and full-size open-item and page-transition views;
+  measured accent and warning-text contrast remained at least 5.53:1.
+- Final `./all_test.sh` passed all 1,333 fast tests, the live-date refresh, strict website and
   PDF/DOCX builds, include parity, and the Playwright browser audit.
 - Focused rendered review covered the three Course information pages, learning frameworks,
   schedules, coursework hierarchy, table layouts and spans, PDF footers, email-link icons, and the

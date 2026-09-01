@@ -6,6 +6,7 @@
 .
 |-- .github/workflows/       GitHub Pages build and deployment
 |-- devel/                   Maintainer setup, version, and changelog tools
+|-- department_checklists/   Ignored generated department-submission files
 |-- docs/                    Repository documentation and working records
 |-- overrides/               Material theme template overrides
 |-- pipeline/                Date synchronization and syllabus renderers

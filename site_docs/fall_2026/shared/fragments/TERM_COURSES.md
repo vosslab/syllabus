@@ -2,7 +2,7 @@
   <li>
     <a class="term-course-link" href="../../biostats/">
       BIOL 318 and BIOL 418 - Biostatistics
-    </a>: hybrid and videoconferenced sections meeting Wednesdays at the Schaumburg campus.
+    </a>: hybrid sections meeting Wednesdays at the Schaumburg campus.
     <span class="term-course-downloads">
       <span>Complete syllabus:</span>
       <a class="file-link file-link--pdf term-download-link"
@@ -30,7 +30,8 @@
   <li>
     <a class="term-course-link" href="../../biotech/">
       BIOL 480 - Applications of Biotechnology
-    </a>: hybrid and videoconferenced sections meeting Thursdays in Chicago and Schaumburg.
+    </a>: videoconferenced lecture sections using a discussion-flipped format, meeting Thursdays
+    in Chicago and Schaumburg.
     <span class="term-course-downloads">
       <span>Complete syllabus:</span>
       <a class="file-link file-link--pdf term-download-link"

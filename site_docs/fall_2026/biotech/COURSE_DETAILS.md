@@ -8,17 +8,16 @@
 | Course level | Graduate |
 | Meeting | Thursday, 6:00-9:00 p.m. |
 | Location | **BIOL 480-10:** WB 416, Chicago campus<br>**BIOL 480-24:** SCH 614, Schaumburg campus |
-| Format | Flipped, hybrid, videoconferenced discussion |
+| Format | Videoconferenced lecture with a discussion-flipped format |
 | Credit hours | 3.0 |
 | Session dates | August 31-December 19, 2026 |
 | Prerequisites | None |
 
-## Course format (flipped hybrid)
+## Course format (discussion-flipped lecture)
 
-This is a flipped, discussion-based hybrid course taught across its Chicago and Schaumburg
-classrooms through videoconference. Students prepare with assigned materials before class.
-Scheduled meetings center on analysis, discussion, presentations, and project work rather than
-instructor lectures.
+This is a videoconferenced lecture taught simultaneously in its Chicago and Schaumburg classrooms.
+It uses a discussion-flipped format: students prepare with assigned materials before class, and
+scheduled meetings center on analysis, discussion, presentations, and project work.
 
 ## Catalog description
 
@@ -37,7 +36,8 @@ David P. Clark, Nanette J. Pazdernik, Michelle R. McGehee, and Bethany A. Rader 
 Students do not need to purchase or use this book.
 
 You need regular Blackboard access for course information and the gradebook, plus access to the
-presentation, response, and assessment tools identified for each assignment. A computer is strongly
-recommended for preparing and presenting course projects.
+response and assessment tools identified for each assignment. Classroom presentations use Google
+Slides and require a Gmail account. A computer is strongly recommended for preparing and
+presenting course projects.
 
 <!-- lab attendance from syllabus.yml -->

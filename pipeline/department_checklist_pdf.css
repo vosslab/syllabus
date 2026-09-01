@@ -1,25 +1,70 @@
+@font-face {
+	font-family: "Atkinson Hyperlegible Next";
+	font-style: normal;
+	font-weight: 400;
+	font-display: swap;
+	src: url("../site_docs/assets/fonts/atkinson_hyperlegible_next.woff2") format("woff2");
+}
+
+@font-face {
+	font-family: "Atkinson Hyperlegible Next";
+	font-style: normal;
+	font-weight: 700;
+	font-display: swap;
+	src: url("../site_docs/assets/fonts/atkinson_hyperlegible_next.woff2") format("woff2");
+}
+
+@font-face {
+	font-family: "Atkinson Hyperlegible Next";
+	font-style: italic;
+	font-weight: 400;
+	font-display: swap;
+	src: url("../site_docs/assets/fonts/atkinson_hyperlegible_next_italic.woff2") format("woff2");
+}
+
+@font-face {
+	font-family: "Atkinson Hyperlegible Next";
+	font-style: italic;
+	font-weight: 700;
+	font-display: swap;
+	src: url("../site_docs/assets/fonts/atkinson_hyperlegible_next_italic.woff2") format("woff2");
+}
+
 @page {
 	size: Letter;
-	margin: 0.62in 0.58in 0.68in;
+	margin: 0.58in 0.62in 0.64in;
 
 	@bottom-left {
 		content: string(course-label);
-		color: #4f5d56;
+		color: #4c5952;
+		font-family: "Atkinson Hyperlegible Next", sans-serif;
 		font-size: 8pt;
 	}
 
 	@bottom-right {
 		content: "Page " counter(page) " of " counter(pages);
-		color: #4f5d56;
+		color: #4c5952;
+		font-family: "Atkinson Hyperlegible Next", sans-serif;
 		font-size: 8pt;
+		font-variant-numeric: tabular-nums;
 	}
 }
 
 :root {
-	color: #17211c;
-	font-family: Arial, Helvetica, sans-serif;
-	font-size: 9.5pt;
-	line-height: 1.35;
+	--course-accent: #477427;
+	--ink: #18211c;
+	--muted-ink: #46534c;
+	--quiet-ink: #5d6862;
+	--rule: #aebbb4;
+	--light-rule: #d8dfdb;
+	--review-ink: #7a4300;
+	--review-paper: #fff7e9;
+	color: var(--ink);
+	font-family: "Atkinson Hyperlegible Next", sans-serif;
+	font-feature-settings: "kern" 1;
+	font-kerning: normal;
+	font-size: 9.4pt;
+	line-height: 1.32;
 }
 
 * {
@@ -31,46 +76,98 @@ body {
 }
 
 .document-header {
-	border-bottom: 2pt solid #007849;
-	margin-bottom: 0.22in;
-	padding-bottom: 0.15in;
+	border-bottom: 0.65pt solid var(--rule);
+	border-top: 5pt solid var(--course-accent);
+	margin-bottom: 0.18in;
+	padding: 0.11in 0 0.12in;
 }
 
 .document-kind {
-	color: #007849;
-	font-size: 8.5pt;
+	color: var(--course-accent);
+	font-size: 7.8pt;
 	font-weight: 700;
-	letter-spacing: 0.06em;
-	margin: 0 0 0.04in;
+	letter-spacing: 0.13em;
+	margin: 0 0 0.07in;
 	text-transform: uppercase;
 }
 
 h1 {
-	font-size: 20pt;
-	line-height: 1.08;
-	margin: 0 0 0.12in;
+	display: table;
+	line-height: 1.06;
+	margin: 0 0 0.13in;
 	string-set: course-label attr(data-course-label);
+	table-layout: fixed;
+	width: 100%;
+}
+
+.course-code {
+	display: table-cell;
+	font-size: 18pt;
+	font-variant-numeric: tabular-nums;
+	font-weight: 700;
+	letter-spacing: -0.02em;
+	padding-right: 0.15in;
+	vertical-align: middle;
+	white-space: nowrap;
+	width: 1.7in;
+}
+
+.title-stack {
+	border-left: 0.75pt solid var(--course-accent);
+	display: table-cell;
+	padding-left: 0.16in;
+	vertical-align: middle;
+}
+
+.course-name,
+.checklist-name {
+	display: block;
+}
+
+.course-name {
+	font-size: 14.5pt;
+	font-weight: 700;
+}
+
+.checklist-name {
+	color: var(--muted-ink);
+	font-size: 8.5pt;
+	font-weight: 400;
+	letter-spacing: 0.1em;
+	margin-top: 0.025in;
+	text-transform: uppercase;
 }
 
 .document-facts {
-	display: flex;
-	gap: 0.22in;
-	margin: 0 0 0.12in;
+	border-bottom: 0.5pt solid var(--rule);
+	border-top: 0.5pt solid var(--rule);
+	display: table;
+	margin: 0 0 0.1in;
+	table-layout: fixed;
+	width: 100%;
 }
 
 .document-facts div {
-	min-width: 1.05in;
+	border-left: 0.5pt solid var(--light-rule);
+	display: table-cell;
+	padding: 0.045in 0.09in 0.05in;
+}
+
+.document-facts div:first-child {
+	border-left: 0;
+	padding-left: 0;
 }
 
 .document-facts dt {
-	color: #53635b;
-	font-size: 7.5pt;
+	color: var(--quiet-ink);
+	font-size: 7pt;
 	font-weight: 700;
-	letter-spacing: 0.04em;
+	letter-spacing: 0.07em;
 	text-transform: uppercase;
 }
 
 .document-facts dd {
+	font-variant-numeric: tabular-nums;
 	font-weight: 700;
 	margin: 0.01in 0 0;
 }
@@ -78,105 +175,140 @@ h1 {
 .reference-syllabus,
 .status-key,
 .document-purpose {
-	margin: 0.06in 0 0;
+	font-size: 8.45pt;
+	margin: 0.04in 0 0;
 }
 
 .reference-syllabus {
-	color: #26362e;
-	font-size: 8.7pt;
+	border-left: 2.5pt solid var(--course-accent);
+	color: var(--muted-ink);
+	padding-left: 0.08in;
 }
 
 .document-purpose {
-	color: #3f4e46;
+	color: var(--muted-ink);
 }
 
 h2 {
-	border-bottom: 0.75pt solid #a8beb3;
-	color: #075c38;
-	font-size: 12.5pt;
-	line-height: 1.2;
-	margin: 0.23in 0 0.08in;
-	padding-bottom: 0.035in;
+	border-bottom: 1.1pt solid var(--course-accent);
 	break-after: avoid;
-}
-
-.checklist-item {
-	border-left: 2.5pt solid #007849;
-	break-inside: avoid;
-	margin: 0 0 0.075in;
-	padding: 0.065in 0.08in 0.065in 0.42in;
+	color: var(--ink);
+	font-size: 11.5pt;
+	line-height: 1.2;
+	margin: 0.2in 0 0;
+	padding: 0 0 0.045in 0.29in;
 	position: relative;
 }
 
-.checklist-item:nth-of-type(even) {
-	background: #f3f7f5;
+h2::before {
+	background: var(--course-accent);
+	content: "";
+	height: 0.075in;
+	left: 0;
+	position: absolute;
+	top: 0.045in;
+	width: 0.18in;
+}
+
+.checklist-item {
+	border-bottom: 0.45pt solid var(--light-rule);
+	break-inside: avoid;
+	margin: 0;
+	padding: 0.065in 0.02in 0.07in 0.45in;
+	position: relative;
+}
+
+h2 + .checklist-item {
+	border-top: 0.45pt solid var(--light-rule);
+}
+
+.checklist-item::before {
+	border-left: 0.45pt solid var(--light-rule);
+	bottom: 0.045in;
+	content: "";
+	left: 0.35in;
+	position: absolute;
+	top: 0.045in;
 }
 
 .checklist-item--needs_review {
-	border-left-color: #a15c00;
-	background: #fff8ec;
-}
-
-.checklist-item--not_applicable {
-	border-left-color: #65746d;
+	background: var(--review-paper);
+	border-left: 0.045in solid var(--review-ink);
 }
 
 .checklist-mark {
-	font-family: "Courier New", monospace;
-	font-size: 10pt;
+	color: var(--course-accent);
+	font-size: 9.2pt;
+	font-variant-numeric: tabular-nums;
 	font-weight: 700;
-	left: 0.08in;
+	left: 0.025in;
 	position: absolute;
-	top: 0.075in;
+	text-align: center;
+	top: 0.066in;
+	width: 0.28in;
 }
 
-.checklist-content {
-	min-width: 0;
+.checklist-item--needs_review .checklist-mark,
+.checklist-item--needs_review .status-label {
+	color: var(--review-ink);
+}
+
+.checklist-item--not_applicable .checklist-mark,
+.checklist-item--not_applicable .status-label {
+	color: var(--quiet-ink);
 }
 
 h3 {
 	display: inline;
-	font-size: 10pt;
-	line-height: 1.25;
+	font-size: 9.75pt;
+	line-height: 1.2;
 	margin: 0;
 }
 
 .status-label {
-	border: 0.5pt solid #9fb3a9;
-	border-radius: 10pt;
-	color: #405048;
-	display: inline-block;
-	font-size: 7.2pt;
+	color: var(--muted-ink);
+	display: inline;
+	font-size: 6.8pt;
 	font-weight: 700;
-	line-height: 1;
-	margin: 0 0 0 0.06in;
-	padding: 0.025in 0.055in;
+	letter-spacing: 0.07em;
+	margin: 0 0 0 0.055in;
 	text-transform: uppercase;
 }
 
-.checklist-item--needs_review .status-label {
-	border-color: #c28a43;
-	color: #7b4600;
+.status-label::before {
+	color: var(--rule);
+	content: "// ";
 }
 
 .evidence-list {
+	font-size: 8.55pt;
 	list-style: none;
-	margin: 0.035in 0 0;
+	margin: 0.025in 0 0;
 	padding: 0;
 }
 
 .evidence-list li + li {
-	margin-top: 0.025in;
+	margin-top: 0.015in;
+}
+
+.evidence-list strong,
+.item-note strong {
+	font-weight: 700;
 }
 
 .item-note {
-	color: #35433c;
-	margin: 0.035in 0 0;
+	color: var(--muted-ink);
+	font-size: 8.65pt;
+	margin: 0.025in 0 0;
+}
+
+.checklist-item--needs_review .item-note strong {
+	color: var(--review-ink);
 }
 
 .submission-note {
-	background: #edf4f0;
-	border: 0.5pt solid #b5c9bf;
+	border-bottom: 0.5pt solid var(--rule);
+	border-top: 1.1pt solid var(--course-accent);
 	margin: 0;
-	padding: 0.1in;
+	padding: 0.08in 0;
 }

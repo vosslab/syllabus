@@ -268,8 +268,11 @@ note. Covered items require at least one evidence route.
 
 The generator validates the complete schema, allows only the three documented statuses, resolves
 evidence within the Fall 2026 source authority, and restricts writes to
-`output/department_checklists/`. It first rebuilds the separate complete syllabus PDFs. Each course
-then produces matching Markdown, DOCX, and tagged, letter-size checklist files. Evidence routes
-map through the syllabus PDF's named destinations to visible references containing the syllabus
-filename, one-based page number, source page title, and checklist topic. The checklist does not
-depend on web links. Generated checklist files remain ignored output.
+repository-root `department_checklists/`. It first rebuilds the separate complete syllabus PDFs.
+Each course then produces matching Markdown, DOCX, and tagged, letter-size checklist files.
+Evidence routes map through the syllabus PDF's named destinations to visible references containing
+the syllabus filename, one-based page number, source page title, and checklist topic. The checklist
+does not depend on web links. Checklist PDFs embed Atkinson Hyperlegible Next from the repository's
+licensed font assets. Checklist and syllabus DOCX files use the Arial-based
+`pipeline/syllabus_reference.docx` and do not embed fonts. Generated checklist files remain ignored
+output.

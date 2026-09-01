@@ -12,8 +12,8 @@ and DOCX documents. Students use the published site; these commands are for main
   `site_docs/fall_2026/shared/` and are linked or included rather than copied.
 - [site_docs/EXTRA_CREDIT_MOVIES.md](../site_docs/EXTRA_CREDIT_MOVIES.md) is the one global,
   website-only exception. It is deliberately omitted from complete PDF and DOCX manifests.
-- `site/`, `site_docs/downloads/`, `site_docs/generated/`, and `output/` are generated outputs.
-  Regenerate them; do not edit them as content sources.
+- `site/`, `site_docs/downloads/`, `site_docs/generated/`, `department_checklists/`, and `output/`
+  are generated outputs. Regenerate them; do not edit them as content sources.
 
 See [FILE_FORMATS.md](FILE_FORMATS.md) for manifest, Markdown table, and restricted include rules.
 
@@ -83,10 +83,12 @@ python3 pipeline/build_department_checklists.py
 ```
 
 The generated Markdown, DOCX, and tagged PDF files belong under
-`output/department_checklists/`. The command first rebuilds the complete syllabus PDFs, then uses
-their named destinations to print references such as `Syllabus p. 8 - Coursework and grades` in
-the separate checklist files. No web link is required. Edit `pipeline/department_checklists.yml`,
-not the generated outputs.
+repository-root `department_checklists/`. The command first rebuilds the complete syllabus PDFs,
+then uses their named destinations to print references such as
+`Syllabus p. 8 - Coursework and grades` in the separate checklist files. Checklist PDFs embed
+Atkinson Hyperlegible Next; DOCX files use the Arial-based syllabus reference document and do not
+embed fonts. No web link is required. Edit `pipeline/department_checklists.yml`, not the generated
+outputs.
 
 ## Validate
 
