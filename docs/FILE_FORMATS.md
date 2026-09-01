@@ -149,7 +149,8 @@ uses the exact course-point-plan marker documented above instead of duplicating 
 percentages in Markdown.
 
 Tables use a named header in every column, a valid separator row, and the same cell count in every
-row. Hidden line-breaking controls are rejected. The build classifies the closed set of table
+row. Hidden line-breaking controls are rejected. A visible `<br>` may separate long section
+mappings inside a course-information cell. The build classifies the closed set of table
 headers, examines every visible cell, and derives wrap-aware relative column widths for website,
 PDF, and DOCX output. Authors do not add width markup to individual Markdown tables. A new header
 shape must be registered explicitly so an unknown table cannot silently receive arbitrary layout.
@@ -160,8 +161,9 @@ Within one rendered page or document, tables with the exact same headers form a 
 demand for each column across the full series supplies one shared width vector to every table. The
 monthly University important-dates tables therefore align even when one month has much longer event
 text than another. Course-information tables use `Field | Information`: shared facts appear once,
-while distinct facts use bold course-section labels and semicolon-separated mappings in the
-Information cell.
+while distinct facts use bold course-section labels. Short mappings remain semicolon-separated;
+long mappings place each section on a new line with `<br>`. Omit an inapplicable section mapping,
+and omit the entire row when none of the listed sections use that field.
 These key-value tables wrap inside the website reading column instead of scrolling horizontally.
 The section-information table stays together as one block in PDF when it fits on a page.
 Links between manifest-included Markdown pages are rewritten as internal document anchors in PDF

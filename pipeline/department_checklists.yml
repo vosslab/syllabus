@@ -477,8 +477,8 @@ courses:
             path: COURSE_DETAILS/#section-information
         note: >-
           BIOL 351-24A carries the official Natural Science CORE attribute. BIOL 451-24A is a
-          graduate course, so the undergraduate CORE attribute is not applicable. The syllabus
-          identifies the distinction and links to Roosevelt's Natural Science CORE description.
+          graduate course, so the student-facing table omits an inapplicable undergraduate CORE
+          entry while linking BIOL 351-24A to Roosevelt's Natural Science CORE description.
       required_texts:
         evidence:
           - label: Textbook and technology
@@ -505,9 +505,6 @@ courses:
     overrides:
       core_attributes:
         status: not_applicable
-        evidence:
-          - label: Section information
-            path: COURSE_DETAILS/#section-information
         note: BIOL 480 is a graduate course, so undergraduate CORE attributes are not applicable.
       feedback_dates:
         status: covered

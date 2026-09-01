@@ -90,12 +90,13 @@ history. Those belong in the appropriate technical documentation or changelog.
   tutor openings to strong upper-level undergraduates.
 - Use each section's official Course Finder listing to decide CORE applicability. BIOL 351-24A
   carries the Natural Science CORE attribute. State official attributes without assumptions about
-  what type of student takes the course or how an individual applies the credit.
+  what type of student takes the course or how an individual applies the credit. Omit a graduate
+  section's not-applicable entry, and omit the row when no section has a CORE attribute.
 - Put known undergraduate Biology competency labels only in course-information tables. Keep the
   full Vision and Change/PULSE framework in tracked repository documentation and separate from
-  Roosevelt CORE general-education attributes.
+  Roosevelt CORE general-education attributes. Omit the row from graduate-only course tables.
 - In a multi-section course-information table, show an identical value once across both section
-  columns. Keep section-specific values side by side for comparison.
+  columns. Keep short section-specific values on one line; put each longer value on a new line.
 - Make every public student-contact email address a clickable email link. Show a small Font Awesome
   envelope beside email links on the website.
 - Treat Roosevelt course numbers 100-399 as undergraduate, 400-499 as graduate, and 500 or above

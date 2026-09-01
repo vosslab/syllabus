@@ -7,10 +7,8 @@
 | CRN | **BIOL 480-10:** 14705; **BIOL 480-24:** 11602 |
 | Course level | Graduate |
 | Meeting | Thursday, 6:00-9:00 p.m. |
-| Location | **BIOL 480-10:** WB 416, Chicago campus; **BIOL 480-24:** SCH 614, Schaumburg campus |
+| Location | **BIOL 480-10:** WB 416, Chicago campus<br>**BIOL 480-24:** SCH 614, Schaumburg campus |
 | Format | Flipped, hybrid, videoconferenced discussion |
-| CORE attribute | Not applicable (graduate course) |
-| Biology competencies | Not applicable (graduate course) |
 | Credit hours | 3.0 |
 | Session dates | August 31-December 19, 2026 |
 | Prerequisites | None |

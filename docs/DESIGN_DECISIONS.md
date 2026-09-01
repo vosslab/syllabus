@@ -124,16 +124,20 @@ column; tables with different headers remain independent.
 
 **Decision.** Course-information tables use `Field | Information`. State a fact once when it
 applies to every listed section. When values differ, prefix each value with the applicable bold
-course-section label and divide the mappings with a semicolon.
+course-section label. Keep short mappings on one line with a semicolon; separate longer mappings
+with a visible `<br>`. Omit inapplicable section mappings and omit a row when none apply.
 
 **Why.** Parallel section columns make shared values look comparative, consume scarce reading
 width, and force horizontal scrolling on narrow screens. One information column gives the facts
 visual priority while preserving an explicit section-to-value mapping only where students need it.
+New lines make long mappings easier to scan, while omitted not-applicable labels avoid distracting
+graduate students with undergraduate-only frameworks.
 
-**Consequence.** The canonical GFM is already the portable two-column representation used by the
+**Consequence.** The canonical GFM remains the portable two-column representation used by the
 website, PDF, and DOCX; the renderers do not reconstruct or merge section columns. Website
 key-value tables wrap inside the reading column at every supported viewport rather than owning a
-horizontal scrollbar. The source does not need HTML line-break tags.
+horizontal scrollbar. Authors use an explicit `<br>` only when a long section mapping benefits
+from a stable cross-format new line.
 
 **Owner.** `site_docs/fall_2026/*/COURSE_DETAILS.md`,
 `site_docs/assets/stylesheets/site.css`, and `docs/FILE_FORMATS.md`.

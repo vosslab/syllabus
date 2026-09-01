@@ -56,8 +56,8 @@
   reference for the six Vision and Change/PULSE competency areas, the Roosevelt course-numbering
   levels, and Fall 2026 mappings. Public course-information tables now contain only the applicable
   labels: BIOL 318 has Applying the Process of Science and Quantitative Reasoning, and the BIOL 351
-  lecture has Quantitative Reasoning and Communication and Collaboration. Graduate BIOL 418,
-  BIOL 451, and BIOL 480 identify the undergraduate mapping as not applicable.
+  lecture has Quantitative Reasoning and Communication and Collaboration. Graduate mappings remain
+  documented in the tracked reference without adding not-applicable labels to student tables.
 - Expanded every Fall 2026 course learning framework using stable course-specific evidence from
   ignored `raw/` materials. Biostatistics and Biotechnology now have six substantive objectives,
   outcomes, and goals each; Genetics preserves its detailed 17 outcomes and seven goals while
@@ -105,9 +105,13 @@
 - Replaced the three-column course-information comparisons with a stable `Field | Information`
   layout. Shared facts now appear once; facts that differ use bold course-section labels in plain
   semicolon-separated GFM mappings. These tables wrap without a horizontal scrollbar on narrow
-  website viewports and use the same portable structure in PDF and DOCX without HTML line-break
-  tags. PDF output keeps the compact section-information table together instead of orphaning one
-  row at the bottom of the preceding page.
+  website viewports and use the same portable structure in PDF and DOCX. PDF output keeps the
+  compact section-information table together instead of orphaning one row at the bottom of the
+  preceding page.
+- Refined the single information column after rendered review. Long section-specific prerequisites
+  and locations now place each section on a separate line, while short comparisons remain compact.
+  Mixed-level tables omit graduate not-applicable CORE and Biology competency entries, and the
+  graduate-only BIOL 480 table omits both undergraduate-only rows.
 - Delayed online homework until Week 3 so students have time to create accounts and learn the
   external assessment platform. Kept earlier course-orientation work and Week 2 in-class activities,
   and labeled the Biostatistics figure analysis and BIOL 480 talking point as in-class work.
@@ -133,10 +137,9 @@
   `raw/`; the publication pipeline still rejects tracked raw files and never reads that directory.
 - Corrected the conditional CORE Attribute review to follow official section listings and course
   level. BIOL 351-24A identifies and links its Natural Science CORE attribute, BIOL 318 has no CORE
-  attribute listed, and graduate BIOL 418, BIOL 451, and BIOL 480 identify undergraduate CORE as
-  not applicable. Updated the Genetics checklist from not applicable to covered without changing
-  its resolved-item total. Kept official attribute reporting separate from assumptions about
-  students or degree use.
+  attribute listed, and graduate sections omit undergraduate-only CORE entries. Updated the
+  Genetics checklist from not applicable to covered without changing its resolved-item total. Kept
+  official attribute reporting separate from assumptions about students or degree use.
 - Made the Fall 2026 delivery formats explicit: Genetics covers the lecture rather than its
   separately registered laboratory; Biostatistics has a one-hour weekly meeting plus mostly
   self-paced Google Sheets tutorials; and BIOL 480 is a flipped, discussion-based graduate course
@@ -176,6 +179,10 @@
 
 ### Fixes and Maintenance
 
+- Revalidated the Fall 2026 syllabus rubric action record against the complete 53-item source,
+  current public evidence, and regenerated department checklists. Added resolved counts, mapped
+  open actions to checklist IDs, and clarified the existing course-orientation and dated
+  Biostatistics-placeholder boundaries without treating them as completed requirements.
 - Corrected the table-layout renderer so inline HTML styling hooks are reduced to their visible
   text before calculating column demand. The built site and `tools/calculate_table_widths.py` now
   measure the same content instead of allowing hidden placeholder text to widen styled cells.

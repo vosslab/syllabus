@@ -9,11 +9,11 @@
 | Meeting | Tuesday, 1:30-4:25 p.m. |
 | Location | SCH 612 |
 | Format | Face-to-face lecture |
-| CORE attribute | **BIOL 351-24A:** [Natural Science](https://catalog.roosevelt.edu/undergraduate/general-education/roosevelt-core-requirements/#natural-science); **BIOL 451-24A:** Not applicable (graduate course) |
-| Biology competencies | **BIOL 351-24A:** Quantitative Reasoning, Communication and Collaboration; **BIOL 451-24A:** Not applicable (graduate course) |
+| CORE attribute | **BIOL 351-24A:** [Natural Science](https://catalog.roosevelt.edu/undergraduate/general-education/roosevelt-core-requirements/#natural-science) |
+| Biology competencies | **BIOL 351-24A:** Quantitative Reasoning, Communication and Collaboration |
 | Credit hours | 3.0 |
 | Session dates | August 31-December 19, 2026 |
-| Prerequisites | **BIOL 351-24A:** BIOL 201, BIOL 202, and BIOL 301 with C- or better; **BIOL 451-24A:** No formal prerequisite; BIOL 201 and BIOL 301 or equivalent preparation are recommended |
+| Prerequisites | **BIOL 351-24A:** BIOL 201, BIOL 202, and BIOL 301 with C- or better<br>**BIOL 451-24A:** No formal prerequisite; BIOL 201 and BIOL 301 or equivalent preparation are recommended |
 
 The Natural Science designation is the undergraduate section's official CORE attribute.
 

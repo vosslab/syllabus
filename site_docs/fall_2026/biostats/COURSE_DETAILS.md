@@ -9,11 +9,11 @@
 | Meeting | Wednesday, 5:00-5:55 p.m. |
 | Location | SCH 612 |
 | Format | Hybrid: one-hour in-person meeting plus self-paced tutorials |
-| CORE attribute | **BIOL 318-20:** None listed; **BIOL 418-20:** Not applicable (graduate course) |
-| Biology competencies | **BIOL 318-20:** Applying the Process of Science and Quantitative Reasoning; **BIOL 418-20:** Not applicable (graduate course) |
+| CORE attribute | **BIOL 318-20:** None listed |
+| Biology competencies | **BIOL 318-20:** Applying the Process of Science and Quantitative Reasoning |
 | Credit hours | 3.0 |
 | Session dates | August 31-December 19, 2026 |
-| Prerequisites | **BIOL 318-20:** MATH 217 with C- or better and either BIOL 202 or BIOL 301 with C- or better; instructor consent may substitute; **BIOL 418-20:** None; prior statistics coursework is recommended |
+| Prerequisites | **BIOL 318-20:** MATH 217 with C- or better and either BIOL 202 or BIOL 301 with C- or better; instructor consent may substitute<br>**BIOL 418-20:** None; prior statistics coursework is recommended |
 
 ## Course format (hybrid)
 
