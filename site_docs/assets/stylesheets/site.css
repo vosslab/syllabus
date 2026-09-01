@@ -57,14 +57,10 @@
 	--syllabus-quiz-5-surface: #d9d2e9;
 	--syllabus-quiz-text: #111;
 	--syllabus-schedule-phase-row-text: #1a1a1a;
-	--syllabus-schedule-phase-key-text: #fff;
 	--syllabus-schedule-phase-foundations-surface: #f7e4df;
 	--syllabus-schedule-phase-foundations-key: #9e3d32;
 	--syllabus-schedule-phase-individual-surface: #e1edf7;
 	--syllabus-schedule-phase-individual-key: #245f86;
-	--syllabus-schedule-phase-film-surface: #fff1c7;
-	--syllabus-schedule-phase-film-key: #e5bd45;
-	--syllabus-schedule-phase-film-key-text: #1a1a1a;
 	--syllabus-schedule-phase-group-surface: #e2efdf;
 	--syllabus-schedule-phase-group-key: #3f7044;
 	--extra-credit-category-1: #1c61db;
@@ -109,14 +105,10 @@
 	--syllabus-quiz-5-surface: #5d4690;
 	--syllabus-quiz-text: #f5f5f5;
 	--syllabus-schedule-phase-row-text: #f3f4f3;
-	--syllabus-schedule-phase-key-text: #181818;
 	--syllabus-schedule-phase-foundations-surface: #49302c;
 	--syllabus-schedule-phase-foundations-key: #f28b82;
 	--syllabus-schedule-phase-individual-surface: #283c4d;
 	--syllabus-schedule-phase-individual-key: #88b8df;
-	--syllabus-schedule-phase-film-surface: #473d24;
-	--syllabus-schedule-phase-film-key: #e7c75f;
-	--syllabus-schedule-phase-film-key-text: #181818;
 	--syllabus-schedule-phase-group-surface: #2c4230;
 	--syllabus-schedule-phase-group-key: #8bc48e;
 	--extra-credit-category-1: #c9daf8;
@@ -411,57 +403,65 @@
 	color: var(--syllabus-quiz-text);
 }
 
-/* Show BIOL 480's project progression with named phases; color is a secondary cue. */
-.md-typeset .table-layout--schedule tr:has(.schedule-phase) > td {
+/* Show BIOL 480's project progression in a grouped stage column; color is secondary. */
+.md-typeset .table-layout--schedule tr.schedule-phase-row > td {
 	background-color: var(--schedule-phase-row-surface);
 	color: var(--syllabus-schedule-phase-row-text);
 }
 
-.md-typeset .table-layout--schedule tr:has(.schedule-phase--foundations) > td {
+.md-typeset .table-layout--schedule tr.schedule-phase-row--foundations > td {
 	--schedule-phase-row-surface: var(--syllabus-schedule-phase-foundations-surface);
 }
 
-.md-typeset .table-layout--schedule tr:has(.schedule-phase--individual) > td {
+.md-typeset .table-layout--schedule tr.schedule-phase-row--individual > td {
 	--schedule-phase-row-surface: var(--syllabus-schedule-phase-individual-surface);
 }
 
-.md-typeset .table-layout--schedule tr:has(.schedule-phase--film) > td {
-	--schedule-phase-row-surface: var(--syllabus-schedule-phase-film-surface);
-}
-
-.md-typeset .table-layout--schedule tr:has(.schedule-phase--group) > td {
+.md-typeset .table-layout--schedule tr.schedule-phase-row--group > td {
 	--schedule-phase-row-surface: var(--syllabus-schedule-phase-group-surface);
 }
 
+.md-typeset .table-layout--schedule .schedule-phase-cell {
+	border-block-end: 1px solid var(--md-default-fg-color--lightest);
+	border-inline-start-style: solid;
+	border-inline-start-width: 0.38rem;
+	color: var(--syllabus-schedule-phase-row-text);
+	padding: 0.45rem;
+	text-align: center;
+	vertical-align: middle;
+}
+
 .md-typeset .schedule-phase {
-	background-color: var(--schedule-phase-key-surface);
-	border-radius: 0.24rem;
-	color: var(--syllabus-schedule-phase-key-text);
-	display: inline-block;
-	font-size: 0.78em;
+	display: block;
 	font-weight: 750;
 	letter-spacing: 0.025em;
-	line-height: 1.2;
-	margin-inline-end: 0.3em;
-	padding: 0.12em 0.36em;
-	white-space: nowrap;
+	line-height: 1.25;
 }
 
-.md-typeset .schedule-phase--foundations {
-	--schedule-phase-key-surface: var(--syllabus-schedule-phase-foundations-key);
+.md-typeset .table-layout--schedule .schedule-phase-cell--foundations {
+	background-color: var(--syllabus-schedule-phase-foundations-surface);
+	border-inline-start-color: var(--syllabus-schedule-phase-foundations-key);
 }
 
-.md-typeset .schedule-phase--individual {
-	--schedule-phase-key-surface: var(--syllabus-schedule-phase-individual-key);
+.md-typeset .table-layout--schedule .schedule-phase-cell--individual {
+	background-color: var(--syllabus-schedule-phase-individual-surface);
+	border-inline-start-color: var(--syllabus-schedule-phase-individual-key);
 }
 
-.md-typeset .schedule-phase--film {
-	--schedule-phase-key-surface: var(--syllabus-schedule-phase-film-key);
-	color: var(--syllabus-schedule-phase-film-key-text);
+.md-typeset .table-layout--schedule .schedule-phase-cell--group {
+	background-color: var(--syllabus-schedule-phase-group-surface);
+	border-inline-start-color: var(--syllabus-schedule-phase-group-key);
 }
 
-.md-typeset .schedule-phase--group {
-	--schedule-phase-key-surface: var(--syllabus-schedule-phase-group-key);
+.md-typeset .table-layout--schedule tr.schedule-milestone-row > td {
+	background-color: var(--md-default-fg-color--lightest);
+	color: var(--md-default-fg-color);
+}
+
+.md-typeset .table-layout--schedule .schedule-milestone-cell {
+	font-weight: 700;
+	text-align: center;
+	vertical-align: middle;
 }
 
 /* Give exam weeks one unmistakable milestone across Topic and Quiz. */

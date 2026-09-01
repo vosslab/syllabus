@@ -149,3 +149,32 @@ def test_schedule_exam_spans_topic_and_quiz_columns() -> None:
 		cells[3].text,
 	)
 	assert observed == (4, "schedule-exam-cell", "2", "Assignment 13")
+
+
+#============================================
+def test_staged_schedule_groups_rows_and_spans_non_meeting_milestones() -> None:
+	"""BIOL 480 exposes one accessible row-group label per consecutive course stage."""
+	headers = ("Wk", "Date", "Stage", "Topic", "In class", "Work due")
+	rows = (
+		("1", "Sep 3", "Course foundations", "Introduction", "Group activity", "Orientation"),
+		("2", "Sep 10", "Course foundations", "Central dogma", "Talking point 1", "-"),
+		("-", "Fri, Oct 30", "Individual project", "Withdrawal deadline", "-", "-"),
+	)
+	table = xml.etree.ElementTree.Element("table")
+	table_body = xml.etree.ElementTree.SubElement(table, "tbody")
+	for values in rows:
+		row = xml.etree.ElementTree.SubElement(table_body, "tr")
+		for value in values:
+			cell = xml.etree.ElementTree.SubElement(row, "td")
+			cell.text = value
+	build_lib.table_layouts.merge_schedule_stage_cells(table, headers)
+	stage_headers = table.findall("./tbody/tr/th[@scope='rowgroup']")
+	assert [(cell.get("rowspan"), "".join(cell.itertext())) for cell in stage_headers] == [
+		("2", "Course foundations"),
+		("1", "Individual project"),
+	]
+	rows = table.findall("./tbody/tr")
+	assert "schedule-phase-row--start" in rows[0].get("class", "")
+	assert "schedule-phase-row--foundations" in rows[1].get("class", "")
+	milestone_cell = rows[2].find("td[@colspan='3']")
+	assert milestone_cell.text == "Withdrawal deadline"

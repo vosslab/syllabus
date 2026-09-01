@@ -150,6 +150,9 @@ near their intrinsic width; schedule prose receives the remaining line-length bu
 styling hooks are resolved to visible text before measurement, so markup never inflates a column. Repeated tables
 with identical headers are calculated as one series, so month-by-month or otherwise partitioned
 data keeps the same column boundaries throughout the page.
+The six-column BIOL 480 schedule is authored as a complete pipe table; the extension converts
+consecutive identical Stage values into accessible row-group headers and spans non-meeting
+milestones across the three prose columns after width measurement.
 
 ### DOCX branch
 
@@ -162,6 +165,9 @@ language, and semantic table properties before output verification.
 Table post-processing reruns the shared content calculation over the Word cells so DOCX does not
 maintain a parallel width map. Exact-header series use the same combined demand and therefore the
 same Word column widths as each other.
+The same post-processing boundary vertically merges consecutive BIOL 480 Stage cells and
+horizontally merges its non-meeting milestone prose, preserving the website/PDF grouping without
+requiring raw HTML in the Markdown authority.
 
 ### PDF branch
 

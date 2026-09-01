@@ -199,6 +199,38 @@ def test_docx_schedule_exam_spans_topic_and_quiz_columns(tmp_path: pathlib.Path)
 	assert observed == ("2", "MID-TERM EXAM", "Assignment 13")
 
 
+#============================================
+def test_docx_staged_schedule_merges_stage_and_milestone_cells(
+	tmp_path: pathlib.Path,
+) -> None:
+	"""Word mirrors the BIOL 480 stage row groups and full-width milestone prose."""
+	document = docx.Document()
+	table = document.add_table(rows=4, cols=6)
+	headers = ("Wk", "Date", "Stage", "Topic", "In class", "Work due")
+	for cell, value in zip(table.rows[0].cells, headers, strict=True):
+		cell.text = value
+	rows = (
+		("1", "Sep 3", "Course foundations", "Introduction", "Group activity", "Orientation"),
+		("2", "Sep 10", "Course foundations", "Central dogma", "Talking point 1", "-"),
+		("-", "Oct 30", "Individual project", "Withdrawal deadline", "-", "-"),
+	)
+	for table_row, values in zip(table.rows[1:], rows, strict=True):
+		for cell, value in zip(table_row.cells, values, strict=True):
+			cell.text = value
+	build_lib.syllabus_rendering.merge_docx_schedule_stage_cells(table, headers)
+	docx_path = tmp_path / "staged_schedule.docx"
+	document.save(docx_path)
+	rendered_table = docx.Document(docx_path).tables[0]
+	stage_cell = rendered_table.rows[1].cells[2]
+	vertical_merge = stage_cell._tc.tcPr.find(docx.oxml.ns.qn("w:vMerge"))
+	milestone_cell = rendered_table.rows[3].cells[3]
+	horizontal_span = milestone_cell._tc.tcPr.find(docx.oxml.ns.qn("w:gridSpan"))
+	assert vertical_merge is not None
+	assert stage_cell.text == "Course foundations"
+	assert horizontal_span.get(docx.oxml.ns.qn("w:val")) == "3"
+	assert milestone_cell.text == "Withdrawal deadline"
+
+
 def test_remove_heading_sections_omits_web_only_policy_routes() -> None:
 	"""Complete documents keep the policy branch heading without its route lists."""
 	markdown = (

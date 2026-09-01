@@ -28,8 +28,16 @@ COMPACT_CELL_HORIZONTAL_ALLOWANCE = 2
 COMPACT_COLUMN_TEXT_LIMIT = 12
 COMPACT_TABLE_CHARACTER_LIMIT = 32
 FLEXIBLE_COLUMN_GROWTH_FACTOR = 1.25
+MAXIMUM_GROWING_SCHEDULE_COLUMNS = 2
 HTML_PLACEHOLDER_PATTERN = re.compile(markdown.util.HTML_PLACEHOLDER % r"([0-9]+)")
 HTML_TAG_PATTERN = re.compile(r"<[^>]+>")
+STAGED_SCHEDULE_HEADERS = ("Wk", "Date", "Stage", "Topic", "In class", "Work due")
+STAGED_SCHEDULE_DATE_DEMAND = 7
+SCHEDULE_STAGE_KEYS = {
+	"Course foundations": "foundations",
+	"Individual project": "individual",
+	"Group project": "group",
+}
 
 
 @dataclass(frozen=True)
@@ -119,6 +127,8 @@ def classify_table_headers(headers: tuple[str, ...]) -> str:
 	if len(headers) == 4 and headers[:3] == ("Week", "Date", "Topic"):
 		return "schedule"
 	if len(headers) == 5 and headers[:4] == ("Week", "Date", "Topic", "Quiz"):
+		return "schedule"
+	if headers == STAGED_SCHEDULE_HEADERS:
 		return "schedule"
 	if headers == ("Date", "Event", "Type"):
 		return "important-dates"
@@ -215,6 +225,10 @@ def calculate_table_layout(
 			for row in body_rows:
 				cell_demand = text_width_demand(row[column_index], BODY_WRAP_FACTOR)
 				column_demand = max(column_demand, cell_demand)
+		if headers == STAGED_SCHEDULE_HEADERS and header == "Date":
+			# The six-column print layout needs enough intrinsic room for routine dates,
+			# while special dates may still wrap at the comma.
+			column_demand = max(column_demand, STAGED_SCHEDULE_DATE_DEMAND)
 		demands.append(column_demand)
 	column_demands = tuple(demands)
 	column_width_demands = tuple(
@@ -229,11 +243,18 @@ def calculate_table_layout(
 	is_compact = intrinsic_width_ch <= COMPACT_TABLE_CHARACTER_LIMIT
 	if not is_compact and profile == "schedule":
 		# Short identifiers need only their intrinsic width. Give the extra line-length
-		# budget to schedule prose, where it materially reduces wrapping without making
-		# unrelated reference tables wider on narrow screens.
+		# budget to prose when a schedule has only two flexible columns. A schedule that
+		# already separates several prose roles is intrinsically wide and does not need
+		# another multiplier before entering its horizontal-scroll container.
+		flexible_column_count = compact_columns.count(False)
+		growth_factor = (
+			FLEXIBLE_COLUMN_GROWTH_FACTOR
+			if flexible_column_count <= MAXIMUM_GROWING_SCHEDULE_COLUMNS
+			else 1.0
+		)
 		column_width_demands = tuple(
 			width_demand if compact_columns[column_index] else math.ceil(
-				width_demand * FLEXIBLE_COLUMN_GROWTH_FACTOR
+				width_demand * growth_factor
 			)
 			for column_index, width_demand in enumerate(column_width_demands)
 		)
@@ -324,6 +345,79 @@ def merge_schedule_exam_cells(
 
 
 #============================================
+def append_element_class(
+	element: xml.etree.ElementTree.Element,
+	class_name: str,
+) -> None:
+	"""Append one CSS class without duplicating an existing class."""
+	classes = element.get("class", "").split()
+	classes.append(class_name)
+	element.set("class", " ".join(dict.fromkeys(classes)))
+	return None
+
+
+#============================================
+def merge_schedule_stage_cells(
+	table: xml.etree.ElementTree.Element,
+	headers: tuple[str, ...],
+	raw_html_blocks: tuple[str | xml.etree.ElementTree.Element, ...] = (),
+) -> None:
+	"""Group BIOL 480 stages and span non-meeting milestones across prose columns."""
+	if headers != STAGED_SCHEDULE_HEADERS:
+		return None
+	row_details = []
+	for row in table.findall("./tbody/tr"):
+		cells = row.findall("td")
+		if len(cells) != len(headers):
+			continue
+		week_text = normalize_cell_text(cells[0], raw_html_blocks)
+		stage_text = normalize_cell_text(cells[2], raw_html_blocks)
+		in_class_text = normalize_cell_text(cells[4], raw_html_blocks)
+		work_due_text = normalize_cell_text(cells[5], raw_html_blocks)
+		try:
+			stage_key = SCHEDULE_STAGE_KEYS[stage_text]
+		except KeyError as error:
+			raise ValueError(f"Unregistered schedule stage: {stage_text}") from error
+		append_element_class(row, "schedule-phase-row")
+		append_element_class(row, f"schedule-phase-row--{stage_key}")
+		if week_text == "-" and in_class_text == "-" and work_due_text == "-":
+			topic_cell = cells[3]
+			append_element_class(row, "schedule-milestone-row")
+			append_element_class(topic_cell, "schedule-milestone-cell")
+			topic_cell.set("colspan", "3")
+			row.remove(cells[4])
+			row.remove(cells[5])
+		row_details.append((row, cells[2], stage_text, stage_key))
+
+	group_start = 0
+	while group_start < len(row_details):
+		group_end = group_start + 1
+		stage_text = row_details[group_start][2]
+		while group_end < len(row_details) and row_details[group_end][2] == stage_text:
+			group_end += 1
+		first_row, first_cell, _stage_text, stage_key = row_details[group_start]
+		append_element_class(first_row, "schedule-phase-row--start")
+		first_cell.clear()
+		first_cell.tag = "th"
+		first_cell.set("scope", "rowgroup")
+		first_cell.set("rowspan", str(group_end - group_start))
+		first_cell.set(
+			"class",
+			f"schedule-phase-cell schedule-phase-cell--{stage_key}",
+		)
+		phase_label = xml.etree.ElementTree.SubElement(
+			first_cell,
+			"span",
+			{"class": f"schedule-phase schedule-phase--{stage_key}"},
+		)
+		phase_label.text = stage_text
+		for row, stage_cell, _text, _key in row_details[group_start + 1:group_end]:
+			row.remove(stage_cell)
+		group_start = group_end
+	return None
+
+
+#============================================
 def wrap_scrollable_table(
 	parent: xml.etree.ElementTree.Element,
 	child_index: int,
@@ -383,6 +477,7 @@ class TableLayoutTreeprocessor(markdown.treeprocessors.Treeprocessor):
 			table.set("data-table-series-size", str(series_sizes[headers]))
 			add_column_widths(table, layout)
 			mark_compact_table_cells(table, layout)
+			merge_schedule_stage_cells(table, headers, raw_html_blocks)
 			merge_schedule_exam_cells(table, headers)
 			wrap_scrollable_table(parent, child_index, table)
 		return root

@@ -182,6 +182,12 @@ history. Those belong in the appropriate technical documentation or changelog.
   restrained version of its spreadsheet color.
 - Keep Genetics quiz coverage color-coded in the course schedule, with the quiz number repeated as
   the non-color cue. Number assignments so students can tell when each week's work is due.
+- In the BIOL 480 schedule, put the course stage in its own grouped column. Keep in-class
+  activities separate from out-of-class work due, and place talking-point Sets 1 through 7 with
+  their weekly course topics.
+- For a smaller BIOL 480 class, use one Shark Tank week, one group-presentation week, and two
+  biotechnology-news discussion weeks. Keep the Theranos discussion early and do not meet during
+  finals week.
 - Use my student-appropriate social links in the footer. Do not include PayPal, Patreon, or other
   donation links.
 - Keep the public GitHub Pages link prominent in the README.

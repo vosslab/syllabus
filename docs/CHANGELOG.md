@@ -78,6 +78,14 @@
 
 ### Behavior or Interface Changes
 
+- Rebuilt the BIOL 480 schedule around the actual discussion-flipped class sequence. A dedicated,
+  row-grouped Stage column now separates course phases from weekly topics; a separate In class
+  column holds talking-point Sets 1 through 7, two biotechnology-news discussions, one Shark Tank
+  week, the film, and one group-presentation week; Work due now contains only out-of-class
+  assignments. Restored the early Theranos discussion, the withdrawal milestone, Thanksgiving,
+  and a finals-week no-class row with only the complete business plan due. The shared HTML/PDF and
+  DOCX table renderers now produce the stage row spans and segmented milestone rows from valid pipe
+  Markdown.
 - Standardized complete syllabus downloads as
   `Voss-SUBJ_NUM[_NUM]-Semester_YYYY-Syllabus.pdf` and `.docx`, including title-case semester and
   `Syllabus` labels. Removed the free-form basename from course manifests; the model now derives
@@ -95,12 +103,6 @@
 - Added the confirmed Genetics LibreTexts chapter numbers to the weekly schedule topics. Repeated
   Chapters 8, 9, and 10 where their material spans weeks, and identified the combined Gene Trees
   and Population Genetics week as Chapters 10 and 11.
-- Reframed the BIOL 480 schedule around four visible course phases instead of calendar months:
-  course foundations, the individual project, film analysis, and the group project. Added subtle
-  phase-colored rows and explicit labels in website and PDF styles, shortened routine Thursday
-  dates, kept Thanksgiving's weekday as an exception, and started the PDF schedule on a fresh page
-  so its heading and Week 1 remain with the table. Measured row and label contrast spans 5.81:1 to
-  15.46:1 against the repository's 5.5:1 target.
 - Selected complete-document manifests directly from the one canonical `site_docs/fall_2026/`
   source tree instead of scanning all public content and rejecting possible parallel directories.
   Removed the redundant template-content failure gate and its pytest.

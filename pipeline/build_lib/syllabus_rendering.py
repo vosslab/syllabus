@@ -126,6 +126,69 @@ def merge_docx_schedule_exam_cells(table: object, headers: tuple[str, ...]) -> N
 
 
 #============================================
+def shade_docx_cell(cell: object, fill: str) -> None:
+	"""Apply one validated six-digit fill color to a Word table cell."""
+	cell_properties = cell._tc.get_or_add_tcPr()
+	shading = cell_properties.find(docx.oxml.ns.qn("w:shd"))
+	if shading is None:
+		shading = docx.oxml.OxmlElement("w:shd")
+		cell_properties.append(shading)
+	shading.set(docx.oxml.ns.qn("w:fill"), fill)
+	return None
+
+
+#============================================
+def format_docx_schedule_label(cell: object, fill: str | None = None) -> None:
+	"""Center and emphasize a grouped schedule label or milestone."""
+	cell.vertical_alignment = docx.enum.table.WD_CELL_VERTICAL_ALIGNMENT.CENTER
+	if fill is not None:
+		shade_docx_cell(cell, fill)
+	for paragraph in cell.paragraphs:
+		paragraph.alignment = docx.enum.text.WD_ALIGN_PARAGRAPH.CENTER
+		for run in paragraph.runs:
+			run.bold = True
+	return None
+
+
+#============================================
+def merge_docx_schedule_stage_cells(table: object, headers: tuple[str, ...]) -> None:
+	"""Mirror BIOL 480 stage row groups and non-meeting milestones in Word."""
+	if headers != build_lib.table_layouts.STAGED_SCHEDULE_HEADERS:
+		return None
+	row_details = []
+	for row in table.rows[1:]:
+		week_text = row.cells[0].text.strip()
+		stage_text = row.cells[2].text.strip()
+		in_class_text = row.cells[4].text.strip()
+		work_due_text = row.cells[5].text.strip()
+		if stage_text not in build_lib.table_layouts.SCHEDULE_STAGE_KEYS:
+			raise ValueError(f"Unregistered schedule stage: {stage_text}")
+		if week_text == "-" and in_class_text == "-" and work_due_text == "-":
+			milestone_text = row.cells[3].text
+			row.cells[4].text = ""
+			row.cells[5].text = ""
+			milestone_cell = row.cells[3].merge(row.cells[5])
+			milestone_cell.text = milestone_text
+			format_docx_schedule_label(milestone_cell, "E6E6E6")
+		row_details.append((row, stage_text))
+
+	group_start = 0
+	while group_start < len(row_details):
+		group_end = group_start + 1
+		stage_text = row_details[group_start][1]
+		while group_end < len(row_details) and row_details[group_end][1] == stage_text:
+			group_end += 1
+		first_cell = row_details[group_start][0].cells[2]
+		for row, _stage_text in row_details[group_start + 1:group_end]:
+			row.cells[2].text = ""
+		merged_cell = first_cell.merge(row_details[group_end - 1][0].cells[2])
+		merged_cell.text = stage_text
+		format_docx_schedule_label(merged_cell)
+		group_start = group_end
+	return None
+
+
+#============================================
 def set_document_language(document: object, language_code: str) -> None:
 	"""Set the proofing language on paragraph and character styles."""
 	for style in document.styles:
@@ -281,6 +344,7 @@ def postprocess_docx(
 	):
 		configure_docx_table_widths(table, document, layout_profile)
 		merge_docx_schedule_exam_cells(table, headers)
+		merge_docx_schedule_stage_cells(table, headers)
 	for table in document.tables:
 		table.style = "Table"
 		if table.rows:

@@ -89,14 +89,10 @@
 	--syllabus-quiz-5-surface: #d9d2e9;
 	--syllabus-quiz-text: #111;
 	--syllabus-schedule-phase-row-text: #1a1a1a;
-	--syllabus-schedule-phase-key-text: #fff;
 	--syllabus-schedule-phase-foundations-surface: #f7e4df;
 	--syllabus-schedule-phase-foundations-key: #9e3d32;
 	--syllabus-schedule-phase-individual-surface: #e1edf7;
 	--syllabus-schedule-phase-individual-key: #245f86;
-	--syllabus-schedule-phase-film-surface: #fff1c7;
-	--syllabus-schedule-phase-film-key: #e5bd45;
-	--syllabus-schedule-phase-film-key-text: #1a1a1a;
 	--syllabus-schedule-phase-group-surface: #e2efdf;
 	--syllabus-schedule-phase-group-key: #3f7044;
 	--extra-credit-category-1: #1c61db;
@@ -391,7 +387,8 @@ td {
 }
 
 table.syllabus-table .syllabus-column--compact {
-	padding-inline: 0.25rem;
+	font-size: 0.9em;
+	padding-inline: 0.15rem;
 }
 
 th {
@@ -458,55 +455,69 @@ tbody tr:nth-child(even) {
 	color: var(--syllabus-quiz-text);
 }
 
-/* Show BIOL 480's project progression with named phases; color is a secondary cue. */
-.table-layout--schedule tr:has(.schedule-phase) > td {
+/* Show BIOL 480's project progression in a grouped stage column; color is secondary. */
+.table-layout--schedule tr.schedule-phase-row > td {
 	background: var(--schedule-phase-row-surface);
 	color: var(--syllabus-schedule-phase-row-text);
 }
 
-.table-layout--schedule tr:has(.schedule-phase--foundations) > td {
+.table-layout--schedule tr.schedule-phase-row--foundations > td {
 	--schedule-phase-row-surface: var(--syllabus-schedule-phase-foundations-surface);
 }
 
-.table-layout--schedule tr:has(.schedule-phase--individual) > td {
+.table-layout--schedule tr.schedule-phase-row--individual > td {
 	--schedule-phase-row-surface: var(--syllabus-schedule-phase-individual-surface);
 }
 
-.table-layout--schedule tr:has(.schedule-phase--film) > td {
-	--schedule-phase-row-surface: var(--syllabus-schedule-phase-film-surface);
-}
-
-.table-layout--schedule tr:has(.schedule-phase--group) > td {
+.table-layout--schedule tr.schedule-phase-row--group > td {
 	--schedule-phase-row-surface: var(--syllabus-schedule-phase-group-surface);
 }
 
+.table-layout--schedule .schedule-phase-cell {
+	border-bottom: 1px solid #777;
+	border-left-style: solid;
+	border-left-width: 3pt;
+	color: var(--syllabus-schedule-phase-row-text);
+	padding: 0.25rem;
+	text-align: center;
+	vertical-align: middle;
+}
+
 .schedule-phase {
-	background: var(--schedule-phase-key-surface);
-	border-radius: 2pt;
-	color: var(--syllabus-schedule-phase-key-text);
-	font-size: 0.78em;
+	display: block;
 	font-weight: 700;
 	letter-spacing: 0.02em;
-	margin-right: 0.25em;
-	padding: 0.06rem 0.18rem;
-	white-space: nowrap;
+	line-height: 1.2;
 }
 
-.schedule-phase--foundations {
-	--schedule-phase-key-surface: var(--syllabus-schedule-phase-foundations-key);
+.table-layout--schedule .schedule-phase-cell--foundations {
+	background: var(--syllabus-schedule-phase-foundations-surface);
+	border-left-color: var(--syllabus-schedule-phase-foundations-key);
 }
 
-.schedule-phase--individual {
-	--schedule-phase-key-surface: var(--syllabus-schedule-phase-individual-key);
+.table-layout--schedule .schedule-phase-cell--individual {
+	background: var(--syllabus-schedule-phase-individual-surface);
+	border-left-color: var(--syllabus-schedule-phase-individual-key);
 }
 
-.schedule-phase--film {
-	--schedule-phase-key-surface: var(--syllabus-schedule-phase-film-key);
-	color: var(--syllabus-schedule-phase-film-key-text);
+.table-layout--schedule .schedule-phase-cell--group {
+	background: var(--syllabus-schedule-phase-group-surface);
+	border-left-color: var(--syllabus-schedule-phase-group-key);
 }
 
-.schedule-phase--group {
-	--schedule-phase-key-surface: var(--syllabus-schedule-phase-group-key);
+.table-layout--schedule tr.schedule-phase-row--group.schedule-phase-row--start {
+	break-before: page;
+}
+
+.table-layout--schedule tr.schedule-milestone-row > td {
+	background: #e6e6e6;
+	color: #111;
+}
+
+.table-layout--schedule .schedule-milestone-cell {
+	font-weight: 700;
+	text-align: center;
+	vertical-align: middle;
 }
 
 .table-layout--schedule .schedule-exam-cell {

@@ -176,6 +176,14 @@ the numbered coverage cue while Topic remains course-content prose. A bold Topic
 cell is a major schedule milestone; the renderer spans it across the Topic and Quiz columns while
 keeping Due this date independent in the website, PDF, and DOCX.
 
+The BIOL 480 schedule uses
+`Wk | Date | Stage | Topic | In class | Work due`. Stage names are repeated in the valid pipe-table
+source so every row remains explicit; the website/PDF and DOCX renderers merge each consecutive
+identical stage into one row-spanning group label. `In class` contains scheduled presentations,
+discussions, and activities. `Work due` contains out-of-class assignments due by that date.
+Non-meeting milestone rows retain Week, Date, and Stage while the renderer spans their Topic across
+the final three columns when both activity and work-due cells contain `-`.
+
 ## Shared fragments
 
 Include-only Markdown lives under a `fragments` or `generated` directory below `site_docs/` and
