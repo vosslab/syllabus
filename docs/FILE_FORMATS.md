@@ -261,11 +261,15 @@ managed downloads. `--archive` packages the current generated documents as ZIP f
 ## Department checklist data
 
 [pipeline/department_checklists.yml](../pipeline/department_checklists.yml) is the tracked source
-for department-review checklists. It contains the published site base URL, the complete ordered
-rubric, and course-specific overrides. Every item has a unique ID, group, label, one of three
-statuses (`covered`, `needs_review`, or `not_applicable`), a list of site-relative evidence links,
-and an explanatory note. Covered items require at least one evidence link.
+for department-review checklists. It contains the complete ordered rubric and course-specific
+overrides. Every item has a unique ID, group, label, one of three statuses (`covered`,
+`needs_review`, or `not_applicable`), a list of site-relative evidence routes, and an explanatory
+note. Covered items require at least one evidence route.
 
 The generator validates the complete schema, allows only the three documented statuses, resolves
-evidence within the published syllabus site, and restricts writes to
-`output/department_checklists/`. Generated Markdown and DOCX files remain ignored output.
+evidence within the Fall 2026 source authority, and restricts writes to
+`output/department_checklists/`. It first rebuilds the separate complete syllabus PDFs. Each course
+then produces matching Markdown, DOCX, and tagged, letter-size checklist files. Evidence routes
+map through the syllabus PDF's named destinations to visible references containing the syllabus
+filename, one-based page number, source page title, and checklist topic. The checklist does not
+depend on web links. Generated checklist files remain ignored output.

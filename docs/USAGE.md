@@ -82,8 +82,11 @@ source source_me.sh
 python3 pipeline/build_department_checklists.py
 ```
 
-The generated Markdown and DOCX files belong under `output/department_checklists/`. Edit
-`pipeline/department_checklists.yml`, not those outputs.
+The generated Markdown, DOCX, and tagged PDF files belong under
+`output/department_checklists/`. The command first rebuilds the complete syllabus PDFs, then uses
+their named destinations to print references such as `Syllabus p. 8 - Coursework and grades` in
+the separate checklist files. No web link is required. Edit `pipeline/department_checklists.yml`,
+not the generated outputs.
 
 ## Validate
 

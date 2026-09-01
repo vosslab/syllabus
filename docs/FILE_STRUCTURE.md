@@ -65,7 +65,8 @@ directories.
 
 ```text
 pipeline/
-|-- build_department_checklists.py      Evidence-linked department checklist generator
+|-- department_checklist_pdf.css        Print layout for generated rubric checklists
+|-- build_department_checklists.py      Page-referenced department checklist generator
 |-- build_site.py                       Production build front door
 |-- build_syllabi.py                    Complete DOCX and PDF entry point
 |-- check_links.py                      Live external-link audit with source locations

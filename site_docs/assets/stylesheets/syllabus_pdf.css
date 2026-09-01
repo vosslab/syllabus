@@ -88,6 +88,17 @@
 	--syllabus-quiz-4-surface: #fce5cd;
 	--syllabus-quiz-5-surface: #d9d2e9;
 	--syllabus-quiz-text: #111;
+	--syllabus-schedule-phase-row-text: #1a1a1a;
+	--syllabus-schedule-phase-key-text: #fff;
+	--syllabus-schedule-phase-foundations-surface: #f7e4df;
+	--syllabus-schedule-phase-foundations-key: #9e3d32;
+	--syllabus-schedule-phase-individual-surface: #e1edf7;
+	--syllabus-schedule-phase-individual-key: #245f86;
+	--syllabus-schedule-phase-film-surface: #fff1c7;
+	--syllabus-schedule-phase-film-key: #e5bd45;
+	--syllabus-schedule-phase-film-key-text: #1a1a1a;
+	--syllabus-schedule-phase-group-surface: #e2efdf;
+	--syllabus-schedule-phase-group-key: #3f7044;
 	--extra-credit-category-1: #1c61db;
 	--extra-credit-category-2: #745aae;
 	--extra-credit-category-3: #9f560a;
@@ -141,6 +152,11 @@ h1 {
 	font-weight: 700;
 	letter-spacing: 0.025em;
 	margin-block: 1.35rem 0.6rem;
+}
+
+/* Keep each compact course schedule together instead of stranding its heading and first row. */
+#syllabus-content > h2#schedule {
+	break-before: page;
 }
 
 #contents {
@@ -440,6 +456,57 @@ tbody tr:nth-child(even) {
 .table-layout--schedule td:nth-child(4):has(.schedule-quiz-key--5) {
 	background: var(--syllabus-quiz-5-surface);
 	color: var(--syllabus-quiz-text);
+}
+
+/* Show BIOL 480's project progression with named phases; color is a secondary cue. */
+.table-layout--schedule tr:has(.schedule-phase) > td {
+	background: var(--schedule-phase-row-surface);
+	color: var(--syllabus-schedule-phase-row-text);
+}
+
+.table-layout--schedule tr:has(.schedule-phase--foundations) > td {
+	--schedule-phase-row-surface: var(--syllabus-schedule-phase-foundations-surface);
+}
+
+.table-layout--schedule tr:has(.schedule-phase--individual) > td {
+	--schedule-phase-row-surface: var(--syllabus-schedule-phase-individual-surface);
+}
+
+.table-layout--schedule tr:has(.schedule-phase--film) > td {
+	--schedule-phase-row-surface: var(--syllabus-schedule-phase-film-surface);
+}
+
+.table-layout--schedule tr:has(.schedule-phase--group) > td {
+	--schedule-phase-row-surface: var(--syllabus-schedule-phase-group-surface);
+}
+
+.schedule-phase {
+	background: var(--schedule-phase-key-surface);
+	border-radius: 2pt;
+	color: var(--syllabus-schedule-phase-key-text);
+	font-size: 0.78em;
+	font-weight: 700;
+	letter-spacing: 0.02em;
+	margin-right: 0.25em;
+	padding: 0.06rem 0.18rem;
+	white-space: nowrap;
+}
+
+.schedule-phase--foundations {
+	--schedule-phase-key-surface: var(--syllabus-schedule-phase-foundations-key);
+}
+
+.schedule-phase--individual {
+	--schedule-phase-key-surface: var(--syllabus-schedule-phase-individual-key);
+}
+
+.schedule-phase--film {
+	--schedule-phase-key-surface: var(--syllabus-schedule-phase-film-key);
+	color: var(--syllabus-schedule-phase-film-key-text);
+}
+
+.schedule-phase--group {
+	--schedule-phase-key-surface: var(--syllabus-schedule-phase-group-key);
 }
 
 .table-layout--schedule .schedule-exam-cell {

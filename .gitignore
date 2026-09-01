@@ -15,6 +15,7 @@ _temp*.?*
 # Propagation preserves this section.
 # Template-only ignores.
 /raw/
+/department_checklists/
 # === PYTHON === [PROPAGATED - LOCAL EDITS OVERWRITTEN]
 build/
 dist/

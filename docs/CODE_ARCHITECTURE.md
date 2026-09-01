@@ -240,7 +240,10 @@ public fact into the canonical Markdown source rather than linking a course page
 - Use [pipeline/build_department_checklists.py](../pipeline/build_department_checklists.py) to
   render the tracked rubric and course-specific doubts from
   [pipeline/department_checklists.yml](../pipeline/department_checklists.yml) as separate
-  department-submission Markdown and DOCX files under `output/department_checklists/`.
+  department-submission Markdown, DOCX, and tagged PDF files under
+  `output/department_checklists/`. The generator rebuilds the complete syllabus PDFs first, then
+  reads their named destinations to print the syllabus filename, one-based page number, source
+  page title, and evidence topic. The separate checklist therefore works without hyperlinks.
 - Add deterministic unit and integration checks under [tests/](../tests/); place production
   builds in [tests/e2e/](../tests/e2e/) and browser checks in
   [tests/playwright/](../tests/playwright/).

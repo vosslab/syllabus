@@ -2,6 +2,11 @@
 
 ### Additions and New Features
 
+- Added one deterministic PDF department checklist per Fall 2026 course alongside the existing
+  Markdown and DOCX outputs. The command rebuilds each separate complete syllabus first, then each
+  checked rubric item displays its syllabus filename, one-based page number, source page title,
+  and checklist topic without depending on hyperlinks. Output remains tagged and letter-size with
+  checklist page numbers, status summaries, and visible unresolved-item treatment.
 - Added a concise shared About your instructor narrative covering Dr. Voss's interdisciplinary
   training, open-education work, earlier cryo-EM and molecular-geometry research, and Lego art. The
   narrative complements the existing instructor table instead of repeating its professional and
@@ -85,6 +90,15 @@
   independent; shortened ordinary Tuesday dates; and added the Friday withdrawal deadline. The
   schedule width model now gives compact identifiers a small wrap-aware reserve and gives the
   recovered line length to topic and due-date prose.
+- Added the confirmed Genetics LibreTexts chapter numbers to the weekly schedule topics. Repeated
+  Chapters 8, 9, and 10 where their material spans weeks, and identified the combined Gene Trees
+  and Population Genetics week as Chapters 10 and 11.
+- Reframed the BIOL 480 schedule around four visible course phases instead of calendar months:
+  course foundations, the individual project, film analysis, and the group project. Added subtle
+  phase-colored rows and explicit labels in website and PDF styles, shortened routine Thursday
+  dates, kept Thanksgiving's weekday as an exception, and started the PDF schedule on a fresh page
+  so its heading and Week 1 remain with the table. Measured row and label contrast spans 5.81:1 to
+  15.46:1 against the repository's 5.5:1 target.
 - Selected complete-document manifests directly from the one canonical `site_docs/fall_2026/`
   source tree instead of scanning all public content and rejecting possible parallel directories.
   Removed the redundant template-content failure gate and its pytest.
@@ -196,6 +210,8 @@
   current public evidence, and regenerated department checklists. Added resolved counts, mapped
   open actions to checklist IDs, and clarified the existing course-orientation and dated
   Biostatistics-placeholder boundaries without treating them as completed requirements.
+- Corrected two stale checklist fragments for Roosevelt learning goals and make-up work so every
+  evidence route resolves to a named destination in each generated syllabus PDF.
 - Reorganized the Fall 2026 syllabus readiness audit around a course-level status summary and a
   short open-action list. Confirmed BIOL 480 and BIOL 351/451 as complete with 53 of 53 rubric
   items resolved, using their course-specific Biology Problems links as assignment-format
@@ -234,7 +250,11 @@
 
 ### Developer Tests and Notes
 
-- Final `./all_test.sh` passed all 1,325 fast tests, the live-date refresh, strict website and
+- Department-checklist PDF validation generated all three six-page artifacts, verified tags,
+  letter-size pages, selectable rubric text, and visible syllabus-page references without link
+  annotations, then used Poppler to inspect complete contact sheets plus full-size open-item and
+  page-transition views.
+- Final `./all_test.sh` passed all 1,329 fast tests, the live-date refresh, strict website and
   PDF/DOCX builds, include parity, and the Playwright browser audit.
 - Focused rendered review covered the three Course information pages, learning frameworks,
   schedules, coursework hierarchy, table layouts and spans, PDF footers, email-link icons, and the

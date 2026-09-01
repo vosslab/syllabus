@@ -1,5 +1,3 @@
-site_base: https://vosslab.github.io/syllabus/
-
 items:
   - id: institutional_identifier
     group: Required - Instructor and program information
@@ -155,8 +153,8 @@ items:
     label: University learning goals
     status: covered
     evidence:
-      - label: Learning framework
-        path: COURSE_LEARNING_FRAMEWORK/#roosevelt-university-learning-goals
+      - label: Roosevelt learning goals
+        path: COURSE_LEARNING_FRAMEWORK/#roosevelt-learning-goals
     note: Roosevelt University learning goals are included.
   - id: course_outcomes
     group: Required - Learning goals and outcomes
@@ -437,8 +435,8 @@ items:
     label: Late assignments or missed exams
     status: covered
     evidence:
-      - label: Grades and graded work
-        path: ../shared/policies/ASSESSMENT/#late-assignments-and-exams
+      - label: Make-up work and extensions
+        path: ../shared/policies/ASSESSMENT/#make-up-work-and-extensions
     note: Late work, resets, missed exams, and make-up expectations are provided.
   - id: detailed_schedule
     group: Suggested - Course schedule
