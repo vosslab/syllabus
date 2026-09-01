@@ -4,7 +4,6 @@ course_code: BIOL 318/418
 term: Fall 2026
 author: Neil R. Voss
 language: en-US
-download_basename: BIOL_318_418_FALL_2026_SYLLABUS
 assessment_examples_url: https://biologyproblems.org/biostatistics/
 sections:
   - index.md

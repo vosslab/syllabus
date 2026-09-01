@@ -15,6 +15,17 @@ import build_lib.syllabus_rendering
 
 
 #============================================
+def test_course_document_basename_follows_public_filename_contract() -> None:
+	"""Semantic course metadata produces the exact student-facing filename convention."""
+	basename = build_lib.syllabus_model.format_course_document_basename(
+		"BIOL 351/451",
+		"Fall 2026",
+		"Syllabus",
+	)
+	assert basename == "Voss-BIOL_351_451-Fall_2026-Syllabus"
+
+
+#============================================
 def test_assessment_examples_url_accepts_only_official_subject_routes() -> None:
 	"""Assessment examples remain on the official OER subject routes."""
 	manifest_path = pathlib.Path("syllabus.yml")
@@ -63,11 +74,10 @@ def test_course_point_plan_requires_one_coursework_marker(tmp_path: pathlib.Path
 		title="Course title",
 		short_name="Course",
 		course_code="BIOL 000",
-		term="Fall 20XX",
+		term="Fall 2099",
 		author="Instructor",
 		language="en-US",
 		course_color="#007849",
-		download_basename="BIOL_000_SYLLABUS",
 		sections=(coursework_path,),
 		shared_sections=(),
 		lab_status="no_lab",
@@ -118,8 +128,8 @@ def test_download_links_cover_course_and_term_pages(tmp_path: pathlib.Path) -> N
 	term_overview_path = term_path / "index.md"
 	term_courses_path = fragments_path / "TERM_COURSES.md"
 	overview_path.write_text(
-		"../../downloads/BIOL_000_SYLLABUS.pdf\n"
-		"../../downloads/BIOL_000_SYLLABUS.docx\n",
+		"../../downloads/Voss-BIOL_000-Fall_2099-Syllabus.pdf\n"
+		"../../downloads/Voss-BIOL_000-Fall_2099-Syllabus.docx\n",
 		encoding="utf-8",
 	)
 	term_overview_path.write_text(
@@ -127,8 +137,8 @@ def test_download_links_cover_course_and_term_pages(tmp_path: pathlib.Path) -> N
 		encoding="utf-8",
 	)
 	term_courses_path.write_text(
-		'<a href="../../../downloads/BIOL_000_SYLLABUS.pdf">PDF</a>\n'
-		'<a href="../../../downloads/BIOL_000_SYLLABUS.docx">DOCX</a>\n',
+		'<a href="../../../downloads/Voss-BIOL_000-Fall_2099-Syllabus.pdf">PDF</a>\n'
+		'<a href="../../../downloads/Voss-BIOL_000-Fall_2099-Syllabus.docx">DOCX</a>\n',
 		encoding="utf-8",
 	)
 	manifest = build_lib.syllabus_model.SyllabusManifest(
@@ -137,18 +147,17 @@ def test_download_links_cover_course_and_term_pages(tmp_path: pathlib.Path) -> N
 		title="Course title",
 		short_name="Course",
 		course_code="BIOL 000",
-		term="Fall 20XX",
+		term="Fall 2099",
 		author="Instructor",
 		language="en-US",
 		course_color="#007849",
-		download_basename="BIOL_000_SYLLABUS",
 		sections=(overview_path,),
 		shared_sections=(),
 		lab_status="no_lab",
 	)
 	build_lib.syllabus_content.verify_download_links(manifest, downloads_dir)
 	term_courses_path.write_text(
-		'<a href="../../../downloads/BIOL_000_SYLLABUS.pdf">PDF</a>\n',
+		'<a href="../../../downloads/Voss-BIOL_000-Fall_2099-Syllabus.pdf">PDF</a>\n',
 		encoding="utf-8",
 	)
 	with pytest.raises(RuntimeError, match=r"fall_20xx/index\.md: missing complete-download link"):
@@ -188,38 +197,6 @@ def test_docx_schedule_exam_spans_topic_and_due_columns(tmp_path: pathlib.Path) 
 	assert observed == ("2", "MID-TERM EXAM")
 
 
-#============================================
-def test_docx_instructor_portrait_uses_compact_table_width() -> None:
-	"""DOCX rendering constrains the portrait without adding web-only source markup."""
-	document = docx.Document()
-	table = document.add_table(rows=2, cols=2)
-	table.rows[0].cells[0].text = "Field"
-	table.rows[0].cells[1].text = "Information"
-	table.rows[1].cells[0].text = "Photograph"
-	image_path = (
-		pathlib.Path(__file__).parents[1]
-		/ "site_docs"
-		/ "assets"
-		/ "images"
-		/ "neil_profile_pastel_white_2026.png"
-	)
-	table.rows[1].cells[1].paragraphs[0].add_run().add_picture(
-		str(image_path),
-		width=docx.shared.Inches(4),
-	)
-	shape = document.inline_shapes[0]
-	original_width = shape.width
-	original_height = shape.height
-	build_lib.syllabus_rendering.configure_docx_instructor_portrait(
-		table,
-		("Field", "Information"),
-	)
-	target_width = docx.shared.Inches(1.55)
-	assert shape.width == target_width
-	assert shape.height == round(original_height * target_width / original_width)
-
-
-#============================================
 def test_remove_heading_sections_omits_web_only_policy_routes() -> None:
 	"""Complete documents keep the policy branch heading without its route lists."""
 	markdown = (
@@ -288,11 +265,10 @@ def test_compose_markdown_links_to_explicit_instructor_section(tmp_path: pathlib
 		title="Course title",
 		short_name="Course",
 		course_code="BIOL 000",
-		term="Fall 20XX",
+		term="Fall 2099",
 		author="Instructor",
 		language="en-US",
 		course_color="#007849",
-		download_basename="BIOL_000_SYLLABUS",
 		sections=(index_path, details_path, instructor_route_path),
 		shared_sections=(policies_path,),
 		lab_status="no_lab",
@@ -323,11 +299,10 @@ def test_markdown_html_uses_site_extension_stack(tmp_path: pathlib.Path) -> None
 		title="Course title",
 		short_name="Course",
 		course_code="BIOL 000",
-		term="Fall 20XX",
+		term="Fall 2099",
 		author="Instructor",
 		language="en-US",
 		course_color="#007849",
-		download_basename="BIOL_000_SYLLABUS",
 		sections=(),
 		shared_sections=(),
 		lab_status="no_lab",
@@ -449,11 +424,10 @@ def test_compose_markdown_appends_policy_and_resources_once(tmp_path: pathlib.Pa
 		title="Course title",
 		short_name="Course",
 		course_code="BIOL 000",
-		term="Fall 20XX",
+		term="Fall 2099",
 		author="Instructor",
 		language="en-US",
 		course_color="#007849",
-		download_basename="BIOL_000_SYLLABUS",
 		sections=(index_path,),
 		shared_sections=(policy_path, resource_path),
 		lab_status="no_lab",
@@ -491,11 +465,10 @@ def test_manifest_assessments_control_coursework_content(
 		title="Course title",
 		short_name="Course",
 		course_code="BIOL 000",
-		term="Fall 20XX",
+		term="Fall 2099",
 		author="Instructor",
 		language="en-US",
 		course_color="#007849",
-		download_basename="BIOL_000_SYLLABUS",
 		sections=(index_path, coursework_path),
 		shared_sections=(),
 		lab_status="no_lab",
@@ -562,11 +535,10 @@ def test_coursework_requires_one_assessment_marker(tmp_path: pathlib.Path) -> No
 		title="Course title",
 		short_name="Course",
 		course_code="BIOL 000",
-		term="Fall 20XX",
+		term="Fall 2099",
 		author="Instructor",
 		language="en-US",
 		course_color="#007849",
-		download_basename="BIOL_000_SYLLABUS",
 		sections=(coursework_path,),
 		shared_sections=(),
 		lab_status="no_lab",
@@ -609,11 +581,10 @@ def test_discussion_marker_materializes_selected_fragments(tmp_path: pathlib.Pat
 		title="Course title",
 		short_name="Course",
 		course_code="BIOL 000",
-		term="Fall 20XX",
+		term="Fall 2099",
 		author="Instructor",
 		language="en-US",
 		course_color="#007849",
-		download_basename="BIOL_000_SYLLABUS",
 		sections=(discussion_path,),
 		shared_sections=(),
 		lab_status="no_lab",
@@ -687,11 +658,10 @@ def test_lab_status_controls_course_details_content(tmp_path: pathlib.Path) -> N
 		"title": "Course title",
 		"short_name": "Course",
 		"course_code": "BIOL 000",
-		"term": "Fall 20XX",
+		"term": "Fall 2099",
 		"author": "Instructor",
 		"language": "en-US",
 		"course_color": "#007849",
-		"download_basename": "BIOL_000_SYLLABUS",
 		"sections": (index_path, details_path),
 		"shared_sections": (),
 	}

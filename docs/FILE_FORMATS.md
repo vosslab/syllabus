@@ -12,7 +12,6 @@ course_code: BIOL 351/451
 term: Fall 2026
 author: Neil R. Voss
 language: en-US
-download_basename: BIOL_351_451_FALL_2026_SYLLABUS
 assessment_examples_url: https://biologyproblems.org/genetics/
 course_point_plan:
   - assessment: Mid-term exam
@@ -54,11 +53,13 @@ shared_sections:
   - ../shared/student_services/HEALTH_IDENTITY_AND_SAFETY.md
 ```
 
-Required scalar fields are `title`, `short_name`, `course_code`, `term`, `author`, `language`,
-`download_basename`, and `assessment_examples_url`. Each must be a non-empty string.
+Required scalar fields are `title`, `short_name`, `course_code`, `term`, `author`, `language`, and
+`assessment_examples_url`. Each must be a non-empty string.
 `short_name` is the concise course label shown in generated PDF footers and may contain at most 40
 characters.
-`download_basename` accepts only uppercase ASCII letters, digits, and underscores.
+The builder derives document filenames from `course_code` and `term`; manifests do not store a
+separate output basename. Course codes use an uppercase subject followed by one or more
+slash-separated course numbers. Terms use a title-case semester and four-digit year.
 `assessment_examples_url` accepts only an HTTPS `biologyproblems.org` subject route with one safe
 lowercase slug, such as `https://biologyproblems.org/biochemistry/`.
 
@@ -192,8 +193,12 @@ one linked fragment can render correctly at different page depths. A relative ta
 
 The instructor-contact fragment references the tracked light-background portrait as its one
 canonical Markdown image. Keep both portrait variants under `site_docs/assets/images/`; the
-cross-format rendering strategy and renderer-owned size constraints are recorded in
-[DESIGN_DECISIONS.md](DESIGN_DECISIONS.md).
+cross-format rendering strategy is recorded in [DESIGN_DECISIONS.md](DESIGN_DECISIONS.md).
+An image that needs a fixed physical width in complete documents may declare a positive
+`data-document-width` using `in`, `cm`, `mm`, or `pt`. The website safely ignores that data
+attribute, PDF sizing remains in CSS, and `pipeline/pandoc_filters/docx_image_layout.lua` translates
+it into Pandoc's native DOCX width. Do not infer image layout from captions, table labels, or file
+names.
 
 Absolute paths, `..` traversal, remote URLs, symlink escapes, nested includes, single-quoted or
 unquoted paths, block form, section selection, and alternate marker lengths are invalid. Any line
@@ -229,10 +234,15 @@ near the end of the complete PDF and DOCX, immediately before student resources.
 
 ## Generated documents
 
-Each manifest creates two files under `site_docs/downloads/` using `download_basename`:
+Each manifest creates two files under `site_docs/downloads/` using this fixed contract:
 
-- `<download_basename>.docx` from Pandoc and `pipeline/syllabus_reference.docx`.
-- `<download_basename>.pdf` from Python-Markdown HTML and WeasyPrint.
+- `Voss-SUBJ_NUM[_NUM]-Semester_YYYY-Syllabus.docx` from Pandoc and
+  `pipeline/syllabus_reference.docx`.
+- `Voss-SUBJ_NUM[_NUM]-Semester_YYYY-Syllabus.pdf` from Python-Markdown HTML and WeasyPrint.
+
+For example, BIOL 351/451 in Fall 2026 produces
+`Voss-BIOL_351_451-Fall_2026-Syllabus.pdf`. `Voss` and `Syllabus` are fixed title-case labels;
+slashes between course numbers become underscores, and the title case of `Fall` is preserved.
 
 Complete syllabi include a linked, page-numbered contents list. Its concise instructor labels are
 derived mechanically from source page filenames in Title Case, while the visible section headings

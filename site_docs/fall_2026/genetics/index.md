@@ -12,7 +12,7 @@ The syllabus is divided into shorter pages so you can go directly to the informa
 
 - [<span class="course-page-links__title">Course information</span>
   <span class="course-page-links__description">Section details, course format, catalog description,
-  and required textbook and technology.</span>](COURSE_DETAILS.md)
+  and textbook and technology.</span>](COURSE_DETAILS.md)
 - [<span class="course-page-links__title">Instructor information</span>
   <span class="course-page-links__description">Dr. Voss's contact methods, office hours, response
   times, and department leadership.</span>](../shared/INSTRUCTOR_INFORMATION.md)
@@ -56,13 +56,13 @@ The syllabus is divided into shorter pages so you can go directly to the informa
   <ul>
     <li>
       <a class="file-link file-link--pdf"
-         href="../../downloads/BIOL_351_451_FALL_2026_SYLLABUS.pdf">
+         href="../../downloads/Voss-BIOL_351_451-Fall_2026-Syllabus.pdf">
         Download the complete course syllabus (PDF)
       </a>
     </li>
     <li>
       <a class="file-link file-link--docx"
-         href="../../downloads/BIOL_351_451_FALL_2026_SYLLABUS.docx">
+         href="../../downloads/Voss-BIOL_351_451-Fall_2026-Syllabus.docx">
         Download the complete course syllabus (DOCX)
       </a>
     </li>

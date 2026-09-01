@@ -104,10 +104,14 @@ The document builder stages all generated downloads in a temporary directory. It
 complete expected set before replacing the current files under `site_docs/downloads/`, so a failed
 course build cannot publish a partial set.
 
+Complete-syllabus basenames are derived from validated course-code and term metadata as
+`Voss-SUBJ_NUM[_NUM]-Semester_YYYY-Syllabus`. Course manifests do not own free-form output names,
+so the renderer, expected-set validation, and website links share one filename contract.
+
 ### Complete-document internals
 
-The runnable `pipeline/build_syllabi.py` file owns orchestration and CLI flow. Three library units
-own the implementation:
+The runnable `pipeline/build_syllabi.py` file owns orchestration and CLI flow. Four library units
+and one narrow Pandoc adapter own the implementation:
 
 - [pipeline/build_lib/syllabus_model.py](../pipeline/build_lib/syllabus_model.py) loads manifest
   structure, validates shared course-theme metadata and source containment, and defines the
@@ -120,6 +124,9 @@ own the implementation:
 - `pipeline/build_lib/table_layouts.py` classifies the closed set of syllabus tables and calculates
   wrap-aware column demand from every visible cell. It emits HTML column hints and supplies the
   same percentages to DOCX post-processing.
+- `pipeline/pandoc_filters/docx_image_layout.lua` maps an image's validated, portable
+  `data-document-width` metadata to Pandoc's native DOCX width without inspecting surrounding
+  content.
 
 ## Rendering branches
 
@@ -146,7 +153,8 @@ data keeps the same column boundaries throughout the page.
 
 The content library calls the shared include engine, rewrites links between included pages as
 document anchors, removes web-only controls, and the rendering library sends portable Markdown to
-Pandoc. The tracked
+Pandoc. A Pandoc AST filter translates explicit document-image width metadata at that renderer
+boundary. The tracked
 `pipeline/syllabus_reference.docx` owns Word styles. Python post-processing adds metadata,
 language, and semantic table properties before output verification.
 Table post-processing reruns the shared content calculation over the Word cells so DOCX does not

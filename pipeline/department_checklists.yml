@@ -481,13 +481,15 @@ courses:
           identifies the distinction and links to Roosevelt's Natural Science CORE description.
       required_texts:
         evidence:
-          - label: Required textbook and technology
-            path: COURSE_DETAILS/#required-textbook-and-technology
-        note: The required text is Dr. Voss's free LibreTexts OER website; a physical copy is neither required nor recommended.
+          - label: Textbook and technology
+            path: COURSE_DETAILS/#textbook-and-technology
+        note: >-
+          The course uses Dr. Voss's free online LibreTexts OER textbook; students do not have to
+          purchase a physical copy or pay extra for course materials.
       required_materials:
         evidence:
-          - label: Required textbook and technology
-            path: COURSE_DETAILS/#required-textbook-and-technology
+          - label: Textbook and technology
+            path: COURSE_DETAILS/#textbook-and-technology
           - label: Course format and online tools
             path: ../shared/policies/COURSE_DELIVERY/
         note: >-
@@ -496,8 +498,8 @@ courses:
       optional_resources:
         status: needs_review
         evidence:
-          - label: Required textbook and technology
-            path: COURSE_DETAILS/#required-textbook-and-technology
+          - label: Textbook and technology
+            path: COURSE_DETAILS/#textbook-and-technology
         note: The required free LibreTexts OER is documented, but no separate optional resources are currently listed.
   - directory: biotech
     overrides:

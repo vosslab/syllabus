@@ -103,27 +103,6 @@ def configure_docx_table_widths(
 	return None
 
 
-#============================================
-def configure_docx_instructor_portrait(table: object, headers: tuple[str, ...]) -> None:
-	"""Keep the shared instructor portrait compact in Word's table layout."""
-	if headers != ("Field", "Information") or len(table.rows) < 2:
-		return None
-	portrait_row = table.rows[1]
-	if portrait_row.cells[0].text.strip() != "Photograph":
-		return None
-	for inline_element in portrait_row.cells[1]._tc.xpath(".//wp:inline"):
-		shape = docx.shape.InlineShape(inline_element)
-		original_width = shape.width
-		original_height = shape.height
-		if original_width <= 0:
-			continue
-		target_width = docx.shared.Inches(1.55)
-		shape.width = target_width
-		shape.height = round(original_height * target_width / original_width)
-	return None
-
-
-#============================================
 def merge_docx_schedule_exam_cells(table: object, headers: tuple[str, ...]) -> None:
 	"""Span bold exam milestones across the Topic and Due columns in Word."""
 	if len(headers) != 5 or headers[2:4] != ("Quiz", "Topic"):
@@ -301,7 +280,6 @@ def postprocess_docx(
 		strict=True,
 	):
 		configure_docx_table_widths(table, document, layout_profile)
-		configure_docx_instructor_portrait(table, headers)
 		merge_docx_schedule_exam_cells(table, headers)
 	for table in document.tables:
 		table.style = "Table"
@@ -372,6 +350,7 @@ def run_pandoc_docx(
 	markdown_path: pathlib.Path,
 	docx_path: pathlib.Path,
 	reference_path: pathlib.Path,
+	image_layout_filter_path: pathlib.Path,
 	manifest: build_lib.syllabus_model.SyllabusManifest,
 ) -> None:
 	"""Generate one complete DOCX through Pandoc."""
@@ -383,6 +362,7 @@ def run_pandoc_docx(
 		"--to=docx",
 		f"--resource-path={manifest.path.parent}",
 		f"--reference-doc={reference_path}",
+		f"--lua-filter={image_layout_filter_path}",
 		f"--metadata=title:{manifest.course_code}: {manifest.title}",
 		f"--metadata=subtitle:{manifest.term}",
 		f"--metadata=author:{manifest.author}",
@@ -579,6 +559,7 @@ def build_one_syllabus(
 	manifest: build_lib.syllabus_model.SyllabusManifest,
 	downloads_dir: pathlib.Path,
 	reference_path: pathlib.Path,
+	image_layout_filter_path: pathlib.Path,
 	pdf_stylesheet_path: pathlib.Path,
 	markdown_extensions: tuple[str, ...],
 	markdown_extension_configs: dict[str, dict[object, object]],
@@ -590,7 +571,13 @@ def build_one_syllabus(
 	docx_markdown = build_lib.syllabus_content.normalize_admonitions(combined_markdown)
 	docx_markdown_path.write_text(docx_markdown, encoding="utf-8")
 	docx_path = downloads_dir / f"{manifest.download_basename}.docx"
-	run_pandoc_docx(docx_markdown_path, docx_path, reference_path, manifest)
+	run_pandoc_docx(
+		docx_markdown_path,
+		docx_path,
+		reference_path,
+		image_layout_filter_path,
+		manifest,
+	)
 	postprocess_docx(docx_path, manifest)
 	verify_docx_output(docx_path, manifest)
 	audit_docx_structure(docx_path, manifest)

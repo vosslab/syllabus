@@ -24,6 +24,22 @@ authoritative code or contract document, rather than a person.
 
 ## Software design
 
+### Derive course-document filenames from semantic metadata
+
+**Decision.** Build course-document basenames from the fixed owner `Voss`, validated `course_code`
+and `term` metadata, and a title-case document label. Complete syllabi use
+`Voss-SUBJ_NUM[_NUM]-Semester_YYYY-Syllabus`; do not store a free-form basename in course YAML.
+
+**Why.** A repeated output string can drift from the course identity, website links, and expected
+build set. The instructor filename label is stable in this single-instructor repository, while
+course and term metadata already own the changing parts.
+
+**Consequence.** A course code or term that cannot produce the documented safe filename fails at
+the manifest boundary. Renderers, publication checks, and related document generators call the
+same formatter; changes to the filename convention belong in that formatter and this contract.
+
+**Owner.** `pipeline/build_lib/syllabus_model.py` and `docs/FILE_FORMATS.md`.
+
 ### Compose shared and selected assessment hierarchy from one marker
 
 **Decision.** Resolve the manifest's assessment categories into ordered composite sections. Each
@@ -196,10 +212,11 @@ therefore do not need the dark variant.
 **Consequence.** Preserve both tracked portrait assets, the canonical light-image reference, and
 the website's scoped dark-theme substitution as one unit. A future presentation change must still
 embed only the light portrait in PDF and DOCX, expose one meaningful text alternative, and avoid
-duplicating the portrait in document source. Website and PDF CSS retain the same maximum width;
-DOCX post-processing recognizes the semantic Photograph row and constrains its image to `1.55in`
-because HTML image-width attributes are not portable to the browser.
+duplicating the portrait in document source. The image's `data-document-width` attribute owns its
+physical document width without changing browser layout. Website and PDF CSS consume the semantic
+class; the DOCX Pandoc filter translates the generic width metadata into Pandoc's native image
+width. No renderer infers presentation from surrounding table text.
 
 **Owner.** `docs/FILE_FORMATS.md`,
 `site_docs/fall_2026/shared/fragments/INSTRUCTOR_CONTACT_DETAILS.md`, and
-`site_docs/assets/stylesheets/site.css`.
+`pipeline/pandoc_filters/docx_image_layout.lua` plus the website/PDF stylesheets.

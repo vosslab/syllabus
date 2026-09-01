@@ -73,6 +73,43 @@ COURSE_POINT_PLAN_LABEL_PATTERN = re.compile(
 )
 MAX_COURSE_POINT_PLAN_ENTRIES = 100
 MAX_COURSE_POINT_VALUE = 1_000_000
+DOCUMENT_FILENAME_OWNER = "Voss"
+COURSE_CODE_FILENAME_PATTERN = re.compile(
+	r"(?P<subject>[A-Z]{2,8}) (?P<numbers>[0-9]{3,4}(?:/[0-9]{3,4})*)"
+)
+TERM_FILENAME_PATTERN = re.compile(
+	r"(?P<semester>[A-Z][a-z]+) (?P<year>[0-9]{4})"
+)
+DOCUMENT_NAME_FILENAME_PATTERN = re.compile(
+	r"[A-Z][A-Za-z]*(?:_[A-Z][A-Za-z]*)*"
+)
+
+
+#============================================
+def format_course_document_basename(
+	course_code: str,
+	term: str,
+	document_name: str,
+) -> str:
+	"""Derive one safe, standardized Dr. Voss course-document basename."""
+	course_match = COURSE_CODE_FILENAME_PATTERN.fullmatch(course_code)
+	if course_match is None:
+		raise ValueError(
+			"course_code must use an uppercase subject, one space, and slash-separated numbers"
+		)
+	term_match = TERM_FILENAME_PATTERN.fullmatch(term)
+	if term_match is None:
+		raise ValueError("term must use a title-case semester and four-digit year")
+	if DOCUMENT_NAME_FILENAME_PATTERN.fullmatch(document_name) is None:
+		raise ValueError("document_name must use title-case words separated by underscores")
+	subject = course_match.group("subject")
+	numbers = course_match.group("numbers").replace("/", "_")
+	semester = term_match.group("semester")
+	year = term_match.group("year")
+	return (
+		f"{DOCUMENT_FILENAME_OWNER}-{subject}_{numbers}-"
+		f"{semester}_{year}-{document_name}"
+	)
 
 
 @dataclasses.dataclass(frozen=True)
@@ -104,7 +141,6 @@ class SyllabusManifest:
 	author: str
 	language: str
 	course_color: str
-	download_basename: str
 	sections: tuple[pathlib.Path, ...]
 	shared_sections: tuple[pathlib.Path, ...]
 	lab_status: str
@@ -113,6 +149,15 @@ class SyllabusManifest:
 	assessment_examples_url: str | None = None
 	discussion_fragments: tuple[pathlib.Path, ...] = ()
 	lab_fragments: tuple[pathlib.Path, ...] = ()
+
+	@property
+	def download_basename(self) -> str:
+		"""Return the standardized basename for the complete syllabus."""
+		return format_course_document_basename(
+			self.course_code,
+			self.term,
+			"Syllabus",
+		)
 
 
 #============================================
@@ -412,9 +457,7 @@ def load_manifest(
 	author = require_text(loaded, "author", manifest_path)
 	language = require_text(loaded, "language", manifest_path)
 	course_color = load_course_theme(manifest_path.parent / ".meta.yml")[0]
-	download_basename = require_text(loaded, "download_basename", manifest_path)
-	if re.fullmatch(r"[A-Z0-9_]+", download_basename) is None:
-		raise ValueError(f"{manifest_path}: download_basename must use A-Z, 0-9, and underscores")
+	format_course_document_basename(course_code, term, "Syllabus")
 	sections = resolve_sources(loaded, "sections", manifest_path, docs_root)
 	shared_sections = resolve_sources(loaded, "shared_sections", manifest_path, docs_root)
 	course_point_plan = resolve_course_point_plan(loaded, manifest_path)
@@ -435,7 +478,6 @@ def load_manifest(
 		author=author,
 		language=language,
 		course_color=course_color,
-		download_basename=download_basename,
 		sections=sections,
 		shared_sections=shared_sections,
 		lab_status=lab_status,

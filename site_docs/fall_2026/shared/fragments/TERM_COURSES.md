@@ -6,10 +6,10 @@
     <span class="term-course-downloads">
       <span>Complete syllabus:</span>
       <a class="file-link file-link--pdf term-download-link"
-         href="../../../downloads/BIOL_318_418_FALL_2026_SYLLABUS.pdf"
+         href="../../../downloads/Voss-BIOL_318_418-Fall_2026-Syllabus.pdf"
          aria-label="BIOL 318/418 - Biostatistics complete syllabus (PDF)">PDF</a>
       <a class="file-link file-link--docx term-download-link"
-         href="../../../downloads/BIOL_318_418_FALL_2026_SYLLABUS.docx"
+         href="../../../downloads/Voss-BIOL_318_418-Fall_2026-Syllabus.docx"
          aria-label="BIOL 318/418 - Biostatistics complete syllabus (DOCX)">DOCX</a>
     </span>
   </li>
@@ -20,10 +20,10 @@
     <span class="term-course-downloads">
       <span>Complete syllabus:</span>
       <a class="file-link file-link--pdf term-download-link"
-         href="../../../downloads/BIOL_351_451_FALL_2026_SYLLABUS.pdf"
+         href="../../../downloads/Voss-BIOL_351_451-Fall_2026-Syllabus.pdf"
          aria-label="BIOL 351/451 - General Genetics complete syllabus (PDF)">PDF</a>
       <a class="file-link file-link--docx term-download-link"
-         href="../../../downloads/BIOL_351_451_FALL_2026_SYLLABUS.docx"
+         href="../../../downloads/Voss-BIOL_351_451-Fall_2026-Syllabus.docx"
          aria-label="BIOL 351/451 - General Genetics complete syllabus (DOCX)">DOCX</a>
     </span>
   </li>
@@ -34,10 +34,10 @@
     <span class="term-course-downloads">
       <span>Complete syllabus:</span>
       <a class="file-link file-link--pdf term-download-link"
-         href="../../../downloads/BIOL_480_FALL_2026_SYLLABUS.pdf"
+         href="../../../downloads/Voss-BIOL_480-Fall_2026-Syllabus.pdf"
          aria-label="BIOL 480 - Applications of Biotechnology complete syllabus (PDF)">PDF</a>
       <a class="file-link file-link--docx term-download-link"
-         href="../../../downloads/BIOL_480_FALL_2026_SYLLABUS.docx"
+         href="../../../downloads/Voss-BIOL_480-Fall_2026-Syllabus.docx"
          aria-label="BIOL 480 - Applications of Biotechnology complete syllabus (DOCX)">DOCX</a>
     </span>
   </li>

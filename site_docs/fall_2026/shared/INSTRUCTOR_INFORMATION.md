@@ -1,5 +1,7 @@
 # Instructor information
 
+--8<-- "fall_2026/shared/fragments/ABOUT_INSTRUCTOR.md"
+
 --8<-- "fall_2026/shared/fragments/INSTRUCTOR_CONTACT_DETAILS.md"
 
 --8<-- "fall_2026/shared/fragments/DEPARTMENT_LEADERSHIP.md"

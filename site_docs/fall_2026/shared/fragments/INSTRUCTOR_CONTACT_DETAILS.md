@@ -1,6 +1,6 @@
 | Field | Information |
 | --- | --- |
-| Photograph | ![Neil R. Voss wearing glasses and a gray collared shirt in a pastel-style head-and-shoulders portrait](../../../assets/images/neil_profile_pastel_white_2026.png){ .instructor-portrait }<br>*Portrait from 2026.* |
+| Photograph | ![Neil R. Voss wearing glasses and a gray collared shirt in a pastel-style head-and-shoulders portrait](../../../assets/images/neil_profile_pastel_white_2026.png){ .instructor-portrait data-document-width=1.55in }<br>*Portrait from 2026.* |
 | Instructor | [Associate Professor Neil R. Voss](https://www.roosevelt.edu/profile/nvoss) |
 | Experience | Instructor at Roosevelt since Fall 2010 |
 | Program role | Director, Bioinformatics and Computational Biology |

@@ -58,11 +58,12 @@ the next. It includes classical Mendelian genetics and inheritance patterns that
 simple Mendelian principles: alleles, gene mapping, Punnett squares, polygenic inheritance,
 gene-environment interactions, and epigenetics.
 
-## Required textbook and technology
+## Textbook and technology
 
-The required textbook is Dr. Voss's free LibreTexts OER website,
+I do not believe students should have to pay extra for course materials when they have already paid
+enough in tuition. This course therefore uses my free online OER textbook,
 [Advanced Genetics: Mechanisms of Inheritance and Analysis](https://bio.libretexts.org/Courses/Roosevelt_University/Advanced_Genetics%3A_Mechanisms_of_Inheritance_and_Analysis).
-Students use the book online. A physical copy is neither required nor recommended.
+Students use the book online; a physical copy is neither required nor recommended.
 
 You need regular Blackboard access for course information and the gradebook, plus a computer or
 mobile device capable of reading the online textbook and using the current assessment platform.

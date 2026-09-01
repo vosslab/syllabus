@@ -30,8 +30,13 @@ history. Those belong in the appropriate technical documentation or changelog.
   course template.
 - Keep each course's catalog description and course-format explanation on its Course information
   page. A compact format table does not replace the refined format prose from my original syllabi.
+- I do not believe students should have to pay extra for course materials after they have already
+  paid enough in tuition. Describe my free online OER textbook in that spirit, not with a punitive
+  "REQUIRED!!!" tone.
 - Keep course information and instructor information on separate pages, especially when the course
   information is already long.
+- Give students a concise sense of who I am on the instructor-information page, but keep it limited
+  and do not repeat facts that are already in the instructor table.
 - Target six bullet points each for a first draft under Learning Objectives, Course Learning
   Outcomes, and Learning Goals, and preserve more detailed established lists when they remain
   accurate. Use `raw/` course content as evidence, not public source text.
@@ -60,6 +65,9 @@ history. Those belong in the appropriate technical documentation or changelog.
   parallel template tree.
 - Keep one canonical syllabus source tree. The website, PDF, and DOCX are generated views, not
   parallel syllabus copies.
+- Name complete syllabus files `Voss-SUBJ_NUM[_NUM]-Semester_YYYY-Syllabus.ext`. `Voss` is fixed
+  because I am the only instructor using this repository; keep semester names and `Syllabus` in
+  title case.
 - Divide Help and student services into task-focused subpages behind one overview, like the policy
   topics, so students do not have to scroll through one long page.
 - Do not add deans or unrelated directors, advisors, or coordinators just to fill a checklist. Keep

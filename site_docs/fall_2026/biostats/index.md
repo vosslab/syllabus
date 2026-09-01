@@ -52,13 +52,13 @@ The syllabus is divided into shorter pages so you can go directly to the informa
   <ul>
     <li>
       <a class="file-link file-link--pdf"
-         href="../../downloads/BIOL_318_418_FALL_2026_SYLLABUS.pdf">
+         href="../../downloads/Voss-BIOL_318_418-Fall_2026-Syllabus.pdf">
         Download the complete course syllabus (PDF)
       </a>
     </li>
     <li>
       <a class="file-link file-link--docx"
-         href="../../downloads/BIOL_318_418_FALL_2026_SYLLABUS.docx">
+         href="../../downloads/Voss-BIOL_318_418-Fall_2026-Syllabus.docx">
         Download the complete course syllabus (DOCX)
       </a>
     </li>

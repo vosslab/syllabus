@@ -2,6 +2,10 @@
 
 ### Additions and New Features
 
+- Added a concise shared About your instructor narrative covering Dr. Voss's interdisciplinary
+  training, open-education work, earlier cryo-EM and molecular-geometry research, and Lego art. The
+  narrative complements the existing instructor table instead of repeating its professional and
+  contact details.
 - Added Joshua Campbell's academic advising role, office, phone, email, and public appointment
   route to the shared Fall 2026 student resources. The shared source makes the advising contact
   available in all three course syllabi.
@@ -66,6 +70,14 @@
 
 ### Behavior or Interface Changes
 
+- Standardized complete syllabus downloads as
+  `Voss-SUBJ_NUM[_NUM]-Semester_YYYY-Syllabus.pdf` and `.docx`, including title-case semester and
+  `Syllabus` labels. Removed the free-form basename from course manifests; the model now derives
+  filenames from validated course code and term metadata through one shared formatter.
+- Reframed the Genetics textbook section around the instructor's no-extra-cost principle: students
+  have already paid enough in tuition and should not have to purchase additional course materials.
+  Replaced the emphatic required-textbook framing with a neutral Textbook and technology heading
+  while keeping the free online OER clearly identified as the book used in the course.
 - Rebalanced the Genetics schedule around course content. Moved quiz coverage into a compact,
   numbered Quiz column; replaced the filler synthesis labels with prominent MID-TERM EXAM and
   CUMULATIVE FINAL EXAM milestones spanning the Topic and Due columns; and narrowed Week and Date
@@ -81,8 +93,9 @@
   Split shared instructor and contact information onto its own direct page instead of repeating it
   at the bottom of every course-information page. Course landing pages now link to both
   destinations, and complete PDF/DOCX manifests include the instructor page once as an explicit
-  section. DOCX post-processing now constrains the shared portrait so its table stays with the
-  section heading, while the website retains valid responsive image markup. Restored Genetics'
+  section. Added a general document-image width contract and Pandoc filter so the shared portrait
+  remains compact in DOCX without content-specific table detection or invalid browser sizing.
+  Restored Genetics'
   established face-to-face format paragraph from the original syllabus, separated Biostatistics'
   confirmed hybrid-format prose from its catalog entry, and gave Biotechnology's current flipped
   hybrid format a durable course-format heading.

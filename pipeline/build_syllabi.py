@@ -76,12 +76,17 @@ def main() -> None:
 	active_term_root = docs_root / ACTIVE_TERM_DIRECTORY
 	downloads_dir = docs_root / "downloads"
 	reference_path = repo_root / "pipeline" / "syllabus_reference.docx"
+	image_layout_filter_path = (
+		repo_root / "pipeline" / "pandoc_filters" / "docx_image_layout.lua"
+	)
 	pdf_stylesheet_path = docs_root / "assets" / "stylesheets" / "syllabus_pdf.css"
 	mkdocs_config_path = repo_root / "mkdocs.yml"
 	if not reference_path.is_file():
 		raise FileNotFoundError(
 			f"Missing {reference_path}. Run pipeline/create_syllabus_reference_docx.py first."
 		)
+	if not image_layout_filter_path.is_file():
+		raise FileNotFoundError(f"Missing DOCX image-layout filter: {image_layout_filter_path}")
 	if not pdf_stylesheet_path.is_file():
 		raise FileNotFoundError(f"Missing PDF stylesheet: {pdf_stylesheet_path}")
 	if not mkdocs_config_path.is_file():
@@ -125,6 +130,7 @@ def main() -> None:
 				manifest,
 				staged_downloads_dir,
 				reference_path,
+				image_layout_filter_path,
 				pdf_stylesheet_path,
 				markdown_extensions,
 				markdown_extension_configs,

@@ -234,7 +234,11 @@ def build_checklists(repo_root: pathlib.Path, output_dir: pathlib.Path) -> tuple
 		manifest = build_lib.syllabus_model.load_manifest(manifest_path, repo_root / "site_docs")
 		course_items = apply_overrides(items, course["overrides"], f"{location}.overrides")
 		markdown = render_checklist(manifest, course_route, site_base, course_items)
-		basename = f"{manifest.download_basename}_DEPARTMENT_CHECKLIST"
+		basename = build_lib.syllabus_model.format_course_document_basename(
+			manifest.course_code,
+			manifest.term,
+			"Department_Checklist",
+		)
 		markdown_path = resolved_output / f"{basename}.md"
 		docx_path = resolved_output / f"{basename}.docx"
 		markdown_path.write_text(markdown, encoding="utf-8")

@@ -49,7 +49,6 @@ def test_render_checklist_keeps_doubt_unchecked(tmp_path: pathlib.Path) -> None:
 		author="Instructor",
 		language="en-US",
 		course_color="#007849",
-		download_basename="BIOL_000_SYLLABUS",
 		sections=(),
 		shared_sections=(),
 		lab_status="no_lab",
