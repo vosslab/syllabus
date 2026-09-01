@@ -106,13 +106,13 @@ def test_key_value_layout_prioritizes_information_column() -> None:
 def test_inline_html_does_not_inflate_visible_column_demand() -> None:
 	"""Styling hooks do not count as student-visible table content."""
 	plain_markdown = (
-		"| Week | Date | Quiz | Topic | Due this date |\n"
+		"| Week | Date | Topic | Quiz | Due this date |\n"
 		"| --- | --- | --- | --- | --- |\n"
-		"| 1 | Tue, Sep 1 | 1 | Genetic disorders | Orientation |\n"
+		"| 1 | Sep 1 | Genetic disorders | 1 | Orientation |\n"
 	)
 	styled_markdown = plain_markdown.replace(
-		"| 1 | Genetic disorders |",
-		'| <span class="schedule-quiz-key">1</span> | Genetic disorders |',
+		"| 1 | Orientation |",
+		'| <span class="schedule-quiz-key">1</span> | Orientation |',
 	)
 	plain_html = markdown.markdown(
 		plain_markdown,
@@ -129,18 +129,23 @@ def test_inline_html_does_not_inflate_visible_column_demand() -> None:
 
 
 #============================================
-def test_schedule_exam_spans_topic_and_due_columns() -> None:
+def test_schedule_exam_spans_topic_and_quiz_columns() -> None:
 	"""A bold schedule milestone becomes one prominent two-column cell."""
-	headers = ("Week", "Date", "Quiz", "Topic", "Due this date")
+	headers = ("Week", "Date", "Topic", "Quiz", "Due this date")
 	table = xml.etree.ElementTree.Element("table")
 	table_body = xml.etree.ElementTree.SubElement(table, "tbody")
 	row = xml.etree.ElementTree.SubElement(table_body, "tr")
-	for value in ("8", "Tue, Oct 20", "-", "", ""):
+	for value in ("8", "Oct 20", "", "", "Assignment 13"):
 		cell = xml.etree.ElementTree.SubElement(row, "td")
 		cell.text = value
-	strong = xml.etree.ElementTree.SubElement(row.findall("td")[3], "strong")
+	strong = xml.etree.ElementTree.SubElement(row.findall("td")[2], "strong")
 	strong.text = "MID-TERM EXAM"
 	build_lib.table_layouts.merge_schedule_exam_cells(table, headers)
 	cells = table.findall("./tbody/tr/td")
-	observed = (len(cells), cells[3].get("class"), cells[3].get("colspan"))
-	assert observed == (4, "schedule-exam-cell", "2")
+	observed = (
+		len(cells),
+		cells[2].get("class"),
+		cells[2].get("colspan"),
+		cells[3].text,
+	)
+	assert observed == (4, "schedule-exam-cell", "2", "Assignment 13")

@@ -376,7 +376,6 @@ td {
 
 table.syllabus-table .syllabus-column--compact {
 	padding-inline: 0.25rem;
-	white-space: nowrap;
 }
 
 th {
@@ -418,27 +417,27 @@ tbody tr:nth-child(even) {
 	--schedule-quiz-surface: var(--syllabus-quiz-5-surface);
 }
 
-.table-layout--schedule td:nth-child(3):has(.schedule-quiz-key--1) {
+.table-layout--schedule td:nth-child(4):has(.schedule-quiz-key--1) {
 	background: var(--syllabus-quiz-1-surface);
 	color: var(--syllabus-quiz-text);
 }
 
-.table-layout--schedule td:nth-child(3):has(.schedule-quiz-key--2) {
+.table-layout--schedule td:nth-child(4):has(.schedule-quiz-key--2) {
 	background: var(--syllabus-quiz-2-surface);
 	color: var(--syllabus-quiz-text);
 }
 
-.table-layout--schedule td:nth-child(3):has(.schedule-quiz-key--3) {
+.table-layout--schedule td:nth-child(4):has(.schedule-quiz-key--3) {
 	background: var(--syllabus-quiz-3-surface);
 	color: var(--syllabus-quiz-text);
 }
 
-.table-layout--schedule td:nth-child(3):has(.schedule-quiz-key--4) {
+.table-layout--schedule td:nth-child(4):has(.schedule-quiz-key--4) {
 	background: var(--syllabus-quiz-4-surface);
 	color: var(--syllabus-quiz-text);
 }
 
-.table-layout--schedule td:nth-child(3):has(.schedule-quiz-key--5) {
+.table-layout--schedule td:nth-child(4):has(.schedule-quiz-key--5) {
 	background: var(--syllabus-quiz-5-surface);
 	color: var(--syllabus-quiz-text);
 }

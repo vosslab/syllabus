@@ -468,6 +468,14 @@ courses:
       major_due_dates:
         status: needs_review
         note: Weekly work is dated, but the final project and other major deadlines need more precise public dates.
+      assignment_formatting:
+        status: covered
+        evidence:
+          - label: Sample assessment problems
+            path: ASSIGNMENTS_AND_GRADING/#assignment-details
+        note: >-
+          The course-specific Biology Problems OER link shows representative problem formats.
+          Each released assignment provides its exact directions and settings.
       optional_resources:
         note: Two LibreTexts biostatistics OER books, OpenIntro, OpenStax, and the former Triola text are listed as optional.
       teaching_methodology:
@@ -506,6 +514,14 @@ courses:
         note: >-
           No separate optional resource is assigned. The required free LibreTexts OER remains a
           required text and does not become optional to satisfy this suggested checklist item.
+      assignment_formatting:
+        status: covered
+        evidence:
+          - label: Sample assessment problems
+            path: ASSIGNMENTS_AND_GRADING/#assignment-details
+        note: >-
+          The course-specific Biology Problems OER link shows representative problem formats.
+          Each released assignment provides its exact directions and settings.
   - directory: biotech
     overrides:
       core_attributes:

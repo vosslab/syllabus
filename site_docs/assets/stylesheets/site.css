@@ -331,7 +331,6 @@
 /* Keep short identifiers compact so prose and milestones own the schedule hierarchy. */
 .md-typeset table.syllabus-table .syllabus-column--compact {
 	padding-inline: 0.45rem;
-	white-space: nowrap;
 }
 
 /* Match each Genetics quiz to its covered topics; visible numbers carry the same meaning. */
@@ -365,32 +364,32 @@
 	--schedule-quiz-surface: var(--syllabus-quiz-5-surface);
 }
 
-.md-typeset .table-layout--schedule td:nth-child(3):has(.schedule-quiz-key--1) {
+.md-typeset .table-layout--schedule td:nth-child(4):has(.schedule-quiz-key--1) {
 	background-color: var(--syllabus-quiz-1-surface);
 	color: var(--syllabus-quiz-text);
 }
 
-.md-typeset .table-layout--schedule td:nth-child(3):has(.schedule-quiz-key--2) {
+.md-typeset .table-layout--schedule td:nth-child(4):has(.schedule-quiz-key--2) {
 	background-color: var(--syllabus-quiz-2-surface);
 	color: var(--syllabus-quiz-text);
 }
 
-.md-typeset .table-layout--schedule td:nth-child(3):has(.schedule-quiz-key--3) {
+.md-typeset .table-layout--schedule td:nth-child(4):has(.schedule-quiz-key--3) {
 	background-color: var(--syllabus-quiz-3-surface);
 	color: var(--syllabus-quiz-text);
 }
 
-.md-typeset .table-layout--schedule td:nth-child(3):has(.schedule-quiz-key--4) {
+.md-typeset .table-layout--schedule td:nth-child(4):has(.schedule-quiz-key--4) {
 	background-color: var(--syllabus-quiz-4-surface);
 	color: var(--syllabus-quiz-text);
 }
 
-.md-typeset .table-layout--schedule td:nth-child(3):has(.schedule-quiz-key--5) {
+.md-typeset .table-layout--schedule td:nth-child(4):has(.schedule-quiz-key--5) {
 	background-color: var(--syllabus-quiz-5-surface);
 	color: var(--syllabus-quiz-text);
 }
 
-/* Give exam weeks one unmistakable milestone across the two prose columns. */
+/* Give exam weeks one unmistakable milestone across Topic and Quiz. */
 .md-typeset .table-layout--schedule .schedule-exam-cell {
 	background-color: color-mix(
 		in srgb,

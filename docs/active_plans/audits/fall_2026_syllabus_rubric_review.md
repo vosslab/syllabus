@@ -1,61 +1,70 @@
-# Fall 2026 syllabus checklist actions
+# Fall 2026 syllabus readiness audit
 
 Revalidated August 31, 2026 against the tracked 53-item rubric, the live Fall 2026 sources, and
-freshly regenerated department checklists. This document lists only unresolved checklist work.
-One shared decision may close the same item for more than one course.
+freshly regenerated department checklists. This document shows course readiness first, then lists
+only the work that remains.
 
-## Current open work
+## Readiness summary
 
-| Course | Resolved | Required open | Suggested open | Total open |
-| --- | ---: | ---: | ---: | ---: |
-| BIOL 318/418 | 50 of 53 | 2 | 1 | 3 |
-| BIOL 351/451 | 52 of 53 | 0 | 1 | 1 |
-| BIOL 480 | 53 of 53 | 0 | 0 | 0 |
+**Ready** means that all 53 required and suggested rubric items are covered or justified as not
+applicable.
 
-Use `raw/Dept_University_Docs/Syllabus_Checklist_Fall_2026_updated.md` as the private 53-item
-reference checklist. The tracked status source is
+| Course | Required gaps | Suggested follow-up | Status |
+| --- | ---: | ---: | --- |
+| BIOL 480 | 0 | 0 | **READY - all 53 items resolved** |
+| BIOL 351/451 | 0 | 0 | **READY - all 53 items resolved** |
+| BIOL 318/418 | 2 | 0 | **NOT READY - instructor decisions required** |
+
+## Ready courses
+
+### BIOL 480
+
+BIOL 480 is rubric-complete. Its point plan, dated project sequence, project and talking-point
+format requirements, feedback sequence, discussion method, and shared policies provide evidence
+for all 53 items. No checklist action remains before Fall 2026 use.
+
+### BIOL 351/451
+
+BIOL 351/451 is rubric-complete and ready for Fall 2026 use. Its point plan, five dated quizzes,
+numbered assignments, midterm and final exam dates, lecture-only scope, and separate undergraduate
+CORE information cover the required items. The course-specific Biology Problems OER link supplies
+representative assignment formats, while each released assignment supplies its exact directions
+and settings.
+
+## Required BIOL 318/418 work
+
+These two instructor decisions keep BIOL 318/418 from final rubric readiness.
+
+### 1. Confirm the point plan
+
+- **Rubric item:** `assignment_points`.
+- **Decision:** Confirm the number of group quizzes, regular-assignment points, and extra-credit
+  cap in [biostats_point_plan.md](../decisions/biostats_point_plan.md).
+- **Update:** Add the approved values to
+  [syllabus.yml](../../../site_docs/fall_2026/biostats/syllabus.yml) and add the derived-table
+  marker to
+  [ASSIGNMENTS_AND_GRADING.md](../../../site_docs/fall_2026/biostats/ASSIGNMENTS_AND_GRADING.md).
+
+### 2. Name and date major work
+
+- **Rubric item:** `major_due_dates`.
+- **Decision:** Confirm whether December 9 and December 16 are the actual deadlines.
+- **Update:** Replace `Project work` and `Final work` with the real deliverable names in
+  [SCHEDULE.md](../../../site_docs/fall_2026/biostats/SCHEDULE.md).
+
+Keep exact submission times in assignment directions when they do not belong in the public
+syllabus.
+
+## Sources and verification
+
+The private checklist reference is
+`raw/Dept_University_Docs/Syllabus_Checklist_Fall_2026_updated.md`. The tracked status source is
 [pipeline/department_checklists.yml](../../../pipeline/department_checklists.yml), and the public
-evidence authority is [site_docs/fall_2026/](../../../site_docs/fall_2026/). Regenerate the ignored
-Markdown and DOCX submission artifacts under `output/department_checklists/`; do not edit those
-artifacts directly.
+evidence authority is [site_docs/fall_2026/](../../../site_docs/fall_2026/).
 
-## Required actions
-
-### 1. Finalize the BIOL 318/418 point plan
-
-- Checklist item: `assignment_points`.
-- [ ] Approve or revise the proposed
-  [Biostatistics point plan](../decisions/biostats_point_plan.md).
-- [ ] Decide the number of group quizzes, regular-assignment total, and extra-credit cap.
-- [ ] Add the confirmed `course_point_plan` to
-  [biostats/syllabus.yml](../../../site_docs/fall_2026/biostats/syllabus.yml).
-- [ ] Add the point-plan marker to
-  [biostats/ASSIGNMENTS_AND_GRADING.md](../../../site_docs/fall_2026/biostats/ASSIGNMENTS_AND_GRADING.md).
-
-### 2. Name and date the major BIOL 318/418 work
-
-- Checklist item: `major_due_dates`.
-- [ ] Confirm whether the existing December 9 and December 16 schedule rows are the actual due
-  dates.
-- [ ] Replace `Project work` and `Final work` in
-  [biostats/SCHEDULE.md](../../../site_docs/fall_2026/biostats/SCHEDULE.md) with the actual
-  deliverable names.
-- [ ] Keep exact submission times in the assignment directions when they do not belong in the
-  public syllabus.
-
-## Suggested decisions
-
-These items may be marked not applicable when that accurately describes the course. Do not add
-student-facing content solely to fill a suggested item.
-
-- [ ] **`assignment_formatting`, BIOL 318/418 and BIOL 351/451:** revisit this after the assignment
-  platform is selected. Add a concise general rule only if one applies across assignments;
-  otherwise keep formatting in assignment-specific directions and mark the item not applicable.
-
-## Regenerate and verify
-
-After making an instructor decision, update the live source first, then update the matching status,
-evidence, and note in `pipeline/department_checklists.yml`. Rebuild the checklist artifacts:
+After an instructor decision, update the live syllabus source first, then update the matching
+status, evidence, and note in `pipeline/department_checklists.yml`. Rebuild the ignored department
+checklists with:
 
 ```bash
 source source_me.sh

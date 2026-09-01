@@ -171,10 +171,10 @@ The section-information table stays together as one block in PDF when it fits on
 Links between manifest-included Markdown pages are rewritten as internal document anchors in PDF
 and DOCX output.
 
-A five-column schedule may use `Week | Date | Quiz | Topic | Due this date`. The Quiz cells carry
-the numbered coverage cue while Topic remains course-content prose. A bold Topic with an empty Due
-cell is a major schedule milestone; the renderer spans it across the Topic and Due columns in the
-website, PDF, and DOCX.
+A five-column schedule may use `Week | Date | Topic | Quiz | Due this date`. The Quiz cells carry
+the numbered coverage cue while Topic remains course-content prose. A bold Topic with an empty Quiz
+cell is a major schedule milestone; the renderer spans it across the Topic and Quiz columns while
+keeping Due this date independent in the website, PDF, and DOCX.
 
 ## Shared fragments
 

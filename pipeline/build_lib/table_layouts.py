@@ -22,6 +22,7 @@ MAXIMUM_COLUMN_DEMAND = 44
 MAXIMUM_WORD_DEMAND = 24
 HEADER_WRAP_FACTOR = 6
 BODY_WRAP_FACTOR = 12
+COMPACT_WRAP_FACTOR = 3
 CELL_HORIZONTAL_ALLOWANCE = 3
 COMPACT_CELL_HORIZONTAL_ALLOWANCE = 2
 COMPACT_COLUMN_TEXT_LIMIT = 12
@@ -117,7 +118,7 @@ def classify_table_headers(headers: tuple[str, ...]) -> str:
 		return "point-plan"
 	if len(headers) == 4 and headers[:3] == ("Week", "Date", "Topic"):
 		return "schedule"
-	if len(headers) == 5 and headers[:4] == ("Week", "Date", "Quiz", "Topic"):
+	if len(headers) == 5 and headers[:4] == ("Week", "Date", "Topic", "Quiz"):
 		return "schedule"
 	if headers == ("Date", "Event", "Type"):
 		return "important-dates"
@@ -196,15 +197,26 @@ def calculate_table_layout(
 			raise ValueError(
 				f"{profile}: expected {len(headers)} columns, found {len(row)}"
 			)
+	compact_columns = compact_table_columns(headers, body_rows)
 	demands = []
 	for column_index, header in enumerate(headers):
-		column_demand = text_width_demand(header, HEADER_WRAP_FACTOR)
-		for row in body_rows:
-			cell_demand = text_width_demand(row[column_index], BODY_WRAP_FACTOR)
-			column_demand = max(column_demand, cell_demand)
+		visible_values = [header]
+		visible_values.extend(row[column_index] for row in body_rows)
+		if compact_columns[column_index]:
+			# Compact identifiers need much less wrap reserve than prose. Keeping their
+			# longest unbreakable segment still lets an exceptional weekday wrap without
+			# making every ordinary date column equally wide.
+			column_demand = max(
+				text_width_demand(value, COMPACT_WRAP_FACTOR)
+				for value in visible_values
+			)
+		else:
+			column_demand = text_width_demand(header, HEADER_WRAP_FACTOR)
+			for row in body_rows:
+				cell_demand = text_width_demand(row[column_index], BODY_WRAP_FACTOR)
+				column_demand = max(column_demand, cell_demand)
 		demands.append(column_demand)
 	column_demands = tuple(demands)
-	compact_columns = compact_table_columns(headers, body_rows)
 	column_width_demands = tuple(
 		demand + (
 			COMPACT_CELL_HORIZONTAL_ALLOWANCE
@@ -294,20 +306,20 @@ def merge_schedule_exam_cells(
 	table: xml.etree.ElementTree.Element,
 	headers: tuple[str, ...],
 ) -> None:
-	"""Span a prominent exam milestone across the Topic and Due columns."""
-	if len(headers) != 5 or headers[2:4] != ("Quiz", "Topic"):
+	"""Span a prominent exam milestone across the Topic and Quiz columns."""
+	if len(headers) != 5 or headers[2:4] != ("Topic", "Quiz"):
 		return None
 	for row in table.findall("./tbody/tr"):
 		cells = row.findall("td")
 		if len(cells) != len(headers):
 			continue
-		topic_cell = cells[3]
-		due_cell = cells[4]
-		if topic_cell.find("strong") is None or normalize_cell_text(due_cell):
+		topic_cell = cells[2]
+		quiz_cell = cells[3]
+		if topic_cell.find("strong") is None or normalize_cell_text(quiz_cell):
 			continue
 		topic_cell.set("class", "schedule-exam-cell")
 		topic_cell.set("colspan", "2")
-		row.remove(due_cell)
+		row.remove(quiz_cell)
 	return None
 
 

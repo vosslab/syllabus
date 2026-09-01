@@ -5,23 +5,24 @@ The **Quiz** column identifies which topics belong to each quiz. The matching nu
 identify the work due on that date; for example, Assignment 2 covers Week 2 material and is due in
 Week 3.
 
-| Week | Date | Quiz | Topic | Due this date |
-| ---: | --- | :---: | --- | --- |
-| 1 | Tue, Sep 1 | <span class="schedule-quiz-key schedule-quiz-key--1">1</span> | Course introduction and genetic disorders | Course orientation |
-| 2 | Tue, Sep 8 | <span class="schedule-quiz-key schedule-quiz-key--1">1</span> | Genes, genetics, genomes, and DNA structure | - |
-| 3 | Tue, Sep 15 | <span class="schedule-quiz-key schedule-quiz-key--2">2</span> | DNA profiling and genotyping | <span class="schedule-quiz-key schedule-quiz-key--1">Quiz 1</span>; Assignments 1 and 2 |
-| 4 | Tue, Sep 22 | <span class="schedule-quiz-key schedule-quiz-key--2">2</span> | Mendelian principles and Punnett analysis | Assignment 3 |
-| 5 | Tue, Sep 29 | <span class="schedule-quiz-key schedule-quiz-key--3">3</span> | Gene interactions, probability, and pedigrees | <span class="schedule-quiz-key schedule-quiz-key--2">Quiz 2</span>; Assignment 4A |
-| 6 | Tue, Oct 6 | <span class="schedule-quiz-key schedule-quiz-key--3">3</span> | Meiosis, Morgan genetics, and X-linked genes | Assignments 4B and 5 |
-| 7 | Tue, Oct 13 | - | Progeny probability and chi-square analysis | <span class="schedule-quiz-key schedule-quiz-key--3">Quiz 3</span>; Assignment 6 |
-| 8 | Tue, Oct 20 | - | **MID-TERM EXAM** | |
-| 9 | Tue, Oct 27 | <span class="schedule-quiz-key schedule-quiz-key--4">4</span> | Linked genes and genetic mapping | Assignment 7 |
-| 10 | Tue, Nov 3 | <span class="schedule-quiz-key schedule-quiz-key--4">4</span> | Tetrad analysis | - |
-| 11 | Tue, Nov 10 | <span class="schedule-quiz-key schedule-quiz-key--4">4</span> | Chromosome abnormalities, part 1 | Assignments 8 and 9 |
-| 12 | Tue, Nov 17 | <span class="schedule-quiz-key schedule-quiz-key--5">5</span> | Chromosome abnormalities, part 2 | <span class="schedule-quiz-key schedule-quiz-key--4">Quiz 4</span>; Assignments 10 and 11 |
-| - | Tue, Nov 24 | - | Thanksgiving week; no class | - |
-| 13 | Tue, Dec 1 | <span class="schedule-quiz-key schedule-quiz-key--5">5</span> | Gene trees and population genetics | - |
-| 14 | Tue, Dec 8 | - | Evolution and population genetics | <span class="schedule-quiz-key schedule-quiz-key--5">Quiz 5</span>; Assignment 12 |
-| 15 | Tue, Dec 15 | - | **CUMULATIVE FINAL EXAM**; Assignment 13 | |
+| Week | Date | Topic | Quiz | Due this date |
+| ---: | --- | --- | :---: | --- |
+| 1 | Sep 1 | Course introduction and genetic disorders | <span class="schedule-quiz-key schedule-quiz-key--1">1</span> | Course orientation |
+| 2 | Sep 8 | Genes, genetics, genomes, and DNA structure | <span class="schedule-quiz-key schedule-quiz-key--1">1</span> | - |
+| 3 | Sep 15 | DNA profiling and genotyping | <span class="schedule-quiz-key schedule-quiz-key--2">2</span> | <span class="schedule-quiz-key schedule-quiz-key--1">Quiz 1</span>; Assignments 1 and 2 |
+| 4 | Sep 22 | Mendelian principles and Punnett analysis | <span class="schedule-quiz-key schedule-quiz-key--2">2</span> | Assignment 3 |
+| 5 | Sep 29 | Gene interactions, probability, and pedigrees | <span class="schedule-quiz-key schedule-quiz-key--3">3</span> | <span class="schedule-quiz-key schedule-quiz-key--2">Quiz 2</span>; Assignment 4A |
+| 6 | Oct 6 | Meiosis, Morgan genetics, and X-linked genes | <span class="schedule-quiz-key schedule-quiz-key--3">3</span> | Assignments 4B and 5 |
+| 7 | Oct 13 | Progeny probability and chi-square analysis | - | <span class="schedule-quiz-key schedule-quiz-key--3">Quiz 3</span>; Assignment 6 |
+| 8 | Oct 20 | **MID-TERM EXAM** | | - |
+| 9 | Oct 27 | Linked genes and genetic mapping | <span class="schedule-quiz-key schedule-quiz-key--4">4</span> | Assignment 7 |
+| - | Fri, Oct 30 | Last day to drop the class for a "W" grade | - | - |
+| 10 | Nov 3 | Tetrad analysis | <span class="schedule-quiz-key schedule-quiz-key--4">4</span> | - |
+| 11 | Nov 10 | Chromosome abnormalities, part 1 | <span class="schedule-quiz-key schedule-quiz-key--4">4</span> | Assignments 8 and 9 |
+| 12 | Nov 17 | Chromosome abnormalities, part 2 | <span class="schedule-quiz-key schedule-quiz-key--5">5</span> | <span class="schedule-quiz-key schedule-quiz-key--4">Quiz 4</span>; Assignments 10 and 11 |
+| - | Tue, Nov 24 | Thanksgiving week; no class | - | - |
+| 13 | Dec 1 | Gene trees and population genetics | <span class="schedule-quiz-key schedule-quiz-key--5">5</span> | - |
+| 14 | Dec 8 | Evolution and population genetics | - | <span class="schedule-quiz-key schedule-quiz-key--5">Quiz 5</span>; Assignment 12 |
+| 15 | Dec 15 | **CUMULATIVE FINAL EXAM** | | Assignment 13 |
 
 --8<-- "fall_2026/shared/fragments/SYLLABUS_CHANGE_NOTICE.md"

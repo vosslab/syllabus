@@ -173,28 +173,30 @@ def test_normalize_admonitions_for_docx() -> None:
 
 
 #============================================
-def test_docx_schedule_exam_spans_topic_and_due_columns(tmp_path: pathlib.Path) -> None:
+def test_docx_schedule_exam_spans_topic_and_quiz_columns(tmp_path: pathlib.Path) -> None:
 	"""Word keeps the same prominent two-column exam milestone as HTML and PDF."""
 	document = docx.Document()
 	table = document.add_table(rows=2, cols=5)
-	headers = ("Week", "Date", "Quiz", "Topic", "Due this date")
+	headers = ("Week", "Date", "Topic", "Quiz", "Due this date")
 	for cell, value in zip(table.rows[0].cells, headers, strict=True):
 		cell.text = value
-	exam_values = ("8", "Tue, Oct 20", "-", "", "")
+	exam_values = ("8", "Oct 20", "", "", "Assignment 13")
 	for cell, value in zip(table.rows[1].cells, exam_values, strict=True):
 		cell.text = value
-	exam_run = table.rows[1].cells[3].paragraphs[0].add_run("MID-TERM EXAM")
+	exam_run = table.rows[1].cells[2].paragraphs[0].add_run("MID-TERM EXAM")
 	exam_run.bold = True
 	build_lib.syllabus_rendering.merge_docx_schedule_exam_cells(table, headers)
 	docx_path = tmp_path / "schedule_exam.docx"
 	document.save(docx_path)
-	rendered_cell = docx.Document(docx_path).tables[0].rows[1].cells[3]
+	rendered_table = docx.Document(docx_path).tables[0]
+	rendered_cell = rendered_table.rows[1].cells[2]
 	grid_span = rendered_cell._tc.tcPr.find(docx.oxml.ns.qn("w:gridSpan"))
 	observed = (
 		grid_span.get(docx.oxml.ns.qn("w:val")),
 		rendered_cell.text,
+		rendered_table.rows[1].cells[4].text,
 	)
-	assert observed == ("2", "MID-TERM EXAM")
+	assert observed == ("2", "MID-TERM EXAM", "Assignment 13")
 
 
 def test_remove_heading_sections_omits_web_only_policy_routes() -> None:

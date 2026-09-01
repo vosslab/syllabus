@@ -104,21 +104,21 @@ def configure_docx_table_widths(
 
 
 def merge_docx_schedule_exam_cells(table: object, headers: tuple[str, ...]) -> None:
-	"""Span bold exam milestones across the Topic and Due columns in Word."""
-	if len(headers) != 5 or headers[2:4] != ("Quiz", "Topic"):
+	"""Span bold exam milestones across the Topic and Quiz columns in Word."""
+	if len(headers) != 5 or headers[2:4] != ("Topic", "Quiz"):
 		return None
 	for row in table.rows[1:]:
-		topic_cell = row.cells[3]
-		due_cell = row.cells[4]
+		topic_cell = row.cells[2]
+		quiz_cell = row.cells[3]
 		has_bold_milestone = any(
 			run.bold and run.text.strip()
 			for paragraph in topic_cell.paragraphs
 			for run in paragraph.runs
 		)
-		if not has_bold_milestone or due_cell.text.strip():
+		if not has_bold_milestone or quiz_cell.text.strip():
 			continue
-		due_cell.text = ""
-		merged_cell = topic_cell.merge(due_cell)
+		quiz_cell.text = ""
+		merged_cell = topic_cell.merge(quiz_cell)
 		trailing_paragraph = merged_cell.paragraphs[-1]
 		if not trailing_paragraph.text:
 			trailing_paragraph._element.getparent().remove(trailing_paragraph._element)

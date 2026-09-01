@@ -79,11 +79,12 @@
   have already paid enough in tuition and should not have to purchase additional course materials.
   Replaced the emphatic required-textbook framing with a neutral Textbook and technology heading
   while keeping the free online OER clearly identified as the book used in the course.
-- Rebalanced the Genetics schedule around course content. Moved quiz coverage into a compact,
-  numbered Quiz column; replaced the filler synthesis labels with prominent MID-TERM EXAM and
-  CUMULATIVE FINAL EXAM milestones spanning the Topic and Due columns; and narrowed Week and Date
-  from 11% and 20% to 8% and 15%. The schedule width model now keeps short identifier columns near
-  their intrinsic size and gives the remaining line length to topic prose.
+- Rebalanced the Genetics schedule around course content. Moved quiz coverage after Topic in a
+  compact, numbered Quiz column; replaced the filler synthesis labels with prominent MID-TERM EXAM
+  and CUMULATIVE FINAL EXAM milestones spanning Topic and Quiz while leaving Due this date
+  independent; shortened ordinary Tuesday dates; and added the Friday withdrawal deadline. The
+  schedule width model now gives compact identifiers a small wrap-aware reserve and gives the
+  recovered line length to topic and due-date prose.
 - Selected complete-document manifests directly from the one canonical `site_docs/fall_2026/`
   source tree instead of scanning all public content and rejecting possible parallel directories.
   Removed the redundant template-content failure gate and its pytest.
@@ -195,6 +196,10 @@
   current public evidence, and regenerated department checklists. Added resolved counts, mapped
   open actions to checklist IDs, and clarified the existing course-orientation and dated
   Biostatistics-placeholder boundaries without treating them as completed requirements.
+- Reorganized the Fall 2026 syllabus readiness audit around a course-level status summary and a
+  short open-action list. Confirmed BIOL 480 and BIOL 351/451 as complete with 53 of 53 rubric
+  items resolved, using their course-specific Biology Problems links as assignment-format
+  evidence, while keeping BIOL 318/418's two required instructor decisions prominent.
 - Corrected the table-layout renderer so inline HTML styling hooks are reduced to their visible
   text before calculating column demand. The built site and `tools/calculate_table_widths.py` now
   measure the same content instead of allowing hidden placeholder text to widen styled cells.
