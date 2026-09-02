@@ -16,44 +16,8 @@ function updateScrollableTables() {
 	});
 }
 
-function getExternalLinkDescriptionId() {
-	const descriptionId = "external-link-new-tab-description";
-	if (document.getElementById(descriptionId)) {
-		return descriptionId;
-	}
-	// ASVS 3.7.3: announce off-site navigation before the link is activated.
-	const description = document.createElement("span");
-	description.id = descriptionId;
-	description.classList.add("md-visually-hidden");
-	description.textContent = "Opens in a new tab.";
-	document.body.append(description);
-	return descriptionId;
-}
-
-function updateExternalLinks() {
-	const links = document.querySelectorAll("a[href]");
-	let descriptionId = "";
-	links.forEach((link) => {
-		const isWebLink = link.protocol === "http:" || link.protocol === "https:";
-		if (!isWebLink || link.origin === window.location.origin) {
-			return;
-		}
-		link.target = "_blank";
-		link.relList.add("noopener");
-		if (!descriptionId) {
-			descriptionId = getExternalLinkDescriptionId();
-		}
-		const describedBy = new Set(
-			(link.getAttribute("aria-describedby") || "").split(/\s+/).filter(Boolean),
-		);
-		describedBy.add(descriptionId);
-		link.setAttribute("aria-describedby", [...describedBy].join(" "));
-	});
-}
-
 function initializeAccessibilityEnhancements() {
 	updateScrollableTables();
-	updateExternalLinks();
 }
 
 if (document.readyState === "loading") {

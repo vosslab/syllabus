@@ -166,6 +166,8 @@ history. Those belong in the appropriate technical documentation or changelog.
 - Provide a student-accessible light and dark theme toggle.
 - Open off-site web links in a new browser tab so the syllabus remains available while I review
   linked material in class. I have not yet decided whether internal links should do the same.
+- Keep external-link symbols in syllabus content, but omit them from the footer because the social
+  media icons already make those destinations clear.
 - Explain the Atkinson Hyperlegible Next choice in the student-facing syllabus and link to an
   English source about the font's accessibility purpose.
 - Avoid CSS specificity arms races. Keep style ownership and the cascade easy to understand.

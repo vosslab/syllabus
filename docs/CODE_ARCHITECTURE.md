@@ -124,6 +124,8 @@ and two narrow Pandoc adapters own the implementation:
 - `pipeline/build_lib/table_layouts.py` classifies the closed set of syllabus tables and calculates
   wrap-aware column demand from every visible cell. It emits HTML column hints and supplies the
   same percentages to DOCX post-processing.
+- `pipeline/build_lib/external_links.py` adds static, safe, accessible new-tab behavior to off-site
+  links in the MkDocs website branch.
 - `pipeline/pandoc_filters/docx_image_layout.lua` maps an image's validated, portable
   `data-document-width` metadata to Pandoc's native DOCX width without inspecting surrounding
   content.
@@ -140,10 +142,13 @@ colors and expand authorized fragments, applies the Material theme, repository o
 CSS and JavaScript, and copies downloads and assets into `site/`. `mkdocs.yml` owns navigation,
 hook registration, theme configuration, social links, and the public site URL.
 
-The shared accessibility JavaScript keeps same-origin navigation, anchors, downloads, and
-non-web handlers unchanged. It opens off-site HTTP and HTTPS links in a new browser tab, preserves
-the syllabus tab with `noopener`, and adds a visually hidden new-tab announcement to each external
-link's accessible description.
+The MkDocs hook injects a website-only Markdown tree processor configured from the canonical
+`site_url`. During static page generation, it leaves site navigation, anchors, downloads, and
+non-web handlers unchanged while adding `target="_blank"`, `rel="noopener"`, and a shared visually
+hidden new-tab description to off-site HTTP and HTTPS content links. Material theme partial
+overrides add the same static disclosure to theme-generated footer links. The published HTML
+therefore owns the behavior without depending on browser JavaScript. The PDF and DOCX branches do
+not load this website-only processor.
 
 The registered table-layout Markdown extension examines all header and body cells before emitting
 a `colgroup`, content-derived minimum width, and semantic profile hook. CSS consumes those values;

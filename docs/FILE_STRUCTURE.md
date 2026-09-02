@@ -33,7 +33,7 @@ site_docs/
 |-- assets/
 |   |-- fonts/                       Self-hosted text/icon fonts and licenses
 |   |-- images/                      Protein logo and light/dark instructor portraits
-|   |-- javascripts/accessibility.js Accessible table and external-link behavior
+|   |-- javascripts/accessibility.js Accessible table behavior
 |   `-- stylesheets/                 Website and PDF presentation
 |-- fall_2026/
 |   |-- index.md                     Active-term overview
@@ -62,6 +62,16 @@ The shared `INSTRUCTOR_INFORMATION.md` is linked from every course landing page 
 each course manifest; instructor facts remain in its include-only fragments rather than in course
 directories.
 
+## Website template overrides
+
+```text
+overrides/
+|-- main.html                    Course-specific color metadata
+`-- partials/
+    |-- copyright.html           Static footer new-tab description
+    `-- social.html              Social links using the footer description
+```
+
 ## Pipeline files
 
 ```text
@@ -71,7 +81,7 @@ pipeline/
 |-- build_site.py                       Production build front door
 |-- build_syllabi.py                    Complete DOCX and PDF entry point
 |-- check_links.py                      Live external-link audit with source locations
-|-- mkdocs_hooks.py                     Website metadata/include adapter loaded by MkDocs
+|-- mkdocs_hooks.py                     Website metadata, include, and link adapter loaded by MkDocs
 |-- sync_important_dates.py             Google Sheets fragment importer
 |-- create_syllabus_reference_docx.py   Intentional DOCX style-asset generator
 |-- syllabus_reference.docx             Tracked Pandoc reference document
@@ -80,6 +90,7 @@ pipeline/
 |   |-- docx_image_layout.lua            Portable image metadata to native DOCX sizing
 |   `-- docx_line_breaks.lua             Documented HTML breaks to native DOCX breaks
 `-- build_lib/
+    |-- external_links.py                Static website external-link attributes
     |-- markdown_includes.py             Shared include grammar and expansion engine
     |-- syllabus_content.py              Source validation and Markdown composition
     |-- syllabus_model.py                Manifest model, loading, and path validation

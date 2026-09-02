@@ -755,6 +755,12 @@
 	content: "\f19c";
 }
 
+.md-footer a[href^="http://"]::after,
+.md-footer a[href^="https://"]::after {
+	content: none;
+	display: none;
+}
+
 .syllabus-downloads ul {
 	display: flex;
 	flex-wrap: wrap;

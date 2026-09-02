@@ -5,9 +5,29 @@ import pathlib
 import collections.abc
 
 # local repo modules
+import build_lib.external_links
 import build_lib.syllabus_model
 import build_lib.syllabus_content
 import build_lib.markdown_includes
+
+
+#============================================
+def on_config(config: dict[str, object]) -> dict[str, object]:
+	"""Add website-only link behavior using the canonical MkDocs site URL."""
+	site_url = config["site_url"]
+	markdown_extensions = config["markdown_extensions"]
+	if not isinstance(site_url, str):
+		raise ValueError("MkDocs site_url must be a string")
+	if not isinstance(markdown_extensions, list):
+		raise ValueError("MkDocs markdown_extensions must be a list")
+	if not any(
+		isinstance(extension, build_lib.external_links.ExternalLinksExtension)
+		for extension in markdown_extensions
+	):
+		markdown_extensions.append(
+			build_lib.external_links.ExternalLinksExtension(site_url)
+		)
+	return config
 
 
 #============================================

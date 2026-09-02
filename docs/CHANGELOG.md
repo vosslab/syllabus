@@ -1,3 +1,29 @@
+## 2026-09-02
+
+### Behavior or Interface Changes
+
+- Removed redundant external-link glyphs from footer links because the social-media icons already
+  communicate their destinations. External-link symbols remain beside syllabus-content links, and
+  the footer links retain their static new-tab, safe-opener, title, and accessible-description
+  behavior.
+
+### Fixes and Maintenance
+
+- Moved off-site new-tab behavior from runtime JavaScript into a website-only Markdown tree
+  processor installed by the MkDocs hook. Published pages now contain the target, safe opener, and
+  accessible-description attributes directly, so the behavior remains available when browser
+  JavaScript is disabled. Material partial overrides provide the same static description for
+  theme-generated footer links. The processor uses the canonical MkDocs `site_url` host and path
+  to keep absolute syllabus routes in the current tab across HTTP and HTTPS, and stays out of the
+  PDF/DOCX rendering branch.
+
+### Developer Tests and Notes
+
+- Final `./all_test.sh` passed all 1,339 fast tests, the live-date export, strict PDF/DOCX and site
+  builds, include parity, and the route-wide Playwright behavior, responsive, light/dark, and axe
+  accessibility audit. Raw generated HTML inspection independently confirmed the static external
+  attributes and unchanged absolute internal syllabus link before browser JavaScript ran.
+
 ## 2026-09-01
 
 ### Behavior or Interface Changes

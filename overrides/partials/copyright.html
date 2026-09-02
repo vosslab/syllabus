@@ -1,0 +1,22 @@
+{# Add a static accessible description to the theme-generated external link. #}
+<div class="md-copyright">
+  {% if config.copyright %}
+    <div class="md-copyright__highlight">
+      {{ config.copyright }}
+    </div>
+  {% endif %}
+  {% if not config.extra.generator == false %}
+    Made with
+    <a
+      href="https://squidfunk.github.io/mkdocs-material/"
+      target="_blank"
+      rel="noopener"
+      aria-describedby="footer-external-link-new-tab-description"
+    >
+      Material for MkDocs
+    </a>
+  {% endif %}
+  <span id="footer-external-link-new-tab-description" class="md-visually-hidden">
+    Opens in a new tab.
+  </span>
+</div>

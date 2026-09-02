@@ -10,8 +10,8 @@
 //   site_docs/fall_2026/*/index.md course landing pages.
 // - Typography, course-contents cards, and focus-visible behavior come from
 //   site_docs/assets/stylesheets/site.css.
-// - Off-site link behavior and accessible new-tab announcements come from
-//   site_docs/assets/javascripts/accessibility.js.
+// - Static off-site link behavior and accessible new-tab announcements come from
+//   pipeline/build_lib/external_links.py through pipeline/mkdocs_hooks.py.
 // - System-aware palette toggles come from mkdocs.yml:18; dark color roles come from
 //   site_docs/assets/stylesheets/site.css:55.
 // - Course-header metadata comes from each course .meta.yml, overrides/main.html:5, and
@@ -98,6 +98,7 @@ const DARK_GREEN_SURFACE = "rgb(30, 41, 35)";
 const ROOSEVELT_GREEN = "rgb(115, 193, 103)";
 const ROOSEVELT_LINK_GREEN = "rgb(0, 120, 73)";
 const WHITE = "rgb(255, 255, 255)";
+const PUBLIC_SITE_URL = "https://vosslab.github.io/syllabus/";
 
 async function getCourseTypography(page) {
 	return page.evaluate(async () => {
@@ -147,24 +148,37 @@ function checkCourseTypography(typography, viewportName) {
 }
 
 async function checkExternalLinkBehavior(page, siteOrigin, route) {
-	const linkState = await page.evaluate((origin) => {
-		const descriptionId = "external-link-new-tab-description";
-		const description = document.getElementById(descriptionId);
+	const linkState = await page.evaluate(({ localOrigin, publicSiteUrl }) => {
+		const publicSite = new URL(publicSiteUrl);
+		const publicSitePath = publicSite.pathname.replace(/\/$/, "");
 		const externalLinks = [...document.querySelectorAll("a[href]")].filter((link) => {
 			const isWebLink = link.protocol === "http:" || link.protocol === "https:";
-			return isWebLink && link.origin !== origin;
+			if (!isWebLink || link.origin === localOrigin) {
+				return false;
+			}
+			const isWithinPublicSite =
+				link.hostname === publicSite.hostname &&
+				link.port === publicSite.port &&
+				(link.pathname === publicSitePath ||
+					link.pathname.startsWith(`${publicSitePath}/`));
+			return !isWithinPublicSite;
 		});
 		const violations = externalLinks.flatMap((link) => {
 			const describedBy = new Set(
 				(link.getAttribute("aria-describedby") || "").split(/\s+/).filter(Boolean),
 			);
 			const relTokens = new Set(link.rel.split(/\s+/).filter(Boolean));
+			const hasNewTabDescription = [...describedBy].some((descriptionId) => {
+				const description = document.getElementById(descriptionId);
+				return (
+					description?.classList.contains("md-visually-hidden") &&
+					description.textContent.trim() === "Opens in a new tab."
+				);
+			});
 			if (
 				link.target === "_blank" &&
 				relTokens.has("noopener") &&
-				describedBy.has(descriptionId) &&
-				description?.classList.contains("md-visually-hidden") &&
-				description.textContent === "Opens in a new tab."
+				hasNewTabDescription
 			) {
 				return [];
 			}
@@ -176,7 +190,7 @@ async function checkExternalLinkBehavior(page, siteOrigin, route) {
 			}];
 		});
 		return { count: externalLinks.length, violations };
-	}, siteOrigin);
+	}, { localOrigin: siteOrigin, publicSiteUrl: PUBLIC_SITE_URL });
 	assert.ok(linkState.count > 0, `${route} has no external links to exercise`);
 	assert.deepEqual(
 		linkState.violations,
@@ -451,6 +465,18 @@ try {
 	assert.match(faviconResponse.headers()["content-type"], /^image\/svg\+xml/);
 	const homeMain = homePage.getByRole("article");
 	await checkCompleteSyllabusDownloads(homePage, siteOrigin, siteRoot);
+	const blackboardLink = homeMain.getByRole("link", {
+		name: "Roosevelt Blackboard",
+	});
+	const articleExternalIcon = await blackboardLink.evaluate((element) => {
+		return getComputedStyle(element, "::after").content;
+	});
+	assert.notEqual(articleExternalIcon, "none");
+	const footerSocialLink = homePage.locator(".md-footer .md-social__link").first();
+	const footerExternalIcon = await footerSocialLink.evaluate((element) => {
+		return getComputedStyle(element, "::after").content;
+	});
+	assert.equal(footerExternalIcon, "none");
 	const currentCourses = [
 		{
 			name: "BIOL 318 and BIOL 418 - Biostatistics",
