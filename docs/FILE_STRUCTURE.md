@@ -33,7 +33,7 @@ site_docs/
 |-- assets/
 |   |-- fonts/                       Self-hosted text/icon fonts and licenses
 |   |-- images/                      Protein logo and light/dark instructor portraits
-|   |-- javascripts/accessibility.js Accessible table behavior
+|   |-- javascripts/accessibility.js Accessible table and external-link behavior
 |   `-- stylesheets/                 Website and PDF presentation
 |-- fall_2026/
 |   |-- index.md                     Active-term overview

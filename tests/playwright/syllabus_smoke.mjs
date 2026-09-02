@@ -10,6 +10,8 @@
 //   site_docs/fall_2026/*/index.md course landing pages.
 // - Typography, course-contents cards, and focus-visible behavior come from
 //   site_docs/assets/stylesheets/site.css.
+// - Off-site link behavior and accessible new-tab announcements come from
+//   site_docs/assets/javascripts/accessibility.js.
 // - System-aware palette toggles come from mkdocs.yml:18; dark color roles come from
 //   site_docs/assets/stylesheets/site.css:55.
 // - Course-header metadata comes from each course .meta.yml, overrides/main.html:5, and
@@ -141,6 +143,45 @@ function checkCourseTypography(typography, viewportName) {
 	assert.ok(
 		typography.table >= typography.body,
 		`${viewportName} table text ${typography.table}px is smaller than course text ${typography.body}px`,
+	);
+}
+
+async function checkExternalLinkBehavior(page, siteOrigin, route) {
+	const linkState = await page.evaluate((origin) => {
+		const descriptionId = "external-link-new-tab-description";
+		const description = document.getElementById(descriptionId);
+		const externalLinks = [...document.querySelectorAll("a[href]")].filter((link) => {
+			const isWebLink = link.protocol === "http:" || link.protocol === "https:";
+			return isWebLink && link.origin !== origin;
+		});
+		const violations = externalLinks.flatMap((link) => {
+			const describedBy = new Set(
+				(link.getAttribute("aria-describedby") || "").split(/\s+/).filter(Boolean),
+			);
+			const relTokens = new Set(link.rel.split(/\s+/).filter(Boolean));
+			if (
+				link.target === "_blank" &&
+				relTokens.has("noopener") &&
+				describedBy.has(descriptionId) &&
+				description?.classList.contains("md-visually-hidden") &&
+				description.textContent === "Opens in a new tab."
+			) {
+				return [];
+			}
+			return [{
+				href: link.href,
+				ariaDescribedBy: link.getAttribute("aria-describedby"),
+				rel: link.rel,
+				target: link.target,
+			}];
+		});
+		return { count: externalLinks.length, violations };
+	}, siteOrigin);
+	assert.ok(linkState.count > 0, `${route} has no external links to exercise`);
+	assert.deepEqual(
+		linkState.violations,
+		[],
+		`${route} has external links without safe, accessible new-tab behavior`,
 	);
 }
 
@@ -321,6 +362,7 @@ try {
 					`${route} raised browser errors: ${pageErrors.join("; ")}`,
 				);
 				await page.locator("main h1").waitFor({ state: "visible" });
+				await checkExternalLinkBehavior(page, siteOrigin, route);
 				assert.equal(
 					await page.locator("body").getAttribute("data-md-color-scheme"),
 					colorScheme.materialScheme,

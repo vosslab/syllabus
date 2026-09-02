@@ -140,6 +140,11 @@ colors and expand authorized fragments, applies the Material theme, repository o
 CSS and JavaScript, and copies downloads and assets into `site/`. `mkdocs.yml` owns navigation,
 hook registration, theme configuration, social links, and the public site URL.
 
+The shared accessibility JavaScript keeps same-origin navigation, anchors, downloads, and
+non-web handlers unchanged. It opens off-site HTTP and HTTPS links in a new browser tab, preserves
+the syllabus tab with `noopener`, and adds a visually hidden new-tab announcement to each external
+link's accessible description.
+
 The registered table-layout Markdown extension examines all header and body cells before emitting
 a `colgroup`, content-derived minimum width, and semantic profile hook. CSS consumes those values;
 it does not own per-table or per-profile column percentages. Compact tables use their calculated

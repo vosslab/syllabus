@@ -1,3 +1,19 @@
+## 2026-09-01
+
+### Behavior or Interface Changes
+
+- Changed every off-site HTTP or HTTPS website link to open in a new browser tab so linked
+  resources do not replace the syllabus during class review. Same-origin navigation, page anchors,
+  generated downloads, and email or telephone handlers retain their existing behavior. External
+  links preserve safe opener isolation and share a screen-reader description announcing the new
+  tab before activation.
+
+### Developer Tests and Notes
+
+- Final `./all_test.sh` passed all 1,335 fast tests, the live-date export, strict PDF/DOCX and site
+  builds, include parity, and the route-wide Playwright behavior, responsive, light/dark, and axe
+  accessibility audit after adding the external-link contract.
+
 ## 2026-08-31
 
 ### Additions and New Features
