@@ -422,7 +422,7 @@ def run_pandoc_docx(
 	command = [
 		"pandoc",
 		str(markdown_path),
-		"--from=markdown+pipe_tables",
+		"--from=markdown+pipe_tables-implicit_figures",
 		"--to=docx",
 		f"--resource-path={manifest.path.parent}",
 		f"--reference-doc={reference_path}",

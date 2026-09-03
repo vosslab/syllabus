@@ -24,6 +24,8 @@ AI tools are amazing. In the hands of an expert, they can increase your ability 
 information, solve problems, and explain scientific ideas. But you are not yet an expert. You are in
 this class to build that expertise, and AI can make that harder if you rely on it too much.[1]
 
+![Students watch an AI-assisted forklift lift a loaded barbell.](../../../assets/images/ai_forklift.png){ .ai-forklift data-document-width=6.5in }
+
 Would you take a forklift to the gym and use it to lift the weights? The forklift can move the
 weights, but that is not the purpose of going to the gym. The purpose is to build your own strength.
 
@@ -63,5 +65,3 @@ Students enrolled in the university are expected to conduct themselves in a mann
 [Roosevelt University complaint and conflict resolution](https://www.roosevelt.edu/current-students/support-services/complaint/conflict-resolution)
 
 Using music devices either in the classroom or in the laboratory is not permitted. Reading materials other than assigned for teaching are not allowed. No children allowed in the classroom. Cellular phones must be set either to the silent/vibration mode or turned off completely before coming into the classroom. Eating or drinking in classrooms is discouraged, but allowed if you do not create a disturbance. Do not bring loud food packaging to class as they will be disruptive. Examples of unacceptable items include, anything that has condiments, fried chicken, french fries, cereal with milk, and salads. Most things from the vending machine are fine. Rude or disruptive behavior will not be tolerated. If you must leave class for any reason, do not distract your classmates. Courtesy and respect are expected of all our students. Any deviation from such an expectation will be a clear violation of the students code of conduct; an act that will neither be tolerated by the instructor nor the department.
-
-

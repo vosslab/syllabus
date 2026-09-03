@@ -275,6 +275,13 @@ blockquote {
 	max-width: 1.55in;
 }
 
+.ai-forklift {
+	display: block;
+	height: auto;
+	margin-inline: auto;
+	max-width: 100%;
+}
+
 #syllabus-content > p {
 	hyphens: manual;
 	text-align: justify;

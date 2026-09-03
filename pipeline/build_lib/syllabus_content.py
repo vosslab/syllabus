@@ -465,6 +465,22 @@ def rewrite_document_links(
 
 
 #============================================
+def rebase_document_urls(
+	markdown_text: str,
+	source_path: pathlib.Path,
+	manifest: build_lib.syllabus_model.SyllabusManifest,
+) -> str:
+	"""Resolve source-relative URLs from the rendered course directory."""
+	rebased = build_lib.markdown_includes.rebase_fragment_links(
+		markdown_text,
+		source_path,
+		manifest.path,
+		manifest.docs_root.resolve(),
+	)
+	return rebased
+
+
+#============================================
 def prepare_section(markdown: str, is_overview: bool, anchor: str) -> str:
 	"""Remove web-only controls and demote headings for the merged document."""
 	without_downloads = re.sub(
@@ -632,6 +648,7 @@ def compose_markdown(manifest: build_lib.syllabus_model.SyllabusManifest) -> str
 		)
 		markdown = apply_assessment_examples_link(markdown, manifest)
 		markdown = rewrite_document_links(markdown, section_path, document_anchors)
+		markdown = rebase_document_urls(markdown, section_path, manifest)
 		anchor = document_anchors[section_path.resolve()]
 		title = get_instructor_page_title(section_path, is_overview=index == 0)
 		contents.append(f"- [{title}](#{anchor})")
@@ -645,6 +662,7 @@ def compose_markdown(manifest: build_lib.syllabus_model.SyllabusManifest) -> str
 			manifest.docs_root,
 		)
 		markdown = rewrite_document_links(markdown, section_path, document_anchors)
+		markdown = rebase_document_urls(markdown, section_path, manifest)
 		is_policy_index = section_path.name == "index.md" and section_path.parent.name == "policies"
 		if is_policy_index:
 			markdown = remove_heading_sections(markdown, ("Policy topics", "Student support"))

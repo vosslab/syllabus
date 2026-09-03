@@ -267,6 +267,42 @@ def test_rewrite_document_links_targets_included_section(tmp_path: pathlib.Path)
 
 
 #============================================
+def test_compose_markdown_rebases_shared_image_for_course_renderer(
+	tmp_path: pathlib.Path,
+) -> None:
+	"""A shared page image resolves from each course document's rendering base."""
+	docs_root = tmp_path / "site_docs"
+	term_path = docs_root / "fall_20xx"
+	course_path = term_path / "course"
+	policy_path = term_path / "shared" / "policies" / "ACADEMIC_INTEGRITY.md"
+	course_path.mkdir(parents=True)
+	policy_path.parent.mkdir(parents=True)
+	index_path = course_path / "index.md"
+	write_section(index_path, "Course title")
+	policy_path.write_text(
+		"# Academic integrity and AI\n\n"
+		"![AI forklift](../../../assets/images/ai_forklift.png)\n",
+		encoding="utf-8",
+	)
+	manifest = build_lib.syllabus_model.SyllabusManifest(
+		path=course_path / "syllabus.yml",
+		docs_root=docs_root,
+		title="Course title",
+		short_name="Course",
+		course_code="BIOL 000",
+		term="Fall 2099",
+		author="Instructor",
+		language="en-US",
+		course_color="#007849",
+		sections=(index_path,),
+		shared_sections=(policy_path,),
+		lab_status="no_lab",
+	)
+	combined = build_lib.syllabus_content.compose_markdown(manifest)
+	assert "![AI forklift](../../assets/images/ai_forklift.png)" in combined
+
+
+#============================================
 def test_compose_markdown_links_to_explicit_instructor_section(tmp_path: pathlib.Path) -> None:
 	"""Policy routes target the instructor page listed explicitly in the manifest."""
 	term_path = tmp_path / "fall_20xx"

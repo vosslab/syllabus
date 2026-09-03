@@ -1,3 +1,24 @@
+## 2026-09-03
+
+### Additions and New Features
+
+- Added the AI-assisted forklift illustration immediately before its analogy in the shared
+  Academic integrity and AI policy, with descriptive alternative text for students using
+  assistive technology. The shared policy keeps the image available in all three Fall 2026 course
+  websites and complete syllabi without duplicating it among courses. Complete-document
+  composition now rebases page-relative resources from each course render directory, and DOCX
+  rendering keeps standalone images out of the syllabus table-layout system.
+
+### Developer Tests and Notes
+
+- The fast suite passed 1,371 checks with the new PNG represented in a temporary Git index; the
+  one remaining failure is the existing Bandit B314 finding in unchanged
+  `tests/test_external_links.py`. Focused composition, Markdown-link, whitespace, pyflakes, and
+  typing checks passed. All three PDF/DOCX syllabi rebuilt without resource warnings, the strict
+  MkDocs build passed, and visual review confirmed that the PDF image is sharp, unclipped, and
+  directly above the forklift paragraph. DOCX XML confirms the descriptive alternative text and
+  6.5-inch image width.
+
 ## 2026-09-02
 
 ### Behavior or Interface Changes
