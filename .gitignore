@@ -8,20 +8,17 @@
 /graphify-out/
 _temp*.?*
 /temp/
+/tests/_temp/
 /OTHER_REPOS/
 /LOCAL_ONLY/
 
-# === LOCAL REPOSITORY RULES === [ADD CUSTOM IGNORES HERE]
+# -------------------- LOCAL REPOSITORY RULES --------------------
+# ADD YOUR CUSTOM IGNORES BELOW
 # Propagation preserves this section.
+# ------------------ END LOCAL REPOSITORY RULES ------------------
 # Template-only ignores.
 /raw/
 /department_checklists/
-# === PYTHON === [PROPAGATED - LOCAL EDITS OVERWRITTEN]
-build/
-dist/
-sdist/
-*.egg
-*.egg-info/
-site/
+/site/
 /site_docs/downloads/
 /site_docs/generated/

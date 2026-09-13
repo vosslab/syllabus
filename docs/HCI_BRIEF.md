@@ -66,7 +66,7 @@ overview and the policy branch has no catch-all FAQ.
 | `INSTRUCTOR_INFORMATION.md` | Instructor information | How and when do I contact the instructor? |
 | `COURSE_DELIVERY.md` | Course format and online tools | Where and how does the course operate? |
 | `ASSESSMENT.md` | Grades and graded work | How are grades, extensions, and gradebook percentages handled? |
-| Course `ASSIGNMENTS_AND_GRADING.md` | Coursework and grades | Which assignments, group quizzes, or exams does this course use? |
+| Course `ASSIGNMENTS_AND_GRADING.md` | Coursework and grades | What do the five assessment types mean, and which detailed formats does this course use? |
 | `DISCUSSION_MARKS.md` | Discussion marks | How is live participation recognized and scored? |
 | `EXTRA_CREDIT.md` | Extra credit write-ups | What can earn extra credit, and how do I submit it? |
 | [site_docs/EXTRA_CREDIT_MOVIES.md](../site_docs/EXTRA_CREDIT_MOVIES.md) | Approved science movies | Which movies may I use for extra credit? |

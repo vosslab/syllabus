@@ -122,9 +122,14 @@ history. Those belong in the appropriate technical documentation or changelog.
   acknowledgment item; do not turn it into a contract or platform-dependent graded activity.
 - Release quiz and exam feedback after all authorized testing arrangements close. BIOL 480 also
   follows its dated project sequence.
-- Assignments, group quizzes, face-to-face exams, and online exams are my four assessment
-  categories. Keep them as separate shared fragments, with each course YAML selecting only the
-  categories used in that course.
+- My five assessment classifications are Regular Assignment, Practice Question Assignment, Bonus
+  Assignment, Quiz, and Exam. List all five in the Assessment types overview for every course;
+  face-to-face and online exams are delivery variants of Exam.
+- Courses with exams use Practice Question Assignments for focused preparation with selected
+  challenging questions from covered material. In general, use the ten hardest questions from the
+  unit as a study guide, worth 0.1 extra-credit point each and 1 point total.
+- Any course with Regular Assignments may also use Bonus Assignments as optional extra-credit work
+  outside the normal assignment sequence.
 - I want each course point plan authored as assessment names and point values in its YAML. Derive
   the total points and approximate shares instead of maintaining table arithmetic in Markdown.
 - I want syllabus assignment pages to state concrete deliverables, expectations, and evaluation

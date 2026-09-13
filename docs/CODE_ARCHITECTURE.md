@@ -55,15 +55,20 @@ Instructor information follows the same edit-once boundary at
 manifest lists it immediately after `COURSE_DETAILS.md`, so course logistics and instructor contact
 details remain separate website pages while both appear once in each complete syllabus.
 
-Each course manifest selects an ordered subset of the four assessment categories Dr. Voss uses:
-assignments, group quizzes, face-to-face exams, and online exams. The model maps that closed
-vocabulary to an ordered set of composite assessment sections. Each section owns one H2 root and
-may attach separately authored H3 topics derived from category presence or absence. The website
-hook and complete-document composer materialize the overview, derived notices for absent quizzes or
-exams, applicable technology-interruption topics, and selected assessment details at the coursework
-marker before calling the shared include engine, so one YAML decision controls all three formats.
-The composition boundary validates the H2/H3 contract before rendering. The same manifest owns the
-validated official Biology Problems subject URL shown inside the selected Assignments section.
+Each course manifest selects an ordered subset of four detailed assessment fragments: assignments,
+group quizzes, face-to-face exams, and online exams. The model maps that closed YAML vocabulary to
+an ordered set of composite assessment sections. The universal overview is a separate student
+glossary that defines all five pedagogical assessment types on every course page: Regular
+Assignment, Practice Question Assignment, Bonus Assignment, Quiz, and Exam. Face-to-face and online
+exams are delivery variants of Exam rather than additional pedagogical types.
+
+Each composite section owns one H2 root and may attach separately authored H3 topics derived from
+category presence or absence. The website hook and complete-document composer materialize the
+overview, derived notices for absent quizzes or exams, applicable technology-interruption topics,
+and selected assessment details at the coursework marker before calling the shared include engine,
+so one YAML decision controls all three formats. The composition boundary validates the H2/H3
+contract before rendering. The same manifest owns the validated official Biology Problems subject
+URL shown inside the selected Regular assignments section.
 
 For courses with confirmed point plans, the same manifest owns an ordered `course_point_plan` of
 assessment labels and possible points. The website and complete-document composer replace one

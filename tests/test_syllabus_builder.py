@@ -584,7 +584,7 @@ def test_assessment_topic_requires_level_three_root(tmp_path: pathlib.Path) -> N
 
 #============================================
 def test_assessment_manifest_rejects_unknown_category(tmp_path: pathlib.Path) -> None:
-	"""The manifest accepts only Dr. Voss's four assessment categories."""
+	"""The manifest rejects assessment categories without an owned fragment."""
 	manifest_path = tmp_path / "fall_20xx" / "course" / "syllabus.yml"
 	manifest_path.parent.mkdir(parents=True)
 	with pytest.raises(ValueError, match="unsupported assessments"):

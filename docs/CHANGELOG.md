@@ -1,3 +1,31 @@
+## 2026-09-13
+
+### Behavior or Interface Changes
+
+- Made the five-type Assessment types glossary universal across every course: Regular Assignment,
+  Practice Question Assignment, Bonus Assignment, Quiz, and Exam. Practice Question Assignments
+  accompany courses with exams, while Bonus Assignments may accompany any course with Regular
+  Assignments. The glossary describes the usual Practice Question pattern as the ten hardest unit
+  questions worth 0.1 extra-credit point each and 1 point total without making that pattern a fixed
+  course-specific rule. Kept the four manifest keys as detail-fragment selections rather than
+  treating the two newly clarified types as Genetics-only classifications. Unlimited retries are
+  stated only for Regular Assignments.
+
+### Fixes and Maintenance
+
+- Synchronized shared style guides, tests, and repository support files from the starter template.
+
+### Developer Tests and Notes
+
+- The focused syllabus-builder, ASCII, whitespace, and human-guidance checks passed all 413 tests.
+  The complete export and include-parity lane rebuilt every PDF and DOCX, built the strict site,
+  and confirmed matching content across formats; the current built site then passed the route-wide
+  Playwright accessibility audit.
+- The fail-fast `./all_test.sh` run passed 1,454 of 1,455 fast tests before stopping on the existing
+  Bandit B314 finding in unchanged `tests/test_external_links.py`. Semantic inspection confirmed
+  all five definitions in every course's HTML and PDF; visual review confirmed that the Genetics
+  Assessment types page remains balanced, unclipped, and readable after the added definition.
+
 ## 2026-09-03
 
 ### Additions and New Features

@@ -82,9 +82,14 @@ screen or in print. A course with `course_point_plan` data must place this marke
 ```
 
 `assessments` is a non-empty ordered list containing one or more of `assignments`,
-`group_quizzes`, `f2f_exams`, and `online_exams`, with no duplicates. These are the only assessment
-categories across Dr. Voss's classes. The model maps them to the four canonical Markdown files under
-`shared/fragments/assessments/`.
+`group_quizzes`, `f2f_exams`, and `online_exams`, with no duplicates. The model maps every key to
+its canonical detailed Markdown file under `shared/fragments/assessments/`.
+
+This four-key detail-fragment vocabulary is separate from the student-facing taxonomy. The shared
+Assessment types overview appears in every course and always defines all five classifications:
+Regular Assignment, Practice Question Assignment, Bonus Assignment, Quiz, and Exam. Courses with
+exams use Practice Question Assignments, and any course with Regular Assignments may also use Bonus
+Assignments. Face-to-face and online exams are delivery variants of Exam.
 
 Each course's `ASSIGNMENTS_AND_GRADING.md` contains one
 `<!-- assessments from syllabus.yml -->` marker. The website, PDF, and DOCX replace it with the
@@ -103,13 +108,15 @@ headings. The website therefore presents each selected assessment as a major pag
 complete-document composition demotes the same hierarchy one level beneath Coursework and grades.
 
 Cross-assessment guidance belongs in a composite section, not inside one selected assessment type.
-`TECHNOLOGY_INTERRUPTION.md` owns the shared H2 introduction. Its assignment topic appears only when
-`assignments` is selected; its timed-assessment topic appears when `group_quizzes` or `online_exams`
-is selected and describes limited-attempt Blackboard work without naming an unused category. The
-availability section derives `No quizzes` and `No exams` topics from categories that are absent.
-Assignment attempts remain timed even though students may retry without a set limit.
+`TECHNOLOGY_INTERRUPTION.md` owns the shared H2 introduction. Its regular-assignment topic appears
+only when `assignments` is selected; its timed-assessment topic appears when `group_quizzes` or
+`online_exams` is selected and describes limited-attempt work without naming an unused category.
+The availability section derives `No quizzes` and `No exams` topics from categories that are
+absent. Regular assignment attempts remain timed even though students may retry without a set
+limit. The overview does not prescribe attempt, timing, availability, or feedback settings for
+Practice Question or Bonus Assignments.
 
-The shared `ASSIGNMENTS.md` fragment contains one
+The shared `ASSIGNMENTS.md` Regular Assignment fragment contains one
 `<!-- assessment examples from syllabus.yml -->` marker. After the selected assessment fragments
 are expanded, the builder replaces it with the manifest's `assessment_examples_url` as the
 course-specific Biology Problems practice link. Keep this marker in the shared Assignments fragment

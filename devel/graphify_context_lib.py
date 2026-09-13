@@ -1,333 +1,153 @@
-#!/usr/bin/env python3
-"""Build or update a Graphify repository map and print concise agent guidance."""
+# This file is vendored. Local changes can and will be overwritten by propagation.
+
+"""Shared loaders and formatters for Graphify manager orientation.
+
+Backs devel/graphify_map_repo.py the way changelog_lib.py backs the changelog
+tools. This module owns every Graphify artifact path, the sidecar loaders and
+their validation, and the deterministic orientation text. The companion script
+owns the command line, the Graphify subprocess lifecycle, and main().
+"""
 
 # Standard Library
-import os
 import re
-import sys
 import json
-import shutil
 import pathlib
-import argparse
 import datetime
-import subprocess
 
 
-CLAUDE_LABEL_MODEL = "sonnet"
-OLLAMA_MODEL = "qwen2.5-coder:7b-instruct"
-GRAPHIFY_PACKAGE = "graphifyy[ollama,sql,terraform]"
-LABEL_BACKEND = "claude-cli"
-OLLAMA_BACKEND = "ollama"
 OUTPUT_DIR_NAME = "graphify-out"
 ANALYSIS_FILE_NAME = ".graphify_analysis.json"
 LABELS_FILE_NAME = ".graphify_labels.json"
 GRAPH_FILE_NAME = "graph.json"
 REPORT_FILE_NAME = "GRAPH_REPORT.md"
 MANAGER_CONTEXT_FILE_NAME = "MANAGER_CONTEXT.md"
-MODE_AUTO = "auto"
-MODE_FRESH = "fresh"
-MODE_UPDATE = "update"
-MODE_CONTEXT = "context"
+NEEDS_UPDATE_FILE_NAME = "needs_update"
+LESSONS_FILE_PATH = "reflections/LESSONS.md"
 MAX_COMMUNITIES = 8
 MAX_BRIDGE_SYMBOLS = 4
 MAX_CONNECTOR_COMMUNITIES = 8
 MAX_RELATIONSHIPS = 3
+MAX_GOD_NODES = 5
+
+# A symbol wired into a large share of the map is a utility type, not a
+# navigational bridge. The ratio rejects those; the floor keeps a small map from
+# rejecting every connector it has.
+MAX_CONNECTOR_SPREAD_RATIO = 0.25
+MIN_CONNECTOR_SPREAD = 3
+
+# Universally uninformative call targets. Keep this short and language-neutral:
+# a growing per-language standard-library blocklist belongs in Graphify's own
+# extractors, not in a wrapper that must serve every repository type.
+TRIVIAL_SYMBOL_NAMES = frozenset({
+	"time", "len", "print", "str", "new", "clone", "default",
+})
+
+# Test evidence carried by symbol names and by Graphify's recorded source files.
+TEST_NAME_SEGMENTS = ("::tests::", "::test::", ".tests.", ".test.")
+TEST_PATH_SEGMENTS = ("tests/", "test/", "spec/")
+TEST_FILE_SUFFIXES = (
+	"_test.py", "_test.go", "_test.rs", "_test.rb",
+	".test.ts", ".test.js", ".spec.ts", ".spec.js",
+)
 
 
 #============================================
 
 
-def build_parser() -> argparse.ArgumentParser:
-	"""Build the documented Graphify command-line parser."""
-	help_epilog = (
-		"How it works:\n"
-		"  With no mode, update graphify-out/graph.json when it exists; otherwise extract a\n"
-		"  fresh graph. Updates use Graphify's code-only fast path by default. Adding\n"
-		"  --include-docs to --update incrementally extracts changed code and semantic inputs,\n"
-		"  then refreshes community labels. Fresh builds upgrade Graphify, force extraction,\n"
-		"  fully label, and benchmark. --include-docs includes nonignored document, paper, and\n"
-		f"  image inputs. Claude CLI uses {CLAUDE_LABEL_MODEL}; --ollama selects the model for\n"
-		"  extraction and labels. Context prints orientation without running\n"
-		"  Graphify. Before the first map exists, context prints this help instead.\n"
-		"\n"
-		"Examples:\n"
-		"  %(prog)s              # automatically choose fresh or update\n"
-		"  %(prog)s --fresh      # upgrade, extract, fully label, and benchmark\n"
-		"  %(prog)s --fresh --include-docs  # include nonignored semantic inputs\n"
-		"  %(prog)s --update     # update, or run the fresh path when no graph exists\n"
-		"  %(prog)s --update --include-docs  # incrementally refresh semantic inputs\n"
-		"  %(prog)s --fresh --ollama  # use Ollama instead of Claude CLI\n"
-		"  %(prog)s --context    # print orientation without rebuilding\n"
-		"\n"
-		f"Fresh-build setup: pip upgrades {GRAPHIFY_PACKAGE}.\n"
-		f"Label backend: Claude CLI with {CLAUDE_LABEL_MODEL}; --ollama pulls {OLLAMA_MODEL}.\n"
-		"Run graphify benchmark directly for measurements outside a fresh build.\n"
-		f"Manager context: {OUTPUT_DIR_NAME}/{MANAGER_CONTEXT_FILE_NAME}"
-	)
-	# ASVS 2.1.1 and 2.2.1: document the accepted modes and validate against an allowlist.
-	parser = argparse.ArgumentParser(
-		description=(
-			"Build or update a Graphify repository map, then print concise agent "
-			"orientation."
-		),
-		epilog=help_epilog,
-		formatter_class=argparse.RawDescriptionHelpFormatter,
-	)
-	mode_group = parser.add_mutually_exclusive_group()
-	mode_group.add_argument(
-		"-F", "--fresh",
-		dest="mode",
-		action="store_const",
-		const=MODE_FRESH,
-		help="force a fresh graphify extract, even when a graph already exists",
-	)
-	mode_group.add_argument(
-		"-U", "--update",
-		dest="mode",
-		action="store_const",
-		const=MODE_UPDATE,
-		help="update an existing graph, or extract fresh when no graph exists",
-	)
-	mode_group.add_argument(
-		"-C", "--context",
-		dest="mode",
-		action="store_const",
-		const=MODE_CONTEXT,
-		help="print existing-map orientation, or help when no map exists",
-	)
-	parser.add_argument(
-		"-O", "--ollama",
-		dest="label_backend",
-		action="store_const",
-		const=OLLAMA_BACKEND,
-		help=f"use local Ollama model {OLLAMA_MODEL} for extraction and labels",
-	)
-	parser.add_argument(
-		"-D", "--include-docs",
-		dest="include_docs",
-		action="store_true",
-		help="include nonignored document, paper, and image inputs in fresh or update builds",
-	)
-	parser.set_defaults(
-		mode=MODE_AUTO,
-		label_backend=LABEL_BACKEND,
-		include_docs=False,
-	)
-	return parser
+def normalize_symbol_name(value: str) -> str:
+	"""Return a bare symbol name from a Graphify display label."""
+	normalized = clean_graph_text(value).lstrip(".")
+	if normalized.endswith("()"):
+		normalized = normalized[:-2]
+	return normalized
 
 
 #============================================
 
 
-def parse_args(argv: list[str] | None = None) -> argparse.Namespace:
-	"""Parse automatic or explicitly selected Graphify lifecycle modes."""
-	parser = build_parser()
-	args = parser.parse_args(argv)
-	# ASVS 2.1.1 and 2.2.1: semantic extraction requires an explicit lifecycle mode.
-	if args.include_docs and args.mode not in (MODE_FRESH, MODE_UPDATE):
-		parser.error("--include-docs requires --fresh or --update")
-	return args
+def is_test_symbol(name: str, source_files: tuple[str, ...] = ()) -> bool:
+	"""Return whether a symbol is test scaffolding rather than production code.
+
+	Graphify records each surprise endpoint's originating file, so both the
+	symbol name and its path are available as evidence. This complements
+	.graphifyignore rather than duplicating it: the ignore file excludes whole
+	directories, while inline test modules living beside production code in the
+	same file can only be recognized here.
+
+	Args:
+		name: Graphify display label, for example "test_login()" or ".helper()".
+		source_files: Recorded source paths for the symbol, when available.
+
+	Returns:
+		True when the symbol carries test evidence.
+	"""
+	normalized = normalize_symbol_name(name)
+	lowered = normalized.lower()
+	if lowered.startswith("test_") or lowered.endswith("_test"):
+		return True
+	if any(segment in lowered for segment in TEST_NAME_SEGMENTS):
+		return True
+	for source_file in source_files:
+		path_text = clean_graph_text(source_file).replace("\\", "/").lower()
+		if not path_text:
+			continue
+		if any(path_text.endswith(suffix) for suffix in TEST_FILE_SUFFIXES):
+			return True
+		if any(path_text.startswith(segment) for segment in TEST_PATH_SEGMENTS):
+			return True
+		if any(f"/{segment}" in path_text for segment in TEST_PATH_SEGMENTS):
+			return True
+	return False
 
 
 #============================================
 
 
-def get_repo_root() -> pathlib.Path:
-	"""Return the Git repository root for the current working directory."""
-	# ASVS 1.2.5: pass arguments directly without a shell interpreter.
-	result = subprocess.run(
-		["git", "rev-parse", "--show-toplevel"],
-		check=True,
-		capture_output=True,
-		text=True,
-	)
-	repo_root = pathlib.Path(result.stdout.strip()).resolve()
-	return repo_root
+def is_trivial_symbol(name: str) -> bool:
+	"""Return whether a symbol name carries no architectural meaning."""
+	normalized = normalize_symbol_name(name).lower()
+	is_trivial = normalized in TRIVIAL_SYMBOL_NAMES
+	return is_trivial
 
 
 #============================================
 
 
-def require_repo_root(repo_root: pathlib.Path) -> None:
-	"""Require the tool to run from the active repository root."""
-	current_dir = pathlib.Path.cwd().resolve()
-	if current_dir != repo_root:
-		raise RuntimeError(f"Run this tool from the repository root: {repo_root}")
+def connector_spread_ceiling(total_communities: int) -> int:
+	"""Return the largest community spread a real cross-area connector may have."""
+	scaled_ceiling = int(total_communities * MAX_CONNECTOR_SPREAD_RATIO)
+	ceiling = max(MIN_CONNECTOR_SPREAD, scaled_ceiling)
+	return ceiling
 
 
 #============================================
 
 
-def require_command(command_name: str) -> str:
-	"""Return the resolved executable path or raise a setup error."""
-	executable = shutil.which(command_name)
-	if executable is None:
-		raise RuntimeError(
-			f"Required command '{command_name}' is unavailable. "
-			"Install the repository's declared development dependencies first."
-		)
-	return executable
+def filter_bridges(
+	bridges: list[tuple[str, tuple[str, ...]]],
+	total_communities: int,
+) -> list[tuple[str, tuple[str, ...]]]:
+	"""Drop utility types and test scaffolding from Graphify's bridge evidence.
 
+	Both the analysis sidecar and the report fallback route through this one
+	helper so the two paths cannot drift apart.
 
-#============================================
+	Args:
+		bridges: Connector label paired with the communities it spans.
+		total_communities: Count of communities known for this map.
 
-
-def print_step(label: str) -> None:
-	"""Print one prominent runtime phase label."""
-	print()
-	print(f"============ {label} ============")
-
-
-#============================================
-
-
-def run_command(
-	command: list[str],
-	repo_root: pathlib.Path,
-	environment: dict[str, str] | None = None,
-) -> None:
-	"""Run one trusted Graphify lifecycle command from the repository root."""
-	# ASVS 1.2.5: subprocesses use an argv list and never invoke a shell.
-	subprocess.run(command, cwd=repo_root, check=True, env=environment)
-
-
-#============================================
-
-
-def upgrade_graphify(repo_root: pathlib.Path) -> None:
-	"""Upgrade the declared Graphify package for a fresh extraction."""
-	print_step("UPDATING GRAPHIFY PYTHON PACKAGE")
-	# ASVS 1.2.5: fixed package input is passed as argv to the active interpreter.
-	run_command(
-		[
-			sys.executable,
-			"-m",
-			"pip",
-			"install",
-			"--upgrade",
-			"--quiet",
-			"--no-cache-dir",
-			GRAPHIFY_PACKAGE,
-		],
-		repo_root,
-	)
-
-
-#============================================
-
-
-def prepare_label_backend(repo_root: pathlib.Path, label_backend: str) -> None:
-	"""Require the selected label backend and prepare its local model when needed."""
-	# ASVS 2.2.1: select the required executable from the supported backend allowlist.
-	if label_backend not in (LABEL_BACKEND, OLLAMA_BACKEND):
-		raise ValueError(f"Unsupported Graphify label backend: {label_backend}")
-	backend_executable = require_command(
-		"ollama" if label_backend == OLLAMA_BACKEND else "claude"
-	)
-	if label_backend == OLLAMA_BACKEND:
-		print_step(f"PULLING OLLAMA MODEL: {OLLAMA_MODEL}")
-		run_command([backend_executable, "pull", OLLAMA_MODEL], repo_root)
-
-
-#============================================
-
-
-def graph_build_is_fresh(repo_root: pathlib.Path, mode: str) -> bool:
-	"""Return whether one automatic, fresh, or update build extracts a fresh graph."""
-	if mode not in (MODE_AUTO, MODE_FRESH, MODE_UPDATE):
-		raise ValueError(f"Unsupported Graphify mode: {mode}")
-	graph_path = repo_root / OUTPUT_DIR_NAME / GRAPH_FILE_NAME
-	graph_exists = graph_path.is_file()
-	is_fresh = mode == MODE_FRESH or not graph_exists
-	return is_fresh
-
-
-#============================================
-
-
-def graph_build_command(
-	graphify_executable: str,
-	repo_root: pathlib.Path,
-	mode: str,
-	include_docs: bool,
-	label_backend: str,
-) -> tuple[str, list[str], bool]:
-	"""Return the graph operation and whether it performs a fresh extraction."""
-	# ASVS 2.2.1: accept only the two fixed Graphify semantic backends.
-	if label_backend not in (LABEL_BACKEND, OLLAMA_BACKEND):
-		raise ValueError(f"Unsupported Graphify label backend: {label_backend}")
-	is_fresh = graph_build_is_fresh(repo_root, mode)
-	if is_fresh or include_docs:
-		map_scope = "CODE AND SEMANTIC MAP" if include_docs else "CODE MAP"
-		if is_fresh and mode == MODE_UPDATE:
-			operation = f"NO EXISTING GRAPH; EXTRACTING FRESH GRAPHIFY {map_scope}"
-		elif is_fresh:
-			operation = f"EXTRACTING GRAPHIFY {map_scope}"
-		else:
-			operation = f"UPDATING GRAPHIFY {map_scope}"
-		command = [graphify_executable, "extract", "."]
-		if include_docs:
-			extraction_model = (
-				OLLAMA_MODEL if label_backend == OLLAMA_BACKEND else CLAUDE_LABEL_MODEL
-			)
-			command.extend(
-				[
-					f"--backend={label_backend}",
-					f"--model={extraction_model}",
-				]
-			)
-			if is_fresh:
-				command.append("--force")
-		else:
-			command.append("--code-only")
-		if (repo_root / "Cargo.toml").is_file():
-			command.append("--cargo")
-	else:
-		operation = "UPDATING GRAPHIFY CODE MAP"
-		command = [graphify_executable, "update", "."]
-	return operation, command, is_fresh
-
-
-#============================================
-
-
-def graph_build_environment(
-	include_docs: bool,
-	label_backend: str,
-) -> dict[str, str] | None:
-	"""Pin the Claude CLI extraction model while preserving the parent environment."""
-	if not include_docs or label_backend != LABEL_BACKEND:
-		return None
-	# ASVS 1.2.5 and 2.2.1: the environment key and model value are fixed constants.
-	environment = os.environ.copy()
-	environment["GRAPHIFY_CLAUDE_CLI_MODEL"] = CLAUDE_LABEL_MODEL
-	return environment
-
-
-#============================================
-
-
-def label_graph(
-	graphify_executable: str,
-	repo_root: pathlib.Path,
-	label_backend: str,
-) -> None:
-	"""Fully refresh Graphify community labels with the selected backend."""
-	# ASVS 2.2.1: accept only the two documented label backends.
-	if label_backend not in (LABEL_BACKEND, OLLAMA_BACKEND):
-		raise ValueError(f"Unsupported Graphify label backend: {label_backend}")
-	label_model = (
-		OLLAMA_MODEL if label_backend == OLLAMA_BACKEND else CLAUDE_LABEL_MODEL
-	)
-	# ASVS 1.2.5: fixed backend and model values remain isolated in the argv list.
-	command = [
-		graphify_executable,
-		"label",
-		".",
-		f"--backend={label_backend}",
-		f"--model={label_model}",
-	]
-	run_command(command, repo_root)
+	Returns:
+		The surviving bridges in Graphify's original order.
+	"""
+	ceiling = connector_spread_ceiling(total_communities)
+	kept_bridges = []
+	for label, community_names in bridges:
+		if len(community_names) > ceiling:
+			continue
+		if is_test_symbol(label) or is_trivial_symbol(label):
+			continue
+		kept_bridges.append((label, community_names))
+	return kept_bridges
 
 
 #============================================
@@ -592,8 +412,25 @@ def graph_community_names(
 #============================================
 
 
+def surprise_source_files(surprise: dict) -> tuple[str, ...]:
+	"""Return the recorded endpoint source paths for one surprise record."""
+	source_files = surprise.get("source_files", [])
+	if not isinstance(source_files, list):
+		return ()
+	return tuple(value for value in source_files if isinstance(value, str))
+
+
+#============================================
+
+
 def analysis_relationships(analysis_data: dict | None) -> list[str]:
-	"""Format Graphify's own surprising-connection records without rescoring them."""
+	"""Format Graphify's own surprising-connection records without rescoring them.
+
+	Graphify's ordering is preserved. Test scaffolding and uninformative call
+	targets are dropped first, so the section reports architecture rather than
+	the test suite. The whole sidecar list is scanned before truncating, because
+	filtering otherwise empties the section on a test-heavy repository.
+	"""
 	if analysis_data is None:
 		return []
 	relationships = []
@@ -603,6 +440,11 @@ def analysis_relationships(analysis_data: dict | None) -> list[str]:
 		relation = surprise.get("relation")
 		if not all(isinstance(value, str) for value in (source, target, relation)):
 			continue
+		source_files = surprise_source_files(surprise)
+		if is_test_symbol(source, source_files) or is_test_symbol(target, source_files):
+			continue
+		if is_trivial_symbol(target):
+			continue
 		relationships.append(
 			f"{clean_graph_text(source)} {clean_graph_text(relation)} "
 			f"{clean_graph_text(target)}."
@@ -610,6 +452,62 @@ def analysis_relationships(analysis_data: dict | None) -> list[str]:
 		if len(relationships) == MAX_RELATIONSHIPS:
 			break
 	return relationships
+
+
+#============================================
+
+
+def analysis_god_nodes(
+	analysis_data: dict | None,
+	graph_data: dict | None,
+) -> list[str]:
+	"""Name Graphify's most-connected symbols and their source paths.
+
+	Graphify already excludes file and concept nodes when it computes these, so
+	its order is kept as-is. Each hub's source file is resolved through the graph
+	so test scaffolding can be recognized and managers get a concrete starting
+	point in the current source.
+	"""
+	if analysis_data is None:
+		return []
+	node_sources = {}
+	if graph_data is not None:
+		for node in graph_data["nodes"]:
+			source_file = node.get("source_file", "")
+			if isinstance(source_file, str):
+				node_sources[node["id"]] = source_file
+	hub_names = []
+	for god in analysis_data.get("gods", []):
+		label = god.get("label")
+		if not isinstance(label, str):
+			continue
+		node_id = god.get("id")
+		source_files = ()
+		if isinstance(node_id, str) and node_id in node_sources:
+			source_files = (node_sources[node_id],)
+		if is_test_symbol(label, source_files) or is_trivial_symbol(label):
+			continue
+		hub_name = clean_graph_text(label)
+		if source_files:
+			hub_name = f"{hub_name} ({source_files[0]})"
+		if hub_name not in hub_names:
+			hub_names.append(hub_name)
+		if len(hub_names) == MAX_GOD_NODES:
+			break
+	return hub_names
+
+
+#============================================
+
+
+def format_graph_scale(graph_data: dict | None) -> str | None:
+	"""Return one line stating how large the map is, or None without a graph."""
+	if graph_data is None:
+		return None
+	node_count = len(graph_data["nodes"])
+	link_count = len(graph_data["links"])
+	scale_text = f"Map size: {node_count} nodes, {link_count} edges"
+	return scale_text
 
 
 #============================================
@@ -656,17 +554,24 @@ def format_orientation(
 	analysis_data: dict | None = None,
 	labels_data: dict | None = None,
 	report_data: dict | None = None,
+	lessons_relative_path: str | None = None,
 ) -> str:
 	"""Return concise repository-specific Graphify context for agent managers."""
 	if analysis_data is not None:
 		major_areas = analysis_community_names(
 			analysis_data, labels_data, graph_data, report_data
 		)
-		bridges = analysis_bridge_questions(analysis_data)[:MAX_BRIDGE_SYMBOLS]
+		total_communities = len(analysis_data["communities"])
+		bridges = filter_bridges(
+			analysis_bridge_questions(analysis_data), total_communities
+		)[:MAX_BRIDGE_SYMBOLS]
 		relationships = analysis_relationships(analysis_data)
 	elif report_data is not None:
 		major_areas = report_data["communities"][:MAX_COMMUNITIES]
-		bridges = report_data["bridges"][:MAX_BRIDGE_SYMBOLS]
+		total_communities = len(report_data["communities"])
+		bridges = filter_bridges(
+			report_data["bridges"], total_communities
+		)[:MAX_BRIDGE_SYMBOLS]
 		relationships = report_data["relationships"][:MAX_RELATIONSHIPS]
 	else:
 		major_areas = graph_community_names(graph_data, labels_data)
@@ -674,11 +579,18 @@ def format_orientation(
 		relationships = []
 	if not major_areas:
 		major_areas = graph_community_names(graph_data, labels_data)
+	architectural_hubs = analysis_god_nodes(analysis_data, graph_data)
+	scale_text = format_graph_scale(graph_data)
 
 	lines = ["GRAPHIFY CONTEXT", f"Graph mapped at {format_mapped_at(mapped_at)}"]
+	if scale_text is not None:
+		lines.append(scale_text)
 	if major_areas:
 		lines.append("Major repository areas:")
 		lines.extend(f"- {community_name}" for community_name in major_areas)
+	if architectural_hubs:
+		lines.append("Architectural hubs:")
+		lines.extend(f"- {hub_name}" for hub_name in architectural_hubs)
 	if bridges:
 		lines.append("Cross-area connectors:")
 		for label, community_names in bridges:
@@ -698,17 +610,9 @@ def format_orientation(
 			"Verify conclusions in current source and tests.",
 		]
 	)
+	if lessons_relative_path is not None:
+		lines.append(f"Prior query outcomes: {lessons_relative_path}")
 	return "\n".join(lines)
-
-
-#============================================
-
-
-def validate_core_artifacts(repo_root: pathlib.Path) -> None:
-	"""Require the graph needed for targeted Graphify traversal."""
-	graph_path = repo_root / OUTPUT_DIR_NAME / GRAPH_FILE_NAME
-	if not graph_path.is_file():
-		raise RuntimeError(f"Required Graphify artifact is missing: {graph_path}")
 
 
 #============================================
@@ -741,14 +645,47 @@ def manager_context(repo_root: pathlib.Path) -> str | None:
 	mapped_at = graph_mapped_at(repo_root)
 	if mapped_at is None:
 		raise RuntimeError("Graphify context has data but no timestamped source artifact")
+	found_lessons_path = lessons_path(repo_root)
+	lessons_relative_path = None
+	if found_lessons_path is not None:
+		lessons_relative_path = str(found_lessons_path.relative_to(repo_root))
 	context = format_orientation(
 		mapped_at,
 		graph_data,
 		analysis_data=analysis_data,
 		labels_data=labels_data,
 		report_data=report_data,
+		lessons_relative_path=lessons_relative_path,
 	)
 	return context
+
+
+#============================================
+
+
+def graph_needs_update(repo_root: pathlib.Path) -> bool:
+	"""Return whether Graphify flagged pending non-code changes for this map.
+
+	Graphify's own `check-update` subcommand only tests for this flag file and
+	always exits zero, so the flag is read directly. That keeps --context true to
+	its documented promise of printing orientation without running Graphify.
+	"""
+	# ASVS 5.3.2: inspect one fixed artifact path beneath the repository root.
+	flag_path = repo_root / OUTPUT_DIR_NAME / NEEDS_UPDATE_FILE_NAME
+	needs_update = flag_path.is_file()
+	return needs_update
+
+
+#============================================
+
+
+def lessons_path(repo_root: pathlib.Path) -> pathlib.Path | None:
+	"""Return the aggregated Graphify lessons file when one has been produced."""
+	# ASVS 5.3.2: the reflections path is fixed beneath the generated output dir.
+	candidate_path = repo_root / OUTPUT_DIR_NAME / LESSONS_FILE_PATH
+	if not candidate_path.is_file():
+		return None
+	return candidate_path
 
 
 #============================================
@@ -760,80 +697,3 @@ def write_manager_context(repo_root: pathlib.Path, context: str) -> pathlib.Path
 	context_path = repo_root / OUTPUT_DIR_NAME / MANAGER_CONTEXT_FILE_NAME
 	context_path.write_text(f"{context}\n", encoding="utf-8")
 	return context_path
-
-
-#============================================
-
-
-def print_context(repo_root: pathlib.Path) -> None:
-	"""Print existing-map orientation or CLI help before the first build."""
-	context = manager_context(repo_root)
-	if context is None:
-		print(f"No Graphify map exists in {OUTPUT_DIR_NAME}/ yet.")
-		print("Run without a mode, with --fresh, or with --update to build the first map.")
-		print()
-		build_parser().print_help()
-		return
-	print(context)
-
-
-#============================================
-
-
-def main() -> None:
-	"""Run the selected Graphify lifecycle or print artifact-driven orientation."""
-	args = parse_args()
-	repo_root = get_repo_root()
-	require_repo_root(repo_root)
-	if args.mode == MODE_CONTEXT:
-		print_context(repo_root)
-		return
-
-	is_fresh = graph_build_is_fresh(repo_root, args.mode)
-	needs_labeling = is_fresh or args.include_docs
-	if not needs_labeling and args.label_backend == OLLAMA_BACKEND:
-		raise ValueError("--ollama applies only to fresh or --include-docs builds")
-	if is_fresh:
-		upgrade_graphify(repo_root)
-	if needs_labeling:
-		prepare_label_backend(repo_root, args.label_backend)
-	graphify_executable = require_command("graphify")
-	operation, build_command, is_fresh = graph_build_command(
-		graphify_executable,
-		repo_root,
-		args.mode,
-		args.include_docs,
-		args.label_backend,
-	)
-	print_step(operation)
-	build_environment = graph_build_environment(
-		args.include_docs,
-		args.label_backend,
-	)
-	run_command(build_command, repo_root, build_environment)
-	if needs_labeling:
-		print_step("LABELING GRAPHIFY COMMUNITIES")
-		label_graph(graphify_executable, repo_root, args.label_backend)
-	if is_fresh:
-		map_scope = "CODE AND SEMANTIC MAP" if args.include_docs else "CODE MAP"
-		print_step(f"BENCHMARKING GRAPHIFY {map_scope}")
-		run_command([graphify_executable, "benchmark"], repo_root)
-
-	validate_core_artifacts(repo_root)
-	context = manager_context(repo_root)
-	if context is None:
-		raise RuntimeError("Graphify output did not contain usable manager context data")
-	context_path = write_manager_context(repo_root, context)
-
-	print()
-	print("======================================================================")
-	print("GRAPHIFY READY")
-	print("======================================================================")
-	print()
-	print(context)
-	print()
-	print(f"Manager context written to {context_path.relative_to(repo_root)}")
-
-
-if __name__ == "__main__":
-	main()

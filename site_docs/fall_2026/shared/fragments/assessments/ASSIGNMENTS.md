@@ -1,23 +1,24 @@
-## Assignment details
+## Regular assignment details
 
 <!-- assessment examples from syllabus.yml -->
 
-Assignments give students regular practice applying course ideas outside class. They reinforce
-current learning and may also introduce a new topic. Assignments are usually given once each week
-and are worth 5-15 points; each released assignment gives its exact point value and instructions.
+Regular assignments give students practice applying course ideas outside class. They reinforce
+current learning and may also introduce a new topic. Regular assignments are usually given once
+each week and are worth 5-15 points; each released assignment gives its exact point value and
+instructions.
 
 Online homework is not due before Week 3. This gives students time to create an account and learn
 the external assignment platform. Course-orientation steps and work completed during class may
 occur earlier; the course schedule identifies those items.
 
-Each assignment attempt has a time limit. The timer helps students develop an accurate sense of the
-speed required and prevents the same question set from remaining open for days. Students may start
-another attempt as often as needed.
+Each regular assignment attempt has a time limit. The timer helps students develop an accurate
+sense of the speed required and prevents the same question set from remaining open for days.
+Students may start another attempt as often as needed.
 
 ### Practice until the material makes sense
 
-Students may retry assignments as many times as needed. Repeating an assignment until a perfect
-score is earned builds both understanding and confidence. Practice makes perfect.
+Students may retry regular assignments as many times as needed. Repeating an assignment until a
+perfect score is earned builds both understanding and confidence. Practice makes perfect.
 
 ### Work together and ask questions
 
