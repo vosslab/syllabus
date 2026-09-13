@@ -11,4 +11,5 @@ tree-sitter-rust  # Rust grammar for the Graphify cfg(test) prune step
 # === LOCAL DEVELOPMENT DEPENDENCIES === [ADD REPOSITORY-SPECIFIC DEPENDENCIES HERE]
 
 # Development dependencies
+lxml  # restrictive XML parsing in external-link behavior tests
 pathspec  # MkDocs-compatible exclude_docs matching in tests

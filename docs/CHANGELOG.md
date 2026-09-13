@@ -14,6 +14,9 @@
 ### Fixes and Maintenance
 
 - Synchronized shared style guides, tests, and repository support files from the starter template.
+- Replaced the external-link test helper's standard-library XML parser with an explicitly
+  restrictive lxml parser. DTD loading, network access, entity resolution, recovery, and huge-tree
+  support remain disabled, and lxml is declared as a local development dependency.
 
 ### Developer Tests and Notes
 
@@ -21,10 +24,13 @@
   The complete export and include-parity lane rebuilt every PDF and DOCX, built the strict site,
   and confirmed matching content across formats; the current built site then passed the route-wide
   Playwright accessibility audit.
-- The fail-fast `./all_test.sh` run passed 1,454 of 1,455 fast tests before stopping on the existing
-  Bandit B314 finding in unchanged `tests/test_external_links.py`. Semantic inspection confirmed
-  all five definitions in every course's HTML and PDF; visual review confirmed that the Genetics
-  Assessment types page remains balanced, unclipped, and readable after the added definition.
+- The initial fail-fast `./all_test.sh` run passed 1,454 of 1,455 fast tests before stopping on
+  Bandit B314 in `tests/test_external_links.py`. After the restrictive lxml change, 181 focused
+  external-link, Bandit, dependency, and lint checks passed. The final `./all_test.sh` run passed
+  all 1,569 fast tests, live-date export, PDF/DOCX and strict site builds, include parity, and the
+  route-wide Playwright accessibility audit. Semantic inspection confirmed all five definitions in
+  every course's HTML and PDF; visual review confirmed that the Genetics Assessment types page
+  remains balanced, unclipped, and readable after the added definition.
 
 ## 2026-09-03
 

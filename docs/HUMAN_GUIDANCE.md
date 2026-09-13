@@ -227,3 +227,5 @@ history. Those belong in the appropriate technical documentation or changelog.
 - Keep runnable files under `pipeline/` focused on orchestration. Put substantial reusable models,
   composition, validation, and rendering code under `pipeline/build_lib/`; reducing a large entry
   point by only enough lines to stay below the source limit is not structural success.
+- I prefer lxml over defusedxml for XML parsing. Configure lxml restrictively when parsing
+  untrusted XML, including disabling DTD loading, network access, and entity resolution.

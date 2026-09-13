@@ -1,10 +1,8 @@
 """Tests for generated website external-link behavior."""
 
-# Standard Library
-import xml.etree.ElementTree
-
 # PIP3 modules
 import markdown
+import lxml.etree
 
 # local repo modules
 import build_lib.external_links
@@ -14,11 +12,21 @@ SITE_URL = "https://vosslab.github.io/syllabus/"
 
 
 #============================================
-def render_markdown(markdown_text: str) -> xml.etree.ElementTree.Element:
+def render_markdown(markdown_text: str) -> lxml.etree._Element:
 	"""Render Markdown with the website-only external-link extension."""
 	extension = build_lib.external_links.ExternalLinksExtension(SITE_URL)
 	rendered = markdown.markdown(markdown_text, extensions=[extension, "attr_list"])
-	root = xml.etree.ElementTree.fromstring(f"<div>{rendered}</div>")
+	# ASVS 1.5.1: disable DTD loading, network access, and entity resolution.
+	parser = lxml.etree.XMLParser(
+		attribute_defaults=False,
+		dtd_validation=False,
+		huge_tree=False,
+		load_dtd=False,
+		no_network=True,
+		recover=False,
+		resolve_entities=False,
+	)
+	root = lxml.etree.fromstring(f"<div>{rendered}</div>", parser=parser)
 	return root
 
 
