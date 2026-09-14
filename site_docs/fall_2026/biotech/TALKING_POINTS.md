@@ -5,8 +5,8 @@ on an assigned topic and teach it to the class. The short format forces you to d
 most; the reward is a course filled with more current examples and perspectives than any one person
 could bring alone.
 
-Talking-point assignments are worth 72 points across the semester. I will announce each set's topic
-assignments and deadlines and provide the shared-presentation link.
+The seven sets of talking-point assignments are worth 72 points across the semester. I will
+announce each set's topic assignments and deadlines and provide the shared-presentation link.
 
 ## Required workflow
 
@@ -70,10 +70,11 @@ insight.
 
 ## Separate discussion credit
 
-Talking-point points and discussion marks evaluate different work. Your assigned slide and
-presentation earn talking-point points. Asking a thoughtful question, answering a question, or
-adding a useful connection to another presentation can earn separate discussion marks. A greeting,
-agreement, or acknowledgment by itself is not a discussion contribution.
+The course point plan allocates 72 points to talking-point assignments and a separate 40 points
+to talking-point presentations within the in-class discussion category. Discussion and
+participation account for the other 60 points in that category. Asking a thoughtful question,
+answering a question, or adding a useful connection to another presentation can earn discussion
+marks. A greeting, agreement, or acknowledgment by itself is not a discussion contribution.
 
 See [Discussion marks](DISCUSSION_MARKS.md) for participation and scoring details. If you miss the
 class in which topics are selected, contact me to request an available topic before presenting.

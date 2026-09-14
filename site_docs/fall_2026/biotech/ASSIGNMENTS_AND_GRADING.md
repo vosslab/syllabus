@@ -4,7 +4,9 @@
 
 <!-- course point plan from syllabus.yml -->
 
-Your grade comes from assignments, projects, discussion, and the supporting forms listed above.
+The individual project components total 88 points; the group project components total 91 points.
+In-class discussion totals 100 points, split between talking-point presentations (40) and
+discussion and participation (60). Seven sets of talking-point assignments contribute 72 points.
 
 Extra-credit opportunities do not increase the denominator used to calculate the final percentage.
 

@@ -78,6 +78,9 @@ matter. Follow the shared
 
 ### Company pitch requirements
 
+Each Shark Tank pitch lasts four minutes. Slides are due six hours before class, as shown in the
+[course schedule](SCHEDULE.md).
+
 The pitch recruits classmates to the group project; it is not a compressed technical lecture. It
 must:
 

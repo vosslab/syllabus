@@ -6,16 +6,50 @@ author: Neil R. Voss
 language: en-US
 assessment_examples_url: https://biologyproblems.org/biotechnology/
 course_point_plan:
-  - assessment: Individual biotechnology project
-    points: 88
-  - assessment: Group biotechnology project
-    points: 91
-  - assessment: In-class discussion
-    points: 100
-  - assessment: Talking-point assignments
+  - assessment: Individual project - submit three ideas on time
+    points: 2
+  - assessment: Individual project - instructor evaluation of three ideas
+    points: 10
+  - assessment: Individual project - selected-idea form
+    points: 2
+  - assessment: Individual project - executive summary instructor grade
+    points: 25
+  - assessment: Individual project - milestones and competition form
+    points: 2
+  - assessment: Individual project - Shark Tank presentation instructor grade
+    points: 20
+  - assessment: Individual project - Shark Tank peer-evaluation forms
+    points: 2
+  - assessment: Individual project - Shark Tank presentation peer grade
+    points: 25
+  - assessment: Group project - company vision report form
+    points: 2
+  - assessment: Group project - presentation instructor grade
+    points: 25
+  - assessment: Group project - presentation peer-evaluation forms
+    points: 2
+  - assessment: Group project - presentation peer grade
+    points: 25
+  - assessment: Group project - member contribution form
+    points: 2
+  - assessment: Group project - full business plan instructor grade
+    points: 25
+  - assessment: Group project - contribution peer grade
+    points: 10
+  - assessment: In-class discussion - talking-point presentations
+    points: 40
+  - assessment: In-class discussion - discussion and participation
+    points: 60
+  - assessment: Talking-point assignments (7 sets)
     points: 72
-  - assessment: Course orientation and response forms
-    points: 11
+  - assessment: Discord signup
+    points: 2
+  - assessment: Student Profile
+    points: 3
+  - assessment: Theranos response form
+    points: 3
+  - assessment: Movie response form
+    points: 3
 sections:
   - index.md
   - COURSE_DETAILS.md

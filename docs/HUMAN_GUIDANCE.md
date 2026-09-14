@@ -28,6 +28,8 @@ history. Those belong in the appropriate technical documentation or changelog.
   titles mechanically instead of maintaining a separate mapping.
 - Make the repository reflect my actual syllabi and teaching practice, not a generic university
   course template.
+- Preserve my named activities, counts, point breakdowns, topics, and sequencing. Restore specifics
+  lost to generic summaries while retaining my confirmed changes for the current term.
 - Keep each course's catalog description and course-format explanation on its Course information
   page. A compact format table does not replace the refined format prose from my original syllabi.
 - I do not believe students should have to pay extra for course materials after they have already

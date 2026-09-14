@@ -1,3 +1,29 @@
+## 2026-09-14
+
+### Behavior or Interface Changes
+
+- Restored source-backed course specifics after instructor approval. Genetics' point table names
+  all 13 assignments, five 20-point quizzes, and the separate signup, profile, and movie activities.
+  Biotechnology's table itemizes both projects, the 40/60 presentation/participation split, seven
+  talking-point sets, and individual forms. Course totals remain 424 and 362 points.
+- Restored Genetics' detailed topic coverage and written-exam descriptions, Biotechnology's
+  numbered assignments and pitch requirements, and Biostatistics' original topic sequence with
+  Grouping Students Using Z-Scores and five hypothesis-testing tutorial sessions. Removed the
+  unsupported Biostatistics project/final-work placeholders. Retained current Fall 2026 dates,
+  chapter numbering, Week 3 online-assignment start, and approved Biotechnology presentation weeks.
+- Recorded the instruction to preserve named activities, counts, point breakdowns, topics, and
+  sequencing. The separate Biostatistics point-plan proposal remains unresolved.
+- Tightened PDF-only spacing in the grouped Biotechnology schedule to keep the drop-date row
+  with the individual-project sequence instead of orphaning it on a separate page.
+
+### Developer Tests and Notes
+
+- Final `./all_test.sh` passed all 1,569 fast tests, live-date refresh, PDF/DOCX exports, strict
+  website build, include parity, and the Playwright browser audit. Inspected the restored PDF
+  tables and schedule page breaks, checked point totals and project subtotals, and verified
+  representative restored details in HTML, PDF, and DOCX. The initial sandboxed browser launch
+  was denied by macOS; the unrestricted aggregate runs passed.
+
 ## 2026-09-13
 
 ### Behavior or Interface Changes

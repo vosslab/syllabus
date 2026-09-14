@@ -10,12 +10,16 @@ course_point_plan:
     points: 100
   - assessment: Final cumulative exam
     points: 100
-  - assessment: Five group quizzes
+  - assessment: Five group quizzes (5 x 20 points)
     points: 100
-  - assessment: Assignments
+  - assessment: Assignments 1-13
     points: 116
-  - assessment: Course orientation
-    points: 8
+  - assessment: Discord signup
+    points: 2
+  - assessment: Student Profile
+    points: 3
+  - assessment: Movie Form
+    points: 3
 sections:
   - index.md
   - COURSE_DETAILS.md

@@ -466,6 +466,8 @@ tbody tr:nth-child(even) {
 .table-layout--schedule tr.schedule-phase-row > td {
 	background: var(--schedule-phase-row-surface);
 	color: var(--syllabus-schedule-phase-row-text);
+	line-height: 1.25;
+	padding-block: 0.15rem;
 }
 
 .table-layout--schedule tr.schedule-phase-row--foundations > td {

@@ -48,8 +48,10 @@ These two instructor decisions keep BIOL 318/418 from final rubric readiness.
 ### 2. Name and date major work
 
 - **Rubric item:** `major_due_dates`.
-- **Decision:** Confirm whether December 9 and December 16 are the actual deadlines.
-- **Update:** Replace `Project work` and `Final work` with the real deliverable names in
+- **Decision:** Confirm the dated tutorial deliverables and whether any additional major work is
+  assigned. The September 14 correction removed unsupported project and final-work placeholders
+  and restored the historical topic sequence, including five hypothesis-testing tutorial sessions.
+- **Update:** Add confirmed deliverable names and due dates to
   [SCHEDULE.md](../../../site_docs/fall_2026/biostats/SCHEDULE.md).
 
 Keep exact submission times in assignment directions when they do not belong in the public
