@@ -49,6 +49,10 @@
 
 ### Fixes and Maintenance
 
+- Changed department-checklist publication to validate every configured course in a temporary
+  stage, then replace the complete Markdown, DOCX, and PDF output set and remove legacy checklist
+  filenames after a successful build.
+
 - Synchronized shared style guides, tests, and repository support files from the starter template.
 - Replaced the external-link test helper's standard-library XML parser with an explicitly
   restrictive lxml parser. DTD loading, network access, entity resolution, recovery, and huge-tree
@@ -71,6 +75,10 @@
 ## 2026-09-03
 
 ### Additions and New Features
+
+- Added an implementation plan for extending the course checklist into a calibrated LLM pipeline
+  that can ingest mixed PDF and DOCX syllabi from more than 50 professors, verify page-level
+  evidence, measure repeated-run consistency, and produce department review workbooks.
 
 - Added the AI-assisted forklift illustration immediately before its analogy in the shared
   Academic integrity and AI policy, with descriptive alternative text for students using

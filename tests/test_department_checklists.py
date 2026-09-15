@@ -181,3 +181,28 @@ def test_render_checklist_html_escapes_authored_text(tmp_path: pathlib.Path) -> 
 	assert "<unsafe>" not in html_document
 	assert "Syllabus p. 2 - Course title - Course page" in html_document
 	assert "<a href=" not in html_document
+
+
+#============================================
+def test_publish_checklists_replaces_the_managed_set(tmp_path: pathlib.Path) -> None:
+	"""A complete staged build overwrites current files and removes legacy outputs."""
+	staged_dir = tmp_path / "staged"
+	output_dir = tmp_path / "department_checklists"
+	staged_dir.mkdir()
+	output_dir.mkdir()
+	(staged_dir / "CURRENT.md").write_text("new Markdown", encoding="utf-8")
+	(staged_dir / "CURRENT.docx").write_text("new DOCX", encoding="utf-8")
+	(staged_dir / "CURRENT.pdf").write_text("new PDF", encoding="utf-8")
+	(output_dir / "CURRENT.md").write_text("old Markdown", encoding="utf-8")
+	(output_dir / "LEGACY.docx").write_text("legacy DOCX", encoding="utf-8")
+	(output_dir / ".DS_Store").write_text("preserve", encoding="utf-8")
+	expected_names = {"CURRENT.md", "CURRENT.docx", "CURRENT.pdf"}
+	generated = build_department_checklists.publish_checklists(
+		staged_dir,
+		output_dir,
+		expected_names,
+	)
+	assert {path.name for path in generated} == expected_names
+	assert (output_dir / "CURRENT.md").read_text(encoding="utf-8") == "new Markdown"
+	assert not (output_dir / "LEGACY.docx").exists()
+	assert (output_dir / ".DS_Store").read_text(encoding="utf-8") == "preserve"

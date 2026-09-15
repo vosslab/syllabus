@@ -290,4 +290,5 @@ the syllabus filename, one-based page number, source page title, and checklist t
 does not depend on web links. Checklist PDFs embed Atkinson Hyperlegible Next from the repository's
 licensed font assets. Checklist and syllabus DOCX files use the Arial-based
 `pipeline/syllabus_reference.docx` and do not embed fonts. Generated checklist files remain ignored
-output.
+output. A successful build replaces the complete managed Markdown, DOCX, and PDF set so obsolete
+checklist files do not remain beside current submissions.

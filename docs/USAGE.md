@@ -88,7 +88,8 @@ then uses their named destinations to print references such as
 `Syllabus p. 8 - Coursework and grades` in the separate checklist files. Checklist PDFs embed
 Atkinson Hyperlegible Next; DOCX files use the Arial-based syllabus reference document and do not
 embed fonts. No web link is required. Edit `pipeline/department_checklists.yml`, not the generated
-outputs.
+outputs. Each successful build replaces the complete managed Markdown, DOCX, and PDF set, removing
+legacy checklist files left by earlier names or course configurations.
 
 ## Validate
 

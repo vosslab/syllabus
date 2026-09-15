@@ -6,6 +6,7 @@ import re
 import sys
 import copy
 import html
+import os
 import shutil
 import pathlib
 import argparse
@@ -24,6 +25,7 @@ import build_lib.syllabus_model
 
 ALLOWED_STATUSES = {"covered", "needs_review", "not_applicable"}
 REQUIRED_ITEM_KEYS = {"id", "group", "label", "status", "evidence", "note"}
+MANAGED_CHECKLIST_SUFFIXES = {".docx", ".md", ".pdf"}
 
 
 #============================================
@@ -519,6 +521,37 @@ def load_configuration(config_path: pathlib.Path) -> dict[object, object]:
 
 
 #============================================
+def publish_checklists(
+	staged_dir: pathlib.Path,
+	output_dir: pathlib.Path,
+	expected_names: set[str],
+) -> tuple[pathlib.Path, ...]:
+	"""Replace the complete managed checklist set after validating the stage."""
+	staged_paths = tuple(
+		path
+		for path in sorted(staged_dir.iterdir())
+		if path.is_file() and path.suffix.lower() in MANAGED_CHECKLIST_SUFFIXES
+	)
+	staged_names = {path.name for path in staged_paths}
+	if staged_names != expected_names:
+		raise RuntimeError(
+			f"Staged checklists do not match the configured course set: {sorted(staged_names)}"
+		)
+	output_dir.mkdir(parents=True, exist_ok=True)
+	# ASVS 2.2.1 and 2.3.3: publish only the validated, complete configured artifact set.
+	for staged_path in staged_paths:
+		os.replace(staged_path, output_dir / staged_path.name)
+	for artifact_path in output_dir.iterdir():
+		if (
+			artifact_path.is_file()
+			and artifact_path.suffix.lower() in MANAGED_CHECKLIST_SUFFIXES
+			and artifact_path.name not in expected_names
+		):
+			artifact_path.unlink()
+	return tuple(output_dir / path.name for path in staged_paths)
+
+
+#============================================
 def build_checklists(repo_root: pathlib.Path, output_dir: pathlib.Path) -> tuple[pathlib.Path, ...]:
 	"""Generate Markdown, DOCX, and PDF checklists for every configured course."""
 	config_path = repo_root / "pipeline" / "department_checklists.yml"
@@ -551,8 +584,8 @@ def build_checklists(repo_root: pathlib.Path, output_dir: pathlib.Path) -> tuple
 		if not font_path.is_file():
 			raise FileNotFoundError(f"Missing checklist PDF font: {font_path}")
 	check_tools()
-	generated_paths = []
-	# ASVS 5.3.2: intermediate files stay inside the validated generated-output root.
+	expected_names: set[str] = set()
+	# ASVS 5.3.2: staged files stay inside the validated generated-output root.
 	with tempfile.TemporaryDirectory(prefix=".department_checklist_", dir=resolved_output) as temp_dir:
 		temporary_dir = pathlib.Path(temp_dir)
 		for index, raw_course in enumerate(raw_courses):
@@ -576,10 +609,11 @@ def build_checklists(repo_root: pathlib.Path, output_dir: pathlib.Path) -> tuple
 				manifest.term,
 				"Department_Checklist",
 			)
-			markdown_path = resolved_output / f"{basename}.md"
-			docx_path = resolved_output / f"{basename}.docx"
-			pdf_path = resolved_output / f"{basename}.pdf"
+			markdown_path = temporary_dir / f"{basename}.md"
+			docx_path = temporary_dir / f"{basename}.docx"
+			pdf_path = temporary_dir / f"{basename}.pdf"
 			html_path = temporary_dir / f"{basename}.html"
+			expected_names.update((markdown_path.name, docx_path.name, pdf_path.name))
 			markdown_path.write_text(markdown, encoding="utf-8")
 			subprocess.run(
 				[
@@ -601,9 +635,8 @@ def build_checklists(repo_root: pathlib.Path, output_dir: pathlib.Path) -> tuple
 			html_path.write_text(html_document, encoding="utf-8")
 			run_weasyprint_pdf(html_path, pdf_path)
 			verify_pdf_output(pdf_path, course_items)
-			generated_paths.extend((markdown_path, docx_path, pdf_path))
 			print(f"Built {markdown_path.name}, {docx_path.name}, and {pdf_path.name}")
-	return tuple(generated_paths)
+		return publish_checklists(temporary_dir, resolved_output, expected_names)
 
 
 #============================================
