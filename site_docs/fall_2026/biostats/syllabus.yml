@@ -5,6 +5,11 @@ term: Fall 2026
 author: Neil R. Voss
 language: en-US
 assessment_examples_url: https://biologyproblems.org/biostatistics/
+course_point_plan:
+  - assessment: Tutorial assignments
+    points: 50
+  - assessment: Three group quizzes (3 x 20 points)
+    points: 60
 sections:
   - index.md
   - COURSE_DETAILS.md

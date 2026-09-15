@@ -545,6 +545,11 @@ tbody tr:nth-child(even) {
 	letter-spacing: 0.06em;
 }
 
+/* Keep a two-category point plan and its total together; longer itemized plans may split. */
+.table-layout--point-plan:not(:has(tbody tr:nth-child(4))) {
+	break-inside: avoid;
+}
+
 /* Repeat the header hierarchy for the point-plan sum and leave room to write. */
 #course-point-plan + table tbody tr:last-child td,
 #course-point-plan + .md-typeset__scrollwrap tbody tr:last-child td {

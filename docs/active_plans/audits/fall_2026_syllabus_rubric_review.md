@@ -1,8 +1,7 @@
 # Fall 2026 syllabus readiness audit
 
-Revalidated August 31, 2026 against the tracked 53-item rubric, the live Fall 2026 sources, and
-freshly regenerated department checklists. This document shows course readiness first, then lists
-only the work that remains.
+Updated September 14, 2026 for the instructor-approved Biostatistics point plan. The readiness
+summary follows the tracked 53-item rubric and live Fall 2026 sources.
 
 ## Readiness summary
 
@@ -13,7 +12,7 @@ applicable.
 | --- | ---: | ---: | --- |
 | BIOL 480 | 0 | 0 | **READY - all 53 items resolved** |
 | BIOL 351/451 | 0 | 0 | **READY - all 53 items resolved** |
-| BIOL 318/418 | 2 | 0 | **NOT READY - instructor decisions required** |
+| BIOL 318/418 | 1 | 0 | **NOT READY - due dates require confirmation** |
 
 ## Ready courses
 
@@ -33,23 +32,15 @@ and settings.
 
 ## Required BIOL 318/418 work
 
-These two instructor decisions keep BIOL 318/418 from final rubric readiness.
+The point plan is approved: 50 tutorial-assignment points and three 20-point group quizzes, for
+110 total points. The live coursework page now resolves `assignment_points`. The remaining
+required item is the dated assessment schedule.
 
-### 1. Confirm the point plan
-
-- **Rubric item:** `assignment_points`.
-- **Decision:** Confirm the number of group quizzes, regular-assignment points, and extra-credit
-  cap in [biostats_point_plan.md](../decisions/biostats_point_plan.md).
-- **Update:** Add the approved values to
-  [syllabus.yml](../../../site_docs/fall_2026/biostats/syllabus.yml) and add the derived-table
-  marker to
-  [ASSIGNMENTS_AND_GRADING.md](../../../site_docs/fall_2026/biostats/ASSIGNMENTS_AND_GRADING.md).
-
-### 2. Name and date major work
+### Name and date major work
 
 - **Rubric item:** `major_due_dates`.
-- **Decision:** Confirm the dated tutorial deliverables and whether any additional major work is
-  assigned. The September 14 correction removed unsupported project and final-work placeholders
+- **Decision:** Confirm tutorial deliverable deadlines and the three group-quiz dates. The
+  September 14 correction removed unsupported project and final-work placeholders
   and restored the historical topic sequence, including five hypothesis-testing tutorial sessions.
 - **Update:** Add confirmed deliverable names and due dates to
   [SCHEDULE.md](../../../site_docs/fall_2026/biostats/SCHEDULE.md).

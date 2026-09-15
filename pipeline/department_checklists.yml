@@ -459,18 +459,19 @@ courses:
   - directory: biostats
     overrides:
       assignment_points:
-        status: needs_review
+        status: covered
         note: >-
-          The page identifies assessment types but does not yet provide the Fall 2026 point total
-          or weights. The Blackboard gradebook is currently the authoritative score record.
+          The instructor-approved Fall 2026 plan gives tutorial assignments 50 points and three
+          group quizzes 20 points each, for 110 total points. The page derives approximate shares
+          from the manifest and keeps extra credit outside the denominator.
       major_due_dates:
         status: needs_review
-        note: Weekly work is dated, but the final project and other major deadlines need more precise public dates.
+        note: Tutorial deliverable deadlines and the three group-quiz dates still need confirmation.
       assignment_formatting:
         status: covered
         evidence:
           - label: Sample assessment problems
-            path: ASSIGNMENTS_AND_GRADING/#assignment-details
+            path: ASSIGNMENTS_AND_GRADING/#regular-assignment-details
         note: >-
           The course-specific Biology Problems OER link shows representative problem formats.
           Each released assignment provides its exact directions and settings.
@@ -516,7 +517,7 @@ courses:
         status: covered
         evidence:
           - label: Sample assessment problems
-            path: ASSIGNMENTS_AND_GRADING/#assignment-details
+            path: ASSIGNMENTS_AND_GRADING/#regular-assignment-details
         note: >-
           The course-specific Biology Problems OER link shows representative problem formats.
           Each released assignment provides its exact directions and settings.

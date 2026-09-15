@@ -134,6 +134,8 @@ history. Those belong in the appropriate technical documentation or changelog.
   outside the normal assignment sequence.
 - I want each course point plan authored as assessment names and point values in its YAML. Derive
   the total points and approximate shares instead of maintaining table arithmetic in Markdown.
+- For Fall 2026 Biostatistics, use 50 tutorial-assignment points and three 20-point group quizzes,
+  for 110 total points.
 - I want syllabus assignment pages to state concrete deliverables, expectations, and evaluation
   criteria while remaining enthusiastic about learning. Avoid promotional or explanatory fluff.
 - Keep assignment-specific directions and links platform-neutral unless I explicitly confirm where

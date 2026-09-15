@@ -12,12 +12,22 @@
   unsupported Biostatistics project/final-work placeholders. Retained current Fall 2026 dates,
   chapter numbering, Week 3 online-assignment start, and approved Biotechnology presentation weeks.
 - Recorded the instruction to preserve named activities, counts, point breakdowns, topics, and
-  sequencing. The separate Biostatistics point-plan proposal remains unresolved.
+  sequencing.
+- Published the instructor-approved Biostatistics point plan in the live source: 50 tutorial
+  points and three 20-point group quizzes, totaling 110 points. The derived table shows 45.5% and
+  54.5% shares and keeps extra credit outside the denominator. Updated the decision record and
+  checklist; tutorial deadlines and quiz dates remain the one required readiness gap.
+- Kept the two-category Biostatistics point table together in PDF and corrected two department
+  checklist evidence links to the current Regular assignment details heading.
 - Tightened PDF-only spacing in the grouped Biotechnology schedule to keep the drop-date row
   with the individual-project sequence instead of orphaning it on a separate page.
 
 ### Developer Tests and Notes
 
+- The approved 110-point plan passed the aggregate checks. After the PDF and checklist refinements,
+  all 1,569 fast tests passed again; rebuilt all syllabus and department-checklist exports and the
+  strict website, and visually checked the Biostatistics point table. An overlapping pytest run
+  encountered temporary export files removed during its scan; the sequential rerun passed.
 - Final `./all_test.sh` passed all 1,569 fast tests, live-date refresh, PDF/DOCX exports, strict
   website build, include parity, and the Playwright browser audit. Inspected the restored PDF
   tables and schedule page breaks, checked point totals and project subtotals, and verified
