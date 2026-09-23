@@ -226,3 +226,25 @@ width. No renderer infers presentation from surrounding table text.
 **Owner.** `docs/FILE_FORMATS.md`,
 `site_docs/fall_2026/shared/fragments/INSTRUCTOR_CONTACT_DETAILS.md`, and
 `pipeline/pandoc_filters/docx_image_layout.lua` plus the website/PDF stylesheets.
+
+### Refresh online calendars through one command
+
+**Decision.** Use `launchers/sync_calendars.py` as the local command and
+`pipeline/build_lib/calendar_sync.py` for calendar refresh logic. Its default refreshes university
+dates, Biostatistics, BIOL 480, and Genetics into Markdown snapshots. GitHub Pages invokes it in
+university-only mode and uses committed course schedule snapshots.
+
+**Why.** One local command keeps online source refreshes easy to review while keeping course
+content changes visible in Git. Each published schedule page links to its spreadsheet source.
+
+**Consequence.** Validate all selected exports and run rendered Markdown through the canonical
+`tests/fix_ascii_compliance.py` fixer before writing any snapshot. Use atomic replacement, and
+review each changed `SCHEDULE.md` diff before committing. The Pages build fetches university dates
+only; it does not fetch course sheets.
+
+For BIOL 480, preserve the source `Assign` and `Assignments Due` columns separately. Their names do
+not establish that every `Assign` value is due on the row's date.
+
+**Owner.** `launchers/sync_calendars.py`, `pipeline/build_lib/calendar_sync.py`,
+`pipeline/build_lib/google_sheets.py`,
+`pipeline/build_site.py`, and `docs/FILE_FORMATS.md`.

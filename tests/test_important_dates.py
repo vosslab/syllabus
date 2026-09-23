@@ -4,7 +4,8 @@
 import pytest
 
 # local repo modules
-import sync_important_dates
+import build_lib.google_sheets
+import build_lib.important_dates
 
 
 SAMPLE_CSV = (
@@ -18,9 +19,9 @@ SAMPLE_CSV = (
 #============================================
 def test_render_markdown_groups_months_and_escapes_remote_markup() -> None:
 	"""Month headings group tables without rules and remote text remains literal."""
-	entries = sync_important_dates.parse_csv(SAMPLE_CSV)
+	entries = build_lib.important_dates.parse_csv(SAMPLE_CSV)
 	entries[1].event = "[Click](javascript:alert(1)) | <script>"
-	markdown = sync_important_dates.render_markdown(entries)
+	markdown = build_lib.important_dates.render_markdown(entries)
 	assert (
 		"August 2026" in markdown
 		and "September 2026" in markdown
@@ -36,8 +37,8 @@ def test_render_markdown_groups_months_and_escapes_remote_markup() -> None:
 #============================================
 def test_render_markdown_omits_maintainer_metadata() -> None:
 	"""Personal confirmation, formula, and source-note cells stay out of the page."""
-	entries = sync_important_dates.parse_csv(SAMPLE_CSV)
-	markdown = sync_important_dates.render_markdown(entries)
+	entries = build_lib.important_dates.parse_csv(SAMPLE_CSV)
+	markdown = build_lib.important_dates.render_markdown(entries)
 	assert "| Date | Event | Type |" in markdown
 	assert "Confirmed" not in markdown and "Events calendar" not in markdown
 
@@ -47,14 +48,14 @@ def test_parse_csv_rejects_an_unknown_schema() -> None:
 	"""A changed worksheet schema fails before a page can be replaced."""
 	wrong_schema = "Date,Event\nTue,Example\n"
 	with pytest.raises(ValueError, match="unsupported header schema"):
-		sync_important_dates.parse_csv(wrong_schema)
+		build_lib.important_dates.parse_csv(wrong_schema)
 
 
 #============================================
 def test_parse_date_rejects_a_mismatched_weekday() -> None:
 	"""The displayed weekday must agree with the calendar date."""
 	with pytest.raises(ValueError, match="wrong weekday"):
-		sync_important_dates.parse_date("Mon, Aug 18, 2026")
+		build_lib.important_dates.parse_date("Mon, Aug 18, 2026")
 
 
 #============================================
@@ -68,7 +69,7 @@ def test_parse_date_rejects_a_mismatched_weekday() -> None:
 )
 def test_categorize_event_uses_student_scanning_types(event: str, expected: str) -> None:
 	"""Representative event language maps to the intended visible type."""
-	category = sync_important_dates.categorize_event(event)
+	category = build_lib.important_dates.categorize_event(event)
 	assert category == expected
 
 
@@ -76,15 +77,15 @@ def test_categorize_event_uses_student_scanning_types(event: str, expected: str)
 def test_validate_google_url_rejects_non_google_redirects() -> None:
 	"""The fixed export cannot be redirected to an arbitrary remote host."""
 	with pytest.raises(ValueError, match="unsupported location"):
-		sync_important_dates.validate_google_url("https://example.com/export.csv")
+		build_lib.google_sheets.validate_google_url("https://example.com/export.csv")
 
 
 #============================================
 def test_validate_google_url_accepts_google_export_hosts() -> None:
 	"""The initial and redirected Google export hosts remain available."""
-	sync_important_dates.validate_google_url(
+	build_lib.google_sheets.validate_google_url(
 		"https://docs.google.com/spreadsheets/export?format=csv"
 	)
-	sync_important_dates.validate_google_url(
+	build_lib.google_sheets.validate_google_url(
 		"https://doc-example.googleusercontent.com/export/file.csv"
 	)

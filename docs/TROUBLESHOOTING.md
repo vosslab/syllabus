@@ -41,18 +41,32 @@ See [INSTALL.md](INSTALL.md) for the supported maintainer environment and
 
 ## Refresh important dates
 
-The production builder fails closed when it cannot retrieve or validate the fixed Google Sheets
-CSV export. Run the importer directly to expose its specific message:
+The production builder fails closed when it cannot retrieve or validate the fixed university
+Google Sheets CSV export. Run the unified calendar command in university-only mode to expose its
+specific message:
 
 ```bash
-source source_me.sh && python3 pipeline/sync_important_dates.py
+source source_me.sh && python3 launchers/sync_calendars.py --calendar university
 ```
 
 For a schema, date, weekday, checkbox, or chronological-order error, correct the first worksheet
 of the canonical Google Sheet rather than editing
 `site_docs/generated/FALL_2026_IMPORTANT_DATES.md`. That fragment is ignored generated output and
 is replaced only after the complete response validates. For an unavailable export, restore network
-access or Google Sheets availability, then rerun the importer; do not publish an older calendar.
+access or Google Sheets availability, then rerun the command; do not publish an older calendar.
+
+To isolate the Biostatistics source, run:
+
+```bash
+source source_me.sh && python3 launchers/sync_calendars.py --calendar biostats
+```
+
+The importer accepts the exact `Wk`, `Date`, `Lecture`, and `Assignments Due` headers. Correct a
+source-schema or date error in the public worksheet, then rerun the command.
+
+To isolate the BIOL 480 source, run `python3 launchers/sync_calendars.py --calendar biotech`. It
+accepts the six-column first worksheet described in [FILE_FORMATS.md](FILE_FORMATS.md); correct a
+schema, stage, date, or ordering error in the sheet and rerun the command.
 
 ## Correct source validation errors
 

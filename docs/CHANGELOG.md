@@ -1,3 +1,37 @@
+## 2026-09-23
+
+### Additions and New Features
+
+- Added one local calendar refresh command for the university important-dates sheet and the
+  Biostatistics, BIOL 480, and Genetics schedules. The Pages workflow refreshes university dates
+  only and publishes committed course schedule snapshots.
+- Rendered Biostatistics spreadsheet entries as stacked two-column rows so lecture, due work, and
+  multiline details remain readable at narrow widths.
+- Added the BIOL 480 spreadsheet contract and maps its `Assign` and `Assignments Due` fields
+  separately in the stage-grouped schedule.
+- Imported Genetics as tall two-column schedule rows with labeled topic, activity, quiz, and
+  assignment fields; its numbered quizzes retain supplementary color cues.
+
+### Fixes and Maintenance
+
+- Reused bounded Google Sheets export validation and atomic Markdown replacement for calendar
+  snapshots. Applied the canonical ASCII compliance fixer to rendered snapshots instead of
+  duplicating its punctuation conversions. Rejected exports leave existing files intact.
+- Added the Biostatistics, BIOL 480, and Genetics sheets to the unified refresh. The university
+  dates page and each course dates page link to their source spreadsheet.
+
+### Developer Tests and Notes
+
+- The focused 490-test pytest selection passed for all four calendar parsers, source links, atomic
+  snapshot validation, layouts, syllabus rendering, and ASCII compliance. A rejected Genetics
+  export leaves all four existing snapshots intact.
+- One-time refresh/build review: the local command imported 45 university dates, 18 Biostatistics
+  entries, 18 BIOL 480 entries, and 18 Genetics entries. `pipeline/build_site.py` rebuilt all three
+  PDF/DOCX pairs and passed the strict MkDocs build. All three course schedules and their source
+  links appear in HTML and document exports; the Genetics table renders as stacked two-column rows.
+  The local Chromium viewport check was blocked by macOS Mach-port permissions; PDF page 14 was
+  inspected and confirms the tall two-column rows.
+
 ## 2026-09-14
 
 ### Behavior or Interface Changes

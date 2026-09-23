@@ -1,28 +1,21 @@
-"""Synchronize the Fall 2026 important-dates tables from their Google Sheet."""
+"""Parse and render the Fall 2026 university important-dates worksheet."""
 
 # Standard Library
 import io
 import re
 import csv
-import html
-import time
-import random
 import pathlib
 import datetime
-import http.client
-import subprocess
-import urllib.parse
-import urllib.request
+
+# local repo modules
+import build_lib.google_sheets
+import build_lib.markdown_text
 
 
 SPREADSHEET_ID = "1YuK02ObBJgxFlQSLx0xtKdaLNBfuOgM466Hh6MRQczE"
-SPREADSHEET_CSV_URL = (
-	f"https://docs.google.com/spreadsheets/d/{SPREADSHEET_ID}/export?format=csv"
-)
+USER_AGENT = "vosslab-syllabus-calendar-sync/1.0"
 OUTPUT_RELATIVE_PATH = pathlib.Path("site_docs/generated/FALL_2026_IMPORTANT_DATES.md")
-MAX_RESPONSE_BYTES = 1_000_000
 MAX_ROWS = 1_000
-MAX_FIELD_CHARACTERS = 2_000
 EXPECTED_HEADERS = ("date", "confirmed", "wk", "x", "event", "notes")
 DATE_PATTERN = re.compile(
 	r"^(Mon|Tue|Wed|Thu|Fri|Sat|Sun), "
@@ -141,106 +134,16 @@ class CalendarEntry:
 		self.category = category
 
 
-class GoogleRedirectHandler(urllib.request.HTTPRedirectHandler):
-	"""Follow only the HTTPS Google redirects required by the CSV export."""
-
-	#============================================
-	def redirect_request(
-		self,
-		req: urllib.request.Request,
-		fp: http.client.HTTPResponse,
-		code: int,
-		msg: str,
-		headers: http.client.HTTPMessage,
-		newurl: str,
-	) -> urllib.request.Request | None:
-		"""Validate each Google export redirect before following it."""
-		# ASVS 15.3.2: required redirects stay on expected Google HTTPS hosts.
-		validate_google_url(newurl)
-		redirected_request = super().redirect_request(req, fp, code, msg, headers, newurl)
-		return redirected_request
-
-
-#============================================
-def get_repo_root() -> pathlib.Path:
-	"""Return the repository root reported by Git."""
-	completed = subprocess.run(
-		["git", "rev-parse", "--show-toplevel"],
-		check=True,
-		capture_output=True,
-		text=True,
-	)
-	repo_root = pathlib.Path(completed.stdout.strip())
-	return repo_root
-
-
-#============================================
-def validate_google_url(url: str) -> None:
-	"""Require an HTTPS URL on an expected Google document host."""
-	parsed_url = urllib.parse.urlsplit(url)
-	hostname = parsed_url.hostname
-	allowed_host = hostname == "docs.google.com"
-	if hostname is not None and hostname.endswith(".googleusercontent.com"):
-		allowed_host = True
-	# ASVS 12.3.1, 12.3.2, 13.2.4: use TLS validation and a host allowlist.
-	if parsed_url.scheme != "https" or not allowed_host or parsed_url.port not in (None, 443):
-		raise ValueError("Google Sheets export redirected to an unsupported location")
-	return None
-
-
 #============================================
 def fetch_csv_text() -> str:
 	"""Download the first worksheet as a bounded UTF-8 CSV document."""
-	validate_google_url(SPREADSHEET_CSV_URL)
-	request = urllib.request.Request(
-		SPREADSHEET_CSV_URL,
-		headers={"User-Agent": "vosslab-syllabus-calendar-sync/1.0"},
-	)
-	opener = urllib.request.build_opener(GoogleRedirectHandler())
-	# Pause briefly before the request, per the repository network-client convention.
-	time.sleep(random.random())
-	# ASVS 13.2.6: the external request has a fixed timeout and no retry storm.
-	with opener.open(request, timeout=30) as response:
-		validate_google_url(response.geturl())
-		# ASVS 4.1.1: require the documented CSV response type and UTF-8 charset.
-		if response.headers.get_content_type() != "text/csv":
-			raise ValueError("Google Sheets export did not return CSV content")
-		charset = response.headers.get_content_charset()
-		if charset is not None and charset.lower().replace("-", "") != "utf8":
-			raise ValueError("Google Sheets export did not return UTF-8 content")
-		body = response.read(MAX_RESPONSE_BYTES + 1)
-	# ASVS 2.2.1: reject oversized remote data before decoding or parsing it.
-	if len(body) > MAX_RESPONSE_BYTES:
-		raise ValueError("Google Sheets export exceeded the allowed response size")
-	csv_text = body.decode("utf-8-sig")
-	return csv_text
+	return build_lib.google_sheets.fetch_csv_text(SPREADSHEET_ID, USER_AGENT)
 
 
 #============================================
 def normalize_cell(value: str) -> str:
 	"""Normalize safe spreadsheet typography and whitespace for ASCII Markdown."""
-	for character in value:
-		if ord(character) < 32 and character not in "\t\r\n":
-			raise ValueError("Google Sheets export contains a prohibited control character")
-	translations = str.maketrans(
-		{
-			"\u2013": "-",
-			"\u2014": "-",
-			"\u2212": "-",
-			"\u2018": "'",
-			"\u2019": "'",
-			"\u201c": '"',
-			"\u201d": '"',
-			"\ufe0e": "",
-			"\ufe0f": "",
-		}
-	)
-	normalized = " ".join(value.translate(translations).split())
-	if len(normalized) > MAX_FIELD_CHARACTERS:
-		raise ValueError("Google Sheets export contains an oversized cell")
-	# Repository Markdown accepts ASCII and ISO-8859-1; reject other characters.
-	normalized.encode("iso-8859-1")
-	return normalized
+	return build_lib.markdown_text.normalize_spreadsheet_cell(value)
 
 
 #============================================
@@ -280,8 +183,8 @@ def normalize_marker(value: str, blank_value: str) -> str:
 def normalize_week(value: str) -> str:
 	"""Validate a semester week number or an explicit non-week marker."""
 	week = normalize_cell(value)
-	if week == "-":
-		return week
+	if week in build_lib.markdown_text.WEEK_DASH_MARKERS:
+		return "-"
 	if not week.isdigit() or not 1 <= int(week) <= 20:
 		raise ValueError("Google Sheets export contains an unsupported week value")
 	return week
@@ -348,21 +251,7 @@ def parse_csv(csv_text: str) -> list[CalendarEntry]:
 #============================================
 def escape_markdown_cell(value: str) -> str:
 	"""Encode remote text for safe literal rendering in a Markdown table cell."""
-	# ASVS 1.1.2, 1.2.1: encode at the final Markdown/HTML output boundary.
-	escaped = html.escape(value, quote=False)
-	markdown_replacements = {
-		"\\": "&#92;",
-		"|": "&#124;",
-		"[": "&#91;",
-		"]": "&#93;",
-		"*": "&#42;",
-		"_": "&#95;",
-		"`": "&#96;",
-		"~": "&#126;",
-	}
-	for character, replacement in markdown_replacements.items():
-		escaped = escaped.replace(character, replacement)
-	return escaped
+	return build_lib.markdown_text.escape_markdown_cell(value)
 
 
 #============================================
@@ -386,7 +275,7 @@ def render_table_row(entry: CalendarEntry) -> str:
 def render_markdown(entries: list[CalendarEntry]) -> str:
 	"""Render entries as month tables for the page wrapper."""
 	lines = [
-		"<!-- Generated by pipeline/sync_important_dates.py. Do not edit directly. -->",
+		"<!-- Generated by launchers/sync_calendars.py. Do not edit directly. -->",
 	]
 	current_month: tuple[int, int] | None = None
 	for entry in entries:
@@ -411,27 +300,9 @@ def render_markdown(entries: list[CalendarEntry]) -> str:
 
 
 #============================================
-def write_markdown(markdown: str, output_path: pathlib.Path) -> None:
-	"""Write a fully validated page to the trusted repository destination."""
-	# ASVS 5.3.2: the caller supplies one code-owned path, never spreadsheet data.
-	output_path.parent.mkdir(parents=True, exist_ok=True)
-	output_path.write_text(markdown, encoding="utf-8")
-	return None
-
-
-#============================================
-def main() -> None:
-	"""Refresh the ignored important-dates fragment from the first worksheet."""
-	repo_root = get_repo_root()
-	output_path = repo_root / OUTPUT_RELATIVE_PATH
-	# ASVS 16.5.2, 16.5.3: validate and render in memory before replacing the good page.
+def prepare_output() -> tuple[str, int]:
+	"""Fetch, validate, and render the university calendar without writing it."""
 	csv_text = fetch_csv_text()
 	entries = parse_csv(csv_text)
 	markdown = render_markdown(entries)
-	write_markdown(markdown, output_path)
-	print(f"Updated {OUTPUT_RELATIVE_PATH} with {len(entries)} important dates.")
-	return None
-
-
-if __name__ == "__main__":
-	main()
+	return markdown, len(entries)

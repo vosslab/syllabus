@@ -24,11 +24,32 @@ See [FILE_FORMATS.md](FILE_FORMATS.md) for manifest, Markdown table, and restric
 - Edit shared instructor facts in `shared/fragments/INSTRUCTOR_CONTACT_DETAILS.md`. Edit the
   student-services route list in `shared/STUDENT_RESOURCES.md` and service details in the matching
   `shared/student_services/` topic page.
-- Edit dates as literal Markdown in course schedules and details; confirm calendar changes before
-  publishing because the build never shifts them automatically.
+- Biostatistics `SCHEDULE.md` is a tracked snapshot of its public Google Sheet; refresh it with the
+  calendar command below, review the diff, and commit the approved Markdown. The dates page links to
+  its source spreadsheet.
+- Biotechnology `SCHEDULE.md` is a tracked snapshot of its public Google Sheet; refresh it with the
+  calendar command below, review the diff, and commit the approved Markdown. The dates page links to
+  its source spreadsheet.
+- Genetics `SCHEDULE.md` is a tracked snapshot of its public Google Sheet; refresh it with the
+  calendar command below, review the diff, and commit the approved Markdown. The dates page links to
+  its source spreadsheet.
 - Edit assessment choices, discussion mode, lab status, and confirmed point-plan names and values
   in the course `syllabus.yml`. The build derives point totals, approximate shares, applicable
   interruption guidance, and notices when the course has no quizzes or exams.
+
+## Refresh online calendars
+
+Refresh university dates and all three course schedules from the repository root:
+
+```bash
+source source_me.sh && python3 launchers/sync_calendars.py
+```
+
+The command validates every selected export before replacing its Markdown snapshot. Review the
+resulting diff before publishing. Use `--calendar university`, `--calendar biostats`,
+`--calendar biotech`, or `--calendar genetics` to refresh one source. The Pages build refreshes
+university dates only and publishes the committed course schedule snapshots without fetching
+course sheets.
 
 ## Build and preview
 

@@ -159,11 +159,11 @@ def merge_docx_schedule_stage_cells(table: object, headers: tuple[str, ...]) -> 
 	for row in table.rows[1:]:
 		week_text = row.cells[0].text.strip()
 		stage_text = row.cells[2].text.strip()
-		in_class_text = row.cells[4].text.strip()
-		work_due_text = row.cells[5].text.strip()
+		assign_text = row.cells[4].text.strip()
+		assignments_due_text = row.cells[5].text.strip()
 		if stage_text not in build_lib.table_layouts.SCHEDULE_STAGE_KEYS:
 			raise ValueError(f"Unregistered schedule stage: {stage_text}")
-		if week_text == "-" and in_class_text == "-" and work_due_text == "-":
+		if week_text == "-" and assign_text == "-" and assignments_due_text == "-":
 			milestone_text = row.cells[3].text
 			row.cells[4].text = ""
 			row.cells[5].text = ""

@@ -10,14 +10,18 @@ the active Markdown authoritative and treats every rendered artifact as generate
 
 ```text
 Google Sheets                    tracked site_docs/
-important dates                      |             |
-      |                              |             | syllabus.yml manifests
-      v                              |             v
-sync_important_dates.py              |      build_syllabi.py
-      |                              |          |          |
-      | generated date fragment -----+          v          v
-      |                              |       Pandoc   Python-Markdown
-      |                              |          |          |
+university dates                     |             |
+Biostatistics schedule                |             | syllabus.yml manifests
+BIOL 480 schedule                     |             |
+Genetics schedule                     |             |
+      |                              |             v
+      v                              |      build_syllabi.py
+launchers/sync_calendars.py          |          |          |
+      |                              |          v          v
+      | university fragment ---------+       Pandoc   Python-Markdown
+      | Biostatistics schedule ----->|          |          |
+      | BIOL 480 schedule ---------->|          |          |
+      | Genetics schedule ---------->|          |          |
       |                              |          v          v
       |                              |         DOCX    HTML + WeasyPrint
       |                              |                     |
@@ -98,9 +102,11 @@ This closed selection keeps authority in one place without adding a parallel-con
 
 `pipeline/build_site.py` is the production front door. It runs three fail-fast stages:
 
-1. `pipeline/sync_important_dates.py` downloads and validates the fixed Google Sheets CSV source,
-   then atomically replaces the generated important-dates fragment consumed by the tracked dates
-   wrapper on the website and in every complete syllabus.
+1. `launchers/sync_calendars.py --calendar university` downloads and validates the live university
+   sheet, then atomically replaces the generated important-dates fragment consumed by the tracked
+   dates wrapper on the website and in every complete syllabus. The local default also refreshes
+   the tracked Biostatistics, BIOL 480, and Genetics schedule snapshots. The Pages build does not
+   fetch course sheets.
 2. `pipeline/build_syllabi.py` coordinates manifest discovery, staged builds, publication, and
    optional archives through the importable units under `pipeline/build_lib/`.
 3. MkDocs builds `site/` in strict mode using `mkdocs.yml`.
@@ -253,9 +259,9 @@ public fact into the canonical Markdown source rather than linking a course page
 - Add a complete-syllabus section by updating the owning course `syllabus.yml` manifest and the
   public Markdown source it names. The manifest contract is documented in
   [FILE_FORMATS.md](FILE_FORMATS.md).
-- Put reusable manifest, content, include, or renderer behavior in
-  [pipeline/build_lib/](../pipeline/build_lib/). Keep runnable entry points in
-  [pipeline/](../pipeline/) as small coordinators.
+- Put reusable manifest, content, include, calendar, or renderer behavior in
+  [pipeline/build_lib/](../pipeline/build_lib/). Keep new thin maintainer launchers in
+  [launchers/](../launchers/) as small coordinators over those libraries.
 - Use [pipeline/check_links.py](../pipeline/check_links.py) for an on-demand live audit of every
   external URL in `site_docs/`. It is a maintainer command, not a fast pytest dependency.
 - Use [pipeline/build_department_checklists.py](../pipeline/build_department_checklists.py) to

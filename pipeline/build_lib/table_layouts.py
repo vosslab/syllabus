@@ -31,11 +31,20 @@ FLEXIBLE_COLUMN_GROWTH_FACTOR = 1.25
 MAXIMUM_GROWING_SCHEDULE_COLUMNS = 2
 HTML_PLACEHOLDER_PATTERN = re.compile(markdown.util.HTML_PLACEHOLDER % r"([0-9]+)")
 HTML_TAG_PATTERN = re.compile(r"<[^>]+>")
-STAGED_SCHEDULE_HEADERS = ("Wk", "Date", "Stage", "Topic", "In class", "Work due")
+STAGED_SCHEDULE_HEADERS = (
+	"Wk",
+	"Date",
+	"Stage",
+	"Weekly Topic",
+	"Assign",
+	"Assignments Due",
+)
 STAGED_SCHEDULE_DATE_DEMAND = 7
 SCHEDULE_STAGE_KEYS = {
 	"Course foundations": "foundations",
 	"Individual project": "individual",
+	# Keep the label distinct while reusing the individual-project supplementary accent.
+	"Transition": "individual",
 	"Group project": "group",
 }
 
@@ -140,6 +149,8 @@ def classify_table_headers(headers: tuple[str, ...]) -> str:
 		return "attendance"
 	if headers == ("Percentage", "Grade"):
 		return "grade-scale"
+	if headers == ("Week and date", "Schedule details"):
+		return "key-value"
 	if len(headers) == 2 and headers[0] in ("Course summary", "Field"):
 		return "key-value"
 	header_text = " | ".join(headers)
@@ -372,15 +383,15 @@ def merge_schedule_stage_cells(
 			continue
 		week_text = normalize_cell_text(cells[0], raw_html_blocks)
 		stage_text = normalize_cell_text(cells[2], raw_html_blocks)
-		in_class_text = normalize_cell_text(cells[4], raw_html_blocks)
-		work_due_text = normalize_cell_text(cells[5], raw_html_blocks)
+		assign_text = normalize_cell_text(cells[4], raw_html_blocks)
+		assignments_due_text = normalize_cell_text(cells[5], raw_html_blocks)
 		try:
 			stage_key = SCHEDULE_STAGE_KEYS[stage_text]
 		except KeyError as error:
 			raise ValueError(f"Unregistered schedule stage: {stage_text}") from error
 		append_element_class(row, "schedule-phase-row")
 		append_element_class(row, f"schedule-phase-row--{stage_key}")
-		if week_text == "-" and in_class_text == "-" and work_due_text == "-":
+		if week_text == "-" and assign_text == "-" and assignments_due_text == "-":
 			topic_cell = cells[3]
 			append_element_class(row, "schedule-milestone-row")
 			append_element_class(topic_cell, "schedule-milestone-cell")

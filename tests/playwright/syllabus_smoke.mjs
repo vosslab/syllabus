@@ -5,7 +5,7 @@
 //   site_docs/fall_2026/shared/fragments/TERM_COURSES.md:1; Blackboard context comes from
 //   site_docs/index.md:1.
 // - The important-dates wrapper comes from site_docs/fall_2026/shared/IMPORTANT_DATES.md:1;
-//   its generated month tables come from pipeline/sync_important_dates.py:386.
+//   its generated month tables come from pipeline/build_lib/important_dates.py.
 // - Main headings, prose, tables, course-contents links, and download links come from the three
 //   site_docs/fall_2026/*/index.md course landing pages.
 // - Typography, course-contents cards, and focus-visible behavior come from

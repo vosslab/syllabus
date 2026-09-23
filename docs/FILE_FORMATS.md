@@ -183,13 +183,26 @@ the numbered coverage cue while Topic remains course-content prose. A bold Topic
 cell is a major schedule milestone; the renderer spans it across the Topic and Quiz columns while
 keeping Due this date independent in the website, PDF, and DOCX.
 
-The BIOL 480 schedule uses
-`Wk | Date | Stage | Topic | In class | Work due`. Stage names are repeated in the valid pipe-table
-source so every row remains explicit; the website/PDF and DOCX renderers merge each consecutive
-identical stage into one row-spanning group label. `In class` contains scheduled presentations,
-discussions, and activities. `Work due` contains out-of-class assignments due by that date.
-Non-meeting milestone rows retain Week, Date, and Stage while the renderer spans their Topic across
-the final three columns when both activity and work-due cells contain `-`.
+The Biostatistics worksheet uses `Wk | Date | Lecture | Assignments Due` and renders as the
+two-column `Week and date | Schedule details` shape. Each source row becomes one tall row, with
+Lecture and Assignments due on separately labeled lines. Multiline source cells stay on separate
+lines within their labeled field so the schedule fits narrow reading columns.
+
+The Genetics worksheet uses `Wk | Lect | Date | Lecture | Quiz | In-Class Activity | Quiz |
+Assign Due`. The two `Quiz` columns hold quiz coverage and quiz due dates, respectively. Each
+spreadsheet entry becomes one tall row in the `Week and date | Schedule details` table. The first
+cell carries week, lecture number, and date; the second carries each nonblank topic, activity,
+quiz-coverage, quiz-due, and assignment-due field on a separate labeled line. The two-column layout
+wraps within the reading column at narrow widths. Its schedule page links to the source spreadsheet.
+
+The BIOL 480 sheet contract is `Wk | Date | Stage | Weekly Topic | Assign | Assignments Due`.
+The generated table preserves both assignment fields separately instead of inferring that every
+`Assign` entry is due on that date. Known stage names are normalized to the renderer's labels;
+blank stages on special-date rows inherit the preceding phase for continuity. The website/PDF and
+DOCX renderers merge each consecutive identical stage into one row-spanning group label. A
+non-meeting milestone keeps Week, Date, and Stage while the renderer spans its Topic across the
+final three columns when both assignment cells contain `-`. Multiline topic and assignment fields
+remain separate lines in each table cell.
 
 ## Shared fragments
 
@@ -241,10 +254,21 @@ must also reach at least 5.5:1 there. DOCX output retains its format-native neut
 
 ## Synchronized dates
 
-`pipeline/sync_important_dates.py` reads a fixed six-column Google Sheets CSV source. Its normalized
-headers are `date`, `confirmed`, `wk`, `x`, `event`, and `notes`; a `Confirmed for YYYY` header
-normalizes to `confirmed`. The generated Markdown publishes only the date, event, and inferred event
-type; the remaining columns are validated maintainer metadata.
+`launchers/sync_calendars.py` is the local refresh command for the four online calendar sources.
+It reads the university six-column Google Sheets CSV (`date`, `confirmed`, `wk`, `x`, `event`,
+`notes`), the Biostatistics four-column CSV (`wk`, `date`, `lecture`, `assignments due`), the
+BIOL 480 six-column CSV (`wk`, `date`, `stage`, `weekly topic`, `assign`, `assignments due`), and
+the Genetics eight-column CSV (`wk`, `lect`, `date`, `lecture`, `quiz`, `in-class activity`,
+`quiz`, `assign due`). It validates every selected export, then atomically replaces the
+corresponding Markdown snapshots. A `Confirmed for YYYY` university header normalizes to
+`confirmed`; the generated university page publishes only the date, event, and inferred event type.
+The course schedules preserve multiline fields as line breaks within their table cells and link to
+their source spreadsheets.
+
+Run the command without options to refresh all four online calendars, or pass `--calendar
+university`, `--calendar biostats`, `--calendar biotech`, or `--calendar genetics` to refresh one.
+The Pages builder invokes it with `--calendar university`, so publication refreshes live university
+dates and reads committed course schedule snapshots.
 
 The generated fragment lives at `site_docs/generated/FALL_2026_IMPORTANT_DATES.md`. It is ignored
 output included by the tracked `site_docs/fall_2026/shared/IMPORTANT_DATES.md` wrapper. Edit the

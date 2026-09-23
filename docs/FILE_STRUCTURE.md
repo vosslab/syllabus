@@ -8,8 +8,9 @@
 |-- devel/                   Maintainer setup, version, and changelog tools
 |-- department_checklists/   Ignored generated department-submission files
 |-- docs/                    Repository documentation and working records
+|-- launchers/               Thin maintainer command entry points
 |-- overrides/               Material theme template overrides
-|-- pipeline/                Date synchronization and syllabus renderers
+|-- pipeline/                Calendar and syllabus processing code
 |-- site_docs/               Public website and syllabus source authority
 |-- tests/                   Fast, export E2E, and browser validation
 |-- tools/                   Optional repository-analysis utilities
@@ -22,6 +23,11 @@
 |-- run_web_server.sh        Local production-shaped preview
 |-- source_me.sh             Python 3.12 environment bootstrap
 `-- run_playwright_tests.sh  Browser audit front door
+```
+
+```text
+launchers/
+`-- sync_calendars.py        Refreshes configured online calendar snapshots
 ```
 
 ## Public source tree
@@ -82,7 +88,6 @@ pipeline/
 |-- build_syllabi.py                    Complete DOCX and PDF entry point
 |-- check_links.py                      Live external-link audit with source locations
 |-- mkdocs_hooks.py                     Website metadata, include, and link adapter loaded by MkDocs
-|-- sync_important_dates.py             Google Sheets fragment importer
 |-- create_syllabus_reference_docx.py   Intentional DOCX style-asset generator
 |-- syllabus_reference.docx             Tracked Pandoc reference document
 |-- department_checklists.yml           Rubric evidence and course-specific doubts
@@ -90,19 +95,26 @@ pipeline/
 |   |-- docx_image_layout.lua            Portable image metadata to native DOCX sizing
 |   `-- docx_line_breaks.lua             Documented HTML breaks to native DOCX breaks
 `-- build_lib/
+    |-- calendar_sync.py                 Online calendar refresh coordination
     |-- external_links.py                Static website external-link attributes
+    |-- google_sheets.py                 Bounded, redirect-validated CSV exports
+    |-- biostats_schedule.py             Biostatistics schedule parsing and rendering
+    |-- biotech_schedule.py              BIOL 480 schedule parsing and rendering
+    |-- genetics_schedule.py             Genetics schedule parsing and rendering
+    |-- important_dates.py               University calendar parsing and rendering
     |-- markdown_includes.py             Shared include grammar and expansion engine
+    |-- markdown_text.py                 Spreadsheet text normalization and Markdown escaping
     |-- syllabus_content.py              Source validation and Markdown composition
     |-- syllabus_model.py                Manifest model, loading, and path validation
     |-- syllabus_rendering.py            DOCX/PDF rendering, checks, and publication
     `-- table_layouts.py                  Content-derived cross-format table sizing
 ```
 
-[pipeline/](../pipeline/) holds runnable or externally loaded entry points.
-[pipeline/build_lib/](../pipeline/build_lib/) holds importable library units used by those entry
-points; it is found by placing `pipeline/` itself on the Python import path rather than treating
-`pipeline/` as a package. Entry points coordinate those units instead of retaining substantial
-composition, validation, or rendering implementations.
+[launchers/](../launchers/) holds thin maintainer command entry points. The calendar command adds
+`pipeline/` to the Python import path and calls
+[`pipeline/build_lib/calendar_sync.py`](../pipeline/build_lib/calendar_sync.py). Existing production
+build front doors remain under `pipeline/`; their reusable implementation units live under
+[`pipeline/build_lib/`](../pipeline/build_lib/).
 
 ## Test layout
 

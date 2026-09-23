@@ -25,7 +25,7 @@ def main() -> None:
 	repo_root = get_repo_root()
 	# ASVS 16.5.2, 16.5.3: fail closed instead of publishing a stale calendar.
 	subprocess.run(
-		[sys.executable, "pipeline/sync_important_dates.py"],
+		[sys.executable, "launchers/sync_calendars.py", "--calendar", "university"],
 		cwd=repo_root,
 		check=True,
 	)

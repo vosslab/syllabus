@@ -12,6 +12,7 @@ import pytest
 import build_lib.syllabus_model
 import build_lib.syllabus_content
 import build_lib.syllabus_rendering
+import build_lib.table_layouts
 
 
 #============================================
@@ -206,7 +207,7 @@ def test_docx_staged_schedule_merges_stage_and_milestone_cells(
 	"""Word mirrors the BIOL 480 stage row groups and full-width milestone prose."""
 	document = docx.Document()
 	table = document.add_table(rows=4, cols=6)
-	headers = ("Wk", "Date", "Stage", "Topic", "In class", "Work due")
+	headers = build_lib.table_layouts.STAGED_SCHEDULE_HEADERS
 	for cell, value in zip(table.rows[0].cells, headers, strict=True):
 		cell.text = value
 	rows = (

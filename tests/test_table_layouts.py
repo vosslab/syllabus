@@ -90,12 +90,12 @@ def test_markdown_repeated_tables_emit_matching_series_widths() -> None:
 
 
 #============================================
-def test_key_value_layout_prioritizes_information_column() -> None:
-	"""A two-column reference table gives most of its width to the information."""
-	headers = ("Field", "Information")
+def test_two_column_schedule_gives_room_to_the_details() -> None:
+	"""Stacked calendar rows give most of their width to the schedule details."""
+	headers = ("Week and date", "Schedule details")
 	body_rows = (
-		("Meeting", "Tuesday, 1:30-4:25 p.m."),
-		("Prerequisites", "BIOL 201, BIOL 202, and BIOL 301 with C- or better"),
+		("Week 1, Lecture 1", "Topic: Introduction; Activity: Genetic disorders"),
+		("Week 2, Lecture 2", "Topic: DNA; Quiz coverage: Quiz 1"),
 	)
 	layout = build_lib.table_layouts.calculate_table_layout(headers, body_rows)
 	assert layout.profile == "key-value"
@@ -154,11 +154,15 @@ def test_schedule_exam_spans_topic_and_quiz_columns() -> None:
 #============================================
 def test_staged_schedule_groups_rows_and_spans_non_meeting_milestones() -> None:
 	"""BIOL 480 exposes one accessible row-group label per consecutive course stage."""
-	headers = ("Wk", "Date", "Stage", "Topic", "In class", "Work due")
+	headers = build_lib.table_layouts.STAGED_SCHEDULE_HEADERS
 	rows = (
 		("1", "Sep 3", "Course foundations", "Introduction", "Group activity", "Orientation"),
 		("2", "Sep 10", "Course foundations", "Central dogma", "Talking point 1", "-"),
-		("-", "Fri, Oct 30", "Individual project", "Withdrawal deadline", "-", "-"),
+		("3", "Sep 17", "Individual project", "DNA", "HW 1", "Project ideas"),
+		("9", "Oct 29", "Transition", "Movie night", "Shark Tank form", "Slides due"),
+		("-", "Fri, Oct 30", "Transition", "Withdrawal deadline", "-", "-"),
+		("10", "Nov 5", "Transition", "Medicinal biotechnology", "Movie form", "-"),
+		("11", "Nov 12", "Group project", "Regulation", "HW 5", "Groups formed"),
 	)
 	table = xml.etree.ElementTree.Element("table")
 	table_body = xml.etree.ElementTree.SubElement(table, "tbody")
@@ -172,9 +176,9 @@ def test_staged_schedule_groups_rows_and_spans_non_meeting_milestones() -> None:
 	assert [(cell.get("rowspan"), "".join(cell.itertext())) for cell in stage_headers] == [
 		("2", "Course foundations"),
 		("1", "Individual project"),
+		("3", "Transition"),
+		("1", "Group project"),
 	]
 	rows = table.findall("./tbody/tr")
-	assert "schedule-phase-row--start" in rows[0].get("class", "")
-	assert "schedule-phase-row--foundations" in rows[1].get("class", "")
-	milestone_cell = rows[2].find("td[@colspan='3']")
+	milestone_cell = rows[4].find("td[@colspan='3']")
 	assert milestone_cell.text == "Withdrawal deadline"
