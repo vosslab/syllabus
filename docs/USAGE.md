@@ -47,13 +47,12 @@ source source_me.sh && python3 launchers/sync_calendars.py
 
 The command validates every selected export before replacing its Markdown snapshot. Review the
 resulting diff before publishing. Use `--calendar university`, `--calendar biostats`,
-`--calendar biotech`, or `--calendar genetics` to refresh one source. The Pages build refreshes
-university dates only and publishes the committed course schedule snapshots without fetching
-course sheets.
+`--calendar biotech`, or `--calendar genetics` to refresh one source. Every production build,
+including GitHub Pages, automatically refreshes all four calendars before generating documents.
 
 ## Build and preview
 
-Run the production front door to refresh important dates, generate complete downloads, and build
+Run the production front door to refresh all calendars, generate complete downloads, and build
 the strict static site:
 
 ```bash
@@ -90,11 +89,16 @@ Pass Markdown files or directories to narrow the report, or add `--json` for mac
 output. Capture every rendered table after a production build with:
 
 ```bash
-./capture_table_review.sh
+./devel/capture_table_review.sh
 ```
 
 Open `output/table_review/index.html` for desktop/mobile, light/dark screenshots and calculated
-width evidence.
+width evidence. The capture includes all three course schedule tables and prints each captured
+page's route and table count. Before generating any DOCX, PDF, or website output, the wrapper
+refreshes university dates and all three course schedules from Google Sheets. Review the updated
+tracked schedule snapshots before publishing. To refresh and build without taking screenshots, run
+`source source_me.sh && python3 pipeline/build_site.py`. If Chromium is missing, run
+`./devel/setup_playwright.sh` from the repository root, then retry the capture.
 
 Generate department-review checklists from the tracked rubric source:
 

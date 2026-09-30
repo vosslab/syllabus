@@ -267,8 +267,8 @@ their source spreadsheets.
 
 Run the command without options to refresh all four online calendars, or pass `--calendar
 university`, `--calendar biostats`, `--calendar biotech`, or `--calendar genetics` to refresh one.
-The Pages builder invokes it with `--calendar university`, so publication refreshes live university
-dates and reads committed course schedule snapshots.
+The production builder invokes it without options, so local and Pages builds refresh all four
+calendars before generating documents and website content.
 
 The generated fragment lives at `site_docs/generated/FALL_2026_IMPORTANT_DATES.md`. It is ignored
 output included by the tracked `site_docs/fall_2026/shared/IMPORTANT_DATES.md` wrapper. Edit the

@@ -19,7 +19,7 @@ Every push to `main` and every manual workflow dispatch runs one publication pip
 build job
   |-- check out the repository
   |-- install Python 3.12, runtime dependencies, and document tools
-  |-- refresh live important dates with `launchers/sync_calendars.py --calendar university`
+  |-- refresh all four live calendars with `launchers/sync_calendars.py`
   |-- build and validate every PDF and DOCX syllabus
   |-- build the MkDocs site in strict mode
   |-- upload the site artifact
@@ -43,9 +43,8 @@ The Python steps generate the publication artifact. Keep all of these steps in t
 6. `python3 pipeline/build_site.py` runs the production build front door.
 7. `actions/upload-pages-artifact` uploads only the generated `site/` directory.
 
-The production builder refreshes the ignored important-dates fragment from the live university
-Google Sheet, rebuilds all syllabus downloads, and runs `mkdocs build --strict`. It does not fetch
-course schedule sheets; Pages publishes the tracked `SCHEDULE.md` snapshots. These operations
+The production builder refreshes university dates and all three course schedules from their live
+Google Sheets, rebuilds all syllabus downloads, and runs `mkdocs build --strict`. These operations
 create files linked by the public site, so they are part of artifact generation rather than a
 separate semantic test lane. The date refresh deliberately fails closed when the canonical remote
 source is unavailable.

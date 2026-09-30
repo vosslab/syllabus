@@ -270,6 +270,7 @@ async function captureTables(browser, baseUrl, routes) {
 					viewport: state.viewport,
 				});
 			}
+			console.log(`  Captured ${tableCount} table(s): ${route}`);
 			await page.close();
 		}
 		await context.close();
@@ -304,17 +305,26 @@ async function captureContactSheets(browser) {
 assert.ok(fs.existsSync(SITE_ROOT), "site/ is missing; run the production build first");
 // ASVS 5.3.2: the stable generated destination is fixed below repository output/.
 assert.equal(path.dirname(OUTPUT_ROOT), OUTPUT_PARENT);
-fs.mkdirSync(OUTPUT_PARENT, { recursive: true });
-fs.rmSync(OUTPUT_ROOT, { force: true, recursive: true });
-fs.mkdirSync(SCREENSHOT_ROOT, { recursive: true });
-
 const routes = collectHtmlPaths(SITE_ROOT)
 	.filter((htmlPath) => fs.readFileSync(htmlPath, "utf8").includes("<table"))
 	.map(routeFromHtmlPath);
 const siteServer = await startStaticServer(SITE_ROOT);
-const browser = await chromium.launch();
+let browser;
 
 try {
+	// ASVS 16.5.3: stop on launch failure and preserve the previous capture report.
+	browser = await chromium.launch().catch((error) => {
+		if (error.message.includes("Executable doesn't exist")) {
+			throw new Error(
+				"Playwright Chromium is missing. Run ./devel/setup_playwright.sh "
+				+ "from the repository root, then rerun ./devel/capture_table_review.sh",
+			);
+		}
+		throw error;
+	});
+	fs.mkdirSync(OUTPUT_PARENT, { recursive: true });
+	fs.rmSync(OUTPUT_ROOT, { force: true, recursive: true });
+	fs.mkdirSync(SCREENSHOT_ROOT, { recursive: true });
 	const records = await captureTables(browser, siteServer.baseUrl, routes);
 	assert.ok(records.length > 0, "No rendered syllabus tables were found");
 	assert.ok(
@@ -348,6 +358,6 @@ try {
 	const tableCount = new Set(records.map((record) => `${record.route}#${record.tableIndex}`)).size;
 	console.log(`Captured ${tableCount} tables in ${STATES.length} states under ${OUTPUT_ROOT}`);
 } finally {
-	await browser.close();
+	await browser?.close();
 	await siteServer.close();
 }

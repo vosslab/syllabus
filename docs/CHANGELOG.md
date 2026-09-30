@@ -1,3 +1,25 @@
+## 2026-09-30
+
+### Fixes and Maintenance
+
+- Table capture now points missing-Chromium errors to `./devel/setup_playwright.sh`, closes the
+  local server on launch failure, and preserves the previous report until the browser launches.
+- Print captured routes and table counts so course schedule coverage is visible in CLI output.
+- Every production build automatically refreshes all four Google Sheets calendars before document
+  and website generation, including table review and GitHub Pages. Print refresh, document, and
+  website steps; no build refresh flag is required.
+- Updated table-review documentation and recovery instructions for the maintainer launcher moved
+  to `devel/capture_table_review.sh`.
+
+### Developer Tests and Notes
+
+- The default live build refreshed 45 university dates and 18 entries in each course schedule
+  before rebuilding all three DOCX/PDF pairs and the strict website. The 21 focused course schedule
+  tests passed, as did shell syntax and diff whitespace checks.
+- Node syntax and diff whitespace checks passed. Both an isolated missing-browser run and the
+  normal local run produced the setup instruction and exited nonzero. Full screenshot capture
+  remains unverified because the matching Chromium binary is not installed locally.
+
 ## 2026-09-23
 
 ### Additions and New Features

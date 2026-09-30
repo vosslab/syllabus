@@ -18,7 +18,7 @@ The schedule is drawn from the [BIOL 480 schedule spreadsheet](https://docs.goog
 | 5 | Thu, Oct 1 | Individual project | Theranos Discussion | HW 3;<br>form | Dr. Voss response from 3 ideas |
 | 6 | Thu, Oct 8 | Individual project | Set #4: Environmental Biotechnology<br>and Synthetic Biology; Transgenic Biology | - | 3 More Ideas (due Mon);<br>One Great Idea Form |
 | 7 | Thu, Oct 15 | Individual project | Individual Project Discussion;<br>BioTech News Discussion #1 | HW 4 | - |
-| 8 | Thu, Oct 22 | Individual project | Shark Tank (4 minute)<br>Project Presentations Week 1 of 2 | - | Slides due 6 hours before class<br>Individual Project Executive Summary |
+| 8 | Thu, Oct 22 | Individual project | Shark Tank (4 minute)<br>Project Presentations | - | Slides due 6 hours before class<br>Individual Project Executive Summary |
 | 9 | Thu, Oct 29 | Transition | BioTech Movie Night | Shark Tank Form | Slides due 6 hours before class<br>Milestones and Competition Form |
 | - | Fri, Oct 30 | Transition | last day to drop for a "W" grade | - | - |
 | 10 | Thu, Nov 5 | Transition | Set #5: Medicinal Biotechnology | movie<br>form | - |

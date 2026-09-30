@@ -23,17 +23,20 @@ def get_repo_root() -> pathlib.Path:
 def main() -> None:
 	"""Refresh external dates and build verified downloads and the static site."""
 	repo_root = get_repo_root()
+	print("Step 1/3: Refresh university dates and all three course schedules from Google Sheets", flush=True)
 	# ASVS 16.5.2, 16.5.3: fail closed instead of publishing a stale calendar.
 	subprocess.run(
-		[sys.executable, "launchers/sync_calendars.py", "--calendar", "university"],
+		[sys.executable, "launchers/sync_calendars.py"],
 		cwd=repo_root,
 		check=True,
 	)
+	print("Step 2/3: Generate DOCX and PDF syllabi from the refreshed data", flush=True)
 	subprocess.run(
 		[sys.executable, "pipeline/build_syllabi.py"],
 		cwd=repo_root,
 		check=True,
 	)
+	print("Step 3/3: Build the website", flush=True)
 	subprocess.run(
 		[sys.executable, "-m", "mkdocs", "build", "--strict"],
 		cwd=repo_root,

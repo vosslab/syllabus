@@ -6,6 +6,7 @@
 .
 |-- .github/workflows/       GitHub Pages build and deployment
 |-- devel/                   Maintainer setup, version, and changelog tools
+|   `-- capture_table_review.sh  Refresh, build, and capture rendered tables
 |-- department_checklists/   Ignored generated department-submission files
 |-- docs/                    Repository documentation and working records
 |-- launchers/               Thin maintainer command entry points
@@ -15,7 +16,6 @@
 |-- tests/                   Fast, export E2E, and browser validation
 |-- tools/                   Optional repository-analysis utilities
 |-- all_test.sh              Complete local validation front door
-|-- capture_table_review.sh  Build and capture every rendered Markdown table
 |-- mkdocs.yml               Site, navigation, theme, and Markdown configuration
 |-- package.json             Playwright audit dependencies and command
 |-- pip_requirements*.txt    Python runtime and development dependencies

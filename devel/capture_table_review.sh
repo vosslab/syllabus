@@ -6,4 +6,5 @@ cd "$(git rev-parse --show-toplevel)"
 
 source source_me.sh
 python3 pipeline/build_site.py
+echo "Capture website table screenshots from the refreshed build"
 node tests/playwright/capture_table_review.mjs

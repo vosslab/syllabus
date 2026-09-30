@@ -102,11 +102,10 @@ This closed selection keeps authority in one place without adding a parallel-con
 
 `pipeline/build_site.py` is the production front door. It runs three fail-fast stages:
 
-1. `launchers/sync_calendars.py --calendar university` downloads and validates the live university
-   sheet, then atomically replaces the generated important-dates fragment consumed by the tracked
-   dates wrapper on the website and in every complete syllabus. The local default also refreshes
-   the tracked Biostatistics, BIOL 480, and Genetics schedule snapshots. The Pages build does not
-   fetch course sheets.
+1. `launchers/sync_calendars.py` downloads and validates all four live Google Sheets, then
+   atomically replaces the generated university important-dates fragment and the tracked
+   Biostatistics, BIOL 480, and Genetics schedule snapshots. Local and Pages builds both refresh
+   every calendar before generating documents.
 2. `pipeline/build_syllabi.py` coordinates manifest discovery, staged builds, publication, and
    optional archives through the importable units under `pipeline/build_lib/`.
 3. MkDocs builds `site/` in strict mode using `mkdocs.yml`.

@@ -231,16 +231,16 @@ width. No renderer infers presentation from surrounding table text.
 
 **Decision.** Use `launchers/sync_calendars.py` as the local command and
 `pipeline/build_lib/calendar_sync.py` for calendar refresh logic. Its default refreshes university
-dates, Biostatistics, BIOL 480, and Genetics into Markdown snapshots. GitHub Pages invokes it in
-university-only mode and uses committed course schedule snapshots.
+dates, Biostatistics, BIOL 480, and Genetics into Markdown snapshots. Local and GitHub Pages builds
+invoke that default before generating any documents or website content.
 
-**Why.** One local command keeps online source refreshes easy to review while keeping course
-content changes visible in Git. Each published schedule page links to its spreadsheet source.
+**Why.** Builds should use current spreadsheet data automatically, without requiring a refresh
+flag. Each published schedule page links to its spreadsheet source.
 
 **Consequence.** Validate all selected exports and run rendered Markdown through the canonical
 `tests/fix_ascii_compliance.py` fixer before writing any snapshot. Use atomic replacement, and
-review each changed `SCHEDULE.md` diff before committing. The Pages build fetches university dates
-only; it does not fetch course sheets.
+review each changed `SCHEDULE.md` diff before committing. Every build depends on all four sheets
+being available and valid.
 
 For BIOL 480, preserve the source `Assign` and `Assignments Due` columns separately. Their names do
 not establish that every `Assign` value is due on the row's date.
