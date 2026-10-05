@@ -240,6 +240,8 @@ authorize any additional directory.
 
 ## Course metadata
 
+See [COURSE_COLORS.md](COURSE_COLORS.md) for Neil's preferences, the current palette, and edit locations.
+
 A required `.meta.yml` beside each course manifest supplies one light and one dark course accent:
 
 ```yaml

@@ -169,6 +169,9 @@ history. Those belong in the appropriate technical documentation or changelog.
   a sum.
 - Use Roosevelt University's green palette for the main website and favicon because Roosevelt is
   my employer.
+- Keep my course identity colors: dark lime for Biostatistics, blue for Genetics, brick red for
+  Biotechnology, and purple for Biochemistry. The palette and its recovered history are in
+  [COURSE_COLORS.md](COURSE_COLORS.md).
 - Keep the favicon protein-themed and use the three greens from Roosevelt University's R logo.
 - Use the protein favicon as the MkDocs header logo in Material's standard upper-left position,
   replacing the default book mark.

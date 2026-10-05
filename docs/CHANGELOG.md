@@ -1,3 +1,25 @@
+## 2026-10-05
+
+### Documentation
+
+- Added [COURSE_COLORS.md](COURSE_COLORS.md) with stated color preferences, the current course
+  palette, metadata edit locations, and the distinction between temporary palette review and
+  permanent behavior tests. Linked it from the file-format and file-structure references.
+- Recovered the four-course identity mapping from commit `dc5ed31`, including BCHM 355 purple
+  `#7b1fa2`, removed from owner guidance in `af0cc01`. Restored the guidance pointer and recorded
+  Biochemistry as a future-course preference with no recorded dark-theme companion.
+
+### Developer Tests and Notes
+
+- Applied the permanent-test checklist to browser palette checks. Removed exact RGB assertions
+  and pairwise course-color comparisons as one-time presentation checks. Removed the header
+  inheritance comparison because matching fallback colors could satisfy it without proving
+  inheritance. Retained theme switching, persistence across navigation, and accessibility checks.
+- Palette review belongs in temporary implementation verification under `tests/_temp/`; no
+  replacement permanent tests or retained temporary scripts were added.
+- Node syntax and diff whitespace checks passed. The browser run could not start because the
+  Playwright Chromium executable is missing locally.
+
 ## 2026-09-30
 
 ### Fixes and Maintenance

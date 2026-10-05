@@ -12,10 +12,7 @@
 //   site_docs/assets/stylesheets/site.css.
 // - Static off-site link behavior and accessible new-tab announcements come from
 //   pipeline/build_lib/external_links.py through pipeline/mkdocs_hooks.py.
-// - System-aware palette toggles come from mkdocs.yml:18; dark color roles come from
-//   site_docs/assets/stylesheets/site.css:55.
-// - Course-header metadata comes from each course .meta.yml, overrides/main.html:5, and
-//   site_docs/assets/stylesheets/site.css:78.
+// - System-aware palette toggles come from mkdocs.yml:18.
 // - The protein favicon exercised here comes from mkdocs.yml:15 and
 //   site_docs/assets/images/favicon.svg:1.
 
@@ -94,10 +91,6 @@ const COLOR_SCHEMES = [
 	},
 ];
 
-const DARK_GREEN_SURFACE = "rgb(30, 41, 35)";
-const ROOSEVELT_GREEN = "rgb(115, 193, 103)";
-const ROOSEVELT_LINK_GREEN = "rgb(0, 120, 73)";
-const WHITE = "rgb(255, 255, 255)";
 const PUBLIC_SITE_URL = "https://vosslab.github.io/syllabus/";
 
 async function getCourseTypography(page) {
@@ -325,16 +318,6 @@ async function getResponsiveReadingMetrics(page, baseUrl, width) {
 	});
 }
 
-async function getHeaderColor(page, baseUrl, route) {
-	const response = await page.goto(`${baseUrl}${route}`, {
-		waitUntil: "domcontentloaded",
-	});
-	assert.equal(response?.status(), 200, `${route} did not load for header-color review`);
-	const header = page.locator(".md-header");
-	await header.waitFor({ state: "visible" });
-	return header.evaluate((element) => window.getComputedStyle(element).backgroundColor);
-}
-
 const siteRoot = path.join(REPO_ROOT, "site");
 assert.ok(fs.existsSync(siteRoot), "site/ is missing; run python3 pipeline/build_site.py first");
 
@@ -496,10 +479,6 @@ try {
 		await courseLink.waitFor();
 		const courseUrl = new URL(await courseLink.getAttribute("href"), homePage.url());
 		assert.equal(courseUrl.pathname, course.pathname);
-		assert.equal(
-			await courseLink.evaluate((element) => getComputedStyle(element).color),
-			ROOSEVELT_LINK_GREEN,
-		);
 	}
 	await homeMain
 		.getByRole("heading", { name: "Blackboard and private course materials" })
@@ -508,28 +487,8 @@ try {
 	assert.equal(await homeMain.getByRole("heading", { name: "Secure course access" }).count(), 0);
 	await homePage.getByTitle("Switch to dark mode", { exact: true }).click();
 	await homePage.waitForFunction(() => document.body.dataset.mdColorScheme === "slate");
-	const darkPageBackground = await homePage
-		.locator("body")
-		.evaluate((element) => getComputedStyle(element).backgroundColor);
-	assert.equal(
-		darkPageBackground,
-		DARK_GREEN_SURFACE,
-	);
-	for (const course of currentCourses) {
-		const courseLink = homeMain.getByRole("link", { name: course.name, exact: true });
-		assert.equal(
-			await courseLink.evaluate((element) => getComputedStyle(element).color),
-			ROOSEVELT_GREEN,
-		);
-	}
 	await homePage.goto(`${staticServer.baseUrl}/fall_2026/genetics/`);
 	assert.equal(await homePage.locator("body").getAttribute("data-md-color-scheme"), "slate");
-	assert.equal(
-		await homePage
-			.locator(".md-header")
-			.evaluate((element) => getComputedStyle(element).color),
-		WHITE,
-	);
 	await homePage.getByTitle("Switch to light mode", { exact: true }).click();
 	await homePage.waitForFunction(() => document.body.dataset.mdColorScheme === "default");
 	await homePage.close();
@@ -618,48 +577,6 @@ try {
 	await docxLink.focus();
 	assert.equal(await docxLink.evaluate((element) => element.matches(":focus-visible")), true);
 	await coursePage.close();
-
-	const headerPage = await browser.newPage();
-	const homeColor = await getHeaderColor(headerPage, staticServer.baseUrl, "/");
-	const biostatisticsColor = await getHeaderColor(
-		headerPage,
-		staticServer.baseUrl,
-		"/fall_2026/biostats/",
-	);
-	const biostatisticsDetailsColor = await getHeaderColor(
-		headerPage,
-		staticServer.baseUrl,
-		"/fall_2026/biostats/COURSE_DETAILS/",
-	);
-	const geneticsColor = await getHeaderColor(
-		headerPage,
-		staticServer.baseUrl,
-		"/fall_2026/genetics/",
-	);
-	const biotechnologyColor = await getHeaderColor(
-		headerPage,
-		staticServer.baseUrl,
-		"/fall_2026/biotech/",
-	);
-	const sharedPageColor = await getHeaderColor(
-		headerPage,
-		staticServer.baseUrl,
-		"/fall_2026/shared/policies/",
-	);
-	assert.equal(homeColor, ROOSEVELT_GREEN);
-	assert.equal(sharedPageColor, ROOSEVELT_GREEN);
-	assert.equal(
-		biostatisticsDetailsColor,
-		biostatisticsColor,
-		"Course subpages must inherit their course header color",
-	);
-	assert.notEqual(biostatisticsColor, geneticsColor);
-	assert.notEqual(biostatisticsColor, biotechnologyColor);
-	assert.notEqual(geneticsColor, biotechnologyColor);
-	assert.notEqual(sharedPageColor, biostatisticsColor);
-	assert.notEqual(sharedPageColor, geneticsColor);
-	assert.notEqual(sharedPageColor, biotechnologyColor);
-	await headerPage.close();
 
 	const responsivePage = await browser.newPage();
 	const desktopReading = await getResponsiveReadingMetrics(
