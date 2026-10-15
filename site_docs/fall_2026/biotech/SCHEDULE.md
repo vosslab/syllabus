@@ -16,18 +16,18 @@ The schedule is drawn from the [BIOL 480 schedule spreadsheet](https://docs.goog
 | 3 | Thu, Sep 17 | Individual project | Set #2: DNA and Genomics Biotechnology | HW 1 | Three Project Ideas due |
 | 4 | Thu, Sep 24 | Individual project | Set #3: Protein Biotechnology | HW 2 | Discord and Student Profile due Sept 21 |
 | 5 | Thu, Oct 1 | Individual project | Theranos Discussion | HW 3;<br>form | Dr. Voss response from 3 ideas |
-| 6 | Thu, Oct 8 | Individual project | Set #4: Environmental Biotechnology<br>and Synthetic Biology; Transgenic Biology | - | 3 More Ideas (due Mon);<br>One Great Idea Form |
+| 6 | Thu, Oct 8 | Individual project | Set #4: Environmental Biotechnology<br>and Synthetic Biology; Transgenic Biology | - | One Great Idea Form |
 | 7 | Thu, Oct 15 | Individual project | Individual Project Discussion;<br>BioTech News Discussion #1 | HW 4 | - |
-| 8 | Thu, Oct 22 | Individual project | Shark Tank (4 minute)<br>Project Presentations | - | Slides due 6 hours before class<br>Individual Project Executive Summary |
-| 9 | Thu, Oct 29 | Transition | BioTech Movie Night | Shark Tank Form | Slides due 6 hours before class<br>Milestones and Competition Form |
+| 8 | Thu, Oct 22 | Individual project | Shark Tank (4 minute)<br>Project Presentations | - | Slides due 6 hours before class |
+| 9 | Thu, Oct 29 | Transition | BioTech Movie Night | Shark Tank Form | Executive Summary Due<br>Milestones and Competition Form |
 | - | Fri, Oct 30 | Transition | last day to drop for a "W" grade | - | - |
 | 10 | Thu, Nov 5 | Transition | Set #5: Medicinal Biotechnology | movie<br>form | - |
 | 11 | Thu, Nov 12 | Group project | Set #6: Regulation Biotechnology | HW 5 | Groups Formed |
 | 12 | Thu, Nov 19 | Group project | Set #7: Bioethics in Biotechnology | HW 6 | Group Project Selected |
 | - | Thu, Nov 26 | Group project | No Class, Thanksgiving Week | - | - |
 | 13 | Thu, Dec 3 | Group project | Group Project Discussion;<br>BioTech News Discussion #2 | HW 7 | Company Vision Report (Form) |
-| 14 | Thu, Dec 10 | Group project | Group Presentations, Week 1 of 2 | - | Group Presentations |
-| 15 | Thu, Dec 17 | Group project | Finals week class does not meet;<br>Final projects are due | - | Group Presentations<br>Group Business Plan Due |
+| 14 | Thu, Dec 10 | Group project | Group Presentations Week | - | Group Presentations |
+| 15 | Thu, Dec 17 | Group project | Finals week class does not meet;<br>Final projects are due | - | Group Business Plan Due |
 | - | Thu, Dec 24 | Group project | Grades DUE from Instructor | - | - |
 
 --8<-- "fall_2026/shared/fragments/SYLLABUS_CHANGE_NOTICE.md"

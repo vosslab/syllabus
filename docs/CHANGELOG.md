@@ -1,3 +1,18 @@
+## 2026-10-14
+
+### Fixes and Maintenance
+
+- Biostatistics calendar sync now locates week and date by heading and renders every other
+  column as a labeled detail in spreadsheet order. Detail headings can be renamed and columns
+  added, removed, or reordered without Python changes. Both headings and values remain escaped.
+- Replaced the fixed-header rejection test with editable-column coverage; retained date,
+  row-width, source-order, and validate-before-write protections.
+
+### Validation
+
+- All four live calendars refreshed successfully; 32 focused calendar and table-layout tests
+  passed. All three PDF/DOCX pairs and the strict MkDocs site built successfully.
+
 ## 2026-10-05
 
 ### Documentation

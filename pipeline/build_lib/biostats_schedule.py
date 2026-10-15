@@ -16,7 +16,6 @@ SPREADSHEET_ID = "1i_Whr_y3r43MynI-5QL3inDpBG8N1N8-M2nDtOB8ypg"
 USER_AGENT = "vosslab-syllabus-calendar-sync/1.0"
 OUTPUT_RELATIVE_PATH = pathlib.Path("site_docs/fall_2026/biostats/SCHEDULE.md")
 MAX_ROWS = 1_000
-EXPECTED_HEADERS = ("wk", "date", "lecture", "assignments due")
 DATE_PATTERN = re.compile(
 	r"^(Mon|Tue|Wed|Thu|Fri|Sat|Sun), "
 	r"(Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec) "
@@ -61,13 +60,11 @@ class ScheduleEntry:
 		self,
 		week: str,
 		date: datetime.date,
-		lecture: str,
-		assignments_due: str,
+		details: list[tuple[str, str]],
 	) -> None:
 		self.week = week
 		self.date = date
-		self.lecture = lecture
-		self.assignments_due = assignments_due
+		self.details = details
 
 
 #============================================
@@ -115,18 +112,25 @@ def normalize_week(value: str) -> str:
 
 
 #============================================
-def parse_entry(raw_row: list[str]) -> ScheduleEntry:
-	"""Validate and convert one rectangular worksheet row."""
-	if len(raw_row) != len(EXPECTED_HEADERS):
+def parse_entry(
+	raw_row: list[str],
+	headers: list[str],
+	week_index: int,
+	date_index: int,
+) -> ScheduleEntry:
+	"""Validate structural fields and preserve all labeled details in sheet order."""
+	if len(raw_row) != len(headers):
 		raise ValueError("Google Sheets export contains a row with the wrong number of columns")
-	week_text, date_text, lecture_text, assignments_due_text = raw_row
-	week = normalize_week(week_text)
-	date = parse_date(normalize_cell(date_text))
-	lecture = normalize_cell(lecture_text, preserve_lines=True)
-	assignments_due = normalize_cell(assignments_due_text, preserve_lines=True)
-	if lecture == "" and assignments_due == "":
+	week = normalize_week(raw_row[week_index])
+	date = parse_date(normalize_cell(raw_row[date_index]))
+	details = [
+		(label, normalize_cell(value, preserve_lines=True))
+		for index, (label, value) in enumerate(zip(headers, raw_row))
+		if index not in (week_index, date_index)
+	]
+	if not any(value for label, value in details):
 		raise ValueError("Google Sheets export contains a schedule row without details")
-	return ScheduleEntry(week, date, lecture, assignments_due)
+	return ScheduleEntry(week, date, details)
 
 
 #============================================
@@ -136,17 +140,26 @@ def parse_csv(csv_text: str) -> list[ScheduleEntry]:
 	raw_header = next(reader, None)
 	if raw_header is None:
 		raise ValueError("Google Sheets export is empty")
-	# ASVS 2.1.1, 2.2.1: accept only the documented four-column schedule schema.
-	header = tuple(normalize_header(value) for value in raw_header)
-	if header != EXPECTED_HEADERS:
-		raise ValueError("Google Sheets export has an unsupported header schema")
+	# ASVS 2.2.1: validate structural columns; detail headings are display text.
+	headers = [normalize_cell(value) for value in raw_header]
+	if not all(headers):
+		raise ValueError("Biostatistics export requires a nonblank heading for every column")
+	header = [normalize_header(value) for value in headers]
+	week_columns = [index for index, value in enumerate(header) if value in ("wk", "week")]
+	date_columns = [index for index, value in enumerate(header) if value == "date"]
+	if len(week_columns) != 1 or len(date_columns) != 1:
+		raise ValueError("Biostatistics export requires exactly one Wk (or Week) and one Date column")
+	if len(headers) < 3:
+		raise ValueError("Biostatistics export requires at least one schedule detail column")
+	week_index = week_columns[0]
+	date_index = date_columns[0]
 	entries: list[ScheduleEntry] = []
 	for raw_row in reader:
 		if not any(value.strip() for value in raw_row):
 			continue
 		if len(entries) >= MAX_ROWS:
 			raise ValueError("Google Sheets export contains too many rows")
-		entry = parse_entry(raw_row)
+		entry = parse_entry(raw_row, headers, week_index, date_index)
 		if entries and entry.date < entries[-1].date:
 			raise ValueError("Google Sheets export is not in chronological order")
 		entries.append(entry)
@@ -175,10 +188,11 @@ def render_table_row(entry: ScheduleEntry) -> str:
 	)
 	week_and_date = f"Week {entry.week}<br>{date_text}" if entry.week != "-" else date_text
 	details = []
-	if entry.lecture:
-		details.append(f"**Lecture:** {render_multiline_cell(entry.lecture)}")
-	if entry.assignments_due:
-		details.append(f"**Assignments due:** {render_multiline_cell(entry.assignments_due)}")
+	for label, value in entry.details:
+		if value:
+			# ASVS 1.2.1: headings and values are both external display text.
+			escaped_label = build_lib.markdown_text.escape_markdown_cell(label)
+			details.append(f"**{escaped_label}:** {render_multiline_cell(value)}")
 	values = (week_and_date, "<br>".join(details))
 	return f"| {' | '.join(values)} |"
 

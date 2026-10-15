@@ -183,10 +183,14 @@ the numbered coverage cue while Topic remains course-content prose. A bold Topic
 cell is a major schedule milestone; the renderer spans it across the Topic and Quiz columns while
 keeping Due this date independent in the website, PDF, and DOCX.
 
-The Biostatistics worksheet uses `Wk | Date | Lecture | Assignments Due` and renders as the
-two-column `Week and date | Schedule details` shape. Each source row becomes one tall row, with
-Lecture and Assignments due on separately labeled lines. Multiline source cells stay on separate
-lines within their labeled field so the schedule fits narrow reading columns.
+The Biostatistics worksheet requires exactly one `Wk` (or `Week`) column and one `Date`
+column, matched without regard to case or surrounding whitespace. All other columns are schedule
+details: freely rename, add, remove, or reorder them. Every column needs a nonblank heading,
+and at least one detail column is required. Columns may appear in any order. Each source row
+becomes one tall row in the two-column `Week and date | Schedule details` table. Nonblank
+details appear in spreadsheet order with their spreadsheet headings as labels. Headings and
+values are escaped as literal text; multiline values retain their line breaks. Date, week,
+chronological-order, and rectangular-row validation still apply.
 
 The Genetics worksheet uses `Wk | Lect | Date | Lecture | Quiz | In-Class Activity | Quiz |
 Assign Due`. The two `Quiz` columns hold quiz coverage and quiz due dates, respectively. Each
@@ -258,7 +262,7 @@ must also reach at least 5.5:1 there. DOCX output retains its format-native neut
 
 `launchers/sync_calendars.py` is the local refresh command for the four online calendar sources.
 It reads the university six-column Google Sheets CSV (`date`, `confirmed`, `wk`, `x`, `event`,
-`notes`), the Biostatistics four-column CSV (`wk`, `date`, `lecture`, `assignments due`), the
+`notes`), the Biostatistics CSV (`wk` or `week`, `date`, and editable detail columns), the
 BIOL 480 six-column CSV (`wk`, `date`, `stage`, `weekly topic`, `assign`, `assignments due`), and
 the Genetics eight-column CSV (`wk`, `lect`, `date`, `lecture`, `quiz`, `in-class activity`,
 `quiz`, `assign due`). It validates every selected export, then atomically replaces the

@@ -33,8 +33,8 @@ def test_parse_and_render_map_fields_multiline_and_special_dates() -> None:
 	assert len(entries) == 5
 	assert entries[0].week == "1"
 	assert entries[0].date.isoformat() == "2026-09-02"
-	assert entries[0].lecture == "Course Introduction & Format\nWhat is Biostatistics? Types of Data"
-	assert entries[1].assignments_due == "Interesting Science Figure Assignment"
+	assert entries[0].details[0][1] == "Course Introduction & Format\nWhat is Biostatistics? Types of Data"
+	assert entries[1].details[1][1] == "Interesting Science Figure Assignment"
 	assert entries[2].week == "-"
 	assert "| Week and date | Schedule details |" in markdown
 	assert "| Week 1<br>Wed, Sep 2 |" in markdown
@@ -42,7 +42,7 @@ def test_parse_and_render_map_fields_multiline_and_special_dates() -> None:
 		"**Lecture:** Course Introduction &amp; Format<br>"
 		"What is Biostatistics? Types of Data" in markdown
 	)
-	assert "**Assignments due:** Interesting Science Figure Assignment" in markdown
+	assert "**Assignments Due:** Interesting Science Figure Assignment" in markdown
 	assert (
 		f"[Biostatistics schedule spreadsheet](https://docs.google.com/spreadsheets/d/"
 		f"{build_lib.biostats_schedule.SPREADSHEET_ID}/edit)" in markdown
@@ -61,8 +61,9 @@ def test_parse_and_render_map_fields_multiline_and_special_dates() -> None:
 def test_render_escapes_markdown_and_html_from_spreadsheet_text() -> None:
 	"""Remote cell content remains literal within its Markdown table cell."""
 	entries = build_lib.biostats_schedule.parse_csv(SAMPLE_CSV)
-	entries[0].lecture = "[link](javascript:alert(1)) | <script> *topic*"
+	entries[0].details = [("<img> | *Heading*", "[link](javascript:alert(1)) | <script> *topic*")]
 	markdown = build_lib.biostats_schedule.render_markdown(entries)
+	assert "**&lt;img&gt; &#124; &#42;Heading&#42;:**" in markdown
 	assert "[link]" not in markdown
 	assert "&#91;link&#93;" in markdown
 	assert "&#124; &lt;script&gt;" in markdown
@@ -70,10 +71,29 @@ def test_render_escapes_markdown_and_html_from_spreadsheet_text() -> None:
 
 
 #============================================
-def test_parse_csv_rejects_an_unknown_schema() -> None:
-	"""Changed worksheet headers fail before any schedule can be replaced."""
-	with pytest.raises(ValueError, match="unsupported header schema"):
-		build_lib.biostats_schedule.parse_csv("Week,Date,Topic,Due\n")
+def test_detail_headers_are_editable_and_columns_can_move() -> None:
+	"""Renaming, adding, removing, and reordering details preserves all supplied content."""
+	csv_text = (
+		"Format,Date,Week,Quiz,Topic,Tutorials Released,Assignments Due,Graduate / Group Milestones\n"
+		'Zoom,"Wed, Sep 02, 2026",1,Q1,Introduction,Tutorial 1,Read chapter 1,Form groups\n'
+	)
+	markdown = build_lib.biostats_schedule.render_markdown(
+		build_lib.biostats_schedule.parse_csv(csv_text)
+	)
+	assert "| Week 1<br>Wed, Sep 2 |" in markdown
+	assert (
+		"**Format:** Zoom<br>**Quiz:** Q1<br>**Topic:** Introduction<br>"
+		"**Tutorials Released:** Tutorial 1<br>**Assignments Due:** Read chapter 1<br>"
+		"**Graduate / Group Milestones:** Form groups" in markdown
+	)
+
+
+#============================================
+@pytest.mark.parametrize("header", ("Topic,Date", "Wk,Topic", "Wk,Week,Date,Topic"))
+def test_parse_csv_requires_unambiguous_structural_columns(header: str) -> None:
+	"""Missing or ambiguous date/week fields must not silently misinterpret entries."""
+	with pytest.raises(ValueError, match="exactly one Wk .* and one Date"):
+		build_lib.biostats_schedule.parse_csv(header + "\n")
 
 
 #============================================
