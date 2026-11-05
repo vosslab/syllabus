@@ -13,18 +13,18 @@ The schedule is drawn from the [Biostatistics schedule spreadsheet](https://docs
 | Week 3<br>Wed, Sep 16 | **Topic:** Measures of Center and Variance, Z-scores, Percentiles, and Boxplots |
 | Week 4<br>Wed, Sep 23 | **Topic:** Probability distributions<br>**Assignments Due:** Discord and Student Profile (Sept 21) |
 | Week 5<br>Wed, Sep 30 | **Topic:** Hypothesis testing |
-| Week 6<br>Wed, Oct 7 | **Format:** IN-PERSON MEETING.<br>**Quiz:** Q1<br>**Topic:** Grouping Students Using Z-Scores |
-| Week 7<br>Wed, Oct 14 | **Format:** Asynchronous week.<br>**Topic:** Z, one-sample t, two-sample t<br>**Tutorials Released:** Microbes 1-3<br>**Graduate / Group Milestones:** Grads: regression draft review |
-| Week 8<br>Wed, Oct 21 | **Format:** IN-PERSON MEETING.<br>**Topic:** Variance comparisons; ANOVA<br>**Tutorials Released:** Microbes 4-5<br>**Assignments Due:** Joe's 1-3 assessment<br>**Graduate / Group Milestones:** Grads: revised regression draft |
-| Week 9<br>Wed, Oct 28 | **Format:** Asynchronous week.<br>**Topic:** Linear -> quadratic regression<br>**Tutorials Released:** Graduate regression (target)<br>**Assignments Due:** Microbes 1-3<br>**Graduate / Group Milestones:** Grads: release-ready tutorial |
+| Week 6<br>Wed, Oct 7 | **Format:** IN-PERSON MEETING<br>**Quiz:** Q1<br>**Topic:** Grouping Students Using Z-Scores |
+| Week 7<br>Wed, Oct 14 | **Format:** Asynchronous week<br>**Topic:** Z, one-sample t, two-sample t<br>**Tutorials Released:** Microbes 1-3<br>**Graduate / Group Milestones:** Grads: regression draft review |
+| Week 8<br>Wed, Oct 21 | **Format:** IN-PERSON MEETING<br>**Topic:** Variance comparisons; ANOVA<br>**Tutorials Released:** Microbes 4-5<br>**Assignments Due:** Joe's 1-3 assessment<br>**Graduate / Group Milestones:** Grads: revised regression draft |
+| Week 9<br>Wed, Oct 28 | **Format:** Asynchronous week<br>**Topic:** Linear -> quadratic regression<br>**Tutorials Released:** Graduate regression (target)<br>**Assignments Due:** Microbes 1-3<br>**Graduate / Group Milestones:** Grads: release-ready tutorial |
 | Fri, Oct 30 | **Topic:** Last day to drop for a "W" grade |
-| Week 10<br>Wed, Nov 4 | **Format:** IN-PERSON MEETING.<br>**Quiz:** Q2<br>**Topic:** Test selection; regression feedback<br>**Assignments Due:** Microbes 4-5; regression feedback<br>**Graduate / Group Milestones:** Form groups: 1 grad + 3 undergrads |
-| Week 11<br>Wed, Nov 11 | **Format:** Asynchronous week.<br>**Topic:** Regression: fits, residuals, biology<br>**Assignments Due:** Regression assignment<br>**Graduate / Group Milestones:** Grads: corrections; groups: proposals |
-| Week 12<br>Wed, Nov 18 | **Format:** IN-PERSON MEETING.<br>**Topic:** Model choice; project data check<br>**Graduate / Group Milestones:** Groups: data + analysis + outline |
+| Week 10<br>Wed, Nov 4 | **Format:** IN-PERSON MEETING<br>**Quiz:** Q2<br>**Topic:** Test selection; regression feedback<br>**Assignments Due:** Microbes 4-5; regression feedback<br>**Graduate / Group Milestones:** Form groups: 1 grad + 3 undergrads |
+| Week 11<br>Wed, Nov 11 | **Format:** Asynchronous week<br>**Topic:** Regression: fits, residuals, biology<br>**Assignments Due:** Regression assignment<br>**Graduate / Group Milestones:** Grads: corrections; groups: proposals |
+| Week 12<br>Wed, Nov 18 | **Format:** IN-PERSON MEETING<br>**Topic:** Model choice; project data check<br>**Graduate / Group Milestones:** Groups: data + analysis + outline |
 | Wed, Nov 25 | **Topic:** Thanksgiving break - no class or deadlines |
-| Week 13<br>Wed, Dec 2 | **Format:** Asynchronous week.<br>**Topic:** Regression synthesis; peer trials<br>**Graduate / Group Milestones:** Groups: runnable tutorial draft |
-| Week 14<br>Wed, Dec 9 | **Format:** IN-PERSON MEETING.<br>**Quiz:** Q3<br>**Topic:** Regression; cumulative test selection<br>**Assignments Due:** Peer-trial video + feedback<br>**Graduate / Group Milestones:** Groups: review feedback; revise |
-| Week 15<br>Wed, Dec 16 | **Format:** Asynchronous week.<br>**Topic:** Finals - no class meeting<br>**Assignments Due:** Final project<br>**Graduate / Group Milestones:** Groups: final tutorial package |
+| Week 13<br>Wed, Dec 2 | **Format:** Asynchronous week<br>**Topic:** Regression synthesis; peer trials<br>**Graduate / Group Milestones:** Groups: runnable tutorial draft |
+| Week 14<br>Wed, Dec 9 | **Format:** IN-PERSON MEETING<br>**Quiz:** Q3<br>**Topic:** Regression; cumulative test selection<br>**Assignments Due:** Peer-trial video + feedback<br>**Graduate / Group Milestones:** Groups: review feedback; revise |
+| Week 15<br>Wed, Dec 16 | **Format:** Asynchronous week<br>**Topic:** Finals - no class meeting<br>**Assignments Due:** Final project<br>**Graduate / Group Milestones:** Groups: final tutorial package |
 | Thu, Dec 24 | **Topic:** Grades due from instructor |
 
 --8<-- "fall_2026/shared/fragments/SYLLABUS_CHANGE_NOTICE.md"

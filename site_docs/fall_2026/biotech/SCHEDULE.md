@@ -23,9 +23,9 @@ The schedule is drawn from the [BIOL 480 schedule spreadsheet](https://docs.goog
 | - | Fri, Oct 30 | Transition | last day to drop for a "W" grade | - | - |
 | 10 | Thu, Nov 5 | Transition | Set #5: Medicinal Biotechnology | movie<br>form | - |
 | 11 | Thu, Nov 12 | Group project | Set #6: Regulation Biotechnology | HW 5 | Groups Formed |
-| 12 | Thu, Nov 19 | Group project | Set #7: Bioethics in Biotechnology | HW 6 | Group Project Selected |
+| 12 | Thu, Nov 19 | Group project | Set #7: Bioethics in Biotechnology | HW 6 | Company Vision Report (Form) |
 | - | Thu, Nov 26 | Group project | No Class, Thanksgiving Week | - | - |
-| 13 | Thu, Dec 3 | Group project | Group Project Discussion;<br>BioTech News Discussion #2 | HW 7 | Company Vision Report (Form) |
+| 13 | Thu, Dec 3 | Group project | Group Project Discussion;<br>BioTech News Discussion #2 | HW 7 | - |
 | 14 | Thu, Dec 10 | Group project | Group Presentations Week | - | Group Presentations |
 | 15 | Thu, Dec 17 | Group project | Finals week class does not meet;<br>Final projects are due | - | Group Business Plan Due |
 | - | Thu, Dec 24 | Group project | Grades DUE from Instructor | - | - |
